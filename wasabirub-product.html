@@ -141,6 +141,50 @@
     .shop-dd .dd-thumb{width:52px;height:52px}
     .dropdown.shop-dd a.dd-all{margin-top:9px;padding:14px 7px 4px;font-size:16px;font-weight:900;letter-spacing:-.01em;text-transform:none}
     .dropdown.shop-dd a.dd-all span{font-size:19px}
+  
+    /* --- product page: 50/50 hero, calmer sections --- */
+    .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .product-hero .gallery{background:var(--paper);border-radius:12px;padding:46px;display:grid;place-items:center}
+    .product-hero .main-image{width:100%;max-width:460px}
+    .product-hero .main-image img{width:100%;height:auto;display:block}
+    .product-copy .product-pill{display:inline-block;margin:0 0 14px;padding:6px 11px;border:1px solid #dfe4e2;border-radius:999px;background:#fff;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#5a6672}
+    .product-copy h1{font-size:clamp(46px,5.4vw,72px);line-height:.9;margin:0}
+    .product-subtitle{margin:18px 0 0;font-size:16px;line-height:1.6;color:#3f4852;max-width:46ch}
+    .product-copy .formula{margin:16px 0 26px;display:flex;flex-wrap:wrap;gap:9px;align-items:center;font-size:11.5px;font-weight:900;letter-spacing:.06em;color:var(--ink)}
+    .product-copy .formula span{color:#b6bfc4}
+    .buy-box{padding:22px;border:1px solid #e2e6e4;border-radius:10px;background:#fff}
+    .price-line{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px}
+    .price-line strong{font-size:30px;font-weight:900;letter-spacing:-.02em}
+    .price-line .stock{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#27865a}
+    .purchase-row{display:flex;gap:12px;align-items:stretch}
+    .buy-box .ships{margin:14px 0 0;font-size:12px;color:#66737d}
+    .product-copy .switch{margin:18px 0 0;font-size:12.5px;line-height:1.8;color:#66737d}
+    .product-copy .switch a{color:var(--red);font-weight:900}
+
+    .whofor{padding:74px 0 10px}
+    .whofor h2{font-size:clamp(30px,3.4vw,44px);line-height:1}
+    .whofor-lead{margin:16px 0 30px;max-width:64ch;font-size:15.5px;line-height:1.65;color:#3f4852}
+    .whofor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .whofor-grid article{padding:22px;border:1px solid #e2e6e4;border-radius:10px;background:#fff}
+    .whofor-grid b{display:block;font-size:13px;font-weight:900;letter-spacing:.03em;color:var(--ink)}
+    .whofor-grid span{display:block;margin-top:7px;font-size:13.5px;line-height:1.55;color:#4a555f}
+
+    .faq{padding:74px 0 86px}
+    .faq h2{font-size:clamp(30px,3.4vw,44px);line-height:1;margin-bottom:22px}
+    .faq-list{border-top:1px solid #d9dedb;max-width:820px}
+    .faq details{border-bottom:1px solid #d9dedb}
+    .faq summary{list-style:none;cursor:pointer;padding:17px 30px 17px 0;position:relative;font-size:15px;font-weight:900;letter-spacing:-.005em;color:var(--ink)}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::after{content:"+";position:absolute;right:4px;top:14px;font-size:20px;font-weight:400;color:var(--red)}
+    .faq details[open] summary::after{content:"\2212"}
+    .faq details p{margin:0 0 18px;padding-right:30px;font-size:14.5px;line-height:1.65;color:#4a555f}
+    .faq summary:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+    @media(max-width:900px){
+      .product-grid{grid-template-columns:1fr;gap:32px}
+      .product-hero .gallery{padding:30px}
+      .whofor-grid{grid-template-columns:1fr}
+    }
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -177,55 +221,40 @@
       </a>
     </div>
   </header>
-
-  <main>
-    <section class="product-hero" id="top">
-      <div class="shell product-grid">
-        <div class="gallery">
-          <div class="main-image"><img id="main-product-image" src="assets/wasabirub-og-trushield-clear.png?v=3" alt="WasabiRub jar with TruShield certification"></div>
-          <div class="thumbs" aria-label="Product gallery">
-            <button class="active" data-image="0" aria-label="View image 1"><img src="assets/wasabirub-og-trushield-clear.png?v=3" alt=""></button>
-            <button data-image="1" aria-label="View image 2"><img src="assets/wasabirub-3-way-relief.png" alt=""></button>
-            <button data-image="2" aria-label="View image 3"><img src="assets/wasabirub-target-pain.png" alt=""></button>
+      <section class="product-hero" id="top">
+        <div class="shell product-grid">
+          <div class="gallery">
+            <div class="main-image"><img id="main-product-image" src="assets/wasabirub-og-trushield-clear.png?v=3" alt="WasabiRub 4 oz jar"></div>
           </div>
-        </div>
-
-        <div class="product-copy">
-          <p class="product-pill">OTC TOPICAL GEL</p>
-          <h1>WasabiRub™</h1>
-          <p class="product-subtitle">Professional-Strength Triple-Action Relief</p>
-          <p class="formula"><b>10% Menthol</b><span>•</span><b>.0375% Capsaicin</b><span>•</span><b>20% Methyl Salicylate</b></p>
-          <div class="proof-row">
-            <div class="testing-badge"><span>✓</span><div><b>THIRD-PARTY TESTED</b><small>For safety and clean substances</small></div></div>
-            <div class="rating"><span>★★★★★</span><a href="#reviews">5.0 VERIFIED REVIEW</a></div>
-          </div>
-          <p class="professional-copy">Professional-strength relief trusted by athletic trainers, sports medicine professionals, and active individuals.</p>
-          <div class="ingredient-cards">
-            <article><b>MENTHOL</b><p>Instant cooling relief. Activates cold receptors to numb pain quickly and soothe surface inflammation.</p></article>
-            <article><b>CAPSAICIN</b><p>Long-lasting nerve desensitizer. Reduces pain-signal transmission to help calm chronic or nerve-related pain.</p></article>
-            <article><b>METHYL SALICYLATE</b><p>Deep-tissue anti-inflammatory action that penetrates into muscles and joints to reduce inflammation.</p></article>
-          </div>
-          <div class="icon-badges" aria-label="Product benefits">
-            <article><span>❄</span><b>10% MENTHOL</b><small>Cooling relief you can feel</small></article>
-            <article><span>◒</span><b>TRIPLE ACTION</b><small>Three active ingredients</small></article>
-            <article><span>◎</span><b>TARGETED RELIEF</b><small>For sore muscles and joints</small></article>
-            <article><span>♢</span><b>PHARMACIST FORMULATED</b><small>Built with safety in mind</small></article>
-          </div>
-          <div class="buy-box">
-            <div class="price-line"><div><small>4 OZ • NO PRESCRIPTION NEEDED</small><strong>$29.95</strong></div><span class="stock"><i></i> IN STOCK</span></div>
-            <div class="purchase-row">
-              <div class="quantity" aria-label="Quantity selector"><button id="quantity-minus" aria-label="Decrease quantity">−</button><span id="quantity-value">1</span><button id="quantity-plus" aria-label="Increase quantity">+</button></div>
-              <a class="primary" href="#" data-add-to-cart="qty">ADD TO CART <span>→</span></a>
+          <div class="product-copy">
+            <p class="product-pill">OTC topical gel &middot; 4 oz</p>
+            <h1>WasabiRub&trade;</h1>
+            <p class="product-subtitle">Three actives in one rub &mdash; cooling, warming and targeted &mdash; for the temporary relief of minor muscle and joint aches.</p>
+            <p class="formula"><b>Menthol 10%</b><span>&middot;</span><b>Capsaicin .0375%</b><span>&middot;</span><b>Methyl salicylate 20%</b></p>
+            <div class="buy-box">
+              <div class="price-line"><strong>$29.95</strong><span class="stock">In stock</span></div>
+              <div class="purchase-row">
+                <div class="quantity" aria-label="Quantity selector"><button id="quantity-minus" aria-label="Decrease quantity">&minus;</button><span id="quantity-value">1</span><button id="quantity-plus" aria-label="Increase quantity">+</button></div>
+                <a class="primary" href="#" data-add-to-cart="qty">ADD TO CART <span>&rarr;</span></a>
+              </div>
+              <p class="ships">Ships direct from SportPharm.</p>
             </div>
-            <div class="purchase-notes"><span>✓ Secure checkout</span><span>✓ Ships direct from SportPharm</span><span>✓ Pharmacist support</span></div><p class="switch">Prefer more heat? <a href="superhot-product.html">Super Hot &rarr;</a>&nbsp;&middot;&nbsp;Want pure cooling? <a href="icetrarub-product.html">WasabiRub Super Cold &rarr;</a></p>
+            <p class="switch">Prefer more heat? <a href="superhot-product.html">WasabiRub Super Hot &rarr;</a><br>Want pure cooling? <a href="icetrarub-product.html">WasabiRub Super Cold &rarr;</a></p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="signal-bar"><div class="shell"><span>PHARMACIST-FORMULATED</span><i></i><span>TRUSHIELD CERTIFIED</span><i></i><span>TRUSTED IN TRAINING ROOMS</span><i></i><span>FAST-ABSORBING GEL</span></div></section>
+      <section class="whofor shell" id="who">
+        <h2>WHO IT&rsquo;S FOR.</h2>
+        <p class="whofor-lead">WasabiRub&rsquo;s cooling-to-warming sensation is immediate and unmistakable &mdash; before a session, after one, or whenever minor muscle and joint aches slow you down.</p>
+        <div class="whofor-grid">
+          <article><b>Before you train</b><span>Applied to the areas you are about to work.</span></article>
+          <article><b>After you train</b><span>For the soreness that shows up once you have stopped.</span></article>
+          <article><b>Everyday recovery</b><span>For the aches that come from a life that keeps moving.</span></article>
+        </div>
+      </section>
 
-    <section class="why shell" id="why">
+      <section class="why shell" id="why">
       <div class="section-heading"><p class="eyebrow dark"><i></i> THREE ACTIVE INGREDIENTS</p><h2>ONE RUB.<br><em>THREE SENSATIONS.</em></h2><p>Most topical products lead with either cooling or heat. WasabiRub combines both sensations with a third active ingredient for layered, targeted relief.</p></div>
       <div class="ingredient-list">
         <article class="cool"><div class="ingredient-top"><span>01</span><small>MENTHOL • 10%</small></div><h3>COOLS ON CONTACT</h3><p>Creates an immediate cooling sensation where you apply it.</p></article>
@@ -234,14 +263,29 @@
       </div>
     </section>
 
-    <section class="feel-section">
-      <div class="shell feel-grid">
-        <div class="feel-copy"><p class="eyebrow light"><i></i> BUILT FOR ACTIVE BODIES</p><h2>DON’T WAIT<br>TO WONDER IF<br><em>IT’S WORKING.</em></h2><p>WasabiRub’s cooling-to-warming sensation makes the experience immediate and unmistakable—before workouts, after activity, or whenever minor muscle and joint aches slow you down.</p><div class="use-cases"><span>PRE-WORKOUT</span><span>POST-WORKOUT</span><span>EVERYDAY RECOVERY</span></div></div>
-        <div class="feel-product"><div class="ring one"></div><div class="ring two"></div><span class="cool-label">COOL</span><span class="heat-label">HEAT</span><img src="assets/wasabirub-og-trushield-clear.png?v=3" alt="WasabiRub product jar"></div>
+      <section class="use-section" id="use">
+      <div class="shell use-grid">
+        <div><p class="eyebrow dark"><i></i> USE AS DIRECTED</p><h2>RUB IT IN.<br><em>FEEL IT WORK.</em></h2></div>
+        <ol><li><b>APPLY</b><span>Use a small amount on the affected area.</span></li><li><b>MASSAGE</b><span>Rub in until the gel is absorbed.</span></li><li><b>WASH</b><span>Wash hands thoroughly after application.</span></li></ol>
+        <div class="safety"><b>GOOD TO KNOW</b><p>For external use only. Avoid eyes, damaged skin, bandages, and external heat. Read and follow the full Drug Facts label before use.</p></div>
       </div>
     </section>
 
-    <section class="compare shell" id="compare">
+      <section class="quality" id="quality">
+        <div class="shell quality-inner">
+          <div class="quality-mark"><img src="assets/trushield-certified.png" alt="TruShield Certified" decoding="async"></div>
+          <div class="quality-copy">
+            <h2>MADE TO A <em>PHARMACY</em> STANDARD.</h2>
+            <p class="quality-lead">WasabiRub is made by SportPharm &mdash; a sports pharmacy founded in 1995 by the first pharmacist of the US Olympic Medical Team, and still created and operated by pharmacists today.</p>
+            <dl class="quality-points">
+              <div><dt>TruShield&trade; certification</dt><dd>Third-party certification on the topical range, with documentation compliance staff can file.</dd></div>
+              <div><dt>Formulated by pharmacists</dt><dd>The same people who supply professional and collegiate training rooms decide what goes in the jar.</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="compare shell" id="compare">
       <div class="compare-head"><div><p class="eyebrow dark"><i></i> SEE THE DIFFERENCE</p><h2>NOT EVERY RUB<br><em>BRINGS THE SAME THING.</em></h2></div><p>A simple ingredient-level comparison of WasabiRub and familiar topical formats.</p></div>
       <div class="table-wrap">
         <table>
@@ -257,29 +301,21 @@
       <p class="comparison-note">Ingredient information shown for comparison only. Product formulas may change; always review the current Drug Facts label.</p>
     </section>
 
-    <section class="use-section" id="use">
-      <div class="shell use-grid">
-        <div><p class="eyebrow dark"><i></i> USE AS DIRECTED</p><h2>RUB IT IN.<br><em>FEEL IT WORK.</em></h2></div>
-        <ol><li><b>APPLY</b><span>Use a small amount on the affected area.</span></li><li><b>MASSAGE</b><span>Rub in until the gel is absorbed.</span></li><li><b>WASH</b><span>Wash hands thoroughly after application.</span></li></ol>
-        <div class="safety"><b>GOOD TO KNOW</b><p>For external use only. Avoid eyes, damaged skin, bandages, and external heat. Read and follow the full Drug Facts label before use.</p></div>
-      </div>
-    </section>
+      <section class="review shell" id="reviews"><div class="stars">★★★★★</div><blockquote>“I get WasabiRub for my players to use and they love it. They request it specifically now!”</blockquote><p><b>SAMANTHA M.</b></p></section>
 
-    <section class="review shell" id="reviews"><div class="stars">★★★★★</div><blockquote>“I get WasabiRub for my players to use and they love it. They request it specifically now!”</blockquote><p><b>SAMANTHA M.</b></p></section>
+      <section class="faq shell" id="faq">
+        <h2>QUESTIONS.</h2>
+        <div class="faq-list">
+          <details><summary>How often can I use it?</summary><p>Follow the directions on the Drug Facts label. Do not apply more often than directed, and stop use if irritation develops.</p></details>
+          <details><summary>Will it stain or leave a strong smell?</summary><p>It is a gel that rubs in. As with any topical containing menthol and methyl salicylate, there is a noticeable scent on application that fades.</p></details>
+          <details><summary>Can I use it with a heating pad?</summary><p>No. Do not use with a heating pad, bandage or wrap, and avoid external heat after applying. This is on the label for a reason.</p></details>
+          <details><summary>What is the difference between the three rubs?</summary><p>WasabiRub is the balanced triple-action formula. Super Hot doubles the capsaicin for more heat. Super Cold is menthol-led for pure cooling. The comparison above sets them side by side.</p></details>
+          <details><summary>Do I need a prescription?</summary><p>No. WasabiRub is an over-the-counter product.</p></details>
+          <details><summary>Who do I ask if I am not sure it suits me?</summary><p>Ask a pharmacist, particularly if you are pregnant, breastfeeding, taking other medicines, or applying it to a large area. Read the full Drug Facts label before use.</p></details>
+        </div>
+      </section>
 
-    <section class="lineup shell" aria-label="Shop the lineup">
-      <div class="lineup-head"><p class="eyebrow"><i></i> EXPLORE THE RUBS</p><h2>FIND YOUR <em>RUB.</em></h2></div>
-      <div class="lineup-grid">
-        <a class="rub-card" href="icetrarub-product.html"><div class="rub-img"><img src="assets/icetrarub-trushield-clear.png?v=3" alt="WasabiRub Super Cold"></div><div class="rub-info"><small>PURE COOLING &middot; 16% MENTHOL</small><h3>WasabiRub Super Cold</h3><p>Fast-absorbing cooling cream for sore, overworked areas.</p><div class="rub-foot"><strong>$39.95</strong><span>View &rarr;</span></div></div></a>
-        <a class="rub-card current" href="wasabirub-product.html"><span class="rub-badge">YOU&rsquo;RE VIEWING</span><div class="rub-img"><img src="assets/wasabirub-og-trushield-clear.png?v=3" alt="WasabiRub"></div><div class="rub-info"><small>BALANCED COOL + HEAT</small><h3>WasabiRub</h3><p>Triple-action relief for everyday recovery.</p><div class="rub-foot"><strong>$29.95</strong><span>View &rarr;</span></div></div></a>
-        <a class="rub-card" href="superhot-product.html"><div class="rub-img"><img src="assets/superhot-trushield-clear.png?v=3" alt="Super Hot"></div><div class="rub-info"><small>MAX HEAT &middot; 2&times; CAPSAICIN</small><h3>Super Hot</h3><p>Double-strength capsaicin for intensified, longer-lasting heat.</p><div class="rub-foot"><strong>$39.95</strong><span>View &rarr;</span></div></div></a>
-      </div>
-    </section>
-
-    <section class="final-buy"><div class="shell"><div><p class="eyebrow light"><i></i> WASABIRUB™ • 4 OZ</p><h2>FEEL THE<br><em>DIFFERENCE.</em></h2></div><div class="final-action"><strong>$29.95</strong><p>Triple-action topical relief.<br>Available without a prescription.</p><a class="white-btn" href="#" data-add-to-cart="1">ADD TO CART <span>→</span></a></div></div></section>
-  </main>
-
-  <footer>
+    <footer>
     <div class="shell footer-top">
       <div class="footer-brand">
         <a href="wasabirub.html"><img src="assets/wordmark-white.png" alt="SportPharm"></a>
@@ -347,20 +383,6 @@
   </div>
 
   <script>
-    const images=[
-      {src:"assets/wasabirub-og-trushield-clear.png?v=3",alt:"WasabiRub jar with TruShield certification"},
-      {src:"assets/wasabirub-3-way-relief.png",alt:"WasabiRub three-way relief product graphic"},
-      {src:"assets/wasabirub-target-pain.png",alt:"WasabiRub targeted relief lifestyle graphic"}
-    ];
-    document.querySelectorAll("[data-image]").forEach(button=>{
-      button.addEventListener("click",()=>{
-        const image=images[Number(button.dataset.image)];
-        document.querySelectorAll("[data-image]").forEach(item=>item.classList.remove("active"));
-        button.classList.add("active");
-        const main=document.getElementById("main-product-image");
-        main.src=image.src;main.alt=image.alt;
-      });
-    });
     let quantity=1;
     const quantityValue=document.getElementById("quantity-value");
     document.getElementById("quantity-minus").addEventListener("click",()=>{quantity=Math.max(1,quantity-1);quantityValue.textContent=quantity});
