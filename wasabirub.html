@@ -376,6 +376,22 @@
       .formula{padding:64px 0 68px}
       .fcards{grid-template-columns:1fr;gap:16px}
     }
+  
+    /* --- proud partners, above the footer --- */
+    .partners{background:#f4f2ee;padding:44px 0 48px}
+    .partners-eyebrow{margin:0 0 22px;text-align:center;font-size:10px;font-weight:800;
+      letter-spacing:.19em;text-transform:uppercase;color:#6f6a5e}
+    .partners-row{list-style:none;margin:0;padding:0;display:grid;
+      grid-template-columns:repeat(3,1fr);align-items:center;max-width:1080px;margin-inline:auto}
+    .partners-row li{text-align:center;padding:6px 18px;border-left:1px solid #dcd8d0;
+      font-size:14.5px;font-weight:900;letter-spacing:.045em;text-transform:uppercase;color:var(--ink);
+      text-wrap:balance}
+    .partners-row li:first-child{border-left:0}
+    @media(max-width:760px){
+      .partners{padding:34px 0 36px}
+      .partners-row{grid-template-columns:1fr;gap:14px}
+      .partners-row li{border-left:0;padding:0;font-size:15px}
+    }
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -628,6 +644,17 @@
       <div class="shell"><h2>FEEL IT<br><em>WORK.</em></h2><p>Get WasabiRub direct from the pharmacists who made it.</p><a class="primary" href="wasabirub-product.html">SHOP WASABIRUB — $29.95 <span>→</span></a></div>
     </section>
   </main>
+
+      <section class="partners" aria-labelledby="partners-h">
+        <div class="shell">
+          <p class="partners-eyebrow" id="partners-h">Proud partners</p>
+          <ul class="partners-row">
+            <li>USA Handball</li>
+            <li>Nexus Sports Medicine Bags</li>
+            <li>UFC</li>
+          </ul>
+        </div>
+      </section>
 
   <footer>
     <div class="shell footer-top">
