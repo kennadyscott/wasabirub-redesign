@@ -67,7 +67,7 @@
     .tsbadge b sup{font-size:6px;vertical-align:top}
     .tsbadge i{font-size:7.5px;font-weight:800;letter-spacing:.24em;color:#9fb7c1;font-style:normal;margin-top:2px}
     @keyframes float{50%{transform:translateY(-7px) rotate(-1deg)}}
-    .difference{display:grid;grid-template-columns:.82fr 1.18fr;gap:70px;padding:24px 0 78px}
+    
     .eyebrow.dark{color:#52605b}.n1{color:var(--blue)}.n2{color:var(--red)}.n3{color:var(--green)}
     .selector{padding:72px 0;background:var(--deep);color:#fff}
     .selector .eyebrow{color:#aab7b1}
@@ -159,8 +159,8 @@
     .modal-success .check{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:#e2eee8;color:var(--green);display:flex;align-items:center;justify-content:center}
     .modal-success .check svg{width:32px;height:32px}
     .modal-success p{color:#5f6a66;line-height:1.6;font-size:14px}
-    @media(max-width:900px){nav{display:none}.hero-grid,.difference,.result,.bundle{grid-template-columns:1fr}.hero-copy{padding-bottom:10px}.hero-product{min-height:400px}.difference{gap:45px}.selector-head{align-items:flex-start;flex-direction:column}.result-image img{width:250px;height:250px}.bundle-image img{width:55%}.footer-top{flex-direction:column;gap:30px}}
-    @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand-name{font-size:23px}.brand-tag{font-size:9.5px}.nav-cta{padding:12px;font-size:9px}.hero h1{font-size:62px}.hero-actions{align-items:stretch;flex-direction:column}.hero-product{min-height:300px}.hero-product img{width:min(94%,430px)}.price{right:0;top:10%}.difference,.selector,.proof{padding-top:56px;padding-bottom:56px}.action-list article{grid-template-columns:38px 1fr}.tag{display:none}.tabs{grid-template-columns:1fr;margin-top:28px}.result{display:flex;flex-direction:column}.result-image img{width:230px;height:230px}.result-copy{padding:32px}.result-buy{align-items:flex-start;gap:20px;flex-direction:column}.bundle{width:100%;margin-bottom:0}.bundle-image img{width:70%}.final{padding:58px 0}.footer-brand img{width:180px}}
+    @media(max-width:900px){nav{display:none}.hero-grid,.hero-copy{padding-bottom:10px}.hero-product{min-height:400px}.selector-head{align-items:flex-start;flex-direction:column}.result-image img{width:250px;height:250px}.bundle-image img{width:55%}.footer-top{flex-direction:column;gap:30px}}
+    @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand-name{font-size:23px}.brand-tag{font-size:9.5px}.nav-cta{padding:12px;font-size:9px}.hero h1{font-size:62px}.hero-actions{align-items:stretch;flex-direction:column}.hero-product{min-height:300px}.hero-product img{width:min(94%,430px)}.price{right:0;top:10%}.action-list article{grid-template-columns:38px 1fr}.tag{display:none}.tabs{grid-template-columns:1fr;margin-top:28px}.result{display:flex;flex-direction:column}.result-image img{width:230px;height:230px}.result-copy{padding:32px}.result-buy{align-items:flex-start;gap:20px;flex-direction:column}.bundle{width:100%;margin-bottom:0}.bundle-image img{width:70%}.final{padding:58px 0}.footer-brand img{width:180px}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   .modal-fallback{margin:14px 0 0;padding-top:12px;border-top:1px solid #e4e7ea;font-size:12.5px;color:#7b8aa1;line-height:1.6}
 .modal-fallback a{color:#c62b23;font-weight:800}
@@ -229,13 +229,13 @@
     @media(max-width:600px){.proof .tslide{flex:0 0 100%}.proof{padding:44px 22px 32px}}
   
     /* --- athlete story: copy left, lifestyle image right --- */
-    .difference{grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:78px 0}
-    .diff-copy .benefits{list-style:none;margin:30px 0 32px;padding:0;border-top:1px solid #d9dedb}
-    .diff-copy .benefits li{display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #d9dedb}
-    .diff-copy .benefits b{font-size:11px;font-weight:900;letter-spacing:.13em;color:var(--red)}
-    .diff-copy .benefits span{font-size:14.5px;line-height:1.5;color:#3f4852}
-    .diff-image{height:100%;min-height:420px;border-radius:10px;overflow:hidden;background:var(--paper)}
-    .diff-image img{width:100%;height:100%;object-fit:cover;display:block}
+    
+    
+    
+    
+    
+    
+    
 
     /* --- quality: calm, clinical, one seal --- */
     .quality{background:var(--paper);padding:76px 0}
@@ -250,8 +250,8 @@
     .quality-points dt{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
     .quality-points dd{margin:6px 0 0;font-size:14px;line-height:1.55;color:#4a555f}
     @media(max-width:900px){
-      .difference{grid-template-columns:1fr;gap:36px}
-      .diff-image{min-height:300px}
+      
+      
       .quality-inner{grid-template-columns:1fr;gap:28px}
       .quality-mark{justify-self:start;padding:20px}
       .quality-mark img{max-width:104px}
@@ -355,6 +355,26 @@
       .trustband article{padding:20px 20px;border-left:0;border-top:1px solid #e6e8ea;text-align:left}
       .trustband b{font-size:16px}.trustband span{font-size:13.5px}
       .trustband article:first-child{border-top:0}
+    }
+  
+    /* --- triple-action formula: dark ground, ingredient cards --- */
+    .formula{background:var(--deep);color:#fff;padding:84px 0 90px}
+    .formula .eyebrow.light{color:rgba(255,255,255,.66)}
+    .formula h2{font-size:clamp(34px,4.4vw,60px);line-height:1;color:#fff;margin:0}
+    .formula-lead{margin:22px 0 0;max-width:70ch;font-size:15.5px;line-height:1.6;color:rgba(255,255,255,.74)}
+    .fcards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+    .fcard{background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+    .fcard-img{position:relative;background:#f6f3ef;aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden}
+    .fcard-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .fcard-chip{position:absolute;top:14px;left:14px;z-index:2;background:#fff;border-radius:3px;
+      padding:6px 10px;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--ink)}
+    .fcard-body{padding:20px 22px 24px}
+    .fcard-meta{margin:0 0 8px;font-size:10.5px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--red)}
+    .fcard h3{margin:0;font-size:23px;line-height:1.1;color:var(--ink);font-family:inherit;letter-spacing:-.015em}
+    .fcard-desc{margin:9px 0 0;font-size:14px;line-height:1.5;color:#4a555f}
+    @media(max-width:900px){
+      .formula{padding:64px 0 68px}
+      .fcards{grid-template-columns:1fr;gap:16px}
     }
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
@@ -544,18 +564,46 @@
       })();
     </script>
 
-    <section class="difference shell" id="difference">
-        <div class="diff-copy">
-          <h2>MOST RUBS PICK<br>ONE LANE. <em>THIS ONE<br>DOES THREE.</em></h2>
-          <ul class="benefits">
-            <li><b>Menthol 10%</b><span>Cools on contact, right where you apply it.</span></li>
-            <li><b>Capsaicin 0.0375%</b><span>A warming sensation that quiets minor aches over time.</span></li>
-            <li><b>Methyl salicylate 20%</b><span>Targeted relief for sore muscles and joints.</span></li>
-          </ul>
-          <a class="primary" href="wasabirub-product.html">SHOP NOW <span>&rarr;</span></a>
-        </div>
-        <div class="diff-image">
-          <img src="assets/ea-run-city.jpg" alt="Everyday athlete out for a morning run" decoding="async">
+    <section class="formula" id="difference">
+        <div class="shell">
+          <p class="eyebrow light">The triple-action formula</p>
+          <h2>MOST RUBS PICK ONE LANE.<br>WASABIRUB CHOSE THREE.</h2>
+          <p class="formula-lead">Three active ingredients work together to create cooling, warming, and targeted topical relief.</p>
+          <div class="fcards">
+            <article class="fcard">
+              <div class="fcard-img">
+                <span class="fcard-chip">Capsaicin</span>
+                <img src="assets/ing-capsaicin.jpg" alt="Chili pepper" decoding="async">
+              </div>
+              <div class="fcard-body">
+                <p class="fcard-meta">&#46;0375% &middot; Warm</p>
+                <h3>Chili pepper heat</h3>
+                <p class="fcard-desc">Builds a gradual, lasting warming sensation.</p>
+              </div>
+            </article>
+            <article class="fcard">
+              <div class="fcard-img">
+                <span class="fcard-chip">Menthol</span>
+                <img src="assets/ing-menthol.jpg" alt="Mint leaf" decoding="async">
+              </div>
+              <div class="fcard-body">
+                <p class="fcard-meta">10% &middot; Cool</p>
+                <h3>Menthol cooling</h3>
+                <p class="fcard-desc">Creates a crisp cooling sensation on contact.</p>
+              </div>
+            </article>
+            <article class="fcard">
+              <div class="fcard-img">
+                <span class="fcard-chip">Methyl salicylate</span>
+                <img src="assets/ing-wintergreen.jpg" alt="Wintergreen sprig" decoding="async">
+              </div>
+              <div class="fcard-body">
+                <p class="fcard-meta">20% &middot; Target</p>
+                <h3>Oil of wintergreen</h3>
+                <p class="fcard-desc">Targets minor muscle and joint aches.</p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
