@@ -38,12 +38,21 @@ the top of the checklist and repeated here because they gate real work:
    the two pages: $10, $29.95, $39.95, $59.99, $69.90.
 5. **Which file is the hero image?** §4 calls for a real open-jar close-up.
 
-## Assets the brief needs that do not exist yet
+## Assets
 
-- Chili pepper, mint sprig and wintergreen photography (§7)
-- UFC, USA Handball and Nexus Sports Medicine logos (§12)
+**On hold — the client does not have it (7 Aug):**
+- **The open-jar hero close-up (§4).** A screenshot exists; the file does not. It was not among
+  the eight images embedded in the mockup and is not on disk. The hero keeps using the transparent
+  cutout `wr-wasabirub-hero.png` until a file arrives. Nothing else is blocked by this.
+
+**Still missing:**
+- UFC, USA Handball and Nexus Sports Medicine logos (§12) — also gated on written permission
 - A real athlete or practitioner photograph, not staged stock (§9)
-- A WasabiRub wordmark — the brand is currently set as type, not artwork
+
+**Resolved:**
+- Ingredient photography (§7) — chili, mint and wintergreen were embedded in the client's mockup;
+  saved as `ing-capsaicin`, `ing-menthol`, `ing-wintergreen`, plus a better `trushield-logo`
+- A WasabiRub wordmark — moot for now; the nav follows the mockup and carries no logo at all
 
 ## Ground rules
 
