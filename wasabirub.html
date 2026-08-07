@@ -242,6 +242,35 @@
     .proof .tcontrols,.proof .tdots{justify-content:flex-start}
     @media(max-width:900px){.proof .tslide{flex:0 0 calc((100% - 18px)/2)}}
     @media(max-width:600px){.proof .tslide{flex:0 0 100%}.proof{padding:44px 22px 32px}}
+  
+    /* --- athlete story: copy left, lifestyle image right --- */
+    .difference{grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:78px 0}
+    .diff-copy .benefits{list-style:none;margin:30px 0 32px;padding:0;border-top:1px solid #d9dedb}
+    .diff-copy .benefits li{display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid #d9dedb}
+    .diff-copy .benefits b{font-size:11px;font-weight:900;letter-spacing:.13em;color:var(--red)}
+    .diff-copy .benefits span{font-size:14.5px;line-height:1.5;color:#3f4852}
+    .diff-image{height:100%;min-height:420px;border-radius:10px;overflow:hidden;background:var(--paper)}
+    .diff-image img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* --- quality: calm, clinical, one seal --- */
+    .quality{background:var(--paper);padding:76px 0}
+    .quality-inner{display:grid;grid-template-columns:190px 1fr;gap:52px;align-items:start}
+    .quality-mark{display:grid;place-items:center;padding:26px;background:#fff;border:1px solid #e2e6e4;border-radius:10px}
+    .quality-mark img{width:100%;max-width:132px;height:auto;display:block}
+    .quality-copy h2{font-size:clamp(34px,3.6vw,50px);line-height:.98;color:var(--ink)}
+    .quality-copy h2 em{color:var(--red);font-style:normal}
+    .quality-lead{margin:18px 0 26px;max-width:60ch;font-size:15.5px;line-height:1.65;color:#3f4852}
+    .quality-points{margin:0;display:grid;gap:0;border-top:1px solid #d9dedb}
+    .quality-points div{padding:16px 0;border-bottom:1px solid #d9dedb}
+    .quality-points dt{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+    .quality-points dd{margin:6px 0 0;font-size:14px;line-height:1.55;color:#4a555f}
+    @media(max-width:900px){
+      .difference{grid-template-columns:1fr;gap:36px}
+      .diff-image{min-height:300px}
+      .quality-inner{grid-template-columns:1fr;gap:28px}
+      .quality-mark{justify-self:start;padding:20px}
+      .quality-mark img{max-width:104px}
+    }
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -412,15 +441,39 @@
     </script>
 
     <section class="difference shell" id="difference">
-      <div class="section-title"><h2>MOST RUBS PICK<br>ONE LANE. <em>THIS ONE<br>DOES THREE.</em></h2></div>
-      <div class="action-list">
-        <article><span class="number n1">01</span><div><p>MENTHOL • 10%</p><h3>COOLS ON CONTACT.</h3><span>Immediate cooling sensation for temporary relief right where you apply it.</span></div><b class="tag cool">INSTANT</b></article>
-        <article><span class="number n2">02</span><div><p>CAPSAICIN • .0375%</p><h3>KEEPS WORKING.</h3><span>A warming sensation designed to quiet minor muscle and joint aches over time.</span></div><b class="tag heat">LASTING</b></article>
-        <article><span class="number n3">03</span><div><p>METHYL SALICYLATE • 20%</p><h3>GOES DEEP.</h3><span>Targeted topical relief for sore muscles and joints—without treating the whole body.</span></div><b class="tag deep">TARGETED</b></article>
-      </div>
-    </section>
+        <div class="diff-copy">
+          <h2>MOST RUBS PICK<br>ONE LANE. <em>THIS ONE<br>DOES THREE.</em></h2>
+          <ul class="benefits">
+            <li><b>Menthol 10%</b><span>Cools on contact, right where you apply it.</span></li>
+            <li><b>Capsaicin 0.0375%</b><span>A warming sensation that quiets minor aches over time.</span></li>
+            <li><b>Methyl salicylate 20%</b><span>Targeted relief for sore muscles and joints.</span></li>
+          </ul>
+          <a class="primary" href="wasabirub-product.html">SHOP NOW <span>&rarr;</span></a>
+        </div>
+        <div class="diff-image">
+          <img src="assets/ea-run-city.jpg" alt="Everyday athlete out for a morning run" decoding="async">
+        </div>
+      </section>
 
-    <section class="bundle shell">
+
+      <section class="quality" id="quality">
+        <div class="shell quality-inner">
+          <div class="quality-mark">
+            <img src="assets/trushield-certified.png" alt="TruShield Certified" decoding="async">
+          </div>
+          <div class="quality-copy">
+            <h2>MADE TO A <em>PHARMACY</em> STANDARD.</h2>
+            <p class="quality-lead">WasabiRub is made by SportPharm &mdash; a sports pharmacy founded in 1995 by the first pharmacist of the US Olympic Medical Team, and still created and operated by pharmacists today.</p>
+            <dl class="quality-points">
+              <div><dt>TruShield&trade; certification</dt><dd>Third-party certification on the topical range, with documentation compliance staff can file.</dd></div>
+              <div><dt>Formulated by pharmacists</dt><dd>The same people who supply professional and collegiate training rooms decide what goes in the jar.</dd></div>
+              <div><dt>Why it costs more</dt><dd>You are paying for the testing behind the label and the professionals who stand behind it.</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="bundle shell">
       <div class="bundle-image"><img src="assets/wr-duo.png?v=4" alt="WasabiRub OG Heat Duo"><span class="save">SAVE<br><b>$10</b></span></div>
       <div class="bundle-copy"><h2>THE OG<br><em>HEAT DUO.</em></h2><p>Balanced everyday heat plus double-strength intensity. Two recovery modes, one better price.</p><div><strong>$59.99</strong><s>$69.90</s></div><a class="primary" href="https://sportpharm.com/product/duo-bundle-original-super-hot/">SHOP THE DUO <span>→</span></a></div>
     </section>
