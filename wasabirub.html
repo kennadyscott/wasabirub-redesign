@@ -351,13 +351,14 @@
     /* --- trust band under the hero --- */
     .trustband{background:#fff;border-bottom:1px solid #e6e8ea}
     .trustband-grid{display:grid;grid-template-columns:repeat(3,1fr);align-items:start}
-    .trustband article{padding:34px 40px;text-align:center;border-left:1px solid #e6e8ea}
+    .trustband article{padding:30px 18px;text-align:center;border-left:1px solid #e6e8ea}
     .trustband article:first-child{border-left:0}
-    .trustband b{display:block;font-size:19px;font-weight:900;letter-spacing:-.012em;color:var(--ink)}
-    .trustband span{display:block;margin-top:8px;font-size:14px;line-height:1.5;color:#5a6672}
-    @media(max-width:820px){
+    .trustband b{display:block;font-size:17px;font-weight:900;letter-spacing:-.012em;color:var(--ink)}
+    .trustband span{display:block;margin-top:7px;font-size:12px;line-height:1.45;color:#5a6672}
+    @media(max-width:1020px){
       .trustband-grid{grid-template-columns:1fr}
-      .trustband article{padding:22px 20px;border-left:0;border-top:1px solid #e6e8ea;text-align:left}
+      .trustband article{padding:20px 20px;border-left:0;border-top:1px solid #e6e8ea;text-align:left}
+      .trustband b{font-size:16px}.trustband span{font-size:13.5px}
       .trustband article:first-child{border-top:0}
     }
   </style>
