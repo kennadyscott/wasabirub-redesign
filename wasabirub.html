@@ -34,9 +34,10 @@
     .cart svg{width:22px;height:22px;display:block}
     .cart-count{position:absolute;top:-3px;right:-5px;min-width:16px;height:16px;padding:0 4px;border-radius:10px;background:var(--red);color:#fff;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center}
     .brand{display:flex;flex-direction:column;gap:5px;line-height:1}
-    .brand img{display:block;width:190px}
-    .brand-tag{font-size:9px;font-weight:900;letter-spacing:.19em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-    .brand-tag i{color:var(--red);font-style:normal}
+    .brand-name{font-size:27px;font-weight:900;letter-spacing:-.028em;line-height:1;color:var(--ink)}
+    .brand-name sup{font-size:9px;font-weight:700;letter-spacing:0;vertical-align:super;margin-left:1px}
+    .brand-tag{font-size:10.5px;font-weight:600;letter-spacing:.005em;color:#5a6672;white-space:nowrap}
+    .brand-tag b{font-weight:900;color:var(--ink)}
     nav{display:flex;gap:28px;font-size:13px;font-weight:900;letter-spacing:.08em}
     nav a:hover{color:var(--red)}
     .primary,.nav-cta{background:var(--red);color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:20px;padding:16px 20px;border-radius:10px;font-size:12px;font-weight:900;letter-spacing:.06em;transition:.2s}
@@ -174,7 +175,7 @@
     .modal-success .check svg{width:32px;height:32px}
     .modal-success p{color:#5f6a66;line-height:1.6;font-size:14px}
     @media(max-width:900px){nav{display:none}.hero-grid,.difference,.result,.bundle{grid-template-columns:1fr}.hero-copy{padding-bottom:10px}.hero-product{min-height:400px}.difference{gap:45px}.selector-head{align-items:flex-start;flex-direction:column}.result-image img{width:250px;height:250px}.bundle-image img{width:55%}.footer-top{flex-direction:column;gap:30px}}
-    @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand img{width:150px}.nav-cta{padding:12px;font-size:9px}.hero h1{font-size:62px}.hero-actions{align-items:stretch;flex-direction:column}.hero-product{min-height:300px}.hero-product img{width:min(94%,430px)}.orbit.one{width:260px;height:260px}.orbit.two{width:310px;height:310px}.price{right:0;top:10%}.difference,.selector,.proof{padding-top:56px;padding-bottom:56px}.action-list article{grid-template-columns:38px 1fr}.tag{display:none}.tabs{grid-template-columns:1fr;margin-top:28px}.result{display:flex;flex-direction:column}.result-image img{width:230px;height:230px}.result-copy{padding:32px}.result-buy{align-items:flex-start;gap:20px;flex-direction:column}.bundle{width:100%;margin-bottom:0}.bundle-image img{width:70%}.final{padding:58px 0}.footer-brand img{width:180px}}
+    @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand-name{font-size:23px}.brand-tag{font-size:9.5px}.nav-cta{padding:12px;font-size:9px}.hero h1{font-size:62px}.hero-actions{align-items:stretch;flex-direction:column}.hero-product{min-height:300px}.hero-product img{width:min(94%,430px)}.orbit.one{width:260px;height:260px}.orbit.two{width:310px;height:310px}.price{right:0;top:10%}.difference,.selector,.proof{padding-top:56px;padding-bottom:56px}.action-list article{grid-template-columns:38px 1fr}.tag{display:none}.tabs{grid-template-columns:1fr;margin-top:28px}.result{display:flex;flex-direction:column}.result-image img{width:230px;height:230px}.result-copy{padding:32px}.result-buy{align-items:flex-start;gap:20px;flex-direction:column}.bundle{width:100%;margin-bottom:0}.bundle-image img{width:70%}.final{padding:58px 0}.footer-brand img{width:180px}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   .modal-fallback{margin:14px 0 0;padding-top:12px;border-top:1px solid #e4e7ea;font-size:12.5px;color:#7b8aa1;line-height:1.6}
 .modal-fallback a{color:#c62b23;font-weight:800}
@@ -188,10 +189,10 @@
     <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
   </div>
   <header class="nav shell">
-    <a class="brand" href="wasabirub.html" aria-label="SportPharm home">
-      <img src="assets/wordmark-dark.png" alt="SportPharm">
-      <span class="brand-tag">Perform<i>.</i> Recover<i>.</i> Return<i>.</i></span>
-    </a>
+    <a class="brand" href="wasabirub.html" aria-label="WasabiRub home">
+        <span class="brand-name">WasabiRub<sup>&trade;</sup></span>
+        <span class="brand-tag">Created by <b>SportPharm</b> pharmacists</span>
+      </a>
     <div class="nav-right">
       <nav aria-label="Main navigation">
         <div class="menu">
