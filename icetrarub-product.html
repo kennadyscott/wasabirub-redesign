@@ -183,6 +183,13 @@
       .nav-links .menu-top{white-space:nowrap;padding:6px 0}
       .dropdown.shop-dd{left:0;width:min(300px,86vw)}
     }
+  
+    /* --- cutouts everywhere: no tiles, panels or white boxes behind product shots --- */
+    .shop-dd .dd-thumb{background:none}
+    .shop-dd .is-soon .dd-thumb{background:none;border:1px dashed #dfe4e2;border-radius:5px}
+    .product-hero .gallery{background:none;padding:0}
+    .product-hero .main-image{background:none;border:0;box-shadow:none}
+    .pcard-img{background:none}
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -216,10 +223,10 @@
     <section class="product-hero" id="top">
       <div class="shell product-grid">
         <div class="gallery">
-          <div class="main-image"><img id="main-product-image" src="assets/icetrarub-ice.jpg" alt="WasabiRub Super Cold jar on ice"></div>
+          <div class="main-image"><img id="main-product-image" src="assets/icetrarub-trushield-clear.png" alt="WasabiRub Super Cold 4 oz jar"></div>
           <div class="thumbs" aria-label="Product gallery">
             <button class="active" data-image="0" aria-label="View image 1"><img src="assets/icetrarub-ice.jpg" alt=""></button>
-            <button data-image="1" aria-label="View image 2"><img src="assets/icetrarub-main.png" alt=""></button>
+            <button data-image="1" aria-label="View image 2"><img src="assets/icetrarub-trushield-clear.png" alt=""></button>
             <button data-image="2" aria-label="View image 3"><img src="assets/icetrarub-breakdown.png" alt=""></button>
             <button data-image="3" aria-label="View image 4"><img src="assets/icetrarub-guidelines.png" alt=""></button>
           </div>
@@ -362,7 +369,7 @@
   <script>
     const images=[
       {src:"assets/icetrarub-ice.jpg",alt:"WasabiRub Super Cold jar on ice"},
-      {src:"assets/icetrarub-main.png",alt:"WasabiRub Super Cold product and benefit overview"},
+      {src:"assets/icetrarub-trushield-clear.png",alt:"WasabiRub Super Cold product and benefit overview"},
       {src:"assets/icetrarub-breakdown.png",alt:"WasabiRub Super Cold cooling benefit breakdown"},
       {src:"assets/icetrarub-guidelines.png",alt:"TruShield professional product use guidance"}
     ];
