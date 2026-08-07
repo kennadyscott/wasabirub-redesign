@@ -271,6 +271,19 @@
       .quality-mark{justify-self:start;padding:20px}
       .quality-mark img{max-width:104px}
     }
+  
+    /* --- nav adopted from the mockup --- */
+    .nav{border-bottom:1px solid #e6e8ea;gap:34px}
+    .nav > nav{margin-left:30px;gap:26px;font-size:11px;font-weight:800;letter-spacing:.07em}
+    .nav-right{gap:22px}
+    .nav .cart{width:auto;gap:8px;font-size:11px;font-weight:800;letter-spacing:.07em}
+    .nav .cart-count{position:static;min-width:17px;height:17px;font-size:9.5px}
+    .dropdown.shop-dd{min-width:0;width:320px;padding:10px}
+    .shop-dd .dd-thumb{width:62px;height:62px;border-radius:5px}
+    .dropdown.shop-dd a.dd-item,.dropdown.shop-dd span.dd-item{gap:13px;padding:9px}
+    .dropdown.shop-dd .dd-txt b{font-size:12px}
+    .dropdown.shop-dd .dd-txt small{font-size:10px;line-height:1.35;letter-spacing:.03em;color:#7a8480}
+    @media(max-width:900px){.nav > nav{margin-left:20px}}
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -280,14 +293,14 @@
     <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
   </div>
   <header class="nav shell">
-    <a class="brand" href="wasabirub.html" aria-label="WasabiRub home">
+        <a class="brand" href="wasabirub.html" aria-label="WasabiRub home">
         <span class="brand-name">WasabiRub<sup>&trade;</sup></span>
         <span class="brand-tag">Created by <b>SportPharm</b> pharmacists</span>
       </a>
-    <nav aria-label="Main navigation">
-        <div class="menu">
-          <a class="menu-top" href="#lineup">SHOP <span class="caret">▾</span></a>
-          <div class="dropdown shop-dd">
+        <nav aria-label="Main navigation">
+          <div class="menu">
+            <a class="menu-top" href="find-your-rub.html">SHOP <span class="caret">&#9662;</span></a>
+            <div class="dropdown shop-dd">
             <p class="dd-label">Shop the range</p>
             <a class="dd-item" href="wasabirub-product.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced triple-action relief</small></span></a>
             <a class="dd-item" href="superhot-product.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub Super Hot</b><small>Double-strength capsaicin heat</small></span></a>
@@ -295,18 +308,15 @@
             <span class="dd-item is-soon" aria-disabled="true"><span class="dd-thumb"></span><span class="dd-txt"><b>LidoRub</b><small>Coming soon</small></span></span>
             <a class="dd-all" href="find-your-rub.html">Shop all products <span aria-hidden="true">&rarr;</span></a>
           </div>
-        </div>
-        <a class="menu-top" href="how-it-works.html">WHY WASABIRUB</a>
+          </div>
+          <a class="menu-top" href="how-it-works.html">WHY WASABIRUB</a>
           <a class="menu-top" href="coming-soon.html?f=Quality">QUALITY</a>
-      </nav>
+        </nav>
         <div class="nav-right">
-          <a class="nav-cta" href="https://kennadyscott.github.io/sportpharm-site/sports-medicine.html" target="_blank" rel="noopener">FOR PROFESSIONALS <span>↗</span></a>
-      <a class="cart" href="coming-soon.html?f=Cart" aria-label="Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-        <span class="cart-count">0</span>
-      </a>
-    </div>
-  </header>
+          <a class="nav-cta" href="https://kennadyscott.github.io/sportpharm-site/sports-medicine.html" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
+          <a class="cart" href="coming-soon.html?f=Cart" aria-label="Cart">CART <span class="cart-count">0</span></a>
+        </div>
+      </header>
 
   <main>
     <section class="hero" id="top">
