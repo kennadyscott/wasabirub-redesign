@@ -6,7 +6,7 @@
   <meta name="description" content="WasabiRub triple-action sports topical pain relief from SportPharm.">
   <title>WasabiRub | Feel It Work</title>
   <style>
-    :root{--fam-og:#27865a;--fam-hot:#d6202a;--fam-cold:#2b6c8f;--red:#d6202a;--deep:#101820;--green:#27865a;--blue:#337fa7;--orange:#c85b38;--paper:#f4f5f6;--ink:#15202b}
+    :root{--fam-og:#27865a;--fam-hot:#d6202a;--fam-cold:#2b6c8f;--red:#d6202a;--deep:#0f1d33;--green:#27865a;--blue:#337fa7;--orange:#c85b38;--paper:#f4f5f6;--ink:#15202b}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
@@ -213,7 +213,7 @@
     /* --- testimonials: three up, left aligned, equal height --- */
     .proof{max-width:1180px;padding:56px 40px 40px;text-align:left}
     .tcarousel{position:relative;overflow:hidden;max-width:none;display:block}
-    .ttrack{display:flex;gap:18px;align-items:stretch;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+    .ttrack{display:flex;gap:18px;align-items:flex-start;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
     .proof .tslide{flex:0 0 calc((100% - 36px)/3);min-width:0;display:flex;flex-direction:column;align-items:flex-start;
       text-align:left;opacity:1;visibility:visible;grid-area:auto;background:#fff;border:1px solid #e6e8ea;
       border-radius:10px;padding:24px 22px 20px}
@@ -224,7 +224,8 @@
     .proof .tattr{margin-top:10px}
     .proof .tattr b{display:block;font-size:12.5px;font-weight:900;color:var(--ink)}
     .proof .tattr span{display:block;margin-top:3px;font-size:11.5px;line-height:1.45;color:#66737d}
-    .proof .tcontrols,.proof .tdots{justify-content:flex-start}
+    .tnav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:30px}
+    .proof .tdots{justify-content:center}
     @media(max-width:900px){.proof .tslide{flex:0 0 calc((100% - 18px)/2)}}
     @media(max-width:600px){.proof .tslide{flex:0 0 100%}.proof{padding:44px 22px 32px}}
   
@@ -392,6 +393,13 @@
       .partners-row{grid-template-columns:1fr;gap:14px}
       .partners-row li{border-left:0;padding:0;font-size:15px}
     }
+  
+    /* --- selector heading: left aligned, tighter to the testimonials above --- */
+    .selector{padding:26px 0 76px}
+    .selector-head{display:block;text-align:left}
+    .selector-head .eyebrow{margin-bottom:12px}
+    .selector-head h2{margin:0}
+    .proof{padding-bottom:26px}
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -488,12 +496,12 @@
           <div class="stars">★★★★★</div><blockquote>“Fast, reliable service and competitive pricing. SportPharm makes it easy to get our athletes the medications they need without delays.”</blockquote>
           <div class="tattr"><b>James Tuffy, MHA, LAT, ATC</b><span>Assistant Athletic Director, St. Thomas University</span></div>
         </div>
-      </div>
-      <div class="tnav">
-        <button class="tarrow" id="tprev" aria-label="Previous testimonial">‹</button>
-        <div class="tdots" id="tdots"></div></div>
-        <button class="tarrow" id="tnext" aria-label="Next testimonial">›</button>
-      </div>
+      </div></div>
+        <div class="tnav">
+          <button class="tarrow" id="tprev" aria-label="Previous testimonials">&#8249;</button>
+          <div class="tdots" id="tdots"></div>
+          <button class="tarrow" id="tnext" aria-label="Next testimonials">&#8250;</button>
+        </div>
     </section>
 
     <section class="selector" id="lineup">
@@ -540,41 +548,76 @@
       (function(){
         var car=document.getElementById("tcarousel");if(!car)return;
         var track=document.getElementById("ttrack");
-        var slides=[].slice.call(track.querySelectorAll(".tslide"));
+        var order=[].slice.call(track.querySelectorAll(".tslide"));
         var dotsWrap=document.getElementById("tdots");
-        var page=0,timer=null,DELAY=7000;
+        var N=order.length, offset=0, timer=null, busy=false, DELAY=7000, GAP=18;
         function per(){return window.innerWidth<=600?1:(window.innerWidth<=900?2:3);}
-        function pages(){return Math.max(1,Math.ceil(slides.length/per()));}
-        function go(p){
-          var n=pages();page=((p%n)+n)%n;
-          var step=slides[0].getBoundingClientRect().width+18;
-          track.style.transform="translateX("+(-page*per()*step)+"px)";
-          [].slice.call(dotsWrap.children).forEach(function(d,k){d.classList.toggle("is-active",k===page);});
-          slides.forEach(function(sl,k){
-            var vis=k>=page*per()&&k<(page+1)*per();
+        function pages(){return Math.max(1,Math.ceil(N/per()));}
+        function step(){return order[0].getBoundingClientRect().width+GAP;}
+        function render(){
+          for(var i=0;i<N;i++){track.appendChild(order[(((offset+i)%N)+N)%N]);}
+        }
+        function fit(){
+          order.forEach(function(sl){sl.style.height="auto";});
+          var vis=[];for(var i=0;i<per();i++){vis.push(order[(((offset+i)%N)+N)%N]);}
+          var h=Math.max.apply(null,vis.map(function(sl){return sl.getBoundingClientRect().height;}));
+          order.forEach(function(sl){sl.style.height=h+"px";});
+        }
+        function dots(){
+          var p=pages(), active=Math.floor(((offset%N)+N)%N/per())%p;
+          [].slice.call(dotsWrap.children).forEach(function(d,k){d.classList.toggle("is-active",k===active);});
+          order.forEach(function(sl,i){
+            var vis=false;for(var k=0;k<per();k++){if(order[(((offset+k)%N)+N)%N]===sl)vis=true;}
             sl.setAttribute("aria-hidden",vis?"false":"true");
           });
+        }
+        // rotate the DOM first, then animate in from the displaced position.
+        // correctness never depends on the transition finishing.
+        function go(dir){
+          if(busy) return; busy=true;
+          var d=step()*per();
+          offset+=dir*per();
+          render();
+          track.style.transition="none";
+          track.style.transform="translateX("+(dir>0?d:-d)+"px)";
+          void track.offsetWidth;
+          track.style.transition="";
+          requestAnimationFrame(function(){
+            track.style.transform="translateX(0)";
+            fit(); dots();
+          });
+          setTimeout(function(){
+            track.style.transform="translateX(0)";   // resting state even if the transition never ran
+            busy=false;
+          },480);
+        }
+        function jump(p){
+          if(busy) return;
+          var cur=Math.floor(((offset%N)+N)%N/per());
+          if(p===cur) return;
+          offset=p*per(); render(); fit(); dots();
         }
         function build(){
           dotsWrap.innerHTML="";
           for(var k=0;k<pages();k++){(function(k){
-            var d=document.createElement("button");
-            d.className="tdot"+(k===0?" is-active":"");d.type="button";
-            d.setAttribute("aria-label","Testimonials page "+(k+1));
-            d.addEventListener("click",function(){go(k);reset();});
-            dotsWrap.appendChild(d);})(k);}
-          go(Math.min(page,pages()-1));
+            var b=document.createElement("button");
+            b.type="button"; b.className="tdot"+(k===0?" is-active":"");
+            b.setAttribute("aria-label","Testimonials page "+(k+1));
+            b.addEventListener("click",function(){jump(k);reset();});
+            dotsWrap.appendChild(b);})(k);}
+          busy=false; track.style.transition="none"; track.style.transform="translateX(0)";
+          void track.offsetWidth; track.style.transition="";
+          render(); fit(); dots();
         }
-        function next(){go(page+1);}
-        function start(){timer=setInterval(next,DELAY);}
+        function start(){timer=setInterval(function(){go(1);},DELAY);}
         function stop(){clearInterval(timer);}
         function reset(){stop();start();}
         var pn=document.getElementById("tnext"),pp=document.getElementById("tprev");
-        if(pn)pn.addEventListener("click",function(){next();reset();});
-        if(pp)pp.addEventListener("click",function(){go(page-1);reset();});
+        if(pn)pn.addEventListener("click",function(){go(1);reset();});
+        if(pp)pp.addEventListener("click",function(){go(-1);reset();});
         car.addEventListener("mouseenter",stop);
         car.addEventListener("mouseleave",start);
-        var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(build,150);});
+        var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){build();},150);});
         build();
         if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
       })();
