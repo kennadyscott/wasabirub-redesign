@@ -372,7 +372,7 @@ const SEED={
  ],
  products:[
   {id:'p1',name:'WasabiRub',category:'Topical Rub',price:24.99,status:'active',stock:340,image:'assets/ea-wasabirub.jpg?v=2',blurb:'Fast-acting warming topical for pre-activity and sore muscles.'},
-  {id:'p2',name:'IcetraRub',category:'Topical Rub',price:22.99,status:'active',stock:210,image:'',blurb:'Cooling menthol rub for post-activity relief and inflammation.'},
+  {id:'p2',name:'WasabiRub Super Cold',category:'Topical Rub',price:22.99,status:'active',stock:210,image:'',blurb:'Cooling menthol rub for post-activity relief and inflammation.'},
   {id:'p3',name:'Super Hot',category:'Topical Rub',price:26.99,status:'active',stock:96,image:'',blurb:'Maximum-strength warming formula for deep muscle work.'},
   {id:'p4',name:'Recovery Gel',category:'Recovery',price:19.99,status:'active',stock:150,image:'',blurb:'Lightweight recovery gel for daily use.'},
   {id:'p5',name:'Arnica Relief Cream',category:'Recovery',price:18.50,status:'active',stock:78,image:'',blurb:'Botanical arnica cream for bruising and tenderness.'},
@@ -643,7 +643,7 @@ function leadDrawer(id,V){
 function viewAnalytics(V){
  const a=window.SPA?window.SPA.ensure():null;
  if(!a){V.innerHTML='<div class="pagehead"><h2 class="disp" style="font-size:30px">Store Analytics</h2></div><div class="card pad">Analytics tracker not loaded.</div>';return;}
- const P={wasabirub:{name:'WasabiRub',col:'#d6202a'},superhot:{name:'Super Hot',col:'#e25b2f'},icetrarub:{name:'IcetraRub',col:'#2677b9'}};
+ const P={wasabirub:{name:'WasabiRub',col:'#d6202a'},superhot:{name:'Super Hot',col:'#e25b2f'},icetrarub:{name:'WasabiRub Super Cold',col:'#2677b9'}};
  const visits=a.funnel.visits, pvw=a.funnel.productViews, atc=a.funnel.addToCart, co=a.funnel.checkout;
  const bounce=a.sessions.total?Math.round((1-a.sessions.engaged/a.sessions.total)*100):0;
  const abandon=a.cart.added?Math.round((1-a.cart.checkout/a.cart.added)*100):0;
@@ -676,7 +676,7 @@ function viewAnalytics(V){
    <div class="card"><div class="sec-h"><h3>Product interest share</h3></div><div class="pad">${prodDonut}</div></div>
  </div>
  <div class="grid2" style="margin-top:16px">
-   <div class="card"><div class="sec-h"><h3>WasabiRub vs Super Hot vs IcetraRub</h3><span class="t-sub">by clicks</span></div><div class="pad"><div class="barlist">${prodRows.map(r=>`<div class="barrow"><span class="t-sub" style="color:var(--ink);font-weight:700"><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${r.col};margin-right:8px;vertical-align:middle"></i>${r.name}</span><div class="track"><i style="width:${Math.round(r.clicks/totalClicks*100)}%;background:linear-gradient(90deg,${r.col}88,${r.col})"></i></div><span class="num">${r.clicks.toLocaleString()}</span></div>`).join('')}</div>
+   <div class="card"><div class="sec-h"><h3>WasabiRub vs Super Hot vs WasabiRub Super Cold</h3><span class="t-sub">by clicks</span></div><div class="pad"><div class="barlist">${prodRows.map(r=>`<div class="barrow"><span class="t-sub" style="color:var(--ink);font-weight:700"><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${r.col};margin-right:8px;vertical-align:middle"></i>${r.name}</span><div class="track"><i style="width:${Math.round(r.clicks/totalClicks*100)}%;background:linear-gradient(90deg,${r.col}88,${r.col})"></i></div><span class="num">${r.clicks.toLocaleString()}</span></div>`).join('')}</div>
      <div class="prod-atc">${prodRows.map(r=>`<div><b style="color:${r.col}">${r.atc.toLocaleString()}</b><span>${r.name}<br>add-to-cart</span></div>`).join('')}</div></div></div>
    <div class="card"><div class="sec-h"><h3>Most-clicked elements</h3></div><div class="pad"><div class="barlist">${clicks.map(([n,v])=>`<div class="barrow"><span class="t-sub" style="color:var(--ink);font-weight:600">${esc(n)}</span><div class="track"><i style="width:${Math.round(v/cmax*100)}%"></i></div><span class="num">${v.toLocaleString()}</span></div>`).join('')}</div></div></div>
  </div>
