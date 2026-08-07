@@ -400,8 +400,101 @@
     .selector-head .eyebrow{margin-bottom:12px}
     .selector-head h2{margin:0}
     .proof{padding-bottom:26px}
+  
+    /* --- homepage FAQ --- */
+    .hfaq{background:#fff;padding:80px 0 86px}
+    .hfaq-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:70px;align-items:start}
+    .hfaq-intro h2{margin:0;font-size:clamp(38px,4.6vw,62px);line-height:.95;color:var(--ink)}
+    .hfaq-lead{margin:22px 0 0;max-width:44ch;font-size:15.5px;line-height:1.65;color:#5a6672}
+    .hfaq-list{border-top:1px solid #e2e6e4}
+    .hfaq-list details{border-bottom:1px solid #e2e6e4}
+    .hfaq-list summary{list-style:none;cursor:pointer;position:relative;
+      padding:20px 40px 20px 0;font-size:16px;font-weight:900;letter-spacing:-.008em;color:var(--ink)}
+    .hfaq-list summary::-webkit-details-marker{display:none}
+    .hfaq-list summary::after{content:"\002B";position:absolute;right:6px;top:17px;
+      font-size:22px;font-weight:400;line-height:1;color:var(--ink)}
+    .hfaq-list details[open] summary::after{content:"\2212"}
+    .hfaq-list summary:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+    .hfaq-list details p{margin:0 0 22px;padding-right:40px;font-size:15px;line-height:1.65;color:#5a6672}
+    @media(max-width:900px){
+      .hfaq{padding:60px 0 64px}
+      .hfaq-grid{grid-template-columns:1fr;gap:30px}
+      .hfaq-lead{max-width:none}
+    }
+  
+    /* --- formula: fit the whole section in one screen --- */
+    .formula{padding:56px 0 60px}
+    .formula h2{font-size:clamp(30px,3.9vw,52px)}
+    .formula-lead{margin-top:15px;font-size:15px}
+    .fcards{margin-top:30px;gap:18px}
+    .fcard-img{aspect-ratio:4/3}
+    .fcard-chip{top:12px;left:12px;padding:5px 9px;font-size:9.5px}
+    .fcard-body{padding:17px 20px 19px}
+    .fcard-meta{margin-bottom:6px;font-size:10px}
+    .fcard h3{font-size:21px}
+    .fcard-desc{margin-top:7px;font-size:13.5px}
+  
+    /* the ingredients are subjects on a plain backdrop -- contain, never crop */
+    .fcard-img{background:#fdf9f6}
+    .fcard-img img{position:absolute;top:7%;left:7%;width:86%;height:86%;object-fit:contain}
   </style>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does WasabiRub feel like?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WasabiRub begins with a cooling sensation from menthol, followed by gradual warmth from capsaicin. Sensation and intensity can vary by person and application area."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I apply it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Apply to the affected area as directed on the Drug Facts label. Many customers use it around training or whenever minor muscle and joint aches slow them down."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it tested for athletes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WasabiRub carries TruShield certification. Visit our quality page for details about the testing standard and certification."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which product should I choose?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose WasabiRub for balanced cool and heat, WasabiRub Super Hot for more intense warmth, or WasabiRub Super Cold for focused cooling without heat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use it with a heating pad or wrap?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Do not use WasabiRub with a heating pad, bandage or wrap, and avoid external heat after applying. This is on the Drug Facts label for a reason."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a prescription?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. WasabiRub is an over-the-counter product."
+      }
+    }
+  ]
+}
+</script>
+</head>
 <body>
   <div class="announcement" aria-label="Promotions">
     <span class="sr-only">Free shipping on all orders. Buy direct from the pharmacists who made it.</span>
@@ -675,6 +768,43 @@
             <p>WasabiRub is TruShield Certified and pharmacist formulated&mdash;so athletes can choose relief with greater confidence. Always use as directed and review the Drug Facts label.</p>
           </div>
           <div class="quality-action"><a class="primary white" href="coming-soon.html?f=Quality">OUR QUALITY STANDARD</a></div>
+        </div>
+      </section>
+
+
+      <section class="hfaq" id="faq">
+        <div class="shell hfaq-grid">
+          <div class="hfaq-intro">
+            <p class="eyebrow">Good to know</p>
+            <h2>QUESTIONS,<br>ANSWERED.</h2>
+            <p class="hfaq-lead">Straightforward guidance before you choose your rub. Always read and follow the Drug Facts label.</p>
+          </div>
+          <div class="hfaq-list">
+            <details open>
+              <summary>What does WasabiRub feel like?</summary>
+              <p>WasabiRub begins with a cooling sensation from menthol, followed by gradual warmth from capsaicin. Sensation and intensity can vary by person and application area.</p>
+            </details>
+            <details open>
+              <summary>When should I apply it?</summary>
+              <p>Apply to the affected area as directed on the Drug Facts label. Many customers use it around training or whenever minor muscle and joint aches slow them down.</p>
+            </details>
+            <details open>
+              <summary>Is it tested for athletes?</summary>
+              <p>WasabiRub carries TruShield certification. Visit our quality page for details about the testing standard and certification.</p>
+            </details>
+            <details open>
+              <summary>Which product should I choose?</summary>
+              <p>Choose WasabiRub for balanced cool and heat, WasabiRub Super Hot for more intense warmth, or WasabiRub Super Cold for focused cooling without heat.</p>
+            </details>
+            <details open>
+              <summary>Can I use it with a heating pad or wrap?</summary>
+              <p>No. Do not use WasabiRub with a heating pad, bandage or wrap, and avoid external heat after applying. This is on the Drug Facts label for a reason.</p>
+            </details>
+            <details open>
+              <summary>Do I need a prescription?</summary>
+              <p>No. WasabiRub is an over-the-counter product.</p>
+            </details>
+          </div>
         </div>
       </section>
 
