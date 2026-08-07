@@ -6,7 +6,7 @@
   <meta name="description" content="WasabiRub triple-action sports topical pain relief from SportPharm.">
   <title>WasabiRub | Feel It Work</title>
   <style>
-    :root{--red:#d6202a;--deep:#101820;--green:#27865a;--blue:#337fa7;--orange:#c85b38;--paper:#f4f5f6;--ink:#15202b}
+    :root{--fam-og:#27865a;--fam-hot:#d6202a;--fam-cold:#2b6c8f;--red:#d6202a;--deep:#101820;--green:#27865a;--blue:#337fa7;--orange:#c85b38;--paper:#f4f5f6;--ink:#15202b}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
@@ -28,7 +28,7 @@
     .dropdown a{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 13px;font-size:11px;font-weight:900;letter-spacing:.07em;color:var(--ink);border-radius:5px}
     .dropdown a:hover{background:var(--paper);color:var(--red)}
     .dropdown a.soon{color:#9aa3a0}
-    .dropdown small{font-size:8px;font-weight:900;letter-spacing:.1em;color:#fff;background:#b9c0bd;padding:3px 7px;border-radius:20px}
+    .dropdown .soon small{font-size:8px;font-weight:900;letter-spacing:.1em;color:#fff;background:#b9c0bd;padding:3px 7px;border-radius:20px}
     .cart{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;color:var(--ink)}
     .cart:hover{color:var(--red)}
     .cart svg{width:22px;height:22px;display:block}
@@ -198,6 +198,50 @@
     .shop-dd .is-soon .dd-thumb{background:#eceff1}
     .dropdown.shop-dd a.dd-all{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:7px 0 0;padding:11px 7px 3px;border-top:1px solid #e6e8ea;border-radius:0;font-size:10.5px;font-weight:900;letter-spacing:.09em;color:var(--red)}
     @media(max-width:900px){.nav > nav{margin-left:22px}}
+      .dropdown.shop-dd .dd-txt small{background:none;padding:0;border-radius:0;font-size:12px;line-height:1.35;white-space:normal}
+    .dropdown.shop-dd .dd-txt b{font-size:13.5px}
+    .dropdown.shop-dd{min-width:352px}
+    .shop-dd .dd-thumb{width:52px;height:52px}
+    .dropdown.shop-dd a.dd-all{margin-top:9px;padding:14px 7px 4px;font-size:16px;font-weight:900;letter-spacing:-.01em;text-transform:none}
+    .dropdown.shop-dd a.dd-all span{font-size:19px}
+  
+    /* --- selector: white ground, family colours --- */
+    .selector{background:#fff;color:var(--ink)}
+    .selector h2{color:var(--ink)}
+    .selector h2 em{color:var(--red)}
+    .selector .tabs button{background:#fff;border:1px solid var(--line-s,#e2e6e4);color:var(--ink)}
+    .selector .tabs button:hover{border-color:#c3cbc7}
+    .selector .tabs button b{color:var(--ink)}
+    .selector .tabs button span{color:#5a6672}
+    .selector .tabs .cool small{color:var(--fam-cold)}
+    .selector .tabs .everyday small{color:var(--fam-og)}
+    .selector .tabs .hot small{color:var(--fam-hot)}
+    .selector .tabs button.active{border-width:2px}
+    .selector .tabs .cool.active{border-color:var(--fam-cold);box-shadow:inset 0 -3px 0 var(--fam-cold)}
+    .selector .tabs .everyday.active{border-color:var(--fam-og);box-shadow:inset 0 -3px 0 var(--fam-og)}
+    .selector .tabs .hot.active{border-color:var(--fam-hot);box-shadow:inset 0 -3px 0 var(--fam-hot)}
+    .selector .result{background:var(--paper);border-radius:10px}
+    .selector .result-copy h3{color:var(--ink)}
+    .selector .result-copy p{color:#4a555f}
+    .selector .result-buy strong{color:var(--ink)}
+  
+    /* --- testimonials: three up, left aligned, equal height --- */
+    .proof{max-width:1180px;padding:56px 40px 40px;text-align:left}
+    .tcarousel{position:relative;overflow:hidden;max-width:none;display:block}
+    .ttrack{display:flex;gap:18px;align-items:stretch;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+    .proof .tslide{flex:0 0 calc((100% - 36px)/3);min-width:0;display:flex;flex-direction:column;align-items:flex-start;
+      text-align:left;opacity:1;visibility:visible;grid-area:auto;background:#fff;border:1px solid #e6e8ea;
+      border-radius:10px;padding:24px 22px 20px}
+    .proof .tslide blockquote{margin:0;font-size:14px;line-height:1.6;color:#3f4852;font-weight:400}
+    .proof .tslide blockquote::before{content:"\201C";display:block;font-family:Georgia,serif;font-size:34px;
+      line-height:.1;color:var(--red);margin:14px 0 16px}
+    .proof .stars{margin-top:auto;padding-top:18px;font-size:12px;letter-spacing:.12em;color:#96690a}
+    .proof .tattr{margin-top:10px}
+    .proof .tattr b{display:block;font-size:12.5px;font-weight:900;color:var(--ink)}
+    .proof .tattr span{display:block;margin-top:3px;font-size:11.5px;line-height:1.45;color:#66737d}
+    .proof .tcontrols,.proof .tdots{justify-content:flex-start}
+    @media(max-width:900px){.proof .tslide{flex:0 0 calc((100% - 18px)/2)}}
+    @media(max-width:600px){.proof .tslide{flex:0 0 100%}.proof{padding:44px 22px 32px}}
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
 <body>
@@ -254,8 +298,7 @@
     </section>
 
     <section class="proof shell" id="proof">
-      <div class="quote-mark">“</div>
-      <div class="tcarousel" id="tcarousel">
+      <div class="tcarousel" id="tcarousel"><div class="ttrack" id="ttrack">
         <div class="tslide is-active">
           <blockquote>“I’ve used a lot of topical pain relief gels, and this stuff is easily one of the best. You can tell this is professional-grade and not your average store-bought stuff. If you’re a runner, lifter, or just dealing with everyday aches and pains, this stuff is money.”</blockquote>
           <div class="stars">★★★★★</div>
@@ -299,59 +342,19 @@
       </div>
       <div class="tnav">
         <button class="tarrow" id="tprev" aria-label="Previous testimonial">‹</button>
-        <div class="tdots" id="tdots"></div>
+        <div class="tdots" id="tdots"></div></div>
         <button class="tarrow" id="tnext" aria-label="Next testimonial">›</button>
-      </div>
-    </section>
-    <script>
-      (function(){
-        var car=document.getElementById("tcarousel");if(!car)return;
-        var slides=[].slice.call(car.querySelectorAll(".tslide"));
-        var dotsWrap=document.getElementById("tdots");
-        var i=0,timer=null,DELAY=7000;
-        slides.forEach(function(_,idx){
-          var d=document.createElement("button");
-          d.className="tdot"+(idx===0?" is-active":"");
-          d.setAttribute("aria-label","Testimonial "+(idx+1));
-          d.addEventListener("click",function(){go(idx);reset();});
-          dotsWrap.appendChild(d);
-        });
-        var dots=[].slice.call(dotsWrap.children);
-        function go(n){
-          slides[i].classList.remove("is-active");dots[i].classList.remove("is-active");
-          i=(n+slides.length)%slides.length;
-          slides[i].classList.add("is-active");dots[i].classList.add("is-active");
-        }
-        function next(){go(i+1);}
-        function start(){timer=setInterval(next,DELAY);}
-        function stop(){clearInterval(timer);}
-        function reset(){stop();start();}
-        var pn=document.getElementById("tnext"),pp=document.getElementById("tprev");
-        if(pn)pn.addEventListener("click",function(){next();reset();});
-        if(pp)pp.addEventListener("click",function(){go(i-1);reset();});
-        car.addEventListener("mouseenter",stop);
-        car.addEventListener("mouseleave",start);
-        if(!window.matchMedia||!window.matchMedia("(prefers-reduced-motion: reduce)").matches)start();
-      })();
-    </script>
-
-    <section class="difference shell" id="difference">
-      <div class="section-title"><h2>MOST RUBS PICK<br>ONE LANE. <em>THIS ONE<br>DOES THREE.</em></h2></div>
-      <div class="action-list">
-        <article><span class="number n1">01</span><div><p>MENTHOL • 10%</p><h3>COOLS ON CONTACT.</h3><span>Immediate cooling sensation for temporary relief right where you apply it.</span></div><b class="tag cool">INSTANT</b></article>
-        <article><span class="number n2">02</span><div><p>CAPSAICIN • .0375%</p><h3>KEEPS WORKING.</h3><span>A warming sensation designed to quiet minor muscle and joint aches over time.</span></div><b class="tag heat">LASTING</b></article>
-        <article><span class="number n3">03</span><div><p>METHYL SALICYLATE • 20%</p><h3>GOES DEEP.</h3><span>Targeted topical relief for sore muscles and joints—without treating the whole body.</span></div><b class="tag deep">TARGETED</b></article>
       </div>
     </section>
 
     <section class="selector" id="lineup">
       <div class="shell">
         
-        <div class="selector-head"><h2>HOW DO YOU WANT<br>RELIEF TO <em>FEEL?</em></h2><p>From pure cooling to serious heat, there’s a SportPharm rub built for your recovery style.</p></div>
+        <div class="selector-head"><h2>HOW DO YOU WANT<br>RELIEF TO <em>FEEL?</em></h2></div>
         <div class="tabs" role="tablist" aria-label="Choose your sensation">
           <button class="cool" role="tab" data-product="0"><small>COOL</small><b>WasabiRub Super Cold</b><span>Pure cooling</span></button>
           <button class="everyday active" role="tab" data-product="1"><small>EVERYDAY</small><b>WasabiRub</b><span>Balanced cool + heat</span></button>
-          <button class="hot" role="tab" data-product="2"><small>HOT</small><b>Super Hot</b><span>Max heat</span></button>
+          <button class="hot" role="tab" data-product="2"><small>HOT</small><b>WasabiRub Super Hot</b><span>Max heat</span></button>
         </div>
         <div class="result">
           <div class="result-image"><img id="product-image" alt="WasabiRub" src="assets/wr-wasabirub.png?v=3"></div>
@@ -362,6 +365,58 @@
             <div class="result-buy"><strong id="product-price">$29.95</strong><a id="product-link" href="wasabirub-product.html">SHOP WASABIRUB <span>→</span></a></div>
           </div>
         </div>
+      </div>
+    </section>
+    <script>
+      (function(){
+        var car=document.getElementById("tcarousel");if(!car)return;
+        var track=document.getElementById("ttrack");
+        var slides=[].slice.call(track.querySelectorAll(".tslide"));
+        var dotsWrap=document.getElementById("tdots");
+        var page=0,timer=null,DELAY=7000;
+        function per(){return window.innerWidth<=600?1:(window.innerWidth<=900?2:3);}
+        function pages(){return Math.max(1,Math.ceil(slides.length/per()));}
+        function go(p){
+          var n=pages();page=((p%n)+n)%n;
+          var step=slides[0].getBoundingClientRect().width+18;
+          track.style.transform="translateX("+(-page*per()*step)+"px)";
+          [].slice.call(dotsWrap.children).forEach(function(d,k){d.classList.toggle("is-active",k===page);});
+          slides.forEach(function(sl,k){
+            var vis=k>=page*per()&&k<(page+1)*per();
+            sl.setAttribute("aria-hidden",vis?"false":"true");
+          });
+        }
+        function build(){
+          dotsWrap.innerHTML="";
+          for(var k=0;k<pages();k++){(function(k){
+            var d=document.createElement("button");
+            d.className="tdot"+(k===0?" is-active":"");d.type="button";
+            d.setAttribute("aria-label","Testimonials page "+(k+1));
+            d.addEventListener("click",function(){go(k);reset();});
+            dotsWrap.appendChild(d);})(k);}
+          go(Math.min(page,pages()-1));
+        }
+        function next(){go(page+1);}
+        function start(){timer=setInterval(next,DELAY);}
+        function stop(){clearInterval(timer);}
+        function reset(){stop();start();}
+        var pn=document.getElementById("tnext"),pp=document.getElementById("tprev");
+        if(pn)pn.addEventListener("click",function(){next();reset();});
+        if(pp)pp.addEventListener("click",function(){go(page-1);reset();});
+        car.addEventListener("mouseenter",stop);
+        car.addEventListener("mouseleave",start);
+        var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(build,150);});
+        build();
+        if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+      })();
+    </script>
+
+    <section class="difference shell" id="difference">
+      <div class="section-title"><h2>MOST RUBS PICK<br>ONE LANE. <em>THIS ONE<br>DOES THREE.</em></h2></div>
+      <div class="action-list">
+        <article><span class="number n1">01</span><div><p>MENTHOL • 10%</p><h3>COOLS ON CONTACT.</h3><span>Immediate cooling sensation for temporary relief right where you apply it.</span></div><b class="tag cool">INSTANT</b></article>
+        <article><span class="number n2">02</span><div><p>CAPSAICIN • .0375%</p><h3>KEEPS WORKING.</h3><span>A warming sensation designed to quiet minor muscle and joint aches over time.</span></div><b class="tag heat">LASTING</b></article>
+        <article><span class="number n3">03</span><div><p>METHYL SALICYLATE • 20%</p><h3>GOES DEEP.</h3><span>Targeted topical relief for sore muscles and joints—without treating the whole body.</span></div><b class="tag deep">TARGETED</b></article>
       </div>
     </section>
 
