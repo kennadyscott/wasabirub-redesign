@@ -522,6 +522,33 @@
     /* narrow the figure so the ingredient is not floating in dead space */
     .ing-panel{grid-template-columns:290px 1fr}
     @media(max-width:900px){.ing-panel{grid-template-columns:1fr}.ing-figure{height:auto;aspect-ratio:16/10}}
+  
+    /* --- confidence bar on white --- */
+    .quality{background:#fff;color:var(--ink);border-top:1px solid #e6e8ea;border-bottom:1px solid #e6e8ea}
+    .quality .eyebrow.light{color:#5e6b75}
+    .quality-copy h2{color:var(--ink)}
+    .quality-copy h2 em{color:var(--red)}
+    .quality-copy p{color:#4a555f}
+    .quality .primary.white{background:var(--ink);color:#fff}
+    .quality .primary.white:hover{background:#0a1524}
+
+    /* --- FAQ colour-blocked: navy left, white right --- */
+    .hfaq{padding:0;background:#fff;position:relative;overflow:hidden}
+    .hfaq::before{content:"";position:absolute;inset:0 auto 0 0;width:calc(50% - 130px);background:var(--deep);z-index:0}
+    .hfaq-grid{position:relative;z-index:1;grid-template-columns:.82fr 1.18fr;gap:0;align-items:stretch}
+    .hfaq-intro{background:var(--deep);color:#fff;padding:74px 46px 78px 0;margin-left:calc(50% - 50vw);
+      padding-left:calc(50vw - 50% + 0px)}
+    .hfaq-intro .eyebrow{color:rgba(255,255,255,.62)}
+    .hfaq-intro h2{color:#fff}
+    .hfaq-lead{color:rgba(255,255,255,.76)}
+    .hfaq-list{padding:74px 0 78px 56px}
+    @media(max-width:900px){
+      .hfaq::before{display:none}
+      .hfaq-grid{grid-template-columns:1fr}
+      .hfaq-intro{padding:48px 22px 40px;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+        padding-left:calc(50vw - 50% + 22px);padding-right:calc(50vw - 50% + 22px)}
+      .hfaq-list{padding:36px 0 48px}
+    }
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"><script type="application/ld+json">
 {
