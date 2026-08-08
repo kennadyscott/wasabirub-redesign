@@ -510,6 +510,18 @@
         linear-gradient(90deg,rgba(15,29,51,.97) 0%,rgba(15,29,51,.93) 52%,rgba(15,29,51,.72) 100%),
         linear-gradient(0deg,rgba(15,29,51,.5),rgba(15,29,51,0) 50%)}
     }
+  
+    /* panel matches the height of the tab column; lead on one line; tighter head */
+    .formula{padding:44px 0 50px}
+    .formula-lead{max-width:none;margin-top:11px}
+    .ing{align-items:stretch;margin-top:22px}
+    .ing-panel{height:100%}
+    .ing-figure{aspect-ratio:auto;height:100%;min-height:0}
+    .ing-copy{padding:22px 24px}
+  
+    /* narrow the figure so the ingredient is not floating in dead space */
+    .ing-panel{grid-template-columns:290px 1fr}
+    @media(max-width:900px){.ing-panel{grid-template-columns:1fr}.ing-figure{height:auto;aspect-ratio:16/10}}
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"><script type="application/ld+json">
 {
