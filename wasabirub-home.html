@@ -582,7 +582,7 @@
 .rtab:focus-visible{outline:3px solid var(--red);outline-offset:3px}
 
 .rpanels{position:relative}
-.rpanel{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:30px;align-items:center;
+.rpanel{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:26px;align-items:center;
   padding:24px 28px;border:1px solid #dfe5ea;border-radius:16px;background:#fff}
 .rpanel[hidden]{display:none}
 .rpanel-img{position:relative;display:flex;align-items:center;justify-content:center;min-height:210px;align-self:stretch;padding:4px 0}
@@ -594,17 +594,20 @@
 .rpanel-copy h3{margin:0 0 8px;font-size:clamp(21px,2.1vw,28px);line-height:1.02;letter-spacing:-.02em}
 .rpanel-copy h3 em{color:var(--red);font-style:normal}
 .rlead{margin:0 0 14px;color:#4f5a57;line-height:1.65}
-.racts{margin:0 0 16px;padding:0;list-style:none;border-top:1px solid #e8ecef}
-.racts li{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid #e8ecef}
+.racts{display:grid;grid-template-columns:repeat(3,1fr);margin:0 0 16px;padding:0;list-style:none;border-top:1px solid #e8ecef;border-bottom:1px solid #e8ecef}
+.racts li{display:flex;gap:8px;padding:13px 14px 14px 0;border-bottom:0}.racts li+li{border-left:1px solid #e8ecef;padding-left:14px}
 .rn{flex:0 0 auto;font-size:11px;font-weight:900;color:var(--red);padding-top:3px}
 .racts small{display:block;font-size:10px;font-weight:900;letter-spacing:.13em;color:#6b736f}
 .racts b{display:block;margin:2px 0 2px;font-size:.94rem;letter-spacing:-.01em}
-.racts p{margin:0;font-size:.88rem;line-height:1.5;color:#5c6663}
+.racts p{margin:0;font-size:.88rem;line-height:1.5;color:#5c6663;text-wrap:pretty}
 
 .rfoot{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .rfoot strong{font-size:1.45rem;letter-spacing:-.02em}
 
 @media(max-width:900px){
+  .racts{grid-template-columns:1fr;border-bottom:0}
+  .racts li{padding:9px 0;border-bottom:1px solid #e8ecef}
+  .racts li+li{border-left:0;padding-left:0}
   .featured{padding:58px 0 64px}
   .rtabs{grid-template-columns:1fr;gap:8px;margin-bottom:16px}
   .rtab{padding:13px 15px}
