@@ -587,11 +587,11 @@
 .rpanel{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:30px;align-items:center;
   padding:24px 28px;border:1px solid #dfe5ea;border-radius:16px;background:#fff}
 .rpanel[hidden]{display:none}
-.rpanel-img{position:relative;display:flex;align-items:center;justify-content:center;min-height:210px}
-.rpanel-img::before{content:"";position:absolute;left:50%;top:52%;width:80%;height:80%;
+.rpanel-img{position:relative;display:flex;align-items:center;justify-content:center;min-height:210px;align-self:stretch;padding:4px 0}
+.rpanel-img::before{content:"";position:absolute;left:50%;top:52%;width:88%;height:88%;
   transform:translate(-50%,-50%);border-radius:50%;
   background:radial-gradient(circle, rgba(15,29,51,.10) 0%, rgba(15,29,51,0) 68%)}
-.rpanel-img img{position:relative;max-height:250px;max-width:88%;width:auto;object-fit:contain}
+.rpanel-img img{position:relative;max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain}
 
 .rpanel-copy h3{margin:0 0 8px;font-size:clamp(21px,2.1vw,28px);line-height:1.02;letter-spacing:-.02em}
 .rpanel-copy h3 em{color:var(--red);font-style:normal}
@@ -1042,7 +1042,7 @@
     </script>
 
     <section class="final">
-      <div class="shell"><h2>FEEL IT<br><em>WORK.</em></h2><p>Get WasabiRub direct from the pharmacists who made it.</p><a class="primary" href="wasabirub.html">SHOP WASABIRUB — $29.95 <span>→</span></a></div>
+      <div class="shell"><h2>FEEL IT<br><em>WORK.</em></h2><p>Get WasabiRub direct from the pharmacists who made it.</p><a class="primary" href="wasabirub.html">SHOP WASABIRUB <span>→</span></a></div>
     </section>
   </main>
 
