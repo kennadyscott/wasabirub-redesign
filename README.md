@@ -23,7 +23,7 @@ Forked from `sportpharm-site` at commit `fa9494a`, with full history intact —
 `git log` here goes all the way back through the original build. That means any
 fix made on the live site can be cherry-picked across, and vice versa.
 
-## Five open questions
+## Six open questions
 
 The redesign cannot be finished until these are answered. They are listed at
 the top of the checklist and repeated here because they gate real work:
@@ -52,6 +52,33 @@ the top of the checklist and repeated here because they gate real work:
 4. **Which prices are real?** Five different figures currently appear across
    the two pages: $10, $29.95, $39.95, $59.99, $69.90.
 5. **Which file is the hero image?** §4 calls for a real open-jar close-up.
+6. **Where does lifestyle imagery and human connection now live?** Shelving the
+   athlete hub removed the only place built for it, and the product-page cleanup
+   removed what little remained. The set is now almost entirely product cutouts
+   and specification:
+
+   | Page | Photographs | Cutouts / marks |
+   |---|---|---|
+   | `wasabirub-home.html` | 7 | 11 |
+   | `wasabirub.html` | **0** | 8 |
+   | `wasabirub-super-hot.html` | **0** | 8 |
+   | `wasabirub-super-cold.html` | **0** | 8 |
+   | `wasabirub-shop.html` | **0** | 9 |
+   | `how-it-works.html` | **0** | 8 |
+
+   Two things make this worse than the table suggests. The brand homepage holds
+   every photograph in the set, and it is also the page the rename left with the
+   fewest ways in — the nav logo only. The ~83 inbound links now land on
+   `wasabirub.html`, which has no photography at all. So the most-visited page is
+   pure spec, and the page carrying the emotional register is the hardest to reach.
+
+   The nav still shows **ATHLETE HUB**, but it points at `index.html?welcome` —
+   the SportPharm everyday-athlete page. It leaves the WasabiRub brand entirely.
+
+   Needs a decision: revive the athlete hub, fold lifestyle content into the
+   product pages, give the brand homepage more entry points, or accept that
+   WasabiRub reads as a clinical product line rather than a consumer brand.
+   That last one is a legitimate choice, but it should be a choice.
 
 ## Assets
 
@@ -62,7 +89,9 @@ the top of the checklist and repeated here because they gate real work:
 
 **Still missing:**
 - UFC, USA Handball and Nexus Sports Medicine logos (§12) — also gated on written permission
-- A real athlete or practitioner photograph, not staged stock (§9)
+- A real athlete or practitioner photograph, not staged stock (§9). This is now
+  the binding constraint on open question 6, not a nice-to-have — five of the six
+  pages carry no photography at all.
 - **A genuine Super Hot and Super Cold testimonial.** Every quote in the repo is
   either brand-level WasabiRub or about another SportPharm service. The variant
   pages ship without a testimonial section rather than carry an invented or
