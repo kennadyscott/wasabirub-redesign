@@ -140,6 +140,31 @@
   textarea.note{width:100%;font-family:var(--fbody);font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;resize:vertical;min-height:44px;line-height:1.45}
   textarea.note:focus{outline:2px solid var(--brand);outline-offset:1px;background:var(--surface)}
   textarea.note::placeholder{color:var(--faint)}
+  /* notes thread */
+  .thread{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:2px}
+  .nentry{display:flex;gap:10px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:8px 11px}
+  .nby{font-size:9.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);white-space:nowrap;padding-top:2px;min-width:44px}
+  .ntext{font-size:13px;color:var(--ink);line-height:1.45;flex:1;white-space:pre-wrap;word-break:break-word}
+  .ndel{background:none;border:0;color:var(--faint);cursor:pointer;font-size:12px;line-height:1;padding:2px 0 0}
+  .ndel:hover{color:var(--brand)}
+  .nadd{display:flex;gap:8px;align-items:flex-end}
+  .nadd textarea{flex:1;font-family:var(--fbody);font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 11px;resize:vertical;min-height:38px;line-height:1.4}
+  .nadd textarea:focus{outline:2px solid var(--brand);outline-offset:1px}
+  .nadd textarea::placeholder{color:var(--faint)}
+  /* review workflow */
+  .revbadge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;letter-spacing:.02em;border-radius:999px;padding:4px 10px;border:1px solid}
+  .rev-returned{color:var(--partial);background:var(--partial-bg);border-color:var(--partial-line)}
+  .rev-complete{color:var(--done);background:var(--done-bg);border-color:var(--done-line)}
+  .revbtn{font-size:11px;font-weight:700;border-radius:999px;padding:4px 11px;cursor:pointer;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+  .revbtn:hover{border-color:var(--faint);color:var(--ink)}
+  .revbtn.done:hover{border-color:var(--done);color:var(--done)}
+  .revbtn.back:hover{border-color:var(--partial);color:var(--partial)}
+  .item.complete{border-left:3px solid var(--done);background:color-mix(in srgb,var(--done) 4%,transparent)}
+  .item.returned{border-left:3px solid var(--partial);background:color-mix(in srgb,var(--partial) 5%,transparent)}
+  /* viewer selector */
+  .viewer{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
+  .viewer select{font-family:var(--fbody);font-size:12.5px;font-weight:700;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+  .viewer select:focus{outline:2px solid var(--brand);outline-offset:1px}
 
   /* legend + footer */
   .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:8px 0 22px;font-size:12px;color:var(--muted)}
@@ -183,6 +208,7 @@
   <div class="toolbar-inner">
     <div class="filters" id="filters"></div>
     <span class="grow"></span>
+    <span class="viewer">Viewing as <select id="viewerSel" aria-label="Viewing as"></select></span>
     <input class="search" id="search" placeholder="Search items…" aria-label="Search items">
     <button class="btn primary" id="dlBtn">Download (with notes)</button>
     <button class="btn" id="shareBtn">Copy share link</button>
@@ -369,10 +395,10 @@
   const STATUS = {done:"Done", partial:"Partial", todo:"Not done", blocked:"Blocked"};
   const CYCLE = ["done","partial","todo","blocked"];
   const TAGLBL = {ready:"Ready",asset:"Asset",approval:"Approval",decision:"Decision"};
-  const KEY = "wr-build-review-v1";
+  const KEY = "wr-build-review-v1", VKEY = "wr-review-viewer";
 
-  // overlay: {status:{id}, flags:{id:assignee}, notes:{id:text}, people:[...]}
-  let U = {status:{}, flags:{}, notes:{}, people:["Jessie"]};
+  // shared overlay (travels): {status, flags:{id:person}, notes:{id:[{by,t}]}, review:{id:state}, people:[]}
+  let U = {status:{}, flags:{}, notes:{}, review:{}, people:["Jessie"]};
   (function load(){
     try{
       const emb = document.getElementById("wr-state");
@@ -381,17 +407,27 @@
       else if(m){ U = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,"+").replace(/_/g,"/"))))); }
       else { const raw = localStorage.getItem(KEY); if(raw) U = JSON.parse(raw); }
     }catch(e){}
-    U.status=U.status||{}; U.flags=U.flags||{}; U.notes=U.notes||{};
+    U.status=U.status||{}; U.flags=U.flags||{}; U.notes=U.notes||{}; U.review=U.review||{};
     U.people = Array.isArray(U.people)&&U.people.length ? U.people : ["Jessie"];
-    Object.keys(U.flags).forEach(id=>{ if(typeof U.flags[id]!=="string") U.flags[id]=""; }); // migrate old {id:1}
+    Object.keys(U.flags).forEach(id=>{ if(typeof U.flags[id]!=="string") U.flags[id]=""; });
+    Object.keys(U.notes).forEach(id=>{ const v=U.notes[id];   // migrate single string note -> thread
+      if(typeof v==="string"){ U.notes[id]= v.trim()? [{by:"",t:v}] : []; }
+      else if(!Array.isArray(v)){ U.notes[id]=[]; } });
   })();
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(U)); }catch(e){} }
+
+  // viewer identity is per-person and LOCAL (does not travel in the link)
+  let viewer="Me"; try{ viewer=localStorage.getItem(VKEY)||"Me"; }catch(e){}
+  function setViewer(v){ viewer=v||"Me"; try{ localStorage.setItem(VKEY,viewer); }catch(e){} }
+
   function eff(id, base){ return U.status[id]||base; }
   function isFlagged(id){ return Object.prototype.hasOwnProperty.call(U.flags,id); }
+  function rev(id){ return isFlagged(id)? (U.review[id]||"assigned") : ""; }
   function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
   function baseOf(id){ const p=id.split("."); return SECTIONS[p[0]].items[p[1]].s; }
 
-  let filter = "all", query = "", assigningId = null;
+  let filter="all", query="", assigningId=null;
+  const openNotes = new Set();
   const app = document.getElementById("app");
 
   function matchFilter(id,it){
@@ -402,12 +438,16 @@
     if(filter==="outstanding") return st!=="done";
     if(filter==="blocked") return st==="blocked";
     if(filter==="flagged") return isFlagged(id);
+    if(filter==="returned") return rev(id)==="returned";
+    if(filter==="complete") return rev(id)==="complete";
     if(filter.indexOf("person:")===0) return U.flags[id]===filter.slice(7);
     return true;
   }
   function passes(id,it){
     if(!matchFilter(id,it)) return false;
-    if(query){ const q=query.toLowerCase(); if(!(it.x.toLowerCase().includes(q)||it.note.toLowerCase().includes(q)||(U.notes[id]||"").toLowerCase().includes(q))) return false; }
+    if(query){ const q=query.toLowerCase();
+      const notes=(U.notes[id]||[]).map(e=>e.t).join(" ").toLowerCase();
+      if(!(it.x.toLowerCase().includes(q)||it.note.toLowerCase().includes(q)||notes.includes(q))) return false; }
     return true;
   }
   function countFilter(f){
@@ -419,6 +459,8 @@
       else if(f==="outstanding"){ if(st!=="done")n++; }
       else if(f==="blocked"){ if(st==="blocked")n++; }
       else if(f==="flagged"){ if(isFlagged(id))n++; }
+      else if(f==="returned"){ if(rev(id)==="returned")n++; }
+      else if(f==="complete"){ if(rev(id)==="complete")n++; }
       else if(f.indexOf("person:")===0){ if(U.flags[id]===f.slice(7))n++; }
     }));
     return n;
@@ -433,16 +475,25 @@
     const seg=(v,col)=>v?('<i style="width:'+(v/c.total*100)+'%;background:'+col+'"></i>'):'';
     document.getElementById("meter").innerHTML = seg(c.done,"#3fce93")+seg(c.partial,"#e6b45c")+seg(c.todo,"#9aa8ba")+seg(c.blocked,"#8a7ef4");
     document.getElementById("progresstext").innerHTML = "<b style='color:#e7eef7'>"+Math.round(c.done/c.total*100)+"% done</b> · "+c.total+" items reviewed";
-    const nf=Object.keys(U.flags).length;
-    document.getElementById("flagtext").textContent = nf? ("⚑ "+nf+" flagged") : "";
+    let nf=Object.keys(U.flags).length,nr=0,nc=0;
+    Object.keys(U.flags).forEach(id=>{ const r=U.review[id]; if(r==="returned")nr++; else if(r==="complete")nc++; });
+    const parts=[]; if(nf)parts.push("⚑ "+nf+" flagged"); if(nr)parts.push("↩ "+nr+" passed back"); if(nc)parts.push("✓ "+nc+" complete");
+    document.getElementById("flagtext").textContent = parts.join("  ·  ");
   }
   function renderFilters(){
     const base=[["all","All"],["client","Needs input"],["blocked","Blocked"],["outstanding","Outstanding"],["done","Done"]];
     const chip=(f,l)=>'<button class="chip'+(filter===f?" on":"")+'" data-filter="'+f+'">'+l+' <span class="c">'+countFilter(f)+'</span></button>';
     let html=base.map(b=>chip(b[0],b[1])).join("")+'<span class="fdiv"></span>'+chip("flagged","⚑ Flagged");
     U.people.forEach(p=>{ html+=chip("person:"+p,"⚑ "+esc(p)); });
+    html+='<span class="fdiv"></span>'+chip("returned","↩ Passed back")+chip("complete","✓ Complete");
     const fl=document.getElementById("filters"); fl.innerHTML=html;
     fl.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{ filter=b.getAttribute("data-filter"); render(); }));
+  }
+  function renderViewer(){
+    const sel=document.getElementById("viewerSel");
+    const opts=["Me"].concat(U.people);
+    if(opts.indexOf(viewer)<0) viewer="Me";
+    sel.innerHTML=opts.map(o=>'<option'+(o===viewer?" selected":"")+'>'+esc(o)+'</option>').join("");
   }
 
   function render(){
@@ -460,27 +511,39 @@
       app.appendChild(secEl);
     });
     if(!shown) app.innerHTML='<div class="empty">No items match this filter.</div>';
-    bind(); renderFilters(); renderSummary();
+    bind(); renderFilters(); renderViewer(); renderSummary();
   }
 
   function itemHTML(it,id){
-    const st=eff(id,it.s), flagged=isFlagged(id), who=U.flags[id]||"", hasnote=!!(U.notes[id]&&U.notes[id].trim());
+    const st=eff(id,it.s), flagged=isFlagged(id), who=U.flags[id]||"", r=rev(id);
+    const thread=U.notes[id]||[], noteOpen=openNotes.has(id)||thread.length>0;
     const flagCtl = (assigningId===id)
       ? '<div class="assign-menu"><span class="lbl">Flag for</span>'+U.people.map(p=>'<button class="pbtn" data-assign="'+id+'::'+esc(p)+'">'+esc(p)+'</button>').join("")+'<button class="pbtn add" data-addperson="'+id+'">＋ Add someone</button></div>'
       : flagged
         ? '<span class="assignchip"><span class="who" data-reassign="'+id+'" title="Reassign">⚑ '+(who?esc(who):"Flagged")+'</span><span class="x" data-unflag="'+id+'" title="Remove flag">✕</span></span>'
         : '<button class="flagbtn" data-flagmenu="'+id+'">⚑ Flag &amp; assign</button>';
-    return '<div class="item'+(flagged?" flagged":"")+'" data-id="'+id+'">'+
+    let revBadge="", revBtns="";
+    if(flagged){
+      if(r==="returned") revBadge='<span class="revbadge rev-returned">↩ Passed back</span>';
+      else if(r==="complete") revBadge='<span class="revbadge rev-complete">✓ Complete</span>';
+      if(r==="assigned") revBtns='<button class="revbtn back" data-rev="'+id+'::returned">↩ Pass back</button><button class="revbtn done" data-rev="'+id+'::complete">✓ Mark complete</button>';
+      else if(r==="returned") revBtns='<button class="revbtn done" data-rev="'+id+'::complete">✓ Mark complete</button><button class="revbtn" data-rev="'+id+'::assigned">Reopen</button>';
+      else revBtns='<button class="revbtn" data-rev="'+id+'::assigned">Reopen</button>';
+    }
+    const noteBtnLbl = thread.length? ("✎ Notes ("+thread.length+")") : "＋ Note";
+    const threadHTML = thread.map((e,ix)=>'<div class="nentry"><span class="nby">'+esc(e.by||"—")+'</span><span class="ntext">'+esc(e.t)+'</span><button class="ndel" data-ndel="'+id+'::'+ix+'" title="Delete note">✕</button></div>').join("");
+    const addHTML = '<div class="nadd"><textarea data-nadd="'+id+'" placeholder="Add a note as '+esc(viewer)+'…"></textarea><button class="pbtn" data-nsend="'+id+'">Add note</button></div>';
+    return '<div class="item'+(flagged?" flagged":"")+(r==="complete"?" complete":"")+(r==="returned"?" returned":"")+'" data-id="'+id+'">'+
       '<div class="item-main">'+
         '<button class="status-pill s-'+st+'" data-cycle="'+id+'" title="Tap to change status">'+STATUS[st]+'</button>'+
         '<div><span class="itxt">'+esc(it.x)+'</span><span class="tag">'+TAGLBL[it.tag]+'</span>'+
         '<div class="adj">'+esc(it.note)+'</div></div>'+
       '</div>'+
       '<div class="item-foot"><div class="foot-actions">'+
-        '<button class="notebtn'+(hasnote?" on":"")+'" data-notetoggle="'+id+'">'+(hasnote?"✎ Note":"＋ Note")+'</button>'+
-        flagCtl+
+        '<button class="notebtn'+(thread.length?" on":"")+'" data-notetoggle="'+id+'">'+noteBtnLbl+'</button>'+
+        flagCtl+revBadge+revBtns+
       '</div>'+
-        '<div class="notebox'+(hasnote?" open":"")+'"><textarea class="note" data-note="'+id+'" placeholder="Add a note…">'+esc(U.notes[id]||"")+'</textarea></div>'+
+        '<div class="notebox'+(noteOpen?" open":"")+'"><div class="thread">'+threadHTML+addHTML+'</div></div>'+
       '</div>'+
     '</div>';
   }
@@ -492,20 +555,22 @@
       save(); b.className="status-pill s-"+next; b.textContent=STATUS[next]; renderSummary(); renderFilters(); updateSectionCount();
     }));
     app.querySelectorAll("[data-notetoggle]").forEach(b=>b.addEventListener("click",()=>{
-      const box=b.closest(".item-foot").querySelector(".notebox"); box.classList.toggle("open");
-      if(box.classList.contains("open")){ const ta=box.querySelector("textarea"); if(ta) ta.focus(); }
+      const id=b.getAttribute("data-notetoggle"); if(openNotes.has(id)) openNotes.delete(id); else openNotes.add(id); render();
+      const ta=app.querySelector('[data-nadd="'+id+'"]'); if(ta&&openNotes.has(id)) ta.focus();
     }));
-    app.querySelectorAll("[data-note]").forEach(t=>{ let to;
-      t.addEventListener("input",()=>{ const id=t.getAttribute("data-note"); U.notes[id]=t.value;
-        const btn=t.closest(".item-foot").querySelector(".notebtn"); if(btn){ const on=!!t.value.trim(); btn.classList.toggle("on",on); btn.textContent=on?"✎ Note":"＋ Note"; }
-        clearTimeout(to); to=setTimeout(save,300);
-      });
-    });
+    app.querySelectorAll("[data-nsend]").forEach(b=>b.addEventListener("click",()=>sendNote(b.getAttribute("data-nsend"))));
+    app.querySelectorAll("[data-nadd]").forEach(t=>t.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); sendNote(t.getAttribute("data-nadd")); } }));
+    app.querySelectorAll("[data-ndel]").forEach(b=>b.addEventListener("click",()=>{ const p=b.getAttribute("data-ndel").split("::"); (U.notes[p[0]]||[]).splice(+p[1],1); openNotes.add(p[0]); save(); render(); }));
+    app.querySelectorAll("[data-rev]").forEach(b=>b.addEventListener("click",()=>{ const p=b.getAttribute("data-rev").split("::"); U.review[p[0]]=p[1]; save(); render(); }));
     app.querySelectorAll("[data-flagmenu]").forEach(b=>b.addEventListener("click",()=>{ assigningId=b.getAttribute("data-flagmenu"); render(); }));
     app.querySelectorAll("[data-reassign]").forEach(b=>b.addEventListener("click",()=>{ assigningId=b.getAttribute("data-reassign"); render(); }));
-    app.querySelectorAll("[data-unflag]").forEach(b=>b.addEventListener("click",()=>{ delete U.flags[b.getAttribute("data-unflag")]; assigningId=null; save(); render(); }));
-    app.querySelectorAll("[data-assign]").forEach(b=>b.addEventListener("click",()=>{ const parts=b.getAttribute("data-assign").split("::"); U.flags[parts[0]]=parts[1]; assigningId=null; save(); render(); }));
-    app.querySelectorAll("[data-addperson]").forEach(b=>b.addEventListener("click",()=>{ const id=b.getAttribute("data-addperson"); const name=(prompt("Assign to whom?")||"").trim(); if(!name) return; if(U.people.indexOf(name)<0) U.people.push(name); U.flags[id]=name; assigningId=null; save(); render(); }));
+    app.querySelectorAll("[data-unflag]").forEach(b=>b.addEventListener("click",()=>{ const id=b.getAttribute("data-unflag"); delete U.flags[id]; delete U.review[id]; assigningId=null; save(); render(); }));
+    app.querySelectorAll("[data-assign]").forEach(b=>b.addEventListener("click",()=>{ const p=b.getAttribute("data-assign").split("::"); U.flags[p[0]]=p[1]; if(!U.review[p[0]]) U.review[p[0]]="assigned"; assigningId=null; save(); render(); }));
+    app.querySelectorAll("[data-addperson]").forEach(b=>b.addEventListener("click",()=>{ const id=b.getAttribute("data-addperson"); const name=(prompt("Assign to whom?")||"").trim(); if(!name) return; if(U.people.indexOf(name)<0) U.people.push(name); U.flags[id]=name; if(!U.review[id]) U.review[id]="assigned"; assigningId=null; save(); render(); }));
+  }
+  function sendNote(id){
+    const ta=app.querySelector('[data-nadd="'+id+'"]'); if(!ta) return; const v=ta.value.trim(); if(!v) return;
+    (U.notes[id]=U.notes[id]||[]).push({by:viewer,t:v}); openNotes.add(id); save(); render();
   }
   function updateSectionCount(){
     app.querySelectorAll(".section").forEach(secEl=>{ const first=secEl.querySelector("[data-id]"); if(!first) return;
@@ -515,18 +580,20 @@
   }
 
   document.getElementById("search").addEventListener("input",e=>{ query=e.target.value.trim(); render(); });
+  document.getElementById("viewerSel").addEventListener("change",e=>{ setViewer(e.target.value); render(); });
 
   function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2600); }
   function encodeState(){ const b=btoa(unescape(encodeURIComponent(JSON.stringify(U)))).replace(/\+/g,"-").replace(/\//g,"_"); return location.href.split("#")[0]+"#s="+b; }
   document.getElementById("shareBtn").addEventListener("click",()=>{
     const url=encodeState();
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Share link copied — it carries every note & flag"),()=>prompt("Copy this link:",url)); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Share link copied — notes, flags & status all travel with it"),()=>prompt("Copy this link:",url)); }
     else prompt("Copy this link:",url);
   });
   document.getElementById("loadBtn").addEventListener("click",()=>{
     const v=prompt("Paste a share link (or its #s=… code):"); if(!v) return;
     try{ const m=v.match(/s=([^&\s]+)/); const code=m?m[1]:v; U=JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,"+").replace(/_/g,"/")))));
-      U.status=U.status||{};U.flags=U.flags||{};U.notes=U.notes||{}; U.people=Array.isArray(U.people)&&U.people.length?U.people:["Jessie"];
+      U.status=U.status||{};U.flags=U.flags||{};U.notes=U.notes||{};U.review=U.review||{}; U.people=Array.isArray(U.people)&&U.people.length?U.people:["Jessie"];
+      Object.keys(U.notes).forEach(id=>{ if(typeof U.notes[id]==="string"){ U.notes[id]=U.notes[id].trim()?[{by:"",t:U.notes[id]}]:[]; } });
       save(); render(); toast("Progress loaded"); }
     catch(e){ toast("Couldn’t read that link"); }
   });
@@ -539,7 +606,7 @@
     tag.textContent=JSON.stringify(U);
     const html="<!doctype html>\n"+document.documentElement.outerHTML;
     a1.innerHTML=snap.a;sum.innerHTML=snap.s;met.innerHTML=snap.m;fil.innerHTML=snap.f;tag.textContent="";
-    try{ const blob=new Blob([html],{type:"text/html"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="wasabirub-build-review.html"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); toast("Downloaded — your notes & flags are in that file"); }
+    try{ const blob=new Blob([html],{type:"text/html"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="wasabirub-build-review.html"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); toast("Downloaded — notes, flags & status are in that file"); }
     catch(e){ if(window.claude&&window.claude.downloads){ window.claude.downloads.save({filename:"wasabirub-build-review.html",data:html}).then(()=>toast("Saved with your notes")).catch(()=>toast("Download was declined")); } else toast("Couldn’t download here — use the share link"); }
   });
 
