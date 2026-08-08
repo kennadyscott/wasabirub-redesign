@@ -32,8 +32,20 @@ the top of the checklist and repeated here because they gate real work:
    Shopify, Stripe, Snipcart or WooCommerce exists — only a counter reading 0.
 2. **Separate site, or a section of sportpharm.com?** This sets the nav, the
    footer, the persona toggle, and whether the SportPharm logo goes.
-3. **Rename scope.** "IcetraRub" appears in 53 files with its own pages and
-   ~12 assets. Do URLs change? Do old ones redirect?
+3. ~~**Rename scope.**~~ **Decided (8 Aug):** product pages are renamed to
+   match the product names and the old URLs redirect.
+
+   | Was | Now |
+   |---|---|
+   | `superhot-product.html` | `wasabirub-super-hot.html` |
+   | `icetrarub-product.html` | `wasabirub-super-cold.html` |
+   | `superhot.html` | canonical redirect to Super Hot |
+   | `icetrarub.html` | canonical redirect to Super Cold |
+
+   Still open on this: `wasabirub-product.html` keeps its name, because
+   `wasabirub.html` is the brand homepage and the two cannot share a URL.
+   And ~12 assets still carry `icetrarub-*` / `superhot-*` filenames; those
+   are invisible to visitors, so they were left alone.
 4. **Which prices are real?** Five different figures currently appear across
    the two pages: $10, $29.95, $39.95, $59.99, $69.90.
 5. **Which file is the hero image?** §4 calls for a real open-jar close-up.
@@ -48,6 +60,23 @@ the top of the checklist and repeated here because they gate real work:
 **Still missing:**
 - UFC, USA Handball and Nexus Sports Medicine logos (§12) — also gated on written permission
 - A real athlete or practitioner photograph, not staged stock (§9)
+- **A genuine Super Hot and Super Cold testimonial.** Every quote in the repo is
+  either brand-level WasabiRub or about another SportPharm service. The variant
+  pages ship without a testimonial section rather than carry an invented or
+  misattributed quote.
+
+## Page status
+
+| Page | State |
+|---|---|
+| `wasabirub.html` | Redesigned — the reference |
+| `wasabirub-product.html` | Redesigned — the product template |
+| `wasabirub-super-hot.html` | Rebuilt on the template |
+| `wasabirub-super-cold.html` | Rebuilt on the template |
+| `how-it-works.html` | Redesigned |
+| `find-your-rub.html` | Redesigned (Shop) |
+| `superhot.html`, `icetrarub.html` | Redirects |
+| `products.html` | **Not ours** — a SportPharm page, correct as-is |
 
 **Resolved:**
 - Ingredient photography (§7) — chili, mint and wintergreen were embedded in the client's mockup;
