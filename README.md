@@ -42,10 +42,13 @@ the top of the checklist and repeated here because they gate real work:
    | `superhot.html` | canonical redirect to Super Hot |
    | `icetrarub.html` | canonical redirect to Super Cold |
 
-   Still open on this: `wasabirub-product.html` keeps its name, because
-   `wasabirub.html` is the brand homepage and the two cannot share a URL.
-   And ~12 assets still carry `icetrarub-*` / `superhot-*` filenames; those
-   are invisible to visitors, so they were left alone.
+   Settled fully (8 Aug): the product page took `wasabirub.html` and the
+   brand homepage moved to `wasabirub-home.html`. The ~83 links that already
+   pointed at `wasabirub.html` now land on the product page, which is the
+   intent. The nav logo points at the brand home so it is not orphaned.
+
+   ~12 assets still carry `icetrarub-*` / `superhot-*` filenames; those are
+   invisible to visitors, so they were left alone.
 4. **Which prices are real?** Five different figures currently appear across
    the two pages: $10, $29.95, $39.95, $59.99, $69.90.
 5. **Which file is the hero image?** §4 calls for a real open-jar close-up.
@@ -69,12 +72,12 @@ the top of the checklist and repeated here because they gate real work:
 
 | Page | State |
 |---|---|
-| `wasabirub.html` | Redesigned — the reference |
-| `wasabirub-product.html` | Redesigned — the product template |
+| `wasabirub-home.html` | Brand homepage — the reference |
+| `wasabirub.html` | WasabiRub product page — the template |
 | `wasabirub-super-hot.html` | Rebuilt on the template |
 | `wasabirub-super-cold.html` | Rebuilt on the template |
 | `how-it-works.html` | Redesigned |
-| `find-your-rub.html` | Redesigned (Shop) |
+| `wasabirub-shop.html` | Redesigned (Shop) |
 | `superhot.html`, `icetrarub.html` | Redirects |
 | `products.html` | **Not ours** — a SportPharm page, correct as-is |
 
