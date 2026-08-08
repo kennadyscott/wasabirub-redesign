@@ -125,6 +125,30 @@ the top of the checklist and repeated here because they gate real work:
   saved as `ing-capsaicin`, `ing-menthol`, `ing-wintergreen`, plus a better `trushield-logo`
 - A WasabiRub wordmark — moot for now; the nav follows the mockup and carries no logo at all
 
+## Metadata and social cards
+
+Every page carries a canonical, Open Graph and Twitter card tags, and a
+purpose-built 1200x630 share image (`assets/og-*.jpg`, ~50KB each). The
+product cutouts were not usable directly: they are square 1300x630 PNGs with
+transparency, which social platforms composite unpredictably.
+
+**These URLs are absolute and point at the sandbox:**
+`https://kennadyscott.github.io/wasabirub-redesign/`. Every `canonical`,
+`og:url` and `og:image` has to be rewritten at launch. They are absolute
+rather than relative because Open Graph images must be absolute to resolve,
+and pointing them at a domain that does not serve these pages yet would be
+worse than pointing them here.
+
+Still missing, and worth more than the FAQ markup for a shop:
+- **`Product` / `Offer` schema** on the three product pages. This still
+  produces rich results where FAQPage no longer does for consumer brands.
+  Blocked on open question 4 (which prices are real) and question 1
+  (`availability` is meaningless with no store behind the cart).
+- Note on FAQ: the markup is valid and matches visible copy on all four
+  pages, but Google restricted FAQ rich results to government and health
+  sites in 2023, so rich results are unlikely here regardless. It still
+  earns its place for AI answer engines and other search engines.
+
 ## Ground rules
 
 - The live repo is the source of truth for anything already shipped.
