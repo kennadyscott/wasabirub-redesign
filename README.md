@@ -49,8 +49,11 @@ the top of the checklist and repeated here because they gate real work:
 
    ~12 assets still carry `icetrarub-*` / `superhot-*` filenames; those are
    invisible to visitors, so they were left alone.
-4. **Which prices are real?** Five different figures currently appear across
-   the two pages: $10, $29.95, $39.95, $59.99, $69.90.
+4. **Which prices are real?** Narrowed (8 Aug): replacing the OG Heat Duo block
+   with the Featured Products banner removed the only occurrence of $59.99 and
+   $69.90, and the $10 "SAVE" badge went with it. The brand homepage now shows
+   just $29.95 and $39.95, consistently. Those two still need confirming, and
+   the duo bundle needs a decision — it currently has nowhere to be sold.
 5. **Which file is the hero image?** §4 calls for a real open-jar close-up.
 6. **Where does lifestyle imagery and human connection now live?** Shelving the
    athlete hub removed the only place built for it, and the product-page cleanup

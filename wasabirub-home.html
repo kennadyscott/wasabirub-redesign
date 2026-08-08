@@ -70,7 +70,7 @@
     
     .eyebrow.dark{color:#52605b}.n1{color:var(--blue)}.n2{color:var(--red)}.n3{color:var(--green)}
     .selector{padding:72px 0;background:var(--deep);color:#fff}
-    .selector .eyebrow{color:#aab7b1}
+    .selector .eyebrow{color:#6e7773}
     .selector-head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
     .selector-head h2{font-size:clamp(46px,5vw,70px);line-height:.9}
     .selector-head p{max-width:390px;color:#aab7b1;line-height:1.6}
@@ -107,15 +107,15 @@
     .tdots{display:flex;gap:8px}
     .tdot{width:8px;height:8px;border-radius:50%;background:#d2d7d4;border:0;cursor:pointer;padding:0;transition:.2s}
     .tdot.is-active{background:var(--red);width:22px;border-radius:5px}
-    .bundle{display:grid;grid-template-columns:1fr 1fr;margin-bottom:0;background:var(--paper)}
-    .bundle-image{position:relative;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle,#fff,#e9ebec 72%)}
-    .bundle-image img{width:68%;max-width:390px}
-    .save{position:absolute;right:10%;top:12%;display:flex;flex-direction:column;align-items:center;justify-content:center;width:92px;height:92px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:900;transform:rotate(8deg)}
+    
+    
+    
+    
     .save b{font-size:20px}
-    .bundle-copy{padding:48px}
-    .bundle-copy h2{font-size:clamp(46px,5vw,68px);line-height:.9}.bundle-copy h2 em{color:var(--red)}
-    .bundle-copy>p{max-width:430px;color:#5f6865;line-height:1.6}
-    .bundle-copy strong{margin-right:12px;font-size:32px}.bundle-copy s{color:#7d8783}.bundle-copy .primary{margin-top:28px}
+    
+    
+    
+    
     .final{position:relative;overflow:hidden;padding:68px 0;background:var(--deep);color:#fff;text-align:center}
     .final .eyebrow{justify-content:center}.final .eyebrow i{background:#fff}
     .final h2{font-size:clamp(68px,8vw,108px);line-height:.86}.final p{font-size:18px}
@@ -159,8 +159,8 @@
     .modal-success .check{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:#e2eee8;color:var(--green);display:flex;align-items:center;justify-content:center}
     .modal-success .check svg{width:32px;height:32px}
     .modal-success p{color:#5f6a66;line-height:1.6;font-size:14px}
-    @media(max-width:900px){nav{display:none}.hero-grid,.hero-copy{padding-bottom:10px}.hero-product{min-height:400px}.selector-head{align-items:flex-start;flex-direction:column}.result-image img{width:250px;height:250px}.bundle-image img{width:55%}.footer-top{flex-direction:column;gap:30px}}
-    @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand-name{font-size:23px}.brand-tag{font-size:9.5px}.nav-cta{padding:12px;font-size:9px}.hero h1{font-size:62px}.hero-actions{align-items:stretch;flex-direction:column}.hero-product{min-height:300px}.hero-product img{width:min(94%,430px)}.price{right:0;top:10%}.action-list article{grid-template-columns:38px 1fr}.tag{display:none}.tabs{grid-template-columns:1fr;margin-top:28px}.result{display:flex;flex-direction:column}.result-image img{width:230px;height:230px}.result-copy{padding:32px}.result-buy{align-items:flex-start;gap:20px;flex-direction:column}.bundle{width:100%;margin-bottom:0}.bundle-image img{width:70%}.final{padding:58px 0}.footer-brand img{width:180px}}
+    @media(max-width:900px){nav{display:none}.hero-grid,.hero-copy{padding-bottom:10px}.hero-product{min-height:400px}.selector-head{align-items:flex-start;flex-direction:column}.result-image img{width:250px;height:250px}.footer-top{flex-direction:column;gap:30px}}
+    @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand-name{font-size:23px}.brand-tag{font-size:9.5px}.nav-cta{padding:12px;font-size:9px}.hero h1{font-size:62px}.hero-actions{align-items:stretch;flex-direction:column}.hero-product{min-height:300px}.hero-product img{width:min(94%,430px)}.price{right:0;top:10%}.action-list article{grid-template-columns:38px 1fr}.tag{display:none}.tabs{grid-template-columns:1fr;margin-top:28px}.result{display:flex;flex-direction:column}.result-image img{width:230px;height:230px}.result-copy{padding:32px}.result-buy{align-items:flex-start;gap:20px;flex-direction:column}.final{padding:58px 0}.footer-brand img{width:180px}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   .modal-fallback{margin:14px 0 0;padding-top:12px;border-top:1px solid #e4e7ea;font-size:12.5px;color:#7b8aa1;line-height:1.6}
 .modal-fallback a{color:#c62b23;font-weight:800}
@@ -557,7 +557,39 @@
       text-transform:uppercase;color:#656f77;line-height:1}
     .navby img{height:13px;width:auto;display:block;opacity:.9}
     @media(max-width:820px){.navby{display:none}}
-  </style>
+  
+/* ===== featured products banner (S11) ===== */
+.featured{position:relative;padding:78px 0 86px;overflow:hidden;
+  background:
+    radial-gradient(78% 120% at 50% 4%, rgba(226,59,59,.055) 0%, rgba(226,59,59,0) 62%),
+    radial-gradient(128% 104% at 50% 26%, #fdfdfe 0%, #f2f5f7 50%, #e6ebef 100%)}
+.featured-in{width:min(1180px,calc(100% - 40px));margin:auto;text-align:center}
+.featured-head{max-width:660px;margin:0 auto 46px}
+.featured-head h2{margin:12px 0 14px;font-size:clamp(38px,4.4vw,58px);line-height:.94;letter-spacing:-.02em}
+.featured-head h2 em{color:var(--red);font-style:normal}
+.featured-lead{margin:0;color:#4f5a57;line-height:1.65;font-size:1.02rem}
+.featured-row{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  margin:0 0 44px;padding:0;list-style:none}
+.featured-row a{display:block;padding:8px 6px 14px;text-decoration:none;color:inherit;
+  border-radius:14px;transition:transform .25s ease}
+.featured-row a:hover{transform:translateY(-5px)}
+.featured-row a:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+.fp-img{position:relative;display:flex;align-items:center;justify-content:center;
+  height:236px;margin-bottom:18px}
+.fp-img::before{content:"";position:absolute;left:50%;top:52%;width:78%;height:78%;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle, rgba(15,29,51,.10) 0%, rgba(15,29,51,0) 68%)}
+.fp-img img{position:relative;max-height:100%;max-width:80%;width:auto;object-fit:contain}
+.featured-row b{display:block;font-size:1.12rem;letter-spacing:-.01em}
+.featured-row small{display:block;margin-top:5px;color:#5c6663;font-size:.9rem}
+.featured-cta{display:inline-flex;align-items:center;gap:10px}
+@media(max-width:900px){
+  .featured{padding:58px 0 64px}
+  .featured-row{grid-template-columns:1fr;gap:14px;margin-bottom:34px}
+  .fp-img{height:190px;margin-bottom:12px}
+  .featured-head{margin-bottom:34px}
+}
+</style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -935,9 +967,20 @@
         </div>
       </section>
 
-      <section class="bundle shell">
-      <div class="bundle-image"><img src="assets/wr-duo.png?v=4" alt="WasabiRub OG Heat Duo"><span class="save">SAVE<br><b>$10</b></span></div>
-      <div class="bundle-copy"><h2>THE OG<br><em>HEAT DUO.</em></h2><p>Balanced everyday heat plus double-strength intensity. Two recovery modes, one better price.</p><div><strong>$59.99</strong><s>$69.90</s></div><a class="primary" href="https://sportpharm.com/product/duo-bundle-original-super-hot/">SHOP THE DUO <span>→</span></a></div>
+      <section class="featured" id="featured" aria-labelledby="featured-h">
+      <div class="featured-in">
+        <div class="featured-head">
+          <p class="eyebrow"><i></i> THE WASABIRUB RANGE</p>
+          <h2 id="featured-h">THREE RUBS.<br><em>ONE STANDARD.</em></h2>
+          <p class="featured-lead">Same pharmacy, same triple-action thinking. What changes is how much heat you want behind the cooling.</p>
+        </div>
+        <ul class="featured-row">
+          <li><a href="wasabirub.html"><span class="fp-img"><img src="assets/wasabirub-og-trushield-clear.png?v=3" alt="WasabiRub" decoding="async"></span><b>WasabiRub</b><small>Balanced cool, then warm</small></a></li>
+          <li><a href="wasabirub-super-hot.html"><span class="fp-img"><img src="assets/superhot-trushield-clear.png?v=3" alt="WasabiRub Super Hot" decoding="async"></span><b>Super Hot</b><small>Double the capsaicin</small></a></li>
+          <li><a href="wasabirub-super-cold.html"><span class="fp-img"><img src="assets/icetrarub-trushield-clear.png?v=3" alt="WasabiRub Super Cold" decoding="async"></span><b>Super Cold</b><small>Cooling only, no heat</small></a></li>
+        </ul>
+        <a class="primary featured-cta" href="wasabirub-shop.html">SHOP ALL WASABIRUB <span>&rarr;</span></a>
+      </div>
     </section>
 
     <section class="final">
