@@ -394,12 +394,12 @@
       .partners-row li{border-left:0;padding:0;font-size:15px}
     }
   
-    /* --- selector heading: left aligned, tighter to the testimonials above --- */
-    .selector{padding:26px 0 76px}
+    /* --- selector heading: left aligned, tighter to the testimonials below --- */
+    .selector{padding:76px 0 26px}
     .selector-head{display:block;text-align:left}
     .selector-head .eyebrow{margin-bottom:12px}
     .selector-head h2{margin:0}
-    .proof{padding-bottom:26px}
+    .proof{padding-top:26px;padding-bottom:56px}
   
     /* --- homepage FAQ --- */
     .hfaq{background:#fff;padding:80px 0 86px}
@@ -706,7 +706,49 @@
         </div>
       </section>
 
-      <section class="proof shell" id="proof">
+      <section class="selector" id="lineup">
+        <div class="shell">
+          <div class="selector-head">
+            <p class="eyebrow">Find your relief</p>
+            <h2>HOW DO YOU WANT<br>RELIEF TO <em>FEEL?</em></h2>
+          </div>
+          <div class="pcards">
+          <article class="pcard og">
+            <p class="pcard-cue">Balanced &middot; Everyday</p>
+            <h3>WasabiRub</h3>
+            <p class="pcard-desc">Three active ingredients. Cooling first, followed by lasting warmth.</p>
+            <div class="pcard-img"><img src="assets/wr-wasabirub.png" alt="WasabiRub jar" decoding="async"></div>
+            <div class="pcard-foot">
+              <strong>$29.95</strong>
+              <a class="primary" href="wasabirub.html">SHOP WASABIRUB <span>&rarr;</span></a>
+            </div>
+          </article>
+          <article class="pcard hot">
+            <p class="pcard-cue">Intense &middot; Hot</p>
+            <h3>WasabiRub Super Hot</h3>
+            <p class="pcard-desc">Double-strength capsaicin for athletes who want serious heat.</p>
+            <div class="pcard-img"><img src="assets/wr-superhot.png" alt="WasabiRub Super Hot jar" decoding="async"></div>
+            <div class="pcard-foot">
+              <strong>$39.95</strong>
+              <a class="primary" href="wasabirub-super-hot.html">SHOP SUPER HOT <span>&rarr;</span></a>
+            </div>
+          </article>
+          <article class="pcard cold">
+            <p class="pcard-cue">Clean &middot; Cool</p>
+            <h3>WasabiRub Super Cold</h3>
+            <p class="pcard-desc">Focused menthol cooling without the warming sensation.</p>
+            <div class="pcard-img"><img src="assets/wr-icetrarub.png" alt="WasabiRub Super Cold jar" decoding="async"></div>
+            <div class="pcard-foot">
+              <strong>$29.95</strong>
+              <a class="primary" href="wasabirub-super-cold.html">SHOP SUPER COLD <span>&rarr;</span></a>
+            </div>
+          </article>
+          </div>
+        </div>
+      </section>
+    
+
+    <section class="proof shell" id="proof">
       <div class="proof-head"><p class="eyebrow">Trusted in training rooms</p><h2>THE PROFESSIONALS FEEL THE <em>DIFFERENCE.</em></h2></div>
         <div class="tcarousel" id="tcarousel"><div class="ttrack" id="ttrack">
         <div class="tslide is-active">
@@ -749,46 +791,7 @@
         </div>
     </section>
 
-    <section class="selector" id="lineup">
-        <div class="shell">
-          <div class="selector-head">
-            <p class="eyebrow">Find your relief</p>
-            <h2>HOW DO YOU WANT<br>RELIEF TO <em>FEEL?</em></h2>
-          </div>
-          <div class="pcards">
-          <article class="pcard og">
-            <p class="pcard-cue">Balanced &middot; Everyday</p>
-            <h3>WasabiRub</h3>
-            <p class="pcard-desc">Three active ingredients. Cooling first, followed by lasting warmth.</p>
-            <div class="pcard-img"><img src="assets/wr-wasabirub.png" alt="WasabiRub jar" decoding="async"></div>
-            <div class="pcard-foot">
-              <strong>$29.95</strong>
-              <a class="primary" href="wasabirub.html">SHOP WASABIRUB <span>&rarr;</span></a>
-            </div>
-          </article>
-          <article class="pcard hot">
-            <p class="pcard-cue">Intense &middot; Hot</p>
-            <h3>WasabiRub Super Hot</h3>
-            <p class="pcard-desc">Double-strength capsaicin for athletes who want serious heat.</p>
-            <div class="pcard-img"><img src="assets/wr-superhot.png" alt="WasabiRub Super Hot jar" decoding="async"></div>
-            <div class="pcard-foot">
-              <strong>$39.95</strong>
-              <a class="primary" href="wasabirub-super-hot.html">SHOP SUPER HOT <span>&rarr;</span></a>
-            </div>
-          </article>
-          <article class="pcard cold">
-            <p class="pcard-cue">Clean &middot; Cool</p>
-            <h3>WasabiRub Super Cold</h3>
-            <p class="pcard-desc">Focused menthol cooling without the warming sensation.</p>
-            <div class="pcard-img"><img src="assets/wr-icetrarub.png" alt="WasabiRub Super Cold jar" decoding="async"></div>
-            <div class="pcard-foot">
-              <strong>$29.95</strong>
-              <a class="primary" href="wasabirub-super-cold.html">SHOP SUPER COLD <span>&rarr;</span></a>
-            </div>
-          </article>
-          </div>
-        </div>
-      </section>
+    
     <script>
       (function(){
         var car=document.getElementById("tcarousel");if(!car)return;
