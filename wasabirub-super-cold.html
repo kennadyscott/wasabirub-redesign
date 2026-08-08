@@ -233,23 +233,21 @@
     .pcard-img{background:none}
   
     /* --- flame mark, far left of the nav --- */
-    .navmark{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none;margin-right:28px;color:var(--ink)}
-    .nav .navmark + .nav-links{margin-left:0}
-    .navmark img{height:30px;width:auto;display:block}
-    .navmark span{font-size:11px;font-weight:900;letter-spacing:-.01em;line-height:1}
+    .navlock{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:none;margin-right:30px}.navmark{display:flex;flex-direction:row;align-items:center;gap:9px;flex:none;margin:0;color:var(--ink);text-decoration:none}
+    .nav .navlock + .nav-links{margin-left:0}
+    .navmark img{height:27px;width:auto;display:block}
+    .navmark span{font-size:20px;font-weight:900;letter-spacing:-.022em;line-height:1}
     @media(max-width:820px){
-      .navmark{margin-right:0;order:0}
-      .navmark img{height:26px}
-      .navmark span{font-size:10px}
+      .navlock{margin-right:0;order:0}
+      .navmark img{height:24px}
+      .navmark span{font-size:17px}
     }
   
     /* --- SportPharm endorsement beside the WasabiRub mark --- */
-    .navby{display:flex;flex-direction:column;justify-content:center;gap:3px;flex:none;
-      margin:0 28px 0 -12px;padding-left:20px;border-left:1px solid #e0e4e7}
-    .navby i{font-style:normal;font-size:8.5px;font-weight:800;letter-spacing:.12em;
-      text-transform:uppercase;color:#656f77;line-height:1}
-    .navby img{height:13px;width:auto;display:block;opacity:.9}
-    @media(max-width:820px){.navby{display:none}}
+    .navby{display:flex;flex-direction:row;align-items:center;gap:5px;flex:none;margin:0 0 0 36px;padding:0;border:0}
+    .navby i{font-style:normal;font-size:7.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#6d767e;line-height:1}
+    .navby img{height:10px;width:auto;display:block;opacity:.85}
+    @media(max-width:820px){.navby{margin-left:33px}.navby img{height:9px}}
   
     h1,h2,h3{text-wrap:balance}
     
@@ -305,7 +303,7 @@
     <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
   </div>
   <header class="nav shell">
-        <a class="navmark" href="wasabirub-home.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span>
+        <div class="navlock"><a class="navmark" href="wasabirub-home.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
         <nav class="nav-links" aria-label="Main navigation">
           <div class="menu">
             <a class="menu-top" href="wasabirub-shop.html">SHOP <span class="caret">&#8964;</span></a>
