@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WasabiRub Redesign — Build Review</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%E2%9C%85%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#eef1f5; --surface:#ffffff; --surface-2:#f7f9fb;
+    --ink:#141e2b; --muted:#5d6b7b; --faint:#8b98a8; --line:#e2e7ee; --line-2:#eef1f5;
+    --brand:#d6202a; --brand-ink:#a5141d; --navy:#0f1d33;
+    --done:#12794f; --done-bg:#e5f3ec; --done-line:#bfe3d0;
+    --partial:#a76410; --partial-bg:#fbf1df; --partial-line:#f0dcb6;
+    --todo:#64717f; --todo-bg:#eef1f4; --todo-line:#d9dfe6;
+    --blocked:#5b52d6; --blocked-bg:#ecebfb; --blocked-line:#d3cff4;
+    --shadow:0 1px 2px rgba(16,29,51,.04),0 8px 24px -14px rgba(16,29,51,.18);
+    --radius:14px;
+    --fdisplay:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --fbody:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --fmono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0b111b; --surface:#121b28; --surface-2:#0f1824;
+      --ink:#e7edf5; --muted:#93a2b4; --faint:#6c7c8f; --line:#243244; --line-2:#1a2534;
+      --brand:#f6414b; --brand-ink:#ff6068; --navy:#0c1626;
+      --done:#4fd39a; --done-bg:#122b22; --done-line:#1f4636;
+      --partial:#e8b661; --partial-bg:#2c2313; --partial-line:#4a3c1d;
+      --todo:#9aa8ba; --todo-bg:#1a2431; --todo-line:#2b3a4c;
+      --blocked:#9c92f7; --blocked-bg:#1d1b34; --blocked-line:#332f57;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#eef1f5; --surface:#ffffff; --surface-2:#f7f9fb; --ink:#141e2b; --muted:#5d6b7b; --faint:#8b98a8; --line:#e2e7ee; --line-2:#eef1f5;
+    --brand:#d6202a; --brand-ink:#a5141d; --navy:#0f1d33;
+    --done:#12794f; --done-bg:#e5f3ec; --done-line:#bfe3d0; --partial:#a76410; --partial-bg:#fbf1df; --partial-line:#f0dcb6;
+    --todo:#64717f; --todo-bg:#eef1f4; --todo-line:#d9dfe6; --blocked:#5b52d6; --blocked-bg:#ecebfb; --blocked-line:#d3cff4;
+    --shadow:0 1px 2px rgba(16,29,51,.04),0 8px 24px -14px rgba(16,29,51,.18);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b111b; --surface:#121b28; --surface-2:#0f1824; --ink:#e7edf5; --muted:#93a2b4; --faint:#6c7c8f; --line:#243244; --line-2:#1a2534;
+    --brand:#f6414b; --brand-ink:#ff6068; --navy:#0c1626;
+    --done:#4fd39a; --done-bg:#122b22; --done-line:#1f4636; --partial:#e8b661; --partial-bg:#2c2313; --partial-line:#4a3c1d;
+    --todo:#9aa8ba; --todo-bg:#1a2431; --todo-line:#2b3a4c; --blocked:#9c92f7; --blocked-bg:#1d1b34; --blocked-line:#332f57;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -16px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fbody);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px 96px}
+
+  /* header */
+  header.top{background:var(--navy);color:#fff;padding:26px 0 22px;border-bottom:3px solid var(--brand)}
+  .top .wrap{padding-bottom:0}
+  .brandrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .mark{font-family:var(--fdisplay);font-weight:900;font-size:20px;letter-spacing:-.02em}
+  .mark b{color:#fff}
+  .endorse{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#9fb0c6;font-weight:800}
+  h1.title{font-family:var(--fdisplay);font-weight:900;font-size:clamp(28px,5vw,40px);letter-spacing:-.03em;line-height:1.02;margin:16px 0 6px;text-wrap:balance}
+  .subtitle{color:#aebccf;font-size:14px;max-width:60ch}
+  .subtitle b{color:#e7eef7;font-weight:700}
+
+  /* summary */
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+  .stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:12px 14px}
+  .stat .n{font-family:var(--fmono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:700;line-height:1}
+  .stat .l{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#aebccf;margin-top:6px;display:flex;align-items:center;gap:6px}
+  .stat .l::before{content:"";width:9px;height:9px;border-radius:3px;display:inline-block}
+  .stat.done .n{color:#7ce3b0}.stat.done .l::before{background:#3fce93}
+  .stat.partial .n{color:#f2cd83}.stat.partial .l::before{background:#e6b45c}
+  .stat.todo .n{color:#c4d0de}.stat.todo .l::before{background:#9aa8ba}
+  .stat.blocked .n{color:#b3aaff}.stat.blocked .l::before{background:#8a7ef4}
+  .meter{height:9px;border-radius:6px;overflow:hidden;display:flex;margin-top:16px;background:rgba(255,255,255,.1)}
+  .meter i{height:100%;display:block}
+  .meternote{margin-top:9px;font-size:12px;color:#aebccf;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .flagcount{color:#ffb3b7;font-weight:700}
+
+  /* toolbar */
+  .toolbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -20px 22px;padding:12px 20px}
+  .toolbar-inner{max-width:960px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .filters{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{font-family:var(--fbody);font-size:12.5px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .chip:hover{border-color:var(--faint);color:var(--ink)}
+  .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .chip .c{font-family:var(--fmono);font-size:11px;opacity:.75}
+  .chip.on .c{opacity:.85}
+  .grow{flex:1}
+  .search{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;color:var(--ink);font-family:var(--fbody);min-width:150px}
+  .search:focus{outline:2px solid var(--brand);outline-offset:1px}
+  .btn{font-family:var(--fbody);font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 14px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:.15s;white-space:nowrap}
+  .btn:hover{border-color:var(--faint)}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  .btn.primary:hover{background:var(--brand-ink);border-color:var(--brand-ink)}
+
+  /* sections */
+  .section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+  .shead{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;user-select:none}
+  .shead .sn{font-family:var(--fmono);font-size:12px;font-weight:700;color:var(--brand);letter-spacing:.02em}
+  .shead h2{font-family:var(--fdisplay);font-size:16px;font-weight:800;letter-spacing:-.01em;margin:0;flex:1}
+  .scount{font-family:var(--fmono);font-variant-numeric:tabular-nums;font-size:12px;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px}
+  .caret{color:var(--faint);transition:transform .2s;font-size:12px}
+  .section.collapsed .caret{transform:rotate(-90deg)}
+  .section.collapsed .items{display:none}
+  .items{border-top:1px solid var(--line-2)}
+
+  /* item */
+  .item{padding:14px 18px;border-top:1px solid var(--line-2);position:relative}
+  .item:first-child{border-top:0}
+  .item.flagged{border-left:3px solid var(--brand);background:color-mix(in srgb,var(--brand) 4%,transparent)}
+  .item-main{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+  .status-pill{font-family:var(--fbody);font-size:10.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;border-radius:7px;padding:5px 9px;cursor:pointer;border:1px solid;white-space:nowrap;min-width:74px;text-align:center;transition:.12s}
+  .status-pill:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .s-done{color:var(--done);background:var(--done-bg);border-color:var(--done-line)}
+  .s-partial{color:var(--partial);background:var(--partial-bg);border-color:var(--partial-line)}
+  .s-todo{color:var(--todo);background:var(--todo-bg);border-color:var(--todo-line)}
+  .s-blocked{color:var(--blocked);background:var(--blocked-bg);border-color:var(--blocked-line)}
+  .itxt{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35}
+  .tag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:2px 6px;margin-left:8px;vertical-align:middle}
+  .adj{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.45}
+  .adj::before{content:"↳ ";color:var(--faint)}
+  .item-foot{margin-top:10px;padding-left:86px;display:flex;flex-direction:column;gap:8px}
+  @media(max-width:560px){.item-foot{padding-left:0}}
+  .flagbtn{align-self:flex-start;font-size:11.5px;font-weight:700;color:var(--muted);background:none;border:1px dashed var(--line);border-radius:999px;padding:4px 11px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+  .flagbtn:hover{border-color:var(--brand);color:var(--brand)}
+  .flagbtn.on{background:var(--brand);border-style:solid;border-color:var(--brand);color:#fff}
+  .notebox{display:none}
+  .item.flagged .notebox,.item.hasnote .notebox{display:block}
+  textarea.note{width:100%;font-family:var(--fbody);font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;resize:vertical;min-height:44px;line-height:1.45}
+  textarea.note:focus{outline:2px solid var(--brand);outline-offset:1px;background:var(--surface)}
+  textarea.note::placeholder{color:var(--faint)}
+
+  /* legend + footer */
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:8px 0 22px;font-size:12px;color:var(--muted)}
+  .legend b{color:var(--ink)}
+  .legend .k{display:inline-flex;align-items:center;gap:6px}
+  .legend .k::before{content:"";width:10px;height:10px;border-radius:3px}
+  .legend .lg-done::before{background:var(--done)}.legend .lg-partial::before{background:var(--partial)}
+  .legend .lg-todo::before{background:var(--todo)}.legend .lg-blocked::before{background:var(--blocked)}
+  .note-lead{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:12px;padding:14px 16px;margin:22px 0;font-size:13.5px;color:var(--muted);box-shadow:var(--shadow)}
+  .note-lead b{color:var(--ink)}
+  .empty{text-align:center;color:var(--faint);padding:40px;font-size:14px}
+  footer.ft{text-align:center;color:var(--faint);font-size:12px;margin-top:30px}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 12px 30px -8px rgba(0,0,0,.5);opacity:0;transition:.25s;z-index:50;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media print{
+    .toolbar,.flagbtn,footer.ft,.theme{display:none!important}
+    .section{break-inside:avoid;box-shadow:none}
+    .notebox{display:block!important}
+    header.top{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brandrow">
+      <span class="mark"><b>WasabiRub</b></span>
+      <span class="endorse">Created by SportPharm</span>
+    </div>
+    <h1 class="title">Redesign build review</h1>
+    <p class="subtitle">Every item from the <b>118-point client change list</b>, audited against the built pages — with what we changed, and open questions to settle. Tap a status to update it; flag anything to hand back.</p>
+    <div class="summary" id="summary"></div>
+    <div class="meter" id="meter"></div>
+    <div class="meternote"><span id="progresstext"></span><span class="flagcount" id="flagtext"></span></div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="filters" id="filters"></div>
+    <span class="grow"></span>
+    <input class="search" id="search" placeholder="Search items…" aria-label="Search items">
+    <button class="btn primary" id="dlBtn">Download (with notes)</button>
+    <button class="btn" id="shareBtn">Copy share link</button>
+    <button class="btn" id="loadBtn">Load progress</button>
+    <button class="btn" id="printBtn">Print</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="legend">
+    <span class="k lg-done"><b>Done</b> — built &amp; verified</span>
+    <span class="k lg-partial"><b>Partial</b> — built, one gap</span>
+    <span class="k lg-todo"><b>Not done</b> — buildable, still open</span>
+    <span class="k lg-blocked"><b>Blocked</b> — needs your call, an asset, a price or sign-off</span>
+  </div>
+  <div class="note-lead"><b>How to use this.</b> The status reflects our audit of the live sandbox. <b>Blocked</b> items are the ones that need you: a decision, a confirmed price, an asset, or written permission. Flag anything you want to discuss — your flags and notes travel with the <b>Copy share link</b>, so whoever opens it sees exactly what you marked.</div>
+  <div id="app"></div>
+  <footer class="ft">WasabiRub redesign · sandbox build review · nothing shown here is deployed to the live site.</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  // status: done | partial | todo | blocked   tag: ready|asset|approval|decision
+  const SECTIONS = [
+   {n:"§2", t:"Brand architecture & terminology", items:[
+     {x:"Make WasabiRub the consumer-facing masterbrand", tag:"decision", s:"done", note:"WasabiRub now leads on every page and in the page titles; the product line reads as one brand."},
+     {x:"Move SportPharm into an endorsement role", tag:"ready", s:"done", note:"Nav lockup reads “Created by SportPharm”; footer keeps “formulated by sports pharmacists.”"},
+     {x:"Adopt the WasabiRub Original / Super Hot / Super Cold naming", tag:"decision", s:"partial", note:"Super Hot and Super Cold are in; the base product is “WasabiRub” and never explicitly labelled “Original.”"},
+     {x:"Confirm the WasabiRub Lidocaine name & regulatory language", tag:"approval", s:"blocked", note:"Shown as “LidoRub — coming soon” placeholder. Need the final name and OK’d regulatory wording."},
+     {x:"Replace consumer-facing “IcetraRub” with “WasabiRub Super Cold”", tag:"decision", s:"done", note:"Renamed everywhere a visitor can see; only internal image filenames still read “icetrarub” (invisible)."}
+   ]},
+   {n:"§3", t:"Global navigation", items:[
+     {x:"Remove the SportPharm logo from the header", tag:"decision", s:"blocked", note:"The big SP logo is gone; a small “Created by SportPharm” endorsement stays. Final call depends on the site-structure decision."},
+     {x:"Move the main navigation to the left", tag:"ready", s:"done", note:"Nav is left-aligned with the brand lockup."},
+     {x:"Keep navigation consistent across homepage and product pages", tag:"ready", s:"done", note:"Identical nav verified across all five WasabiRub pages."},
+     {x:"Top-level: Shop · Why WasabiRub · Quality · Athlete Hub · For Professionals · Cart", tag:"decision", s:"done", note:"All six present. “Athlete Hub,” “For Professionals” and “Cart” depend on the store & site-structure decisions."},
+     {x:"Add product images to the Shop dropdown", tag:"ready", s:"done", note:"Each dropdown row shows the product’s jar."},
+     {x:"Use transparent cutouts in the dropdown, not white thumbnails", tag:"ready", s:"done", note:"Cutouts sit on the dropdown with no white tile behind them."},
+     {x:"Dropdown naming follows the masterbrand system", tag:"decision", s:"done", note:"WasabiRub / Super Hot / Super Cold / LidoRub."}
+   ]},
+   {n:"§4", t:"Homepage hero", items:[
+     {x:"Remove the red line beside “Triple Action Sports Relief”", tag:"ready", s:"done", note:"That eyebrow and its red rule are gone."},
+     {x:"Replace the header image with a real premium product image", tag:"asset", s:"done", note:"Hero now uses a real product photograph, full-bleed."},
+     {x:"Blend the open-jar close-up into the dark navy background", tag:"asset", s:"partial", note:"Photo is blended into navy with a scrim — but it’s a jar-with-gym-bag shot, not the open-jar close-up you asked for."},
+     {x:"No stark white image box around the hero visual", tag:"ready", s:"done", note:"The old white product box is removed; the image is edge-to-edge."},
+     {x:"Eyebrow: “Professional-grade relief for real life”", tag:"ready", s:"done", note:"Exact wording in place."},
+     {x:"Keep “Feel It Work.” as the headline", tag:"ready", s:"done", note:"Retained as the hero headline."},
+     {x:"One primary button: Shop WasabiRub", tag:"ready", s:"done", note:"Single primary button. Its destination depends on the store decision."},
+     {x:"Remove floating badges, orbit graphics and price bubbles", tag:"ready", s:"done", note:"All removed from the hero."}
+   ]},
+   {n:"§5", t:"Trust signals below the hero", items:[
+     {x:"Remove badges from the hero itself", tag:"ready", s:"done", note:"Hero is clean; trust moved to its own band."},
+     {x:"Clean trust band directly below the hero, larger text", tag:"ready", s:"done", note:"A dedicated trust band sits under the hero in larger, readable type."},
+     {x:"Three proof points: TruShield · pharmacist created · trusted by athletes", tag:"ready", s:"done", note:"TruShield Certified · Pharmacist Formulated · Trusted by Athletes."},
+     {x:"Verify all three claims are accurate & legally approved", tag:"approval", s:"blocked", note:"Copy is in; the claims themselves need your sign-off (e.g. “banned-substance screened”)."}
+   ]},
+   {n:"§6", t:"Product selector — “How do you want relief to feel?”", items:[
+     {x:"Move the section higher on the homepage", tag:"ready", s:"done", note:"Now sits above testimonials and the formula section."},
+     {x:"Remove “Your recovery. Your sensation.”", tag:"ready", s:"done", note:"Removed."},
+     {x:"Remove the “pure cooling to serious heat” supporting line", tag:"ready", s:"done", note:"Removed."},
+     {x:"White section background", tag:"ready", s:"done", note:"Section is on white."},
+     {x:"Three explicit shoppable cards — no tab-clicking", tag:"ready", s:"done", note:"Three real cards, each with its own Shop button."},
+     {x:"Family colours: green Original · red Super Hot · blue Super Cold", tag:"ready", s:"done", note:"Card colours match the family system."},
+     {x:"Each card: name, description, sensation cue, Shop action, image", tag:"ready", s:"done", note:"All present on each card."},
+     {x:"Show price on the cards", tag:"approval", s:"done", note:"Prices show ($29.95 / $39.95 / $39.95) — but these are placeholders pending your confirmation."},
+     {x:"Transparent jar cutouts, no white rectangles", tag:"ready", s:"done", note:"Transparent PNG jars, no white box."}
+   ]},
+   {n:"§7", t:"Ingredient / formula section", items:[
+     {x:"Replace the “Most rubs pick one lane” treatment", tag:"ready", s:"todo", note:"Still reads “MOST RUBS PICK ONE LANE. WASABIRUB CHOSE THREE.” — the new treatment isn’t in yet."},
+     {x:"Dark navy section background", tag:"ready", s:"done", note:"Section is on dark navy."},
+     {x:"Three ingredient cards: capsaicin, menthol, methyl salicylate", tag:"ready", s:"partial", note:"All three ingredients are there, but as a one-at-a-time tabbed drawer rather than three side-by-side cards."},
+     {x:"Editorial photography — chili, mint sprig, wintergreen", tag:"asset", s:"done", note:"Real chili, mint and wintergreen photos are in place."},
+     {x:"Clean neutral backdrops, no green tint", tag:"asset", s:"done", note:"Ingredient photos sit on a warm neutral background."},
+     {x:"Percentages taken from the current product label", tag:"approval", s:"done", note:"0.0375% / 10% / 20% shown — please confirm they match the current label."},
+     {x:"Sensation cue + one-sentence explanation per ingredient", tag:"ready", s:"done", note:"Each has a cue (warm / cool / target) and a one-line explanation."},
+     {x:"No unsupported mechanistic or medical claims", tag:"approval", s:"done", note:"Descriptions are sensation-based; the stronger drug claims were removed."}
+   ]},
+   {n:"§8", t:"Testimonials", items:[
+     {x:"Left-align testimonial content", tag:"ready", s:"done", note:"Testimonials are left-aligned."},
+     {x:"Three at a time on desktop", tag:"ready", s:"done", note:"Shows three per view on desktop."},
+     {x:"Consistent card height, restrained styling", tag:"ready", s:"done", note:"Cards are height-matched and understated."},
+     {x:"Mix professional credibility with relatable voices", tag:"ready", s:"partial", note:"All eight quotes are from professionals (trainers, clinicians). No everyday-athlete voices yet — we’d add 2–3 verified consumer quotes."},
+     {x:"Confirm every testimonial used is verified", tag:"approval", s:"blocked", note:"Real names are used; each needs your confirmation that it’s verified and cleared."}
+   ]},
+   {n:"§9", t:"Professional / athlete story", items:[
+     {x:"Remove the red line beside “Why It Feels Different”", tag:"ready", s:"done", note:"That heading and rule no longer exist."},
+     {x:"Simplify the athlete section", tag:"ready", s:"partial", note:"The old section was folded away; there’s no dedicated simplified athlete section now."},
+     {x:"Text left, athlete image right", tag:"ready", s:"todo", note:"Not built — there’s no athlete image to pair with, so the layout doesn’t exist."},
+     {x:"Use a credible athlete or practitioner image, not stock", tag:"asset", s:"blocked", note:"Needs a real athlete/practitioner photo — none in the repo. (This is the site’s main imagery gap.)"},
+     {x:"Simplified benefit list plus one Shop Now button", tag:"ready", s:"todo", note:"Waiting on the athlete section above."}
+   ]},
+   {n:"§10", t:"Quality & certification", items:[
+     {x:"Dedicated quality section with a concise headline", tag:"ready", s:"done", note:"“Confidence in every rep.” quality section is in."},
+     {x:"TruShield logo with a plain-language explanation", tag:"ready", s:"done", note:"TruShield mark plus a plain explanation."},
+     {x:"Emphasise the company is created & operated by pharmacists", tag:"ready", s:"partial", note:"Says “pharmacist formulated,” but doesn’t yet stress “created and operated by pharmacists.”"},
+     {x:"Present testing/trust as the reason for the premium price", tag:"ready", s:"todo", note:"No premium-price justification framing in the section yet."},
+     {x:"Keep it clinical and premium — not a wall of seals", tag:"ready", s:"done", note:"One seal, a clean confidence bar — not a badge wall."},
+     {x:"Substantiate “clean / tested / screened / Made in USA”", tag:"approval", s:"blocked", note:"These phrases are held back pending proof; add them once substantiated."}
+   ]},
+   {n:"§11", t:"Featured products banner", items:[
+     {x:"Replace the OG Heat Duo block with a Featured Products banner", tag:"ready", s:"done", note:"Full-width Featured banner replaces the old duo block."},
+     {x:"Transparent cutouts, no white image box", tag:"ready", s:"done", note:"Cutouts on a soft background, no white box."},
+     {x:"Restrained tonal / radial background", tag:"ready", s:"done", note:"Uses a subtle radial background."},
+     {x:"One product story, one primary Shop action", tag:"ready", s:"todo", note:"Currently a three-way tabbed banner rather than a single story with one Shop action."}
+   ]},
+   {n:"§12", t:"Proud partners", items:[
+     {x:"Add a Proud Partners section", tag:"asset", s:"done", note:"Section is in place (text for now)."},
+     {x:"Obtain USA Handball logo and permission", tag:"approval", s:"blocked", note:"Named in text only — need the logo file and written permission."},
+     {x:"Obtain Nexus Sports Medicine Bags logo and permission", tag:"approval", s:"blocked", note:"Named in text only — need the logo file and written permission."},
+     {x:"Obtain UFC logo and permission", tag:"approval", s:"blocked", note:"Named in text only — UFC especially needs written permission before any logo goes up."},
+     {x:"Don’t imply sponsorship beyond the real relationship", tag:"approval", s:"done", note:"Plain text list, no sponsorship claims made."}
+   ]},
+   {n:"§13", t:"Homepage content & layout cleanup", items:[
+     {x:"Reduce headings and repeated eyebrow labels", tag:"ready", s:"partial", note:"Trimmed, but there are still ~7 eyebrow labels across the page we could reduce further."},
+     {x:"Remove decorative red rules that carry no meaning", tag:"ready", s:"done", note:"Decorative red rules removed."},
+     {x:"Generous whitespace, one message per section", tag:"ready", s:"done", note:"Sections are roomier with a single focus each."},
+     {x:"Stop repeating the same proof points", tag:"ready", s:"partial", note:"TruShield / pharmacist-formulated still repeats across the trust band, quality and FAQ."},
+     {x:"Shorten sections so the page feels focused", tag:"ready", s:"done", note:"Page is noticeably tighter."},
+     {x:"Red becomes an accent, not a dominant background", tag:"ready", s:"done", note:"Grounds are navy/white; the announcement bar went red→navy; red is now an accent only."}
+   ]},
+   {n:"§14", t:"Product page redesign", items:[
+     {x:"Match homepage navigation and masterbrand naming", tag:"decision", s:"done", note:"Nav is identical to the homepage across all three product pages."},
+     {x:"Reduce headers, badges, icons, offer boxes, sales pressure", tag:"ready", s:"done", note:"Old badge/offer clutter dropped; calm hero and short sections."},
+     {x:"50/50 above the fold — image left, purchase panel right", tag:"ready", s:"done", note:"Clean 50/50 split, product image left, purchase panel right."},
+     {x:"One main product image in the primary gallery", tag:"ready", s:"done", note:"Single hero product image, no thumbnail strip."},
+     {x:"No busy ingredient imagery in the primary product area", tag:"ready", s:"done", note:"Just the jar above the fold."},
+     {x:"Section order: title · image+purchase · who it’s for · benefits · how to use · quality · comparison · FAQ", tag:"ready", s:"partial", note:"Order is right, but there’s no section explicitly labelled “Benefits,” and Testimonials appear only on the base page, not the two variants."},
+     {x:"Write the FAQ section", tag:"ready", s:"done", note:"A unique six-question FAQ was written for each product page (with matching structured data)."},
+     {x:"One obvious Add to Cart action", tag:"decision", s:"blocked", note:"There’s one clear Add to Cart button, but it doesn’t do anything yet — there’s no store."}
+   ]},
+   {n:"§15", t:"Product comparison", items:[
+     {x:"Add a comparison chart for the WasabiRub family", tag:"ready", s:"done", note:"Comparison table on all three product pages plus the shop page."},
+     {x:"Compare variant, sensation, actives, best-fit, relative intensity", tag:"ready", s:"partial", note:"Covers product, sensation and actives; “best-fit use case” appears only on the shop table, and relative intensity is implied rather than a column."},
+     {x:"Active percentages verified against current labels", tag:"approval", s:"blocked", note:"Percentages are in the table — please confirm they match current labels."},
+     {x:"No unsupported superiority claims", tag:"approval", s:"done", note:"Disclaimer present; competitor rows are factual with no “better-than” claims."}
+   ]},
+   {n:"§16", t:"Voice & relatability", items:[
+     {x:"Rewrite copy: clinical not cold, premium not precious", tag:"ready", s:"done", note:"Copy is plain-language and restrained throughout."},
+     {x:"Feature real people — pharmacists, clinicians, trainers, athletes", tag:"asset", s:"partial", note:"Real named people appear on the homepage testimonials; the product pages carry little human presence."},
+     {x:"Remove macho language, miracle claims and fear tactics", tag:"ready", s:"done", note:"None of that language remains."}
+   ]},
+   {n:"§17", t:"Credibility & claims guardrails", items:[
+     {x:"Verify names, formulas, percentages, prices, certs, Drug Facts", tag:"approval", s:"blocked", note:"All present in code but unverified. Note: we found a bug — Super Hot’s mobile price still shows $29.95 (should be $39.95); flagged to fix."},
+     {x:"Clear permission for team, league, UFC, university, athlete refs", tag:"approval", s:"blocked", note:"Named references (teams, UFC, universities) are present; permission is unconfirmed."},
+     {x:"No healing / recovery-speeding / injury-prevention claims", tag:"approval", s:"done", note:"Sticks to OTC “temporarily relieves” language."},
+     {x:"Keep directions, warnings and Drug Facts easy to find", tag:"ready", s:"partial", note:"How-to-use and safety warnings are present, but a full Drug Facts panel isn’t reproduced on-page."}
+   ]},
+   {n:"§18", t:"Responsive & accessibility", items:[
+     {x:"Clean hierarchy preserved on tablet and mobile", tag:"ready", s:"done", note:"Layouts adapt cleanly across breakpoints."},
+     {x:"Hero copy stacks above the image on small screens", tag:"ready", s:"partial", note:"On product pages the image currently stacks above the copy on mobile — the reverse of the brief."},
+     {x:"Cutouts stay large and uncropped", tag:"ready", s:"done", note:"Images are contained and never cropped."},
+     {x:"Product and testimonial cards stack cleanly", tag:"ready", s:"done", note:"Cards collapse to one column on mobile."},
+     {x:"Shop dropdown works with keyboard and touch", tag:"ready", s:"partial", note:"Keyboard-reachable and it opens on focus, but there’s no ARIA expanded state, and on touch it just navigates to Shop."},
+     {x:"Meaningful alt text; empty alt on decorative images", tag:"ready", s:"done", note:"Product/hero images have real alt text; decorative marks are hidden from screen readers."},
+     {x:"WCAG AA contrast, visible focus, semantic headings, tap targets", tag:"ready", s:"partial", note:"Headings are semantic and targets are large, but focus styling is thin on the product pages and AA contrast isn’t formally verified."},
+     {x:"Respect reduced-motion preferences", tag:"ready", s:"done", note:"Reduced-motion is respected on every page."}
+   ]},
+   {n:"§19", t:"Acceptance — sign-off gate", items:[
+     {x:"SportPharm corner logo removed from the header", tag:"decision", s:"done", note:"Header is the WasabiRub mark; SportPharm only as the small “Created by” endorsement."},
+     {x:"Left-aligned nav consistent across pages", tag:"ready", s:"done", note:"Consistent, left-aligned nav everywhere."},
+     {x:"Shop dropdown contains transparent product images", tag:"ready", s:"done", note:"Transparent cutouts in the dropdown."},
+     {x:"Hero uses an integrated premium visual, not a white box", tag:"asset", s:"done", note:"Editorial photo with a scrim; no white box."},
+     {x:"Hero has one primary Shop WasabiRub action", tag:"ready", s:"done", note:"Single primary Shop action."},
+     {x:"Trust proof sits below the hero, larger and cleaner", tag:"ready", s:"done", note:"Trust band below the hero, three proof points."},
+     {x:"Product selector has three shoppable cards on white", tag:"ready", s:"done", note:"Three cards on white, each with a Shop button."},
+     {x:"All product cards use transparent jar cutouts", tag:"ready", s:"done", note:"Transparent cutouts throughout."},
+     {x:"Ingredient section uses pepper / mint / wintergreen imagery", tag:"asset", s:"done", note:"Correct ingredient photography with matching alt text."},
+     {x:"Ingredient section background is dark navy", tag:"ready", s:"done", note:"Dark navy background confirmed."},
+     {x:"Three left-aligned testimonials at a time on desktop", tag:"ready", s:"done", note:"Confirmed."},
+     {x:"Quality / TruShield section present and uncluttered", tag:"ready", s:"done", note:"Present, single seal, uncluttered."},
+     {x:"Featured Products banner is full width, no white box", tag:"ready", s:"done", note:"Full-bleed banner, no white box."},
+     {x:"Proud Partners present with approved assets and claims", tag:"approval", s:"blocked", note:"Section exists in text; logos and permissions are outstanding."},
+     {x:"Product page uses a clean 50/50 image-and-purchase layout", tag:"ready", s:"done", note:"Confirmed."},
+     {x:"Product page includes all seven required sections", tag:"ready", s:"partial", note:"Variants omit Testimonials and there’s no explicit “Benefits” section."},
+     {x:"Masterbrand naming consistent throughout", tag:"decision", s:"partial", note:"One bug to fix: the shop page’s Super Cold button reads “SHOP WASABIRUB SUPER COLD SUPER COLD.”"},
+     {x:"Mobile, accessibility, image loading and links tested", tag:"ready", s:"blocked", note:"Several nav/footer links still point to “coming-soon,” and Cart is non-functional until the store is decided."},
+     {x:"All claims, prices, formulas, testimonials, certs, partners approved", tag:"approval", s:"blocked", note:"The final external sign-off — the last gate before launch."}
+   ]}
+  ];
+
+  const STATUS = {done:"Done", partial:"Partial", todo:"Not done", blocked:"Blocked"};
+  const CYCLE = ["done","partial","todo","blocked"];
+  const TAGLBL = {ready:"Ready",asset:"Asset",approval:"Approval",decision:"Decision"};
+  const KEY = "wr-build-review-v1";
+
+  // user overlay: {status:{id:s}, flags:{id:1}, notes:{id:text}}
+  let U = {status:{}, flags:{}, notes:{}};
+  (function load(){
+    try{
+      const emb = document.getElementById("wr-state");
+      const m = location.hash.match(/[#&]s=([^&]+)/);
+      if(emb && emb.textContent.trim()){ U = JSON.parse(emb.textContent); }           // baked into a downloaded copy
+      else if(m){ U = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,'+').replace(/_/g,'/'))))); }  // carried in a share link
+      else { const raw = localStorage.getItem(KEY); if(raw) U = JSON.parse(raw); }      // this browser
+    }catch(e){}
+    U.status=U.status||{}; U.flags=U.flags||{}; U.notes=U.notes||{};
+  })();
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(U)); }catch(e){} }
+  function eff(id, base){ return U.status[id]||base; }
+
+  let filter = "all", query = "";
+  const app = document.getElementById("app");
+
+  function counts(){
+    const c={done:0,partial:0,todo:0,blocked:0,flag:0,total:0};
+    SECTIONS.forEach((sec,si)=>sec.items.forEach((it,ii)=>{
+      const id=si+"."+ii; c[eff(id,it.s)]++; c.total++; if(U.flags[id]) c.flag++;
+    }));
+    return c;
+  }
+
+  function passes(id,it){
+    const st=eff(id,it.s);
+    if(filter==="flagged" && !U.flags[id]) return false;
+    if(filter==="client" && !(st==="blocked" || it.tag==="approval" || it.tag==="decision" || it.tag==="asset")) return false;
+    if(filter==="done" && st!=="done") return false;
+    if(filter==="outstanding" && (st==="done")) return false;
+    if(filter==="blocked" && st!=="blocked") return false;
+    if(query){ const q=query.toLowerCase(); if(!(it.x.toLowerCase().includes(q)||it.note.toLowerCase().includes(q)||(U.notes[id]||"").toLowerCase().includes(q))) return false; }
+    return true;
+  }
+
+  function renderSummary(){
+    const c=counts();
+    document.getElementById("summary").innerHTML =
+      stat("done","Done",c.done)+stat("partial","Partial",c.partial)+stat("todo","Not done",c.todo)+stat("blocked","Blocked",c.blocked);
+    const seg=(v,col)=>v?('<i style="width:'+(v/c.total*100)+'%;background:'+col+'"></i>'):'';
+    document.getElementById("meter").innerHTML =
+      seg(c.done,"#3fce93")+seg(c.partial,"#e6b45c")+seg(c.todo,"#9aa8ba")+seg(c.blocked,"#8a7ef4");
+    const pctDone=Math.round(c.done/c.total*100);
+    document.getElementById("progresstext").innerHTML = "<b style='color:#e7eef7'>"+pctDone+"% done</b> · "+c.total+" items reviewed";
+    document.getElementById("flagtext").textContent = c.flag? ("⚑ "+c.flag+" flagged for you") : "";
+    // filter chip counts
+    document.querySelectorAll("[data-fc]").forEach(el=>{
+      const f=el.getAttribute("data-fc"); let n=0;
+      SECTIONS.forEach((sec,si)=>sec.items.forEach((it,ii)=>{ const id=si+"."+ii; const st=eff(id,it.s);
+        if(f==="all")n++;
+        else if(f==="flagged"&&U.flags[id])n++;
+        else if(f==="client"&&(st==="blocked"||it.tag==="approval"||it.tag==="decision"||it.tag==="asset"))n++;
+        else if(f==="done"&&st==="done")n++;
+        else if(f==="outstanding"&&st!=="done")n++;
+        else if(f==="blocked"&&st==="blocked")n++;
+      }));
+      el.textContent=n;
+    });
+  }
+  function stat(k,l,n){ return '<div class="stat '+k+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+
+  function render(){
+    app.innerHTML="";
+    let shown=0;
+    SECTIONS.forEach((sec,si)=>{
+      const rows = sec.items.map((it,ii)=>({it,ii,id:si+"."+ii})).filter(o=>passes(o.id,o.it));
+      if(!rows.length) return;
+      shown+=rows.length;
+      const done = sec.items.filter((it,ii)=>eff(si+"."+ii,it.s)==="done").length;
+      const secEl=document.createElement("section");
+      secEl.className="section";
+      secEl.innerHTML =
+        '<div class="shead"><span class="sn">'+sec.n+'</span><h2>'+sec.t+'</h2>'+
+        '<span class="scount">'+done+'/'+sec.items.length+'</span><span class="caret">▼</span></div>'+
+        '<div class="items">'+rows.map(o=>itemHTML(o.it,o.id)).join("")+'</div>';
+      secEl.querySelector(".shead").addEventListener("click",()=>secEl.classList.toggle("collapsed"));
+      app.appendChild(secEl);
+    });
+    if(!shown) app.innerHTML='<div class="empty">No items match this filter.</div>';
+    bind();
+    renderSummary();
+  }
+
+  function itemHTML(it,id){
+    const st=eff(id,it.s), flagged=!!U.flags[id], hasnote=!!(U.notes[id]&&U.notes[id].trim());
+    return '<div class="item'+(flagged?' flagged':'')+(hasnote?' hasnote':'')+'" data-id="'+id+'">'+
+      '<div class="item-main">'+
+        '<button class="status-pill s-'+st+'" data-cycle="'+id+'" title="Tap to change status">'+STATUS[st]+'</button>'+
+        '<div><span class="itxt">'+esc(it.x)+'</span><span class="tag">'+TAGLBL[it.tag]+'</span>'+
+        '<div class="adj">'+esc(it.note)+'</div></div>'+
+      '</div>'+
+      '<div class="item-foot">'+
+        '<button class="flagbtn'+(flagged?' on':'')+'" data-flag="'+id+'">'+(flagged?'⚑ Flagged for client':'⚐ Flag / add a question')+'</button>'+
+        '<div class="notebox"><textarea class="note" data-note="'+id+'" placeholder="Question or note for the client…">'+esc(U.notes[id]||"")+'</textarea></div>'+
+      '</div>'+
+    '</div>';
+  }
+
+  function bind(){
+    app.querySelectorAll("[data-cycle]").forEach(b=>b.addEventListener("click",()=>{
+      const id=b.getAttribute("data-cycle");
+      const base=baseOf(id), cur=eff(id,base);
+      const next=CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length];
+      if(next===base) delete U.status[id]; else U.status[id]=next;
+      save();
+      // update just this pill + section count + summary
+      b.className="status-pill s-"+next; b.textContent=STATUS[next];
+      renderSummary(); updateSectionCount(id);
+    }));
+    app.querySelectorAll("[data-flag]").forEach(b=>b.addEventListener("click",()=>{
+      const id=b.getAttribute("data-flag");
+      if(U.flags[id]){ delete U.flags[id]; } else { U.flags[id]=1; }
+      save();
+      const item=b.closest(".item"); item.classList.toggle("flagged",!!U.flags[id]);
+      b.className="flagbtn"+(U.flags[id]?" on":""); b.innerHTML=U.flags[id]?"⚑ Flagged for client":"⚐ Flag / add a question";
+      if(U.flags[id]){ const ta=item.querySelector(".note"); if(ta) ta.focus(); }
+      renderSummary();
+    }));
+    app.querySelectorAll("[data-note]").forEach(t=>{
+      let to;
+      t.addEventListener("input",()=>{ const id=t.getAttribute("data-note");
+        U.notes[id]=t.value; t.closest(".item").classList.toggle("hasnote",!!t.value.trim());
+        clearTimeout(to); to=setTimeout(save,300);
+      });
+    });
+  }
+  function baseOf(id){ const[si,ii]=id.split("."); return SECTIONS[si].items[ii].s; }
+  function updateSectionCount(id){
+    const si=id.split(".")[0];
+    const sec=SECTIONS[si];
+    const done=sec.items.filter((it,ii)=>eff(si+"."+ii,it.s)==="done").length;
+    const el=app.querySelectorAll(".section")[[...app.querySelectorAll(".section")].findIndex(s=>s.querySelector('[data-id^="'+si+'."]'))];
+    // simplest: re-render section counts
+    app.querySelectorAll(".section").forEach(secEl=>{
+      const first=secEl.querySelector("[data-id]"); if(!first) return;
+      const s=first.getAttribute("data-id").split(".")[0];
+      const d=SECTIONS[s].items.filter((it,ii)=>eff(s+"."+ii,it.s)==="done").length;
+      secEl.querySelector(".scount").textContent=d+"/"+SECTIONS[s].items.length;
+    });
+  }
+
+  // filters toolbar
+  const FILTERS=[["all","All"],["client","Needs your input"],["flagged","Flagged"],["blocked","Blocked"],["outstanding","Outstanding"],["done","Done"]];
+  document.getElementById("filters").innerHTML = FILTERS.map(f=>
+    '<button class="chip'+(f[0]==="all"?" on":"")+'" data-filter="'+f[0]+'">'+f[1]+' <span class="c" data-fc="'+f[0]+'"></span></button>').join("");
+  document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{
+    filter=b.getAttribute("data-filter");
+    document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("on",x===b));
+    render();
+  }));
+  document.getElementById("search").addEventListener("input",e=>{ query=e.target.value.trim(); render(); });
+
+  // share / load / print
+  function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2600); }
+  function encodeState(){ const b=btoa(unescape(encodeURIComponent(JSON.stringify(U)))).replace(/\+/g,'-').replace(/\//g,'_'); return location.href.split('#')[0]+'#s='+b; }
+  document.getElementById("shareBtn").addEventListener("click",()=>{
+    const url=encodeState();
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Share link copied — it carries your flags & notes"),()=>prompt("Copy this link:",url)); }
+    else prompt("Copy this link:",url);
+  });
+  document.getElementById("loadBtn").addEventListener("click",()=>{
+    const v=prompt("Paste a share link (or its #s=… code):"); if(!v) return;
+    try{ const m=v.match(/s=([^&\s]+)/); const code=m?m[1]:v; U=JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,'+').replace(/_/g,'/'))))); U.status=U.status||{};U.flags=U.flags||{};U.notes=U.notes||{}; save(); render(); toast("Progress loaded"); }
+    catch(e){ toast("Couldn’t read that link"); }
+  });
+  document.getElementById("printBtn").addEventListener("click",()=>window.print());
+
+  // Download a self-contained copy with the current notes/checkoffs baked into the file itself
+  document.getElementById("dlBtn").addEventListener("click",()=>{
+    const app=document.getElementById("app"),sum=document.getElementById("summary"),met=document.getElementById("meter"),fil=document.getElementById("filters"),srch=document.getElementById("search");
+    const snap={a:app.innerHTML,s:sum.innerHTML,m:met.innerHTML,f:fil.innerHTML};
+    app.innerHTML="";sum.innerHTML="";met.innerHTML="";fil.innerHTML="";                 // strip rendered DOM; the script rebuilds it on open
+    let tag=document.getElementById("wr-state");
+    if(!tag){ tag=document.createElement("script"); tag.id="wr-state"; tag.type="application/json"; document.head.appendChild(tag); }
+    tag.textContent=JSON.stringify(U);                                                    // bake state into the file
+    const html="<!doctype html>\n"+document.documentElement.outerHTML;
+    app.innerHTML=snap.a;sum.innerHTML=snap.s;met.innerHTML=snap.m;fil.innerHTML=snap.f;tag.textContent="";  // restore live page
+    try{
+      const blob=new Blob([html],{type:"text/html"});
+      const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="wasabirub-build-review.html";
+      document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+      toast("Downloaded — your notes are baked into that file");
+    }catch(e){
+      if(window.claude&&window.claude.downloads){ window.claude.downloads.save({filename:"wasabirub-build-review.html",data:html}).then(()=>toast("Saved with your notes")).catch(()=>toast("Download was declined")); }
+      else toast("Couldn’t download here — try the share link");
+    }
+  });
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+  render();
+})();
+</script>
+
+</body>
+</html>
