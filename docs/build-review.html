@@ -85,6 +85,7 @@
   .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
   .chip .c{font-family:var(--fmono);font-size:11px;opacity:.75}
   .chip.on .c{opacity:.85}
+  .filters .fdiv{width:1px;align-self:stretch;background:var(--line);margin:2px 4px}
   .grow{flex:1}
   .search{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;color:var(--ink);font-family:var(--fbody);min-width:150px}
   .search:focus{outline:2px solid var(--brand);outline-offset:1px}
@@ -121,11 +122,21 @@
   .adj::before{content:"↳ ";color:var(--faint)}
   .item-foot{margin-top:10px;padding-left:86px;display:flex;flex-direction:column;gap:8px}
   @media(max-width:560px){.item-foot{padding-left:0}}
-  .flagbtn{align-self:flex-start;font-size:11.5px;font-weight:700;color:var(--muted);background:none;border:1px dashed var(--line);border-radius:999px;padding:4px 11px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+  .foot-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .notebtn,.flagbtn{font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 11px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(--line);color:var(--muted)}
+  .notebtn:hover,.notebtn.on{border-style:solid;border-color:var(--faint);color:var(--ink)}
   .flagbtn:hover{border-color:var(--brand);color:var(--brand)}
-  .flagbtn.on{background:var(--brand);border-style:solid;border-color:var(--brand);color:#fff}
-  .notebox{display:none}
-  .item.flagged .notebox,.item.hasnote .notebox{display:block}
+  .assignchip{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;color:#fff;background:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 5px 4px 11px}
+  .assignchip .who{cursor:pointer}
+  .assignchip .x{cursor:pointer;width:17px;height:17px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.24);font-size:10px;line-height:1}
+  .assignchip .x:hover{background:rgba(255,255,255,.42)}
+  .assign-menu{display:flex;flex-wrap:wrap;gap:6px;align-items:center;width:100%;padding:8px 0 2px}
+  .assign-menu .lbl{font-size:11px;color:var(--faint);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+  .pbtn{font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 12px;cursor:pointer;background:var(--surface-2);border:1px solid var(--line);color:var(--ink)}
+  .pbtn:hover{border-color:var(--brand);color:var(--brand)}
+  .pbtn.add{border-style:dashed;color:var(--muted)}
+  .notebox{display:none;width:100%}
+  .notebox.open{display:block}
   textarea.note{width:100%;font-family:var(--fbody);font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;resize:vertical;min-height:44px;line-height:1.45}
   textarea.note:focus{outline:2px solid var(--brand);outline-offset:1px;background:var(--surface)}
   textarea.note::placeholder{color:var(--faint)}
@@ -187,7 +198,7 @@
     <span class="k lg-todo"><b>Not done</b> — buildable, still open</span>
     <span class="k lg-blocked"><b>Blocked</b> — needs your call, an asset, a price or sign-off</span>
   </div>
-  <div class="note-lead"><b>How to use this.</b> The status reflects our audit of the live sandbox. <b>Blocked</b> items are the ones that need you: a decision, a confirmed price, an asset, or written permission. Flag anything you want to discuss — your flags and notes travel with the <b>Copy share link</b>, so whoever opens it sees exactly what you marked.</div>
+  <div class="note-lead"><b>How to use this.</b> Status reflects our audit of the live sandbox; <b>Blocked</b> items are the ones that need you. Add a <b>note</b> to any item, and <b>flag &amp; assign</b> it to a person (e.g. Jessie) — each assignee gets their own filter above, so they can see just what's theirs. Everything you mark travels with <b>Copy share link</b> and <b>Download (with notes)</b>.</div>
   <div id="app"></div>
   <footer class="ft">WasabiRub redesign · sandbox build review · nothing shown here is deployed to the live site.</footer>
 </div>
@@ -360,197 +371,177 @@
   const TAGLBL = {ready:"Ready",asset:"Asset",approval:"Approval",decision:"Decision"};
   const KEY = "wr-build-review-v1";
 
-  // user overlay: {status:{id:s}, flags:{id:1}, notes:{id:text}}
-  let U = {status:{}, flags:{}, notes:{}};
+  // overlay: {status:{id}, flags:{id:assignee}, notes:{id:text}, people:[...]}
+  let U = {status:{}, flags:{}, notes:{}, people:["Jessie"]};
   (function load(){
     try{
       const emb = document.getElementById("wr-state");
       const m = location.hash.match(/[#&]s=([^&]+)/);
-      if(emb && emb.textContent.trim()){ U = JSON.parse(emb.textContent); }           // baked into a downloaded copy
-      else if(m){ U = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,'+').replace(/_/g,'/'))))); }  // carried in a share link
-      else { const raw = localStorage.getItem(KEY); if(raw) U = JSON.parse(raw); }      // this browser
+      if(emb && emb.textContent.trim()){ U = JSON.parse(emb.textContent); }
+      else if(m){ U = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,"+").replace(/_/g,"/"))))); }
+      else { const raw = localStorage.getItem(KEY); if(raw) U = JSON.parse(raw); }
     }catch(e){}
     U.status=U.status||{}; U.flags=U.flags||{}; U.notes=U.notes||{};
+    U.people = Array.isArray(U.people)&&U.people.length ? U.people : ["Jessie"];
+    Object.keys(U.flags).forEach(id=>{ if(typeof U.flags[id]!=="string") U.flags[id]=""; }); // migrate old {id:1}
   })();
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(U)); }catch(e){} }
   function eff(id, base){ return U.status[id]||base; }
+  function isFlagged(id){ return Object.prototype.hasOwnProperty.call(U.flags,id); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+  function baseOf(id){ const p=id.split("."); return SECTIONS[p[0]].items[p[1]].s; }
 
-  let filter = "all", query = "";
+  let filter = "all", query = "", assigningId = null;
   const app = document.getElementById("app");
 
-  function counts(){
-    const c={done:0,partial:0,todo:0,blocked:0,flag:0,total:0};
-    SECTIONS.forEach((sec,si)=>sec.items.forEach((it,ii)=>{
-      const id=si+"."+ii; c[eff(id,it.s)]++; c.total++; if(U.flags[id]) c.flag++;
-    }));
-    return c;
-  }
-
-  function passes(id,it){
+  function matchFilter(id,it){
     const st=eff(id,it.s);
-    if(filter==="flagged" && !U.flags[id]) return false;
-    if(filter==="client" && !(st==="blocked" || it.tag==="approval" || it.tag==="decision" || it.tag==="asset")) return false;
-    if(filter==="done" && st!=="done") return false;
-    if(filter==="outstanding" && (st==="done")) return false;
-    if(filter==="blocked" && st!=="blocked") return false;
+    if(filter==="all") return true;
+    if(filter==="client") return st==="blocked"||it.tag==="approval"||it.tag==="decision"||it.tag==="asset";
+    if(filter==="done") return st==="done";
+    if(filter==="outstanding") return st!=="done";
+    if(filter==="blocked") return st==="blocked";
+    if(filter==="flagged") return isFlagged(id);
+    if(filter.indexOf("person:")===0) return U.flags[id]===filter.slice(7);
+    return true;
+  }
+  function passes(id,it){
+    if(!matchFilter(id,it)) return false;
     if(query){ const q=query.toLowerCase(); if(!(it.x.toLowerCase().includes(q)||it.note.toLowerCase().includes(q)||(U.notes[id]||"").toLowerCase().includes(q))) return false; }
     return true;
   }
+  function countFilter(f){
+    let n=0;
+    SECTIONS.forEach((sec,si)=>sec.items.forEach((it,ii)=>{ const id=si+"."+ii, st=eff(id,it.s);
+      if(f==="all")n++;
+      else if(f==="client"){ if(st==="blocked"||it.tag==="approval"||it.tag==="decision"||it.tag==="asset")n++; }
+      else if(f==="done"){ if(st==="done")n++; }
+      else if(f==="outstanding"){ if(st!=="done")n++; }
+      else if(f==="blocked"){ if(st==="blocked")n++; }
+      else if(f==="flagged"){ if(isFlagged(id))n++; }
+      else if(f.indexOf("person:")===0){ if(U.flags[id]===f.slice(7))n++; }
+    }));
+    return n;
+  }
+  function stat(k,l,n){ return '<div class="stat '+k+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+  function counts(){ const c={done:0,partial:0,todo:0,blocked:0,total:0}; SECTIONS.forEach((sec,si)=>sec.items.forEach((it,ii)=>{c[eff(si+"."+ii,it.s)]++;c.total++;})); return c; }
 
   function renderSummary(){
     const c=counts();
     document.getElementById("summary").innerHTML =
       stat("done","Done",c.done)+stat("partial","Partial",c.partial)+stat("todo","Not done",c.todo)+stat("blocked","Blocked",c.blocked);
     const seg=(v,col)=>v?('<i style="width:'+(v/c.total*100)+'%;background:'+col+'"></i>'):'';
-    document.getElementById("meter").innerHTML =
-      seg(c.done,"#3fce93")+seg(c.partial,"#e6b45c")+seg(c.todo,"#9aa8ba")+seg(c.blocked,"#8a7ef4");
-    const pctDone=Math.round(c.done/c.total*100);
-    document.getElementById("progresstext").innerHTML = "<b style='color:#e7eef7'>"+pctDone+"% done</b> · "+c.total+" items reviewed";
-    document.getElementById("flagtext").textContent = c.flag? ("⚑ "+c.flag+" flagged for you") : "";
-    // filter chip counts
-    document.querySelectorAll("[data-fc]").forEach(el=>{
-      const f=el.getAttribute("data-fc"); let n=0;
-      SECTIONS.forEach((sec,si)=>sec.items.forEach((it,ii)=>{ const id=si+"."+ii; const st=eff(id,it.s);
-        if(f==="all")n++;
-        else if(f==="flagged"&&U.flags[id])n++;
-        else if(f==="client"&&(st==="blocked"||it.tag==="approval"||it.tag==="decision"||it.tag==="asset"))n++;
-        else if(f==="done"&&st==="done")n++;
-        else if(f==="outstanding"&&st!=="done")n++;
-        else if(f==="blocked"&&st==="blocked")n++;
-      }));
-      el.textContent=n;
-    });
+    document.getElementById("meter").innerHTML = seg(c.done,"#3fce93")+seg(c.partial,"#e6b45c")+seg(c.todo,"#9aa8ba")+seg(c.blocked,"#8a7ef4");
+    document.getElementById("progresstext").innerHTML = "<b style='color:#e7eef7'>"+Math.round(c.done/c.total*100)+"% done</b> · "+c.total+" items reviewed";
+    const nf=Object.keys(U.flags).length;
+    document.getElementById("flagtext").textContent = nf? ("⚑ "+nf+" flagged") : "";
   }
-  function stat(k,l,n){ return '<div class="stat '+k+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+  function renderFilters(){
+    const base=[["all","All"],["client","Needs input"],["blocked","Blocked"],["outstanding","Outstanding"],["done","Done"]];
+    const chip=(f,l)=>'<button class="chip'+(filter===f?" on":"")+'" data-filter="'+f+'">'+l+' <span class="c">'+countFilter(f)+'</span></button>';
+    let html=base.map(b=>chip(b[0],b[1])).join("")+'<span class="fdiv"></span>'+chip("flagged","⚑ Flagged");
+    U.people.forEach(p=>{ html+=chip("person:"+p,"⚑ "+esc(p)); });
+    const fl=document.getElementById("filters"); fl.innerHTML=html;
+    fl.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{ filter=b.getAttribute("data-filter"); render(); }));
+  }
 
   function render(){
-    app.innerHTML="";
-    let shown=0;
+    app.innerHTML=""; let shown=0;
     SECTIONS.forEach((sec,si)=>{
       const rows = sec.items.map((it,ii)=>({it,ii,id:si+"."+ii})).filter(o=>passes(o.id,o.it));
-      if(!rows.length) return;
-      shown+=rows.length;
+      if(!rows.length) return; shown+=rows.length;
       const done = sec.items.filter((it,ii)=>eff(si+"."+ii,it.s)==="done").length;
-      const secEl=document.createElement("section");
-      secEl.className="section";
+      const secEl=document.createElement("section"); secEl.className="section";
       secEl.innerHTML =
-        '<div class="shead"><span class="sn">'+sec.n+'</span><h2>'+sec.t+'</h2>'+
+        '<div class="shead"><span class="sn">'+sec.n+'</span><h2>'+esc(sec.t)+'</h2>'+
         '<span class="scount">'+done+'/'+sec.items.length+'</span><span class="caret">▼</span></div>'+
         '<div class="items">'+rows.map(o=>itemHTML(o.it,o.id)).join("")+'</div>';
       secEl.querySelector(".shead").addEventListener("click",()=>secEl.classList.toggle("collapsed"));
       app.appendChild(secEl);
     });
     if(!shown) app.innerHTML='<div class="empty">No items match this filter.</div>';
-    bind();
-    renderSummary();
+    bind(); renderFilters(); renderSummary();
   }
 
   function itemHTML(it,id){
-    const st=eff(id,it.s), flagged=!!U.flags[id], hasnote=!!(U.notes[id]&&U.notes[id].trim());
-    return '<div class="item'+(flagged?' flagged':'')+(hasnote?' hasnote':'')+'" data-id="'+id+'">'+
+    const st=eff(id,it.s), flagged=isFlagged(id), who=U.flags[id]||"", hasnote=!!(U.notes[id]&&U.notes[id].trim());
+    const flagCtl = (assigningId===id)
+      ? '<div class="assign-menu"><span class="lbl">Flag for</span>'+U.people.map(p=>'<button class="pbtn" data-assign="'+id+'::'+esc(p)+'">'+esc(p)+'</button>').join("")+'<button class="pbtn add" data-addperson="'+id+'">＋ Add someone</button></div>'
+      : flagged
+        ? '<span class="assignchip"><span class="who" data-reassign="'+id+'" title="Reassign">⚑ '+(who?esc(who):"Flagged")+'</span><span class="x" data-unflag="'+id+'" title="Remove flag">✕</span></span>'
+        : '<button class="flagbtn" data-flagmenu="'+id+'">⚑ Flag &amp; assign</button>';
+    return '<div class="item'+(flagged?" flagged":"")+'" data-id="'+id+'">'+
       '<div class="item-main">'+
         '<button class="status-pill s-'+st+'" data-cycle="'+id+'" title="Tap to change status">'+STATUS[st]+'</button>'+
         '<div><span class="itxt">'+esc(it.x)+'</span><span class="tag">'+TAGLBL[it.tag]+'</span>'+
         '<div class="adj">'+esc(it.note)+'</div></div>'+
       '</div>'+
-      '<div class="item-foot">'+
-        '<button class="flagbtn'+(flagged?' on':'')+'" data-flag="'+id+'">'+(flagged?'⚑ Flagged for client':'⚐ Flag / add a question')+'</button>'+
-        '<div class="notebox"><textarea class="note" data-note="'+id+'" placeholder="Question or note for the client…">'+esc(U.notes[id]||"")+'</textarea></div>'+
+      '<div class="item-foot"><div class="foot-actions">'+
+        '<button class="notebtn'+(hasnote?" on":"")+'" data-notetoggle="'+id+'">'+(hasnote?"✎ Note":"＋ Note")+'</button>'+
+        flagCtl+
+      '</div>'+
+        '<div class="notebox'+(hasnote?" open":"")+'"><textarea class="note" data-note="'+id+'" placeholder="Add a note…">'+esc(U.notes[id]||"")+'</textarea></div>'+
       '</div>'+
     '</div>';
   }
 
   function bind(){
     app.querySelectorAll("[data-cycle]").forEach(b=>b.addEventListener("click",()=>{
-      const id=b.getAttribute("data-cycle");
-      const base=baseOf(id), cur=eff(id,base);
-      const next=CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length];
+      const id=b.getAttribute("data-cycle"), base=baseOf(id), cur=eff(id,base), next=CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length];
       if(next===base) delete U.status[id]; else U.status[id]=next;
-      save();
-      // update just this pill + section count + summary
-      b.className="status-pill s-"+next; b.textContent=STATUS[next];
-      renderSummary(); updateSectionCount(id);
+      save(); b.className="status-pill s-"+next; b.textContent=STATUS[next]; renderSummary(); renderFilters(); updateSectionCount();
     }));
-    app.querySelectorAll("[data-flag]").forEach(b=>b.addEventListener("click",()=>{
-      const id=b.getAttribute("data-flag");
-      if(U.flags[id]){ delete U.flags[id]; } else { U.flags[id]=1; }
-      save();
-      const item=b.closest(".item"); item.classList.toggle("flagged",!!U.flags[id]);
-      b.className="flagbtn"+(U.flags[id]?" on":""); b.innerHTML=U.flags[id]?"⚑ Flagged for client":"⚐ Flag / add a question";
-      if(U.flags[id]){ const ta=item.querySelector(".note"); if(ta) ta.focus(); }
-      renderSummary();
+    app.querySelectorAll("[data-notetoggle]").forEach(b=>b.addEventListener("click",()=>{
+      const box=b.closest(".item-foot").querySelector(".notebox"); box.classList.toggle("open");
+      if(box.classList.contains("open")){ const ta=box.querySelector("textarea"); if(ta) ta.focus(); }
     }));
-    app.querySelectorAll("[data-note]").forEach(t=>{
-      let to;
-      t.addEventListener("input",()=>{ const id=t.getAttribute("data-note");
-        U.notes[id]=t.value; t.closest(".item").classList.toggle("hasnote",!!t.value.trim());
+    app.querySelectorAll("[data-note]").forEach(t=>{ let to;
+      t.addEventListener("input",()=>{ const id=t.getAttribute("data-note"); U.notes[id]=t.value;
+        const btn=t.closest(".item-foot").querySelector(".notebtn"); if(btn){ const on=!!t.value.trim(); btn.classList.toggle("on",on); btn.textContent=on?"✎ Note":"＋ Note"; }
         clearTimeout(to); to=setTimeout(save,300);
       });
     });
+    app.querySelectorAll("[data-flagmenu]").forEach(b=>b.addEventListener("click",()=>{ assigningId=b.getAttribute("data-flagmenu"); render(); }));
+    app.querySelectorAll("[data-reassign]").forEach(b=>b.addEventListener("click",()=>{ assigningId=b.getAttribute("data-reassign"); render(); }));
+    app.querySelectorAll("[data-unflag]").forEach(b=>b.addEventListener("click",()=>{ delete U.flags[b.getAttribute("data-unflag")]; assigningId=null; save(); render(); }));
+    app.querySelectorAll("[data-assign]").forEach(b=>b.addEventListener("click",()=>{ const parts=b.getAttribute("data-assign").split("::"); U.flags[parts[0]]=parts[1]; assigningId=null; save(); render(); }));
+    app.querySelectorAll("[data-addperson]").forEach(b=>b.addEventListener("click",()=>{ const id=b.getAttribute("data-addperson"); const name=(prompt("Assign to whom?")||"").trim(); if(!name) return; if(U.people.indexOf(name)<0) U.people.push(name); U.flags[id]=name; assigningId=null; save(); render(); }));
   }
-  function baseOf(id){ const[si,ii]=id.split("."); return SECTIONS[si].items[ii].s; }
-  function updateSectionCount(id){
-    const si=id.split(".")[0];
-    const sec=SECTIONS[si];
-    const done=sec.items.filter((it,ii)=>eff(si+"."+ii,it.s)==="done").length;
-    const el=app.querySelectorAll(".section")[[...app.querySelectorAll(".section")].findIndex(s=>s.querySelector('[data-id^="'+si+'."]'))];
-    // simplest: re-render section counts
-    app.querySelectorAll(".section").forEach(secEl=>{
-      const first=secEl.querySelector("[data-id]"); if(!first) return;
+  function updateSectionCount(){
+    app.querySelectorAll(".section").forEach(secEl=>{ const first=secEl.querySelector("[data-id]"); if(!first) return;
       const s=first.getAttribute("data-id").split(".")[0];
-      const d=SECTIONS[s].items.filter((it,ii)=>eff(s+"."+ii,it.s)==="done").length;
-      secEl.querySelector(".scount").textContent=d+"/"+SECTIONS[s].items.length;
+      secEl.querySelector(".scount").textContent=SECTIONS[s].items.filter((it,ii)=>eff(s+"."+ii,it.s)==="done").length+"/"+SECTIONS[s].items.length;
     });
   }
 
-  // filters toolbar
-  const FILTERS=[["all","All"],["client","Needs your input"],["flagged","Flagged"],["blocked","Blocked"],["outstanding","Outstanding"],["done","Done"]];
-  document.getElementById("filters").innerHTML = FILTERS.map(f=>
-    '<button class="chip'+(f[0]==="all"?" on":"")+'" data-filter="'+f[0]+'">'+f[1]+' <span class="c" data-fc="'+f[0]+'"></span></button>').join("");
-  document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{
-    filter=b.getAttribute("data-filter");
-    document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("on",x===b));
-    render();
-  }));
   document.getElementById("search").addEventListener("input",e=>{ query=e.target.value.trim(); render(); });
 
-  // share / load / print
   function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2600); }
-  function encodeState(){ const b=btoa(unescape(encodeURIComponent(JSON.stringify(U)))).replace(/\+/g,'-').replace(/\//g,'_'); return location.href.split('#')[0]+'#s='+b; }
+  function encodeState(){ const b=btoa(unescape(encodeURIComponent(JSON.stringify(U)))).replace(/\+/g,"-").replace(/\//g,"_"); return location.href.split("#")[0]+"#s="+b; }
   document.getElementById("shareBtn").addEventListener("click",()=>{
     const url=encodeState();
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Share link copied — it carries your flags & notes"),()=>prompt("Copy this link:",url)); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Share link copied — it carries every note & flag"),()=>prompt("Copy this link:",url)); }
     else prompt("Copy this link:",url);
   });
   document.getElementById("loadBtn").addEventListener("click",()=>{
     const v=prompt("Paste a share link (or its #s=… code):"); if(!v) return;
-    try{ const m=v.match(/s=([^&\s]+)/); const code=m?m[1]:v; U=JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,'+').replace(/_/g,'/'))))); U.status=U.status||{};U.flags=U.flags||{};U.notes=U.notes||{}; save(); render(); toast("Progress loaded"); }
+    try{ const m=v.match(/s=([^&\s]+)/); const code=m?m[1]:v; U=JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,"+").replace(/_/g,"/")))));
+      U.status=U.status||{};U.flags=U.flags||{};U.notes=U.notes||{}; U.people=Array.isArray(U.people)&&U.people.length?U.people:["Jessie"];
+      save(); render(); toast("Progress loaded"); }
     catch(e){ toast("Couldn’t read that link"); }
   });
   document.getElementById("printBtn").addEventListener("click",()=>window.print());
-
-  // Download a self-contained copy with the current notes/checkoffs baked into the file itself
   document.getElementById("dlBtn").addEventListener("click",()=>{
-    const app=document.getElementById("app"),sum=document.getElementById("summary"),met=document.getElementById("meter"),fil=document.getElementById("filters"),srch=document.getElementById("search");
-    const snap={a:app.innerHTML,s:sum.innerHTML,m:met.innerHTML,f:fil.innerHTML};
-    app.innerHTML="";sum.innerHTML="";met.innerHTML="";fil.innerHTML="";                 // strip rendered DOM; the script rebuilds it on open
-    let tag=document.getElementById("wr-state");
-    if(!tag){ tag=document.createElement("script"); tag.id="wr-state"; tag.type="application/json"; document.head.appendChild(tag); }
-    tag.textContent=JSON.stringify(U);                                                    // bake state into the file
+    const a1=document.getElementById("app"),sum=document.getElementById("summary"),met=document.getElementById("meter"),fil=document.getElementById("filters");
+    const snap={a:a1.innerHTML,s:sum.innerHTML,m:met.innerHTML,f:fil.innerHTML};
+    a1.innerHTML="";sum.innerHTML="";met.innerHTML="";fil.innerHTML="";
+    let tag=document.getElementById("wr-state"); if(!tag){ tag=document.createElement("script"); tag.id="wr-state"; tag.type="application/json"; document.head.appendChild(tag); }
+    tag.textContent=JSON.stringify(U);
     const html="<!doctype html>\n"+document.documentElement.outerHTML;
-    app.innerHTML=snap.a;sum.innerHTML=snap.s;met.innerHTML=snap.m;fil.innerHTML=snap.f;tag.textContent="";  // restore live page
-    try{
-      const blob=new Blob([html],{type:"text/html"});
-      const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="wasabirub-build-review.html";
-      document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
-      toast("Downloaded — your notes are baked into that file");
-    }catch(e){
-      if(window.claude&&window.claude.downloads){ window.claude.downloads.save({filename:"wasabirub-build-review.html",data:html}).then(()=>toast("Saved with your notes")).catch(()=>toast("Download was declined")); }
-      else toast("Couldn’t download here — try the share link");
-    }
+    a1.innerHTML=snap.a;sum.innerHTML=snap.s;met.innerHTML=snap.m;fil.innerHTML=snap.f;tag.textContent="";
+    try{ const blob=new Blob([html],{type:"text/html"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="wasabirub-build-review.html"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); toast("Downloaded — your notes & flags are in that file"); }
+    catch(e){ if(window.claude&&window.claude.downloads){ window.claude.downloads.save({filename:"wasabirub-build-review.html",data:html}).then(()=>toast("Saved with your notes")).catch(()=>toast("Download was declined")); } else toast("Couldn’t download here — use the share link"); }
   });
-
-  function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
   render();
 })();
