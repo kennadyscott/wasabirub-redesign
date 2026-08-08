@@ -1,0 +1,627 @@
+<title>WasabiRub Redesign &mdash; Build Checklist</title>
+
+<style>
+  :root{
+    --bg:#f4f6f7;
+    --panel:#ffffff;
+    --panel-2:#fafbfb;
+    --ink:#0f1a22;
+    --ink-2:#3c4a55;
+    --muted:#66737d;
+    --line:#dee4e8;
+    --line-2:#c7d0d6;
+    --accent:#d6202a;
+    --focus:#2f6b8a;
+
+    --st-ready:#0b6b4a;      --st-ready-bg:rgba(11,107,74,.10);
+    --st-asset:#7f5406;      --st-asset-bg:rgba(127,84,6,.11);
+    --st-approval:#9c3b28;   --st-approval-bg:rgba(156,59,40,.10);
+    --st-decision:#215c7e;   --st-decision-bg:rgba(33,92,126,.10);
+
+    --shadow:0 1px 2px rgba(15,26,34,.05), 0 8px 24px -18px rgba(15,26,34,.35);
+    --radius:10px;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d1419;
+      --panel:#141d24;
+      --panel-2:#111a20;
+      --ink:#e8eef2;
+      --ink-2:#b3c0c9;
+      --muted:#8496a2;
+      --line:#243139;
+      --line-2:#33434d;
+      --accent:#f2545c;
+      --focus:#6fb3d6;
+
+      --st-ready:#4dc99a;      --st-ready-bg:rgba(77,201,154,.13);
+      --st-asset:#d9a13f;      --st-asset-bg:rgba(217,161,63,.13);
+      --st-approval:#ef8874;   --st-approval-bg:rgba(239,136,116,.13);
+      --st-decision:#7cc0e6;   --st-decision-bg:rgba(124,192,230,.13);
+
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.9);
+    }
+  }
+
+  :root[data-theme="dark"]{
+    --bg:#0d1419; --panel:#141d24; --panel-2:#111a20;
+    --ink:#e8eef2; --ink-2:#b3c0c9; --muted:#8496a2;
+    --line:#243139; --line-2:#33434d;
+    --accent:#f2545c; --focus:#6fb3d6;
+    --st-ready:#4dc99a;    --st-ready-bg:rgba(77,201,154,.13);
+    --st-asset:#d9a13f;    --st-asset-bg:rgba(217,161,63,.13);
+    --st-approval:#ef8874; --st-approval-bg:rgba(239,136,116,.13);
+    --st-decision:#7cc0e6; --st-decision-bg:rgba(124,192,230,.13);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --bg:#f4f6f7; --panel:#ffffff; --panel-2:#fafbfb;
+    --ink:#0f1a22; --ink-2:#3c4a55; --muted:#66737d;
+    --line:#dee4e8; --line-2:#c7d0d6;
+    --accent:#d6202a; --focus:#2f6b8a;
+    --st-ready:#0b6b4a;    --st-ready-bg:rgba(11,107,74,.10);
+    --st-asset:#7f5406;    --st-asset-bg:rgba(127,84,6,.11);
+    --st-approval:#9c3b28; --st-approval-bg:rgba(156,59,40,.10);
+    --st-decision:#215c7e; --st-decision-bg:rgba(33,92,126,.10);
+    --shadow:0 1px 2px rgba(15,26,34,.05), 0 8px 24px -18px rgba(15,26,34,.35);
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-variant-numeric:tabular-nums}
+
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 96px}
+
+  /* ---------- masthead ---------- */
+  .masthead{border-bottom:1px solid var(--line);background:var(--panel)}
+  .masthead .wrap{padding-top:34px;padding-bottom:0}
+  .kicker{
+    display:flex;align-items:center;gap:10px;
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 12px;
+  }
+  .kicker::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px}
+  h1{
+    margin:0 0 8px;font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+    letter-spacing:-.022em;font-weight:800;text-wrap:balance;
+  }
+  .sub{margin:0 0 22px;color:var(--ink-2);max-width:62ch}
+
+  /* ---------- progress ---------- */
+  .progress-card{
+    display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+    padding:16px 0 20px;
+  }
+  .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+  .bar > i{display:block;height:100%;width:0;background:var(--ink);
+    transition:width .35s cubic-bezier(.4,0,.2,1)}
+  .bar-meta{display:flex;justify-content:space-between;gap:12px;
+    margin-top:9px;font-size:12.5px;color:var(--muted)}
+  .bigcount{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+  .bigcount small{font-size:14px;font-weight:600;color:var(--muted)}
+
+  /* ---------- gates ---------- */
+  .gates{margin:28px 0 8px}
+  .gates h2{
+    font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 12px;
+  }
+  .gate-list{display:grid;gap:10px;margin:0;padding:0;list-style:none;counter-reset:g}
+  .gate{
+    display:grid;grid-template-columns:26px 1fr;gap:14px;
+    padding:14px 16px;border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow);
+  }
+  .gate::before{
+    counter-increment:g;content:counter(g);
+    font:700 12px/24px ui-monospace,SFMono-Regular,Menlo,monospace;
+    text-align:center;color:var(--accent);
+    border:1px solid var(--line-2);border-radius:6px;height:24px;
+  }
+  .gate b{display:block;font-size:14.5px;margin-bottom:2px}
+  .gate span{display:block;font-size:13.5px;color:var(--ink-2)}
+
+  /* ---------- filters ---------- */
+  .toolbar{
+    position:sticky;top:0;z-index:5;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    margin:30px -20px 0;padding:11px 20px;
+  }
+  .toolbar-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+  .chipbtn{
+    font:600 12.5px/1 inherit;font-family:inherit;
+    border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);
+    padding:7px 12px;border-radius:99px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:7px;min-height:32px;
+  }
+  .chipbtn .n{font-size:11px;color:var(--muted)}
+  .chipbtn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .chipbtn[aria-pressed="true"] .n{color:var(--bg);opacity:.72}
+  .chipbtn:hover{border-color:var(--ink-2)}
+  .spacer{flex:1 1 40px}
+  .ghost{
+    font:600 12.5px/1 inherit;font-family:inherit;background:none;border:0;
+    color:var(--muted);cursor:pointer;padding:8px 6px;border-radius:6px;min-height:32px;
+  }
+  .ghost:hover{color:var(--ink)}
+
+  /* ---------- groups ---------- */
+  .group{
+    margin-top:22px;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--panel);overflow:hidden;box-shadow:var(--shadow);
+  }
+  .group.is-empty{display:none}
+  .ghead{
+    display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:baseline;
+    padding:14px 18px;border-bottom:1px solid var(--line);background:var(--panel-2);
+  }
+  .gnum{font-size:12px;font-weight:700;color:var(--accent)}
+  .gtitle{margin:0;font-size:15.5px;font-weight:700;letter-spacing:-.008em}
+  .gcount{font-size:12px;color:var(--muted)}
+
+  .note{
+    padding:11px 18px;border-bottom:1px solid var(--line);
+    font-size:13px;color:var(--ink-2);background:var(--panel-2);
+  }
+
+  ul.items{list-style:none;margin:0;padding:0}
+  li.item{border-bottom:1px solid var(--line)}
+  li.item:last-child{border-bottom:0}
+  li.item.hidden{display:none}
+
+  label.row{
+    display:grid;grid-template-columns:20px 1fr auto;gap:13px;
+    padding:13px 18px;cursor:pointer;align-items:start;
+  }
+  label.row:hover{background:var(--panel-2)}
+
+  input[type=checkbox]{
+    appearance:none;-webkit-appearance:none;margin:2px 0 0;
+    width:20px;height:20px;border:1.5px solid var(--line-2);border-radius:5px;
+    background:var(--panel);cursor:pointer;position:relative;flex:none;
+  }
+  input[type=checkbox]:hover{border-color:var(--ink-2)}
+  input[type=checkbox]:checked{background:var(--ink);border-color:var(--ink)}
+  input[type=checkbox]:checked::after{
+    content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+    border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(43deg);
+  }
+  input[type=checkbox]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+  .txt{font-size:14.5px;color:var(--ink)}
+  .sub-note{display:block;margin-top:3px;font-size:12.5px;color:var(--muted)}
+  input:checked ~ .txt{color:var(--muted);text-decoration:line-through;
+    text-decoration-color:var(--line-2);text-decoration-thickness:1.5px}
+  input:checked ~ .txt .sub-note{text-decoration:none}
+
+  .chip{
+    font:700 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:.05em;text-transform:uppercase;
+    padding:5px 8px;border-radius:5px;white-space:nowrap;margin-top:2px;
+    border:1px solid transparent;
+  }
+  .chip[data-s="ready"]{color:var(--st-ready);background:var(--st-ready-bg);border-color:var(--st-ready-bg)}
+  .chip[data-s="asset"]{color:var(--st-asset);background:var(--st-asset-bg);border-color:var(--st-asset-bg)}
+  .chip[data-s="approval"]{color:var(--st-approval);background:var(--st-approval-bg);border-color:var(--st-approval-bg)}
+  .chip[data-s="decision"]{color:var(--st-decision);background:var(--st-decision-bg);border-color:var(--st-decision-bg)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin:26px 0 0;
+    padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+  .legend div{display:flex;align-items:center;gap:7px}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+
+  .empty-state{padding:34px 18px;text-align:center;color:var(--muted);font-size:14px;display:none}
+  .empty-state.on{display:block}
+
+  @media (max-width:620px){
+    .progress-card{grid-template-columns:1fr;gap:12px}
+    label.row{grid-template-columns:20px 1fr;gap:12px}
+    .chip{grid-column:2;justify-self:start;margin-top:6px}
+    .ghead{grid-template-columns:auto 1fr;row-gap:2px}
+    .gcount{grid-column:2}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bar > i{transition:none}
+  }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">SportPharm &middot; Working document</p>
+    <h1>WasabiRub Redesign &mdash; Build Checklist</h1>
+    <p class="sub">Every item from the developer change list, tagged with what actually blocks it.
+      Checked state saves in this browser only. Moving accounts or machines? Hit <b>Copy handoff link</b> &mdash; the link carries every tick with it, and <b>Paste progress</b> restores it on the other side.</p>
+
+    <div class="progress-card">
+      <div>
+        <div class="bar"><i id="barFill"></i></div>
+        <div class="bar-meta">
+          <span id="metaLeft">&mdash;</span>
+          <span id="metaRight" class="mono">&mdash;</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="bigcount"><span id="pct" class="mono">0</span><small>%</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="gates">
+    <h2>Settle these first &mdash; each one blocks work downstream</h2>
+    <ol class="gate-list" id="gateList"></ol>
+  </section>
+
+  <div class="toolbar">
+    <div class="toolbar-inner" id="filters" role="group" aria-label="Filter items"></div>
+  </div>
+
+  <main id="list"></main>
+  <p class="empty-state" id="emptyState">No items match this filter.</p>
+
+  <div class="legend">
+    <div><span class="dot" style="background:var(--st-ready)"></span> Ready &mdash; no dependency, buildable now</div>
+    <div><span class="dot" style="background:var(--st-asset)"></span> Asset &mdash; needs a file we don't have</div>
+    <div><span class="dot" style="background:var(--st-approval)"></span> Approval &mdash; legal, clinical, or factual sign-off</div>
+    <div><span class="dot" style="background:var(--st-decision)"></span> Decision &mdash; needs your call before build</div>
+  </div>
+</div>
+
+<script>
+const GATES = [
+  ["No store exists yet",
+   "Nav asks for Cart, cards ask for Shop Now, product page asks for Add to Cart. There is no Shopify, Stripe, Snipcart or WooCommerce on the site \u2014 just a counter reading 0 and some localStorage. Everything else here can ship without it."],
+  ["Separate site, or section of sportpharm.com?",
+   "\u00a72 demotes SportPharm to an endorsement; \u00a73 removes its logo for a future wasabirub.com. But the proposed nav still lists Athlete Hub and For Professionals, which live on the SportPharm site. This answer sets the nav, footer, persona toggle, and logo."],
+  ["Rename scope and redirects",
+   "IcetraRub appears in 53 files with its own pages and a dozen assets. Super Hot is the same. Do URLs change, do old ones redirect, and does the rename go live everywhere at once or on WasabiRub pages first?"],
+  ["Which prices are real",
+   "The two pages currently show five different figures \u2014 $10, $29.95, $39.95, $59.99 and $69.90. Product cards and the purchase panel both need confirmed numbers."],
+  ["Point us at the hero image",
+   "\u00a74 calls for a real open-jar close-up. We have cutouts (wr-wasabirub.png) and lifestyle shots (ea-wasabirub.jpg), but nothing obviously matching that description."]
+];
+
+const DATA = [
+  {n:"\u00a72", t:"Brand architecture and terminology", items:[
+    {x:"Make WasabiRub the consumer-facing masterbrand", s:"decision"},
+    {x:"Move SportPharm into an endorsement role \u2014 \u201cCreated by SportPharm pharmacists\u201d", s:"ready"},
+    {x:"Adopt the WasabiRub Original / Super Hot / Super Cold naming system", s:"decision"},
+    {x:"Confirm the WasabiRub Lidocaine name and regulatory language", s:"approval", note:"The document already flags this as TBD"},
+    {x:"Replace consumer-facing \u201cIcetraRub\u201d with \u201cWasabiRub Super Cold\u201d", s:"decision", note:"53 files, 2 dedicated pages, ~12 assets named icetrarub-*"}
+  ]},
+  {n:"\u00a73", t:"Global navigation", items:[
+    {x:"Remove the SportPharm logo from the header", s:"decision", note:"Blocked on gate 2 \u2014 without it there is no way back to the main site"},
+    {x:"Move the main navigation to the left", s:"ready"},
+    {x:"Keep navigation consistent across homepage and product pages", s:"ready"},
+    {x:"Top-level: Shop \u00b7 Why WasabiRub \u00b7 Quality \u00b7 Athlete Hub \u00b7 For Professionals \u00b7 Cart", s:"decision", note:"Cart depends on gate 1; Athlete Hub and For Professionals depend on gate 2"},
+    {x:"Add product images to the Shop dropdown", s:"ready", note:"Cutouts already exist for all three products"},
+    {x:"Use transparent cutouts in the dropdown, not white-background thumbnails", s:"ready"},
+    {x:"Dropdown naming follows the masterbrand system", s:"decision"}
+  ]},
+  {n:"\u00a74", t:"Homepage hero", items:[
+    {x:"Remove the red decorative line beside \u201cTriple Action Sports Relief\u201d", s:"ready"},
+    {x:"Replace the header image with a real premium product image", s:"asset"},
+    {x:"Blend the open-jar close-up into the dark navy background", s:"asset", note:"Needs the source photograph \u2014 see gate 5"},
+    {x:"No stark white image box around the hero visual", s:"ready"},
+    {x:"Eyebrow: \u201cProfessional-grade relief for real life\u201d", s:"ready"},
+    {x:"Keep \u201cFeel It Work.\u201d as the headline", s:"ready"},
+    {x:"One primary button: Shop WasabiRub", s:"ready", note:"Destination depends on gate 1"},
+    {x:"Remove floating badges, orbit graphics and price bubbles", s:"ready"}
+  ]},
+  {n:"\u00a75", t:"Trust signals below the hero", items:[
+    {x:"Remove TruShield, Pharmacist Formulated and five-star badges from the hero itself", s:"ready"},
+    {x:"Build a clean trust band directly below the hero, larger readable text", s:"ready"},
+    {x:"Three proof points: TruShield \u00b7 pharmacist created \u00b7 trusted by athletes and clinicians", s:"ready", note:"TruShield logo is on the site already"},
+    {x:"Verify all three claims are accurate, current and legally approved", s:"approval"}
+  ]},
+  {n:"\u00a76", t:"Product selector \u2014 \u201cHow do you want relief to feel?\u201d", items:[
+    {x:"Move the section higher on the homepage", s:"ready"},
+    {x:"Remove \u201cYour recovery. Your sensation.\u201d", s:"ready"},
+    {x:"Remove the \u201cfrom pure cooling to serious heat\u201d supporting line", s:"ready", note:"Live wording differs slightly from the quote in the brief"},
+    {x:"White section background", s:"ready"},
+    {x:"Three explicit shoppable cards \u2014 no inferred tab clicking", s:"ready"},
+    {x:"Family colours: green Original \u00b7 red Super Hot \u00b7 blue Super Cold", s:"ready"},
+    {x:"Each card: name, description, sensation cue, Shop action, real product image", s:"ready"},
+    {x:"Show price on the cards", s:"approval", note:"Blocked on gate 4"},
+    {x:"All jars are transparent PNG cutouts, no white rectangles", s:"ready"}
+  ]},
+  {n:"\u00a77", t:"Ingredient / formula section", items:[
+    {x:"Replace the \u201cMost rubs pick one lane\u201d treatment", s:"ready"},
+    {x:"Dark navy section background", s:"ready"},
+    {x:"Three ingredient cards: capsaicin, menthol, methyl salicylate", s:"ready"},
+    {x:"Editorial photography \u2014 one chili, one mint sprig, one wintergreen", s:"asset", note:"No ingredient photography exists on the site"},
+    {x:"Clean white or light neutral backdrops, no green tint", s:"asset"},
+    {x:"Percentages taken from the current product label", s:"approval"},
+    {x:"Sensation cue and one-sentence explanation per ingredient", s:"ready"},
+    {x:"No unsupported mechanistic or medical claims", s:"approval"}
+  ]},
+  {n:"\u00a78", t:"Testimonials", items:[
+    {x:"Left-align testimonial content", s:"ready"},
+    {x:"Three at a time on desktop", s:"ready"},
+    {x:"Consistent card height, restrained styling", s:"ready"},
+    {x:"Mix professional credibility with relatable voices", s:"ready", note:"The current proof band already has named people incl. Matt Furstenburg, Grip Boost"},
+    {x:"Confirm every testimonial used is verified", s:"approval"}
+  ]},
+  {n:"\u00a79", t:"Professional / athlete story", items:[
+    {x:"Remove the red line beside \u201cWhy It Feels Different\u201d", s:"ready"},
+    {x:"Simplify the athlete section", s:"ready"},
+    {x:"Text left, athlete image right", s:"ready"},
+    {x:"Use a credible athlete or practitioner image, not staged stock", s:"asset"},
+    {x:"Simplified benefit list plus one Shop Now button", s:"ready"}
+  ]},
+  {n:"\u00a710", t:"Quality and certification", items:[
+    {x:"Add a dedicated quality section with a concise headline", s:"ready"},
+    {x:"Include the TruShield logo with a plain-language explanation", s:"ready"},
+    {x:"Emphasise the company is created and operated by pharmacists", s:"ready"},
+    {x:"Present testing and professional trust as the reason for the premium price", s:"ready"},
+    {x:"Keep it clinical and premium \u2014 not a wall of seals", s:"ready"},
+    {x:"Substantiate \u201cclean\u201d, \u201cindependently tested\u201d, \u201cbanned-substance screened\u201d, \u201cMade in USA\u201d", s:"approval"}
+  ]},
+  {n:"\u00a711", t:"Featured products banner", items:[
+    {x:"Replace the OG Heat Duo block with a full-width Featured Products banner", s:"ready"},
+    {x:"Transparent cutouts, no white image box", s:"ready"},
+    {x:"Restrained tonal or radial background instead of plain white", s:"ready"},
+    {x:"One product story, one primary Shop action", s:"ready"}
+  ]},
+  {n:"\u00a712", t:"Proud partners", items:[
+    {x:"Add a Proud Partners section", s:"asset", note:"No partner logos exist on the site"},
+    {x:"Obtain USA Handball logo and permission", s:"approval"},
+    {x:"Obtain Nexus Sports Medicine Bags logo and permission", s:"approval"},
+    {x:"Obtain UFC logo and permission", s:"approval", note:"\u00a717 explicitly gates this one"},
+    {x:"Do not imply league or team sponsorship beyond the real relationship", s:"approval"}
+  ]},
+  {n:"\u00a713", t:"Homepage content and layout cleanup", items:[
+    {x:"Reduce the number of headings and repeated eyebrow labels", s:"ready"},
+    {x:"Remove decorative red rules that carry no meaning", s:"ready"},
+    {x:"Generous whitespace, one primary message per section", s:"ready"},
+    {x:"Stop repeating the same proof points in multiple places", s:"ready"},
+    {x:"Shorten sections so the page feels focused", s:"ready"},
+    {x:"Red becomes an accent, not a dominant background", s:"ready"}
+  ]},
+  {n:"\u00a714", t:"Product page redesign", items:[
+    {x:"Match homepage navigation and masterbrand naming", s:"decision"},
+    {x:"Reduce headers, badges, icons, offer boxes and sales pressure", s:"ready"},
+    {x:"50/50 above the fold \u2014 large product image left, purchase panel right", s:"ready"},
+    {x:"One main product image in the primary gallery view", s:"ready"},
+    {x:"No busy ingredient imagery in the primary product area", s:"ready"},
+    {x:"Section order: title \u00b7 image+purchase \u00b7 who it's for \u00b7 benefits \u00b7 how to use \u00b7 quality \u00b7 comparison \u00b7 testimonials \u00b7 FAQ", s:"ready"},
+    {x:"Write the FAQ section", s:"ready", note:"The product page has no FAQ today \u2014 this is new content"},
+    {x:"One obvious Add to Cart action", s:"decision", note:"Blocked on gate 1"}
+  ]},
+  {n:"\u00a715", t:"Product comparison", items:[
+    {x:"Add a comparison chart for the WasabiRub family", s:"ready"},
+    {x:"Compare variant, sensation, actives, best-fit use case, relative intensity", s:"ready"},
+    {x:"Active ingredient percentages verified against current labels", s:"approval"},
+    {x:"No unsupported superiority claims", s:"approval"}
+  ]},
+  {n:"\u00a716", t:"Voice and relatability", items:[
+    {x:"Rewrite copy: clinical not cold, premium not precious, expert not complicated", s:"ready"},
+    {x:"Feature real people \u2014 pharmacists, clinicians, trainers, everyday athletes", s:"asset", note:"Needs real names, photos and permission"},
+    {x:"Remove macho sports language, miracle claims and fear tactics", s:"ready"}
+  ]},
+  {n:"\u00a717", t:"Credibility and claims guardrails", items:[
+    {x:"Verify product names, formulas, percentages, prices, certifications and Drug Facts", s:"approval"},
+    {x:"Clear permission for team, league, UFC, university and athlete references", s:"approval"},
+    {x:"No claims of healing, speeding recovery or preventing injury beyond the OTC label", s:"approval"},
+    {x:"Keep directions, warnings and Drug Facts easy to find", s:"ready"}
+  ]},
+  {n:"\u00a718", t:"Responsive and accessibility", items:[
+    {x:"Clean hierarchy preserved on tablet and mobile", s:"ready"},
+    {x:"Hero copy stacks above the image on small screens", s:"ready"},
+    {x:"Cutouts stay large and uncropped", s:"ready"},
+    {x:"Product and testimonial cards stack cleanly", s:"ready"},
+    {x:"Shop dropdown works with a keyboard and on touch", s:"ready"},
+    {x:"Meaningful alt text; empty alt on decorative images", s:"ready"},
+    {x:"WCAG AA contrast, visible focus, semantic headings, large tap targets", s:"ready"},
+    {x:"Respect reduced-motion preferences", s:"ready"}
+  ]},
+  {n:"\u00a719", t:"Acceptance checklist \u2014 sign-off gate", note:"Verification, not build work. Tick these last, against the built pages.", items:[
+    {x:"SportPharm corner logo removed from the WasabiRub header", s:"decision"},
+    {x:"Left-aligned nav consistent across homepage and product page", s:"ready"},
+    {x:"Shop dropdown contains transparent product images", s:"ready"},
+    {x:"Hero uses an integrated premium product visual, not a white box", s:"asset"},
+    {x:"Hero has one primary Shop WasabiRub action", s:"ready"},
+    {x:"Trust proof sits below the hero in larger, cleaner text", s:"ready"},
+    {x:"Product selector has three explicit shoppable cards on white", s:"ready"},
+    {x:"All product cards use transparent jar cutouts", s:"ready"},
+    {x:"Ingredient section uses one pepper, one mint, one wintergreen image", s:"asset"},
+    {x:"Ingredient section background is dark navy", s:"ready"},
+    {x:"Three left-aligned testimonials at a time on desktop", s:"ready"},
+    {x:"Quality / TruShield section present and uncluttered", s:"ready"},
+    {x:"Featured Products banner is full width with no white image box", s:"ready"},
+    {x:"Proud Partners section present with approved assets and claims", s:"approval"},
+    {x:"Product page uses a clean 50/50 image-and-purchase layout", s:"ready"},
+    {x:"Product page includes all seven required sections", s:"ready"},
+    {x:"Masterbrand naming consistent throughout", s:"decision"},
+    {x:"Mobile, accessibility, image loading and all links tested", s:"ready"},
+    {x:"All claims, prices, formulas, testimonials, certifications and partners approved", s:"approval"}
+  ]}
+];
+
+const KEY = "wasabirub-checklist-v1";
+const LABELS = {ready:"Ready", asset:"Asset", approval:"Approval", decision:"Decision"};
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) { state = {}; }
+/* progress can arrive in the URL so it survives a move to another account or browser */
+try {
+  var m = location.hash.match(/[#&]s=([A-Za-z0-9+/=_-]+)/);
+  if (m) {
+    var raw = decodeURIComponent(escape(atob(m[1].replace(/-/g,"+").replace(/_/g,"/"))));
+    var incoming = JSON.parse(raw);
+    if (incoming && typeof incoming === "object") {
+      state = incoming;
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
+  }
+} catch(e){}
+let filter = "all";
+
+/* ---- gates ---- */
+document.getElementById("gateList").innerHTML = GATES.map(function(g){
+  return '<li class="gate"><div><b>' + g[0] + '</b><span>' + g[1] + '</span></div></li>';
+}).join("");
+
+/* ---- list ---- */
+const list = document.getElementById("list");
+list.innerHTML = DATA.map(function(grp, gi){
+  const rows = grp.items.map(function(it, ii){
+    const id = "i" + gi + "-" + ii;
+    const on = state[id] ? " checked" : "";
+    return '<li class="item" data-s="' + it.s + '" data-done="' + (state[id] ? "1" : "0") + '">' +
+      '<label class="row">' +
+        '<input type="checkbox" id="' + id + '" data-id="' + id + '"' + on + '>' +
+        '<span class="txt">' + it.x +
+          (it.note ? '<span class="sub-note">' + it.note + '</span>' : '') +
+        '</span>' +
+        '<span class="chip" data-s="' + it.s + '">' + LABELS[it.s] + '</span>' +
+      '</label></li>';
+  }).join("");
+  return '<section class="group" data-g="' + gi + '">' +
+      '<div class="ghead"><span class="gnum mono">' + grp.n + '</span>' +
+        '<h3 class="gtitle">' + grp.t + '</h3>' +
+        '<span class="gcount mono" data-gc="' + gi + '"></span></div>' +
+      (grp.note ? '<p class="note">' + grp.note + '</p>' : '') +
+      '<ul class="items">' + rows + '</ul></section>';
+}).join("");
+
+/* ---- filters ---- */
+const FILTERS = [["all","All"],["todo","Not done"],["ready","Ready"],
+                 ["asset","Asset"],["approval","Approval"],["decision","Decision"],["done","Done"]];
+document.getElementById("filters").innerHTML =
+  FILTERS.map(function(f){
+    return '<button class="chipbtn" data-f="' + f[0] + '" aria-pressed="' +
+      (f[0]==="all") + '">' + f[1] + ' <span class="n" data-fc="' + f[0] + '"></span></button>';
+  }).join("") +
+  '<span class="spacer"></span>' +
+  '<button class="ghost" id="exportBtn">Copy handoff link</button>' +
+  '<button class="ghost" id="importBtn">Paste progress</button>' +
+  '<button class="ghost" id="resetBtn">Reset all</button>';
+
+const all = Array.prototype.slice.call(document.querySelectorAll("li.item"));
+const boxes = Array.prototype.slice.call(document.querySelectorAll("input[type=checkbox]"));
+
+function counts(){
+  const c = {all:all.length, done:0, todo:0, ready:0, asset:0, approval:0, decision:0};
+  all.forEach(function(li){
+    const done = li.dataset.done === "1";
+    if (done) c.done++; else c.todo++;
+    if (!done) c[li.dataset.s]++;
+  });
+  return c;
+}
+
+function render(){
+  const c = counts();
+  const pct = all.length ? Math.round(c.done / all.length * 100) : 0;
+  document.getElementById("barFill").style.width = pct + "%";
+  document.getElementById("pct").textContent = pct;
+  document.getElementById("metaLeft").textContent =
+    c.done + " of " + all.length + " complete";
+  document.getElementById("metaRight").textContent =
+    c.ready + " ready \u00b7 " + c.asset + " asset \u00b7 " + c.approval + " approval \u00b7 " + c.decision + " decision";
+
+  FILTERS.forEach(function(f){
+    const el = document.querySelector('[data-fc="' + f[0] + '"]');
+    if (el) el.textContent = c[f[0]];
+  });
+
+  all.forEach(function(li){
+    const done = li.dataset.done === "1";
+    let show = true;
+    if (filter === "done") show = done;
+    else if (filter === "todo") show = !done;
+    else if (filter !== "all") show = (li.dataset.s === filter && !done);
+    li.classList.toggle("hidden", !show);
+  });
+
+  let visible = 0;
+  DATA.forEach(function(grp, gi){
+    const sec = document.querySelector('[data-g="' + gi + '"]');
+    const items = Array.prototype.slice.call(sec.querySelectorAll("li.item"));
+    const shown = items.filter(function(li){ return !li.classList.contains("hidden"); });
+    const done = items.filter(function(li){ return li.dataset.done === "1"; }).length;
+    sec.querySelector('[data-gc="' + gi + '"]').textContent = done + "/" + items.length;
+    sec.classList.toggle("is-empty", shown.length === 0);
+    visible += shown.length;
+  });
+  document.getElementById("emptyState").classList.toggle("on", visible === 0);
+}
+
+boxes.forEach(function(b){
+  b.addEventListener("change", function(){
+    state[b.dataset.id] = b.checked;
+    b.closest("li.item").dataset.done = b.checked ? "1" : "0";
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+    render();
+  });
+});
+
+document.getElementById("filters").addEventListener("click", function(e){
+  const btn = e.target.closest(".chipbtn");
+  if (!btn) return;
+  filter = btn.dataset.f;
+  document.querySelectorAll(".chipbtn").forEach(function(b){
+    b.setAttribute("aria-pressed", String(b === btn));
+  });
+  render();
+});
+
+function encodeState(){
+  var checked = {};
+  Object.keys(state).forEach(function(k){ if (state[k]) checked[k] = 1; });
+  var b = btoa(unescape(encodeURIComponent(JSON.stringify(checked))));
+  return b.replace(/\+/g,"-").replace(/\//g,"_");
+}
+document.getElementById("exportBtn").addEventListener("click", function(){
+  var url = location.origin + location.pathname + "#s=" + encodeState();
+  var n = Object.keys(state).filter(function(k){return state[k];}).length;
+  function done(){ alert("Copied a link carrying all " + n + " checked items.\n\nOpen it on the new account and the checklist restores itself."); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(done, function(){ prompt("Copy this link:", url); });
+  } else { prompt("Copy this link:", url); }
+});
+document.getElementById("importBtn").addEventListener("click", function(){
+  var v = prompt("Paste the handoff link or progress code:");
+  if (!v) return;
+  var mm = v.match(/[#&]s=([A-Za-z0-9+/=_-]+)/);
+  var code = mm ? mm[1] : v.trim();
+  try {
+    var obj = JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,"+").replace(/_/g,"/")))));
+    if (!obj || typeof obj !== "object") throw 0;
+    state = obj;
+    localStorage.setItem(KEY, JSON.stringify(state));
+    boxes.forEach(function(b){
+      var on = !!state[b.dataset.id];
+      b.checked = on; b.closest("li.item").dataset.done = on ? "1" : "0";
+    });
+    render();
+    alert("Restored " + Object.keys(obj).filter(function(k){return obj[k];}).length + " checked items.");
+  } catch(e){ alert("That code could not be read. Paste the whole handoff link."); }
+});
+document.getElementById("resetBtn").addEventListener("click", function(){
+  if (!confirm("Clear every checked item?")) return;
+  state = {};
+  try { localStorage.removeItem(KEY); } catch(e){}
+  boxes.forEach(function(b){ b.checked = false; b.closest("li.item").dataset.done = "0"; });
+  render();
+});
+
+render();
+</script>

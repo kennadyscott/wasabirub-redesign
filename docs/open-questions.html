@@ -1,0 +1,315 @@
+<title>WasabiRub Redesign &mdash; Open Questions</title>
+
+<style>
+  :root{
+    --bg:#f4f6f7; --panel:#fff; --panel-2:#fafbfb;
+    --ink:#0f1a22; --ink-2:#3c4a55; --muted:#5e6b75;
+    --line:#dee4e8; --line-2:#c7d0d6;
+    --accent:#d6202a;
+    --stop:#9c3b28;  --stop-bg:rgba(156,59,40,.10);
+    --wait:#7f5406;  --wait-bg:rgba(127,84,6,.11);
+    --ask:#215c7e;   --ask-bg:rgba(33,92,126,.10);
+    --done:#0b6b4a;
+    --shadow:0 1px 2px rgba(15,26,34,.05),0 8px 24px -18px rgba(15,26,34,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d1419; --panel:#141d24; --panel-2:#111a20;
+      --ink:#e8eef2; --ink-2:#b3c0c9; --muted:#8b9aa5;
+      --line:#243139; --line-2:#33434d; --accent:#f2545c;
+      --stop:#ef8874; --stop-bg:rgba(239,136,116,.13);
+      --wait:#d9a13f; --wait-bg:rgba(217,161,63,.13);
+      --ask:#7cc0e6;  --ask-bg:rgba(124,192,230,.13);
+    --done:#4dc99a;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d1419; --panel:#141d24; --panel-2:#111a20;
+    --ink:#e8eef2; --ink-2:#b3c0c9; --muted:#8b9aa5;
+    --line:#243139; --line-2:#33434d; --accent:#f2545c;
+    --stop:#ef8874; --stop-bg:rgba(239,136,116,.13);
+    --wait:#d9a13f; --wait-bg:rgba(217,161,63,.13);
+    --ask:#7cc0e6;  --ask-bg:rgba(124,192,230,.13);
+    --done:#4dc99a;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -20px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --bg:#f4f6f7; --panel:#fff; --panel-2:#fafbfb;
+    --ink:#0f1a22; --ink-2:#3c4a55; --muted:#5e6b75;
+    --line:#dee4e8; --line-2:#c7d0d6; --accent:#d6202a;
+    --stop:#9c3b28; --stop-bg:rgba(156,59,40,.10);
+    --wait:#7f5406; --wait-bg:rgba(127,84,6,.11);
+    --ask:#215c7e;  --ask-bg:rgba(33,92,126,.10);
+    --done:#0b6b4a;
+    --shadow:0 1px 2px rgba(15,26,34,.05),0 8px 24px -18px rgba(15,26,34,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 90px}
+
+  header.top{background:var(--panel);border-bottom:1px solid var(--line)}
+  header.top .wrap{padding:34px 20px 26px}
+  .kicker{display:flex;align-items:center;gap:10px;margin:0 0 12px;
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .kicker::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px}
+  h1{margin:0 0 10px;font-size:clamp(27px,4.2vw,38px);line-height:1.08;letter-spacing:-.022em;font-weight:800;text-wrap:balance}
+  .lede{margin:0;color:var(--ink-2);max-width:64ch}
+
+  .tally{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .tally div{flex:1 1 150px;padding:12px 14px;border:1px solid var(--line);border-radius:9px;background:var(--panel-2)}
+  .tally b{display:block;font-size:23px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .tally span{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+  .tally .t-done b{color:var(--done)}
+  .tally .t-stop b{color:var(--stop)} .tally .t-wait b{color:var(--wait)} .tally .t-ask b{color:var(--ask)}
+
+  h2.group{margin:34px 0 4px;font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  p.group-note{margin:0 0 14px;font-size:13.5px;color:var(--ink-2);max-width:70ch}
+
+  .item{border:1px solid var(--line);border-radius:10px;background:var(--panel);
+    box-shadow:var(--shadow);padding:18px 20px;margin-bottom:12px}
+  .item.stop{border-left:3px solid var(--stop)}
+  .item.wait{border-left:3px solid var(--wait)}
+  .item.ask{border-left:3px solid var(--ask)}
+  .item.done{border-left:3px solid var(--done);opacity:.72}
+  .done .chip{color:var(--done);background:rgba(11,107,74,.10)}
+  .item.done h3{text-decoration:line-through;text-decoration-color:var(--line-2)}
+  .item h3{margin:0 0 3px;font-size:16px;letter-spacing:-.01em}
+  .chip{display:inline-block;margin-left:9px;padding:4px 8px;border-radius:5px;vertical-align:2px;
+    font:700 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase}
+  .stop .chip{color:var(--stop);background:var(--stop-bg)}
+  .wait .chip{color:var(--wait);background:var(--wait-bg)}
+  .ask  .chip{color:var(--ask); background:var(--ask-bg)}
+  .item p{margin:9px 0 0;font-size:14px;line-height:1.6;color:var(--ink-2)}
+  .item .found{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--muted)}
+  .item .found b{color:var(--ink);font-weight:700}
+  .need{margin:11px 0 0;padding:10px 12px;border-radius:7px;background:var(--panel-2);
+    border:1px solid var(--line);font-size:13.5px}
+  .need b{display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+    background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+  .tablewrap{overflow-x:auto;margin-top:11px}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:420px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  td.num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  @media(max-width:560px){.item{padding:15px 15px}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">WasabiRub redesign &middot; blockers</p>
+    <h1>What I&rsquo;m stuck on</h1>
+    <p class="lede">Everything I&rsquo;ve hit that I can&rsquo;t resolve myself, with what I already checked
+      and the single answer that unblocks each one. Nothing here is waiting on build time.</p>
+    <div class="tally">
+      <div class="t-stop"><b>4</b><span>Blocking &mdash; work stops</span></div>
+      <div class="t-wait"><b>3</b><span>Missing assets</span></div>
+      <div class="t-ask"><b>6</b><span>Needs a decision or sign-off</span></div>
+      <div class="t-done"><b>4</b><span>Resolved since</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2 class="group">Blocking</h2>
+  <p class="group-note">Each of these stops a specific checklist item from being finishable.</p>
+
+  <div class="item stop">
+    <h3>There is no store<span class="chip">Blocking</span></h3>
+    <p>The brief asks for a Cart nav item, Shop Now on every product card, and Add to Cart on the
+      product page. None of that exists. I searched for Shopify, Stripe, Snipcart and WooCommerce
+      and found none of them &mdash; what&rsquo;s there is a counter that reads <code>0</code> and some
+      <code>localStorage</code>. The Add to Cart button doesn&rsquo;t submit anywhere.</p>
+    <p>This is a separate project with its own decisions: platform, who fulfils, tax, shipping,
+      DTC versus wholesale. Everything else in the brief can ship without it.</p>
+    <div class="need"><b>What unblocks it</b>Do we build commerce, or do Shop actions point at
+      wherever you sell today?</div>
+  </div>
+
+  <div class="item stop">
+    <h3>Separate site, or a section of sportpharm.com?<span class="chip">Blocking</span></h3>
+    <p>&sect;2 demotes SportPharm to an endorsement. &sect;3 removes its logo outright because the
+      destination is wasabirub.com. But the nav you specified still lists For Professionals, which
+      lives on the SportPharm site.</p>
+    <p>This one answer sets the header logo, the footer, the persona toggle, whether Athlete Hub
+      belongs in the nav, and whether the rename below needs redirects.</p>
+    <div class="need"><b>What unblocks it</b>Is WasabiRub becoming its own site, or staying a
+      branded section?</div>
+  </div>
+
+  <div class="item stop">
+    <h3>Two prices left, both unconfirmed<span class="chip">Blocking</span></h3>
+    <p>This started as five figures &mdash; <code>$10</code>, <code>$29.95</code>, <code>$39.95</code>,
+      <code>$59.99</code>, <code>$69.90</code>. Replacing the OG Heat Duo block removed the only
+      occurrence of <code>$59.99</code> and <code>$69.90</code>, and the <code>$10</code> SAVE badge
+      went with it.</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Product</th><th>Shown everywhere</th></tr>
+        <tr><td>WasabiRub</td><td class="num">$29.95</td></tr>
+        <tr><td>Super Hot</td><td class="num">$39.95</td></tr>
+        <tr><td>Super Cold</td><td class="num">$39.95</td></tr>
+      </table>
+    </div>
+    <p class="found"><b>One of these was our own bug:</b> the homepage selector card priced Super Cold
+      at $29.95 while its product page said $39.95. Aligned to the product page &mdash; but that means
+      a figure was chosen, not confirmed.</p>
+    <p class="found"><b>Also homeless:</b> the duo bundle. Its only appearance was the block that got
+      replaced, so it currently has nowhere to be sold.</p>
+    <div class="need"><b>What unblocks it</b>Confirmed price per product, and a decision on the duo bundle.</div>
+  </div>
+
+  
+
+    <div class="item stop">
+    <h3>Product schema on the three product pages<span class="chip">Blocking</span></h3>
+    <p>Every page now carries a canonical, Open Graph tags and a built 1200&times;630 share card, plus
+      valid <code>FAQPage</code> markup that matches the visible copy exactly. What is missing is
+      <code>Product</code> and <code>Offer</code> markup &mdash; price, availability, brand.</p>
+    <p class="found"><b>Why it matters more than the FAQ:</b> Google restricted FAQ rich results to
+      government and health sites in 2023, so the FAQ markup is unlikely to produce rich results for
+      a consumer brand however well it is built. Product and Offer markup still does. For a shop
+      page it is the single highest-value piece of structured data, and it is the one we do not have.</p>
+    <div class="need"><b>What unblocks it</b>Two answers already on this list. Confirmed prices, because
+      the markup states a figure; and the store question, because <code>availability</code> is
+      meaningless while Add to Cart goes nowhere. Answer those two and this is an hour of work.</div>
+  </div>
+
+<h2 class="group">Missing assets</h2>
+  <p class="group-note">Checklist items that cannot be ticked until a file exists.</p>
+
+  
+
+  <div class="item wait">
+    <h3>Partner logos<span class="chip">Asset</span></h3>
+    <p>&sect;12 asks for a Proud Partners section with USA Handball, Nexus Sports Medicine Bags and
+      UFC. None of those logos are on the site &mdash; and &sect;17 separately requires written
+      permission for each, so this is gated twice.</p>
+  </div>
+
+  <div class="item wait">
+    <h3>The open-jar hero image<span class="chip">On hold</span></h3>
+    <p>&sect;4 calls for a real open-jar close-up as an editorial hero. You sent a screenshot of
+      exactly the right shot, but the file does not exist &mdash; it was not among the eight images
+      embedded in the mockup, and it is not on disk.</p>
+    <p class="found"><b>Status:</b> parked at your call, 7 August. The hero still uses the
+      transparent cutout <code>wr-wasabirub-hero.png</code>, which works. Nothing else is waiting on
+      it. Send the file whenever it exists and it drops in full-bleed.</p>
+  </div>
+
+  <div class="item wait">
+    <h3>A WasabiRub wordmark<span class="chip">Asset</span></h3>
+    <p>Not in the brief, but it became obvious once WasabiRub became the masterbrand. There is no
+      WasabiRub logotype anywhere &mdash; the brand in the header is set as type, Arial 900 at a tight
+      track. It reads fine next to the rest of the page, but a real logotype should replace it.</p>
+  </div>
+
+  <h2 class="group">Needs a decision or sign-off</h2>
+  <p class="group-note">Not blocking, but I&rsquo;ve made a call that someone should confirm or overturn.</p>
+
+  <div class="item ask">
+    <h3>Medical claims on the product page<span class="chip">Sign-off</span></h3>
+    <p>The hero I rebuilt carried real claims: <em>nerve desensitizer</em>, <em>reduces pain-signal
+      transmission</em>, <em>deep-tissue anti-inflammatory action</em>, <em>numb pain</em>. I replaced
+      them with the page&rsquo;s own softer copy &mdash; cooling sensation, warming sensation, temporarily
+      relieves minor aches.</p>
+    <p class="found"><b>Note:</b> all four are still live on sportpharm.com today. &sect;17 prohibits
+      exactly this category. This is a claims decision, not a design one.</p>
+  </div>
+
+  <div class="item ask">
+    <h3>Four phrases I refused to write<span class="chip">Sign-off</span></h3>
+    <p>You flagged &ldquo;clean&rdquo;, &ldquo;independently tested&rdquo;, &ldquo;banned-substance
+      screened&rdquo; and &ldquo;Made in USA&rdquo; as needing substantiation, so the quality section
+      omits all four. Everything in it is language already on the site: third-party certification
+      with filable documentation, and founded in 1995 by the first pharmacist of the US Olympic
+      Medical Team.</p>
+    <div class="need"><b>What unblocks it</b>Substantiate any of the four and I&rsquo;ll add them.</div>
+  </div>
+
+  <div class="item done">
+    <h3>Mockup versus instructions<span class="chip">Resolved</span></h3>
+    <p>Settled on 7 August: mimic the mockup. The WasabiRub lockup came out of the header, Athlete
+      Hub went back into the nav. The header now carries no logo at all, as the mockup shows.</p>
+  </div>
+
+  <div class="item ask">
+    <h3>Claims baked into images<span class="chip">Sign-off</span></h3>
+    <p>Two graphics carry claims as pixels, so editing page copy does not touch them:</p>
+    <p><code>superhot-target-pain.png</code> reads <em>&ldquo;reduce pain signal transmission,
+      helping calm chronic or nerve-related pain&rdquo;</em> &mdash; the same claim I removed from the
+      product page text. <code>icetrarub-guidelines.png</code> reads <em>&ldquo;third-party tested
+      for over 480 prohibited substances&rdquo;</em>, a specific checkable number.</p>
+    <div class="need"><b>What unblocks it</b>Either substantiate both, or commission replacement
+      graphics. They cannot be fixed in code.</div>
+  </div>
+
+  <div class="item ask">
+    <h3>Quality has nowhere to point<span class="chip">Decision</span></h3>
+    <p>Quality is in the nav as you specified, but there is no quality page &mdash; only the confidence
+      bar on the homepage and the quality block on the product page. The nav item and the
+      &ldquo;Our quality standard&rdquo; button both point at
+      <code>coming-soon.html?f=Quality</code>.</p>
+    <div class="need"><b>What unblocks it</b>Anchor both to the homepage confidence bar, or build a
+      dedicated Quality page?</div>
+  </div>
+
+  <div class="item ask">
+    <h3>Testimonials are all professional<span class="chip">Decision</span></h3>
+    <p>You were unsure about this one. All eight are professional voices &mdash; athletic trainers, a
+      club, a founder. That is strong proof and I would not dilute it for balance.</p>
+    <p>The gap is that no everyday athlete speaks, which is the audience &sect;1 describes. My
+      recommendation is to keep all eight and add two or three verified consumer voices, rather than
+      swapping any out.</p>
+  </div>
+
+  <div class="item ask">
+    <h3>&ldquo;WasabiRub Lidocaine&rdquo;<span class="chip">Sign-off</span></h3>
+    <p>The brief marks the name and regulatory language as unconfirmed, so the Shop dropdown still
+      says <b>LidoRub</b>, dimmed, coming soon. I have not renamed it under the masterbrand system.</p>
+  </div>
+
+
+  <h2 class="group">Resolved since this list was written</h2>
+  <p class="group-note">Kept here so nobody re-raises them.</p>
+  <div class="item done">
+    <h3>Rename scope and redirects<span class="chip">Resolved</span></h3>
+    <p>Decided 8 Aug. Product pages now match the product names, and the old URLs redirect rather
+      than breaking.</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Was</th><th>Now</th></tr>
+        <tr><td><code>superhot-product.html</code></td><td><code>wasabirub-super-hot.html</code></td></tr>
+        <tr><td><code>icetrarub-product.html</code></td><td><code>wasabirub-super-cold.html</code></td></tr>
+        <tr><td><code>wasabirub-product.html</code></td><td><code>wasabirub.html</code></td></tr>
+        <tr><td><code>find-your-rub.html</code></td><td><code>wasabirub-shop.html</code></td></tr>
+        <tr><td><code>superhot.html</code>, <code>icetrarub.html</code></td><td>Canonical redirects</td></tr>
+      </table>
+    </div>
+    <p class="found"><b>Still open underneath it:</b> about 12 assets keep <code>icetrarub-*</code>
+      and <code>superhot-*</code> filenames. Invisible to visitors, so they were left alone.</p>
+  </div>
+
+
+  <div class="item done">
+    <h3>Ingredient photography<span class="chip">Resolved</span></h3>
+    <p>Found embedded in the mockup file you sent: a single chili, a mint sprig and a wintergreen
+      sprig, all on clean white. Saved as <code>ing-capsaicin</code>, <code>ing-menthol</code> and
+      <code>ing-wintergreen</code>. A better TruShield logo came with them.</p>
+  </div>
+
+  <div class="item done">
+    <h3>No mobile navigation<span class="chip">Resolved</span></h3>
+    <p>The old rule hid the entire nav below 900px. The new class-based nav outranks it, and below
+      820px the header wraps to two rows with the links scrolling. Verified at a simulated 390px:
+      two rows, nothing clipped, nothing hidden.</p>
+  </div>
+
+</div>

@@ -1,139 +1,254 @@
-# SportPharm Website — Project Handoff
+# WasabiRub redesign — handoff
 
-_Last updated: 2026-07-24 · Continuation guide for picking this project up in a fresh Claude session/account._
+Everything needed to pick this up on another account. This file lives in the repo
+so it travels with the code and does not depend on any Claude account.
 
----
-
-## 0. TL;DR — what to do first
-
-1. **The GitHub repo is the single source of truth.** Everything built is pushed there. Nothing lives only on a local machine.
-   - Repo: **`kennadyscott/sportpharm-site`** (branch `main`)
-   - Live site (GitHub Pages): **https://kennadyscott.github.io/sportpharm-site/**
-2. On the new account, in a fresh session, just say: _"Clone kennadyscott/sportpharm-site and read HANDOFF.md."_ That's enough to resume.
-3. **Read this whole file** + the two knowledge docs in **`docs/`** (the detailed decision log) before editing.
+Last updated: 8 August 2026.
 
 ---
 
-## 1. What the project is
+## 1. Where the work lives
 
-A custom marketing + content + light‑commerce website for **SportPharm** — a sports‑injury recovery brand (educational guidance + products that help athletes recover and return to play). President: **Brandon Welch**. It is **problem/solution first**, not product‑first (browse by injury / body part / sport).
+| | |
+|---|---|
+| Sandbox repo | `github.com/kennadyscott/wasabirub-redesign` |
+| Sandbox site | https://kennadyscott.github.io/wasabirub-redesign/wasabirub-home.html |
+| Live SportPharm repo | `github.com/kennadyscott/sportpharm-site` — **frozen, do not touch** |
+| Second sandbox | `github.com/kennadyscott/sportpharm-redesign` (the 89-page SportPharm site) |
+| Local working copy | `/tmp/wasabirub-redesign` (ephemeral — clone from GitHub instead) |
 
-Two related surfaces:
-- **SportPharm main site** — the big content site (homepage, injury guides, recovery/performance hubs, product pages, sports‑medicine/professional page, articles, an admin console).
-- **WasabiRub** — the flagship topical‑rub product's own landing page (`wasabirub.html`). The lineup: **WasabiRub** ($29.95, balanced), **IcetraRub** ($39.95, cooling), **Super Hot** ($39.95, max heat), **LidoRub** (coming soon).
+Forked from `sportpharm-site` at `fa9494a` with full history. 43 commits of redesign
+work sit on top. Any fix made on the live site can still be cherry-picked across.
 
-**Eventual production stack (not built yet):** Next.js + Payload CMS + Postgres on Vercel, Stripe for payments (incl. native promo codes), Mailchimp for email/abandoned cart. **No WooCommerce needed** (that's WordPress‑only). The current site is a **high‑fidelity static HTML prototype** that will port into that stack.
+**Nothing in this project has been deployed to the live site.** The live site is
+untouched. This is a sandbox for review.
 
----
-
-## 2. How it's built & deployed
-
-- **Static HTML/CSS/JS.** Each page is self‑contained with an inline `<style>` block — there is **no shared external stylesheet**. (This is why editing one page never affects another.)
-- **No framework, no build step.** Plain files served as‑is by GitHub Pages.
-- **Deploy = git push.** Push to `main` → GitHub Pages rebuilds automatically (~30–60s). CDN caches per file ~60s, so hard‑refresh (Cmd+Shift+R) or incognito when verifying.
-- **Preview locally** with a static server on **port 4184** (see §5).
-
-### Pushing to GitHub (auth)
-There is **no `gh` CLI**. Auth uses a token stored in the **macOS keychain** (service `gh:github.com`), decoded and passed as a Basic auth header. On the same Mac this keeps working; on a new machine you'll need to re‑add the token to the keychain (or use your own git credentials).
+### Local preview
 
 ```bash
-cd /path/to/sportpharm-site
-RAW=$(security find-generic-password -s "gh:github.com" -w)
-TOKEN=$(printf '%s' "${RAW#go-keyring-base64:}" | base64 -d)
-AUTH=$(printf 'x-access-token:%s' "$TOKEN" | base64)
-git add -A && git commit -m "…"
-git -c http.extraheader="Authorization: Basic $AUTH" push origin HEAD
+git clone https://github.com/kennadyscott/wasabirub-redesign.git
+cd wasabirub-redesign && python3 -m http.server 4207
 ```
-> Note: the account `kennady-scott` (with a hyphen) is separate; this token only pushes to **`kennadyscott`**.
 
 ---
 
-## 3. Current state — what's live
+## 2. Page inventory — the WasabiRub set
 
-**43 HTML pages.** Highlights:
+Eight pages. The other 81 files in the repo are the inherited SportPharm site.
 
-| Area | Pages | Notes |
+| Page | Role |
+|---|---|
+| `wasabirub-home.html` | Brand homepage. The reference for the design language. |
+| `wasabirub.html` | WasabiRub product page. **The template** the other two are built from. |
+| `wasabirub-super-hot.html` | Super Hot product page |
+| `wasabirub-super-cold.html` | Super Cold product page |
+| `wasabirub-shop.html` | Shop-all page (nav "Shop" points here) |
+| `how-it-works.html` | Why WasabiRub |
+| `superhot.html`, `icetrarub.html` | Canonical redirects to the two variant pages |
+| `products.html` | **Not part of this project** — a SportPharm page, correct as-is |
+
+### Homepage section order
+
+`hero → trustband → selector → testimonials → formula → quality → FAQ → featured range → final CTA → partners`
+
+### Product page section order (all three, identical)
+
+`hero → who it's for → benefits → how to use → quality → comparison → FAQ`
+
+This order was specified by the client. `wasabirub.html` is the template — build any
+new variant from it rather than from scratch, so nav, footer and CSS match by
+construction.
+
+---
+
+## 3. Renames already done
+
+| Was | Now |
+|---|---|
+| `wasabirub-product.html` | `wasabirub.html` |
+| `wasabirub.html` (brand home) | `wasabirub-home.html` |
+| `find-your-rub.html` | `wasabirub-shop.html` |
+| `superhot-product.html` | `wasabirub-super-hot.html` |
+| `icetrarub-product.html` | `wasabirub-super-cold.html` |
+| `superhot.html`, `icetrarub.html` | kept as canonical redirects |
+
+"IcetraRub" is retired from all visible copy in favour of "WasabiRub Super Cold".
+15 asset *filenames* still read `icetrarub-*` / `superhot-*` — invisible to
+visitors, deliberately left alone.
+
+The ~83 site-wide links that pointed at `wasabirub.html` now land on the **product
+page**, which was the intent. The nav logo points at `wasabirub-home.html` so the
+brand page is not orphaned.
+
+---
+
+## 4. Metadata — one launch task
+
+Every page has a canonical, Open Graph and Twitter card tags, and a built
+1200×630 share image (`assets/og-*.jpg`).
+
+**All of these URLs are absolute and point at the sandbox**
+(`https://kennadyscott.github.io/wasabirub-redesign/`). Every `canonical`, `og:url`
+and `og:image` must be rewritten at launch. It is a single base-URL find-and-replace.
+
+They are absolute rather than relative because `og:image` must be absolute to
+resolve, and pointing them at a domain that does not serve these pages yet would be
+worse than pointing them here.
+
+### FAQ / structured data status
+
+- The four WasabiRub pages that carry an FAQ (`wasabirub-home`, `wasabirub`,
+  `wasabirub-super-hot`, `wasabirub-super-cold`) all have valid `FAQPage` JSON-LD
+  matching the visible copy exactly, with no duplicate blocks. Seven inherited
+  SportPharm pages also carry `FAQPage` — untouched by this project and unverified.
+- Every product page's FAQ is unique — zero shared questions between them.
+- **Caveat worth knowing:** Google restricted FAQ rich results to government and
+  health sites in 2023, so this markup is unlikely to produce rich results for a
+  consumer brand however well it is built. It still earns its place for AI answer
+  engines and other search engines. Verify current policy before promising anyone
+  rich results.
+- **Missing and more valuable:** `Product` / `Offer` schema on the three product
+  pages. Blocked on confirmed prices and the store question (see §5).
+
+---
+
+## 5. Open questions — work stops without these
+
+Full detail, with what unblocks each: see the blockers list in §7.
+
+1. **There is no store.** No Shopify/Stripe/Snipcart/WooCommerce — just a counter
+   reading `0`. Every Add to Cart goes nowhere.
+2. **Separate site, or a section of sportpharm.com?** Sets the header logo, footer,
+   persona toggle, and whether Athlete Hub belongs in the nav.
+3. **Two prices, both unconfirmed.** WasabiRub $29.95, Super Hot $39.95, Super Cold
+   $39.95 — consistent everywhere now, but chosen rather than confirmed. One of them
+   was our own bug: the homepage priced Super Cold $10 lower than its product page.
+   Also: the duo bundle has nowhere to be sold since the block carrying it was replaced.
+4. **`Product` schema** — blocked on 1 and 3 above.
+
+### Assets still missing
+
+- A genuine **Super Hot and Super Cold testimonial**. Every quote in the repo is
+  brand-level WasabiRub or about another SportPharm service. The variant pages ship
+  without a testimonial section rather than carry an invented or misattributed quote.
+- **UFC, USA Handball, Nexus** partner logos — also gated on written permission.
+- A real **athlete or practitioner photograph**, not staged stock.
+- The **open-jar hero close-up** (§4 of the brief). Parked at the client's call.
+
+### Claims needing sign-off
+
+- Two claims are **baked into images** and cannot be fixed in code:
+  `superhot-target-pain.png` ("reduce pain signal transmission … chronic or
+  nerve-related pain") and `icetrarub-guidelines.png` ("third-party tested for over
+  480 prohibited substances").
+- Two drug claims were **removed from Super Hot's copy** during the rebuild —
+  "long-lasting nerve desensitizer that reduces pain-signal transmission" and
+  "deep-tissue anti-inflammatory action" — replaced with the monograph language
+  already approved on the original page.
+- "Clean", "independently tested", "banned-substance screened", "Made in USA" are
+  all omitted pending substantiation.
+
+---
+
+## 6. The lifestyle-imagery problem
+
+Worth reading before presenting this. Shelving the athlete hub removed the only
+place built for lifestyle and human connection, and the product-page cleanup removed
+what little was left.
+
+| Page | Photographs | Cutouts / marks |
 |---|---|---|
-| **Main homepage** | `index.html` | Everyday‑Athlete homepage. Persona toggle top‑right (Everyday / Pro / Healthcare‑AT → `index` / `pro-athlete` / `sports-medicine`). "What Brings You Here ▾" → pathway anchors. Fonts: **Bebas Neue + Inter**. Brand red **#E0312A**. |
-| **Persona homepages** | `pro-athlete.html`, `sports-medicine.html` | Pro Athlete + Healthcare/Athletic‑Trainer landing pages. Each has the persona toggle. `sports-medicine.html` is a **LIGHT** theme (white/navy/red). |
-| **Athlete Hub (old main build)** | `athlete-hub.html` | The original content home, now a sub‑hub. |
-| **Injury system** | `injuries.html` + 8 guides (`ankle-sprain, acl, hamstring, lower-back, rotator-cuff, tennis-elbow, shin-splints, concussion`) + 8 body‑part pages (`head-neck, shoulder, elbow, wrist-hand, back-spine, hip-thigh, knee, lower-leg-ankle-foot`) | Guides are **DARK** hero cards; regenerate from the generator, don't hand‑edit. |
-| **Recovery / Performance hubs** | `recovery.html`, `performance.html` + landing pages (`recovery-timelines, rehab-exercises, return-to-play, recovery-tools, training, injury-prevention, strength-mobility, warmup`) | DARK theme, each with one interactive widget. |
-| **Products** | `products.html`, `wasabirub.html`, `icetrarub.html`, `superhot.html` | LIGHT theme retail. `wasabirub.html` = the standalone **FEEL IT WORK** landing (see §6). |
-| **Articles** | `articles.html`, `article-recovery-habits.html`, `article-nsaids.html`, `article-return-injury.html` | Blog. |
-| **Admin console** | `admin.html` | **Prototype** internal dashboard (localStorage‑backed). Modules: Dashboard, Blog CMS (full CRUD w/ tags/categories/publish flow), Products, Leads, Analytics, Settings. On‑brand navy/red, Bebas+Inter. Demo login (any credentials). This is the blueprint for the eventual Payload build. |
-| **Utility** | `coming-soon.html` (`?f=Feature+Name`), `roadmap.html` | Every unbuilt destination points to `coming-soon`. |
+| `wasabirub-home.html` | 7 | 11 |
+| every other page in the set | **0** | 8–9 |
+
+Every photograph in the set is on one page — and after the rename, that page is the
+hardest to reach (nav logo only), while the ~83 inbound links land on the product
+page, which has none. The most-visited page is pure spec; the page carrying the
+emotional register is the hardest to get to.
+
+The nav still shows **ATHLETE HUB**, but it points at `index.html?welcome` — the
+SportPharm everyday-athlete page. It leaves the WasabiRub brand entirely.
+
+Four ways out: revive the hub, fold lifestyle content into the product pages, give
+the brand homepage more entry points, or accept that WasabiRub reads as a clinical
+product line. The last is legitimate, but it should be a decision rather than a side
+effect.
 
 ---
 
-## 4. Brand & design system
+## 7. Tracking documents
 
-- **Logos** (in `assets/`): `wordmark-dark.png` (red SPORTPHARM wordmark, for light bgs), `wordmark-white.png` (for dark bgs), `logo.png` / `logo-white.png` (full logo w/ "We Take Our Drugs Seriously." tagline).
-- **Brand red = `#E0312A`** across the main site. (WasabiRub's own page uses its own red **`#d6202a`** — keep that distinction.)
-- **Fonts by surface:**
-  - Main site (homepage/persona pages): **Bebas Neue** (display) + **Inter** (body/nav).
-  - Injury guides / hubs / older pages: **Oswald** (display) + **Epilogue** (nav/sub‑headings) + Inter body. _(User is picky about letterforms — chose Epilogue over Sora/Archivo because of the lowercase "l"; see `docs/`.)_
-  - WasabiRub page: **native Arial/Helvetica weight:1000** display (user rejected Bebas AND Archivo Black here).
-- **Theme split (intentional):** browse/landing pages (homepage, injuries hub, recovery/performance hubs) are **DARK**; detail/content pages (injury guides, product pages, sports‑medicine) are **LIGHT**.
-- User prefers **white/bright text over grey**; do not reintroduce Comic Sans‑style casual fonts (serious brand).
+Both are Claude artifacts owned by the current account. **They will not transfer.**
+Export before you lose access — see §8.
 
----
+| Document | What it holds |
+|---|---|
+| Build checklist | 118 items across 18 sections of the client change list, tagged Ready / Asset / Approval / Decision |
+| Blockers & open questions | 4 blocking · 3 missing assets · 6 needing sign-off · 4 resolved |
 
-## 5. Local preview (recreate on new machine)
+The source HTML for both is in this repo as `docs/build-checklist.html` and
+`docs/open-questions.html`, so they survive the move even if the artifacts do not.
+Open them straight from a local clone — they are self-contained.
 
-`/tmp` gets wiped between sessions, so the working copy and `launch.json` are **ephemeral** — recreate them by cloning + adding a launch config. The user's Claude Code uses a `launch.json` preview server named **`sportpharm`** on **port 4184** serving the repo dir. Recreate `.claude/launch.json`:
-
-```json
-{
-  "version": "0.0.1",
-  "configurations": [
-    { "name": "sportpharm", "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4184"], "port": 4184 }
-  ]
-}
-```
-Serve from the repo directory. (Important: `~/Documents` is **not** readable by the preview server, so images must be copied into the repo's `assets/` — see §7.)
+`docs/` also holds inherited SportPharm material predating this project
+(athlete-hub pitch, site map, UX audit, Supabase notes). Not part of the WasabiRub
+redesign; left in place.
 
 ---
 
-## 6. ⚠️ WasabiRub — do not redesign
+## 8. Moving the checklist to the new account
 
-`wasabirub.html` is the user's **approved "FEEL IT WORK" single‑page mockup**. A multi‑page rebuild + color rebrand was attempted and **rejected** ("this looks awful"). Current, correct state:
-- The original FEEL IT WORK layout, restored verbatim.
-- Header logo = **SportPharm wordmark + "Perform. Recover. Return."** tagline (red periods).
-- Product images = local transparent PNGs `assets/wr-{wasabirub,icetrarub,superhot,duo}.png` (white backgrounds knocked out).
-- Palette: `--red:#d6202a`, `--deep:#101820` hero, tier accents blue/green/orange, red announcement bar + red final CTA, green glow behind the hero jar.
+The checklist's ticks are stored in `localStorage` under `wasabirub-checklist-v1`,
+scoped to claude.ai **in one browser**. They are not in the file and not in the
+artifact. A new account sees an empty checklist.
 
-**Rule:** only touch this page when asked, and keep it anchored to this mockup. A multi‑page wasabirub.com is on the roadmap but must be built FROM this exact look, not a new design system.
+**Do this before losing access to the old account:**
 
----
+1. Open the checklist and press **Copy handoff link**.
+2. Paste that link somewhere safe — it encodes every ticked item in the URL.
+3. On the new account, open the checklist and either open that link directly, or
+   press **Paste progress** and paste it in.
 
-## 7. Working conventions & gotchas
-
-- **Generators live in the scratchpad, not the repo.** Multi‑page families (injury guides, body‑part pages, hub landings, articles) were produced by Python generators that emit HTML from data dicts. The scratchpad is ephemeral — **the committed HTML in the repo is the source of truth.** If you need to bulk‑edit a family, re‑derive a generator from an existing page rather than hand‑editing 8+ files.
-- **Images:** user drops source images in **`~/Documents/Claude/sportpharm-assets/`** (NOT readable by the preview server). Copy/process them into the repo's **`assets/`** (compress to KB — progressive JPEG for photos, keep PNG for transparency; PIL is available). Product PNGs from `i0.wp.com` have **white backgrounds** — knock them out with `PIL.ImageDraw.floodfill` from the edges if they need to float on dark.
-- **Preview screenshot quirk:** scroll‑then‑screenshot can return blank frames. Verify with DOM checks (`javascript_exec`, broken‑image scans) or a tall viewport at scrollY 0.
-- **/tmp wipe recovery:** if the working dir is gone, `git clone` the repo fresh, re‑add `.claude/launch.json`, and continue.
-- **Every link should resolve** — unbuilt destinations point to `coming-soon.html?f=…`. Keep it that way (no dead anchors).
+The same trick moves progress between browsers or machines.
 
 ---
 
-## 8. Roadmap / open items
+## 9. Standing constraints — carry these forward
 
-From the Director of Marketing's priority list + pending work:
-1. **WasabiRub → true multi‑page site** (Home, Find Your Rub w/ dropdown, Athlete Hub, How It Works, Professional, Cart) — **build FROM the approved FEEL IT WORK look**, only when asked.
-2. **Integrations (confirm, then build):** Stripe (payments + coupon/promo codes), Mailchimp (email capture + abandoned cart). Prototype UI only exists so far. No WooCommerce.
-3. **sportpharm.com redesign notes:** make it more functional for the everyday person / brick‑and‑mortar in mind; add **Store** to the menu bar linking to wasabirub.com; move testimonials up; improve ease of use.
-4. **Admin console → real backend:** port the `admin.html` prototype's content model to Payload CMS.
-5. Wire the site's Contact / "Contact a Rep" forms to feed the admin **Leads** module.
-6. Build the 4 EA‑homepage pathway landing pages (currently on‑page anchors).
+- **Never use "service inquiry"** as a CTA. Use CTAs that reflect the goal.
+- **American spellings only** (no enquiry / centre / catalogue).
+- **No criticism of the current live site** in client-facing material — its builder
+  is a friend of the company president.
+- **FAQ answers must be verbatim** from source where a source exists.
+- The live `sportpharm-site` repo is **frozen**. Nothing goes near it without an
+  explicit request.
+- Do not invent testimonials, claims, prices, or partner relationships.
 
 ---
 
-## 9. What to bring to the new account
+## 10. How this work was verified
 
-- **Nothing is required beyond the GitHub repo** — clone `kennadyscott/sportpharm-site` and you have the whole site + this guide + `docs/`.
-- **Keep (optional, on your Mac):** `~/Documents/Claude/sportpharm-assets/` — original source images you drop for processing (higher‑res than what's in the repo; includes `everyday-athlete-homepage/`, `lifestyle imagery/`, `new-hero.png`, isolated team photos, product source PNGs). Useful for future edits; not needed to run the site.
-- **Auth:** the GitHub push token is in this Mac's keychain (`gh:github.com`). Same machine → still works. New machine → re‑add it or use your own git credentials.
+Every change ran through the same pass. Worth keeping — it caught real bugs that
+looked fine on screen:
 
-See **`docs/`** for the full decision log (`sportpharm-website-project.md`) and the live‑site inventory (`sportpharm-current-site-inventory.md`).
+- Tag balance via a real HTML parser (regex miscounts `<a` inside `href` strings).
+- CSS brace balance by counting, since regex fails on nested media queries.
+- `node --check` on every inline `<script>`.
+- Missing-asset and dead-link checks across the repo.
+- **Contrast measured in-browser against composited pixels**, walking the ancestor
+  chain and compositing translucent layers — not assumed from the CSS.
+- Overflow and layout checked at 1280 and 390, headings checked for wraps beyond
+  their explicit `<br>` count and for single-word orphans.
+- **Every inline script must appear after the element it resolves by id.** Added
+  after a section reorder silently killed the testimonial carousel with no console
+  error.
+
+### Two environment quirks that cause false diagnoses
+
+- **The preview pane has a frozen transition clock.** CSS transitions never
+  complete, screenshots can come back blank, and the screenshot compositor ignores
+  `opacity`, so cross-fading elements appear stacked on top of each other. Verify by
+  reading computed styles, not by looking.
+- **`loading="lazy"` images that start hidden or far below the fold may never
+  decode** even when scrolled into view, while fetching fine over the network. This
+  bit twice — dropdown thumbnails and the range-section cutouts.
