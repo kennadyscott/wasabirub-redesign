@@ -402,7 +402,7 @@
   const KEY = "wr-build-review-v1", VKEY = "wr-review-viewer";
 
   // shared overlay (travels): {status, flags:{id:person}, notes:{id:[{by,t}]}, review:{id:state}, people:[]}
-  let U = {status:{}, flags:{}, notes:{}, review:{}, people:["Jessie"]};
+  let U = {status:{}, flags:{}, notes:{}, review:{}, people:["Jessie","Brandon"]};
   (function load(){
     try{
       const emb = document.getElementById("wr-state");
@@ -412,7 +412,8 @@
       else { const raw = localStorage.getItem(KEY); if(raw) U = JSON.parse(raw); }
     }catch(e){}
     U.status=U.status||{}; U.flags=U.flags||{}; U.notes=U.notes||{}; U.review=U.review||{};
-    U.people = Array.isArray(U.people)&&U.people.length ? U.people : ["Jessie"];
+    U.people = Array.isArray(U.people)&&U.people.length ? U.people : ["Jessie","Brandon"];
+    ["Jessie","Brandon"].forEach(function(p){ if(U.people.indexOf(p)<0) U.people.push(p); });
     Object.keys(U.flags).forEach(id=>{ if(typeof U.flags[id]!=="string") U.flags[id]=""; });
     Object.keys(U.notes).forEach(id=>{ const v=U.notes[id];   // migrate single string note -> thread
       if(typeof v==="string"){ U.notes[id]= v.trim()? [{by:"",t:v}] : []; }
@@ -440,8 +441,9 @@
     function mergeInto(r){
       if(!r||typeof r!=="object") return;
       r.status=r.status||{}; r.flags=r.flags||{}; r.notes=r.notes||{}; r.review=r.review||{};
-      U.status=r.status; U.review=r.review;
-      var f={}; Object.keys(r.flags).forEach(function(id){ f[id]=(typeof r.flags[id]==="string")?r.flags[id]:""; }); U.flags=f;
+      function mm(a,b){ var o={},k; a=a||{}; b=b||{}; for(k in a) o[k]=a[k]; for(k in b) o[k]=b[k]; return o; }
+      U.status=mm(U.status,r.status); U.review=mm(U.review,r.review);   // keep local-only entries; remote wins on conflict
+      var f=mm(U.flags,r.flags), nf={}; Object.keys(f).forEach(function(id){ nf[id]=(typeof f[id]==="string")?f[id]:""; }); U.flags=nf;
       var ids={}; Object.keys(U.notes).forEach(function(k){ids[k]=1;}); Object.keys(r.notes).forEach(function(k){ids[k]=1;});
       var out={}; Object.keys(ids).forEach(function(id){
         var a=Array.isArray(U.notes[id])?U.notes[id]:[], b=Array.isArray(r.notes[id])?r.notes[id]:[], seen={}, arr=[];
@@ -469,7 +471,7 @@
       status("connecting…");
       client.from("review_state").select("data").eq("id",DOC).maybeSingle().then(function(res){
         if(res && res.error){ status("error — check setup"); return; }
-        if(res && res.data && res.data.data){ applying=true; try{ mergeInto(res.data.data); }catch(e){} applying=false; save0(); render(); }
+        if(res && res.data && res.data.data){ applying=true; try{ mergeInto(res.data.data); }catch(e){} applying=false; save0(); render(); pushNow(); }
         else { pushNow(); }
         subscribe();
       }, function(){ status("error — check URL/key"); });
