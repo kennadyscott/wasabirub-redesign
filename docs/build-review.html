@@ -206,7 +206,7 @@
       <span class="endorse">Created by SportPharm</span>
     </div>
     <h1 class="title">Redesign build review</h1>
-    <p class="subtitle">Every item from the <b>118-point client change list</b>, audited against the built pages — with what we changed, and open questions to settle. Tap a status to update it; flag anything to hand back.</p>
+    <p class="subtitle">Every item from the <b>client change list</b>, audited against the built pages — plus a <b>Lingering Questions</b> section for the calls we still need to make. Tap a status to update it; flag anything and pass it to a teammate.</p>
     <div class="summary" id="summary"></div>
     <div class="meter" id="meter"></div>
     <div class="meternote"><span id="progresstext"></span><span class="flagcount" id="flagtext"></span></div>
@@ -398,6 +398,14 @@
      {x:"Masterbrand naming consistent throughout", tag:"decision", s:"done", note:"Consistent across all pages. (The duplicated “Super Cold Super Cold” shop button we caught is now fixed.)"},
      {x:"Mobile, accessibility, image loading and links tested", tag:"ready", s:"blocked", note:"Several nav/footer links still point to “coming-soon,” and Cart is non-functional until the store is decided."},
      {x:"All claims, prices, formulas, testimonials, certs, partners approved", tag:"approval", s:"blocked", note:"The final external sign-off — the last gate before launch."}
+   ]},
+   {n:"⚑", t:"Lingering Questions — Kennady", items:[
+     {x:"Super Cold product photo (still the old “IcetraRub” jar)", tag:"asset", s:"blocked", note:"The Super Cold jar image still shows the old “IcetraRub” branding — we need a real WasabiRub Super Cold product render before launch. (Asset filenames still read icetrarub-*.)"},
+     {x:"Quality page — what goes on it?", tag:"decision", s:"blocked", note:"Decide the Quality-page content — which proof points to feature: TruShield™ certification, third-party / banned-substance testing, pharmacist-formulated (the SportPharm story, founded 1995 by the first US Olympic team pharmacist), transparent Drug Facts formula, OTC / no prescription, and Made-in-USA if we can substantiate it."},
+     {x:"Articles — which articles do we publish?", tag:"decision", s:"blocked", note:"Decide the article list for the Articles hub (the old “Athlete Hub”). ~13 recovery/pain articles already exist (NSAIDs, soreness vs. injury, recovery time, meds & training…). Confirm which to keep/feature, and whether to add WasabiRub-specific pieces (heat vs. cold, how the three actives work, everyday soreness, using it safely)."},
+     {x:"Standalone site vs. section of sportpharm.com", tag:"decision", s:"blocked", note:"Is WasabiRub its own site or a branded section of sportpharm.com? Drives the header lockup, footer, and whether “For Professionals / Athlete Hub” belong in the nav. (Trending standalone — the masterbrand nav is now on every page.)"},
+     {x:"Homepage hero image — optimize", tag:"ready", s:"todo", note:"The hero photo is a 2.3 MB PNG; convert to an optimized JPG for faster page load."},
+     {x:"Variant comparison-table framing", tag:"decision", s:"todo", note:"Confirm the Super Hot (“Double Heat”) and Super Cold (“Pure Cooling”) comparison-row framing reads how you want."}
    ]}
   ];
 
@@ -588,7 +596,7 @@
     const st=eff(id,it.s), flagged=isFlagged(id), who=U.flags[id]||"", r=rev(id);
     const thread=U.notes[id]||[], noteOpen=openNotes.has(id)||thread.length>0;
     const flagCtl = (assigningId===id)
-      ? '<div class="assign-menu"><span class="lbl">Flag for</span>'+U.people.map(p=>'<button class="pbtn" data-assign="'+id+'::'+esc(p)+'">'+esc(p)+'</button>').join("")+'<button class="pbtn add" data-addperson="'+id+'">＋ Add someone</button></div>'
+      ? '<div class="assign-menu"><span class="lbl">'+(flagged?"Pass to":"Flag for")+'</span>'+U.people.map(p=>'<button class="pbtn" data-assign="'+id+'::'+esc(p)+'">'+esc(p)+'</button>').join("")+'<button class="pbtn add" data-addperson="'+id+'">＋ Add someone</button></div>'
       : flagged
         ? '<span class="assignchip"><span class="who" data-reassign="'+id+'" title="Reassign">⚑ '+(who?esc(who):"Flagged")+'</span><span class="x" data-unflag="'+id+'" title="Remove flag">✕</span></span>'
         : '<button class="flagbtn" data-flagmenu="'+id+'">⚑ Flag &amp; assign</button>';
@@ -596,7 +604,7 @@
     if(flagged){
       if(r==="returned") revBadge='<span class="revbadge rev-returned">↩ Passed back</span>';
       else if(r==="complete") revBadge='<span class="revbadge rev-complete">✓ Complete</span>';
-      if(r==="assigned") revBtns='<button class="revbtn back" data-rev="'+id+'::returned">↩ Pass back</button><button class="revbtn done" data-rev="'+id+'::complete">✓ Mark complete</button>';
+      if(r==="assigned") revBtns='<button class="revbtn back" data-reassign="'+id+'">↩ Pass to…</button><button class="revbtn done" data-rev="'+id+'::complete">✓ Mark complete</button>';
       else if(r==="returned") revBtns='<button class="revbtn done" data-rev="'+id+'::complete">✓ Mark complete</button><button class="revbtn" data-rev="'+id+'::assigned">Reopen</button>';
       else revBtns='<button class="revbtn" data-rev="'+id+'::assigned">Reopen</button>';
     }
