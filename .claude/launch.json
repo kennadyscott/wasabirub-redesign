@@ -1,7 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "sportpharm", "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4184"], "port": 4184 }
+    { "name": "wasabirub", "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4207"], "port": 4207 }
   ]
 }
