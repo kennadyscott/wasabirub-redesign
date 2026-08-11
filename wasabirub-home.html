@@ -119,6 +119,11 @@
     .final{position:relative;overflow:hidden;padding:68px 0;background:var(--deep);color:#fff;text-align:center}
     .final .eyebrow{justify-content:center}.final .eyebrow i{background:#fff}
     .final h2{font-size:clamp(65px,7.68vw,105px);line-height:.86}.final p{font-size:18px}
+    .final-grid{display:grid;grid-template-columns:.82fr 1fr;align-items:center;gap:54px;text-align:left}
+    .final-img{border-radius:14px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 24px 52px rgba(0,0,0,.36)}
+    .final-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .final-copy p{margin:14px 0 26px;color:#cfdbd5}
+    @media(max-width:760px){.final-grid{grid-template-columns:1fr;gap:26px;text-align:center}.final-img{aspect-ratio:16/9;max-height:230px}.final-copy p{margin:12px auto 22px}}
     .primary.white{margin-top:20px;background:#fff;color:var(--red)}.primary.white:hover{background:var(--deep);color:#fff}
     footer{padding:48px 0 26px;background:#07100d;color:#aab7b1}
     .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:48px;flex-wrap:wrap;padding-bottom:34px;border-bottom:1px solid #24312d}
@@ -794,7 +799,7 @@
     
 
     <section class="proof shell" id="proof">
-      <div class="proof-head"><p class="eyebrow">Trusted in training rooms</p><h2>THE PROFESSIONALS FEEL THE <em>DIFFERENCE.</em></h2></div>
+      <div class="proof-head"><h2>THE PROFESSIONALS FEEL THE <em>DIFFERENCE.</em></h2></div>
         <div class="tcarousel" id="tcarousel"><div class="ttrack" id="ttrack">
         <div class="tslide is-active">
           <div class="stars">★★★★★</div><blockquote>“I’ve used a lot of topical pain relief gels, and this stuff is easily one of the best. You can tell this is professional-grade and not your average store-bought stuff. If you’re a runner, lifter, or just dealing with everyday aches and pains, this stuff is money.”</blockquote>
@@ -1060,7 +1065,10 @@
     </script>
 
     <section class="final">
-      <div class="shell"><h2>FEEL IT<br><em>WORK.</em></h2><p>Get WasabiRub direct from the pharmacists who made it.</p><a class="primary" href="wasabirub.html">SHOP WASABIRUB <span>→</span></a></div>
+      <div class="shell final-grid">
+        <div class="final-img"><img src="assets/ea-wasabirub.jpg" alt="Athlete applying WasabiRub after training" decoding="async"></div>
+        <div class="final-copy"><h2>FEEL IT<br><em>WORK.</em></h2><p>Get WasabiRub direct from the pharmacists who made it.</p><a class="primary" href="wasabirub.html">SHOP WASABIRUB <span>→</span></a></div>
+      </div>
     </section>
   </main>
 
