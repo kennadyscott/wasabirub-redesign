@@ -212,13 +212,10 @@
   <div class="toolbar-inner">
     <div class="filters" id="filters"></div>
     <span class="grow"></span>
-    <span class="viewer">Viewing as <select id="viewerSel" aria-label="Viewing as"></select></span>
-    <input class="search" id="search" placeholder="Search items…" aria-label="Search items">
-    <button class="btn primary" id="syncBtn">Live sync</button>
+    <span class="viewer">You're editing as <select id="viewerSel" aria-label="You are"></select></span>
     <span class="sync-state" id="syncState">off</span>
-    <button class="btn" id="dlBtn">Download (with notes)</button>
-    <button class="btn" id="shareBtn">Copy share link</button>
-    <button class="btn" id="loadBtn">Load progress</button>
+    <input class="search" id="search" placeholder="Search items…" aria-label="Search items">
+    <button class="btn primary" id="syncBtn">Copy live link</button>
     <button class="btn" id="printBtn">Print</button>
   </div>
 </div>
@@ -230,7 +227,7 @@
     <span class="k lg-todo"><b>Not done</b> — buildable, still open</span>
     <span class="k lg-blocked"><b>Blocked</b> — needs your call, an asset, a price or sign-off</span>
   </div>
-  <div class="note-lead"><b>How to use this.</b> Status reflects our audit of the live sandbox; <b>Blocked</b> items are the ones that need you. Add a <b>note</b> to any item, and <b>flag &amp; assign</b> it to a person (e.g. Jessie) — each assignee gets their own filter above, so they can see just what's theirs. Everything you mark travels with <b>Copy share link</b> and <b>Download (with notes)</b> — or click <b>Live sync</b> for real-time collaboration: after a one-time Supabase connect, send the live link and you and Jessie edit together, changes appearing instantly for both of you.</div>
+  <div class="note-lead"><b>How to use this.</b> First set <b>You're editing as</b> (top right) to <b>Me</b> or <b>Jessie</b> — that stamps your notes. Then just work: tap a status to change it, add a <b>note</b>, or <b>flag &amp; assign</b> an item — every change saves and <b>syncs live</b> to everyone on this link (watch the <b>live · N online</b> badge). <b>Blocked</b> items are the ones that need you. To bring someone in, click <b>Copy live link</b> and send it to them.</div>
   <div id="app"></div>
   <footer class="ft">WasabiRub redesign · sandbox build review · nothing shown here is deployed to the live site.</footer>
 </div>
@@ -650,19 +647,6 @@
 
   function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2600); }
   function encodeState(){ const b=btoa(unescape(encodeURIComponent(JSON.stringify(U)))).replace(/\+/g,"-").replace(/\//g,"_"); return location.href.split("#")[0]+"#s="+b; }
-  document.getElementById("shareBtn").addEventListener("click",()=>{
-    const url=encodeState();
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Share link copied — notes, flags & status all travel with it"),()=>prompt("Copy this link:",url)); }
-    else prompt("Copy this link:",url);
-  });
-  document.getElementById("loadBtn").addEventListener("click",()=>{
-    const v=prompt("Paste a share link (or its #s=… code):"); if(!v) return;
-    try{ const m=v.match(/s=([^&\s]+)/); const code=m?m[1]:v; U=JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,"+").replace(/_/g,"/")))));
-      U.status=U.status||{};U.flags=U.flags||{};U.notes=U.notes||{};U.review=U.review||{}; U.people=Array.isArray(U.people)&&U.people.length?U.people:["Jessie"];
-      Object.keys(U.notes).forEach(id=>{ if(typeof U.notes[id]==="string"){ U.notes[id]=U.notes[id].trim()?[{by:"",t:U.notes[id]}]:[]; } });
-      save(); render(); toast("Progress loaded"); }
-    catch(e){ toast("Couldn’t read that link"); }
-  });
   document.getElementById("printBtn").addEventListener("click",()=>window.print());
   function copyLiveLink(){ const url=SB.liveLink(); if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Live link copied — send it to Jessie; you'll both edit in real time"),()=>prompt("Copy the live link:",url)); } else prompt("Copy the live link:",url); }
   document.getElementById("syncBtn").addEventListener("click",()=>{
@@ -676,18 +660,6 @@
     if(SB.connect()){ toast("Live sync connecting…"); setTimeout(copyLiveLink,1500); }
     else toast("Couldn’t connect — check the URL and key");
   });
-  document.getElementById("dlBtn").addEventListener("click",()=>{
-    const a1=document.getElementById("app"),sum=document.getElementById("summary"),met=document.getElementById("meter"),fil=document.getElementById("filters");
-    const snap={a:a1.innerHTML,s:sum.innerHTML,m:met.innerHTML,f:fil.innerHTML};
-    a1.innerHTML="";sum.innerHTML="";met.innerHTML="";fil.innerHTML="";
-    let tag=document.getElementById("wr-state"); if(!tag){ tag=document.createElement("script"); tag.id="wr-state"; tag.type="application/json"; document.head.appendChild(tag); }
-    tag.textContent=JSON.stringify(U);
-    const html="<!doctype html>\n"+document.documentElement.outerHTML;
-    a1.innerHTML=snap.a;sum.innerHTML=snap.s;met.innerHTML=snap.m;fil.innerHTML=snap.f;tag.textContent="";
-    try{ const blob=new Blob([html],{type:"text/html"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="wasabirub-build-review.html"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); toast("Downloaded — notes, flags & status are in that file"); }
-    catch(e){ if(window.claude&&window.claude.downloads){ window.claude.downloads.save({filename:"wasabirub-build-review.html",data:html}).then(()=>toast("Saved with your notes")).catch(()=>toast("Download was declined")); } else toast("Couldn’t download here — use the share link"); }
-  });
-
   render();
   SB.connect();   // auto-connects if a live backend is configured (via #b= link or saved config)
 })();
