@@ -46,11 +46,11 @@
     /* ===== Editorial ingredient cards (One Rub, Three Sensations) ===== */
     .section-heading .ing-head{font-size:clamp(23px,2.6vw,31px);font-weight:900;letter-spacing:-.02em;line-height:1.1;text-transform:none;color:var(--ink)}
     .ing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
-    .ing-card{border:1px solid var(--line);background:#fff;overflow:hidden}
-    .ing-card-fig{position:relative;aspect-ratio:1/1;background:#faf7f2;display:flex;align-items:center;justify-content:center;padding:28px}
+    .ing-card{border:1px solid var(--line);background:#fff;overflow:hidden;display:flex;flex-direction:column}
+    .ing-card-fig{position:relative;aspect-ratio:1/1;background:#faf7f2;display:flex;align-items:center;justify-content:center;padding:28px;flex:none}
     .ing-card-fig img{width:100%;height:100%;object-fit:contain}
     .ing-card .ing-chip{position:absolute;top:16px;left:16px;background:#fff;border:1px solid var(--line);padding:5px 9px;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
-    .ing-card-body{padding:20px 22px 24px;background:#f3f3f1;border-top:1px solid var(--line)}
+    .ing-card-body{padding:20px 22px 24px;background:#f3f3f1;border-top:1px solid var(--line);flex:1}
     .ing-card-body .ing-meta{margin:0 0 7px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
     .ing-card-body h3{margin:0;font-size:23px;font-weight:900;letter-spacing:-.03em;color:var(--ink);line-height:1.04}
     .ing-card-body .ing-desc{margin:9px 0 0;font-size:13px;line-height:1.5;color:#66737d}
@@ -453,7 +453,7 @@
       <div class="ing-cards">
         <article class="ing-card">
           <div class="ing-card-fig"><span class="ing-chip">Capsaicin</span><img src="assets/ing-capsaicin.jpg" alt="Chili pepper" decoding="async"></div>
-          <div class="ing-card-body"><p class="ing-meta">&#46;075% &middot; Warm</p><h3>Chili pepper heat</h3><p class="ing-desc">Double the capsaicin of the original for stronger, longer-lasting heat.</p></div>
+          <div class="ing-card-body"><p class="ing-meta">&#46;075% &middot; Heat</p><h3>Chili pepper heat</h3><p class="ing-desc">Double the capsaicin of the original for stronger, longer-lasting heat.</p></div>
         </article>
         <article class="ing-card">
           <div class="ing-card-fig"><span class="ing-chip">Menthol</span><img src="assets/ing-menthol.jpg" alt="Mint leaf" decoding="async"></div>
@@ -461,7 +461,7 @@
         </article>
         <article class="ing-card">
           <div class="ing-card-fig"><span class="ing-chip">Methyl salicylate</span><img src="assets/ing-wintergreen.jpg" alt="Wintergreen sprig" decoding="async"></div>
-          <div class="ing-card-body"><p class="ing-meta">20% &middot; Target</p><h3>Oil of wintergreen</h3><p class="ing-desc">Targets minor muscle and joint aches.</p></div>
+          <div class="ing-card-body"><p class="ing-meta">20% &middot; Target aches</p><h3>Oil of wintergreen</h3><p class="ing-desc">Targets minor muscle and joint aches.</p></div>
         </article>
       </div>
     </section>
@@ -548,7 +548,7 @@
     </section>
 
       <section class="faq shell" id="faq">
-        <div class="faq-media"><img src="assets/home-everyday.jpg" alt="Everyday stretching before a run" decoding="async"></div>
+        <div class="faq-media"><img src="assets/ea-trail.jpg" alt="Trail runner on a mountain path" decoding="async"></div>
         <div class="faq-main">
         <h2>FAQ</h2>
         <div class="faq-list">
