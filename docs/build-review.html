@@ -87,6 +87,9 @@
   .chip.on .c{opacity:.85}
   .filters .fdiv{width:1px;align-self:stretch;background:var(--line);margin:2px 4px}
   .grow{flex:1}
+  .sync-state{font-size:11px;font-weight:800;letter-spacing:.02em;color:var(--muted);background:var(--chip,#eef1f4);padding:5px 10px;border-radius:999px;white-space:nowrap}
+  .sync-state.live{color:#0c7a44;background:#e3f5eb}
+  @media(prefers-color-scheme:dark){.sync-state{background:#20262d}.sync-state.live{color:#5fe0a0;background:#12301f}}
   .search{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;color:var(--ink);font-family:var(--fbody);min-width:150px}
   .search:focus{outline:2px solid var(--brand);outline-offset:1px}
   .btn{font-family:var(--fbody);font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 14px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:.15s;white-space:nowrap}
@@ -211,7 +214,9 @@
     <span class="grow"></span>
     <span class="viewer">Viewing as <select id="viewerSel" aria-label="Viewing as"></select></span>
     <input class="search" id="search" placeholder="Search items…" aria-label="Search items">
-    <button class="btn primary" id="dlBtn">Download (with notes)</button>
+    <button class="btn primary" id="syncBtn">Live sync</button>
+    <span class="sync-state" id="syncState">off</span>
+    <button class="btn" id="dlBtn">Download (with notes)</button>
     <button class="btn" id="shareBtn">Copy share link</button>
     <button class="btn" id="loadBtn">Load progress</button>
     <button class="btn" id="printBtn">Print</button>
@@ -225,13 +230,14 @@
     <span class="k lg-todo"><b>Not done</b> — buildable, still open</span>
     <span class="k lg-blocked"><b>Blocked</b> — needs your call, an asset, a price or sign-off</span>
   </div>
-  <div class="note-lead"><b>How to use this.</b> Status reflects our audit of the live sandbox; <b>Blocked</b> items are the ones that need you. Add a <b>note</b> to any item, and <b>flag &amp; assign</b> it to a person (e.g. Jessie) — each assignee gets their own filter above, so they can see just what's theirs. Everything you mark travels with <b>Copy share link</b> and <b>Download (with notes)</b>.</div>
+  <div class="note-lead"><b>How to use this.</b> Status reflects our audit of the live sandbox; <b>Blocked</b> items are the ones that need you. Add a <b>note</b> to any item, and <b>flag &amp; assign</b> it to a person (e.g. Jessie) — each assignee gets their own filter above, so they can see just what's theirs. Everything you mark travels with <b>Copy share link</b> and <b>Download (with notes)</b> — or click <b>Live sync</b> for real-time collaboration: after a one-time Supabase connect, send the live link and you and Jessie edit together, changes appearing instantly for both of you.</div>
   <div id="app"></div>
   <footer class="ft">WasabiRub redesign · sandbox build review · nothing shown here is deployed to the live site.</footer>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
   "use strict";
@@ -415,7 +421,66 @@
       if(typeof v==="string"){ U.notes[id]= v.trim()? [{by:"",t:v}] : []; }
       else if(!Array.isArray(v)){ U.notes[id]=[]; } });
   })();
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(U)); }catch(e){} }
+  function save0(){ try{ localStorage.setItem(KEY, JSON.stringify(U)); }catch(e){} }
+  function save(){ save0(); try{ SB.push(); }catch(e){} }
+
+  // ===== Live sync (optional Supabase backend) — everyone with the live link edits together =====
+  const SB = (function(){
+    var client=null, channel=null, DOC="wasabirub-build-review", pushT=null, applying=false, online=1, BKEY="wr-backend";
+    function dec(s){ return JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/"))))); }
+    function enc(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_"); }
+    function readCfg(){
+      try{
+        var m=location.hash.match(/[#&]b=([^&]+)/);
+        if(m){ var c=dec(m[1]); if(c&&c.url&&c.key){ localStorage.setItem(BKEY,JSON.stringify({url:c.url,key:c.key})); return c; } }
+        var raw=localStorage.getItem(BKEY); if(raw) return JSON.parse(raw);
+      }catch(e){}
+      return null;
+    }
+    function saveCfg(url,key){ try{ localStorage.setItem(BKEY,JSON.stringify({url:url,key:key})); }catch(e){} }
+    function status(txt,live){ var el=document.getElementById("syncState"); if(el){ el.textContent=txt; el.className="sync-state"+(live?" live":""); } }
+    // merge a remote doc into U without losing local notes (notes are unioned; status/flags/review take remote)
+    function mergeInto(r){
+      if(!r||typeof r!=="object") return;
+      r.status=r.status||{}; r.flags=r.flags||{}; r.notes=r.notes||{}; r.review=r.review||{};
+      U.status=r.status; U.review=r.review;
+      var f={}; Object.keys(r.flags).forEach(function(id){ f[id]=(typeof r.flags[id]==="string")?r.flags[id]:""; }); U.flags=f;
+      var ids={}; Object.keys(U.notes).forEach(function(k){ids[k]=1;}); Object.keys(r.notes).forEach(function(k){ids[k]=1;});
+      var out={}; Object.keys(ids).forEach(function(id){
+        var a=Array.isArray(U.notes[id])?U.notes[id]:[], b=Array.isArray(r.notes[id])?r.notes[id]:[], seen={}, arr=[];
+        a.concat(b).forEach(function(n){ if(!n)return; var k=(n.by||"")+"|"+(n.t||""); if(!seen[k]){seen[k]=1;arr.push(n);} });
+        if(arr.length) out[id]=arr;
+      });
+      U.notes=out;
+      var ppl={}; (U.people||[]).concat(r.people||[]).forEach(function(p){ if(p)ppl[p]=1; }); U.people=Object.keys(ppl); if(!U.people.length)U.people=["Jessie"];
+    }
+    function pushNow(){ if(!client||applying) return; try{ client.from("review_state").upsert({id:DOC,data:U,updated_at:new Date().toISOString()}).then(function(){},function(){}); }catch(e){} }
+    function push(){ if(!client||applying) return; clearTimeout(pushT); pushT=setTimeout(pushNow,400); }
+    function subscribe(){
+      channel=client.channel("rev-"+DOC);
+      channel.on("postgres_changes",{event:"*",schema:"public",table:"review_state",filter:"id=eq."+DOC},function(p){
+        var d=p["new"]&&p["new"].data; if(!d) return; applying=true; try{ mergeInto(d); }catch(e){} applying=false; save0(); render();
+      });
+      channel.on("presence",{event:"sync"},function(){ try{ online=Object.keys(channel.presenceState()).length||1; }catch(e){ online=1; } status("live · "+online+" online",true); });
+      channel.subscribe(function(s){ if(s==="SUBSCRIBED"){ try{ channel.track({name:viewer||"Me",at:Date.now()}); }catch(e){} status("live · "+online+" online",true); } });
+    }
+    function connect(){
+      var cfg=readCfg();
+      if(!cfg||!cfg.url||!cfg.key){ status("off"); return false; }
+      if(!window.supabase||!window.supabase.createClient){ status("library blocked"); return false; }
+      try{ client=window.supabase.createClient(cfg.url,cfg.key,{realtime:{params:{eventsPerSecond:5}}}); }catch(e){ status("bad config"); return false; }
+      status("connecting…");
+      client.from("review_state").select("data").eq("id",DOC).maybeSingle().then(function(res){
+        if(res && res.error){ status("error — check setup"); return; }
+        if(res && res.data && res.data.data){ applying=true; try{ mergeInto(res.data.data); }catch(e){} applying=false; save0(); render(); }
+        else { pushNow(); }
+        subscribe();
+      }, function(){ status("error — check URL/key"); });
+      return true;
+    }
+    function liveLink(){ var c=readCfg(); var base=location.href.split("#")[0]; return c ? base+"#b="+enc({url:c.url,key:c.key}) : base; }
+    return { connect:connect, push:push, readCfg:readCfg, saveCfg:saveCfg, liveLink:liveLink, isOn:function(){return !!client;} };
+  })();
 
   // viewer identity is per-person and LOCAL (does not travel in the link)
   let viewer="Me"; try{ viewer=localStorage.getItem(VKEY)||"Me"; }catch(e){}
@@ -599,6 +664,18 @@
     catch(e){ toast("Couldn’t read that link"); }
   });
   document.getElementById("printBtn").addEventListener("click",()=>window.print());
+  function copyLiveLink(){ const url=SB.liveLink(); if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("Live link copied — send it to Jessie; you'll both edit in real time"),()=>prompt("Copy the live link:",url)); } else prompt("Copy the live link:",url); }
+  document.getElementById("syncBtn").addEventListener("click",()=>{
+    if(SB.isOn()){ copyLiveLink(); return; }
+    let cfg=SB.readCfg();
+    if(!cfg){
+      const url=prompt("Live sync — step 1 of 2\n\nPaste your Supabase Project URL\n(looks like https://xxxxxxxx.supabase.co):"); if(!url) return;
+      const key=prompt("Live sync — step 2 of 2\n\nPaste your Supabase anon public key:"); if(!key) return;
+      SB.saveCfg(url.trim(), key.trim());
+    }
+    if(SB.connect()){ toast("Live sync connecting…"); setTimeout(copyLiveLink,1500); }
+    else toast("Couldn’t connect — check the URL and key");
+  });
   document.getElementById("dlBtn").addEventListener("click",()=>{
     const a1=document.getElementById("app"),sum=document.getElementById("summary"),met=document.getElementById("meter"),fil=document.getElementById("filters");
     const snap={a:a1.innerHTML,s:sum.innerHTML,m:met.innerHTML,f:fil.innerHTML};
@@ -612,6 +689,7 @@
   });
 
   render();
+  SB.connect();   // auto-connects if a live backend is configured (via #b= link or saved config)
 })();
 </script>
 
