@@ -115,6 +115,11 @@
   .item-main{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
   .status-pill{font-family:var(--fbody);font-size:10.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;border-radius:7px;padding:5px 9px;cursor:pointer;border:1px solid;white-space:nowrap;min-width:74px;text-align:center;transition:.12s}
   .status-pill:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .pill-wrap{position:relative;justify-self:start}
+  .status-pill .caret{font-size:8px;opacity:.55;margin-left:3px}
+  .status-menu{position:absolute;top:calc(100% + 5px);left:0;z-index:40;display:none;flex-direction:column;gap:5px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 14px 34px rgba(16,24,32,.18)}
+  .status-menu.open{display:flex}
+  .status-menu .sm-opt{min-width:96px;cursor:pointer}
   .s-done{color:var(--done);background:var(--done-bg);border-color:var(--done-line)}
   .s-partial{color:var(--partial);background:var(--partial-bg);border-color:var(--partial-line)}
   .s-todo{color:var(--todo);background:var(--todo-bg);border-color:var(--todo-line)}
@@ -458,7 +463,7 @@
     function subscribe(){
       channel=client.channel("rev-"+DOC);
       channel.on("postgres_changes",{event:"*",schema:"public",table:"review_state",filter:"id=eq."+DOC},function(p){
-        var d=p["new"]&&p["new"].data; if(!d) return; applying=true; try{ mergeInto(d); }catch(e){} applying=false; save0(); render();
+        var d=p["new"]&&p["new"].data; if(!d) return; var before=JSON.stringify(U); applying=true; try{ mergeInto(d); }catch(e){} applying=false; if(JSON.stringify(U)===before) return; save0(); render();
       });
       channel.on("presence",{event:"sync"},function(){ try{ online=Object.keys(channel.presenceState()).length||1; }catch(e){ online=1; } status("live · "+online+" online",true); });
       channel.subscribe(function(s){ if(s==="SUBSCRIBED"){ try{ channel.track({name:viewer||"Me",at:Date.now()}); }catch(e){} status("live · "+online+" online",true); } });
@@ -600,7 +605,10 @@
     const addHTML = '<div class="nadd"><textarea data-nadd="'+id+'" placeholder="Add a note as '+esc(viewer)+'…"></textarea><button class="pbtn" data-nsend="'+id+'">Add note</button></div>';
     return '<div class="item'+(st==="done"?" is-done":"")+(flagged?" flagged":"")+(r==="complete"?" complete":"")+(r==="returned"?" returned":"")+'" data-id="'+id+'">'+
       '<div class="item-main">'+
-        '<button class="status-pill s-'+st+'" data-cycle="'+id+'" title="Tap to change status">'+STATUS[st]+'</button>'+
+        '<div class="pill-wrap">'+
+          '<button class="status-pill s-'+st+'" data-statusmenu="'+id+'" aria-haspopup="true" title="Set status">'+STATUS[st]+'<span class="caret">▾</span></button>'+
+          '<div class="status-menu" data-menu="'+id+'">'+CYCLE.map(function(s){return '<button class="status-pill sm-opt s-'+s+'" data-setstatus="'+id+'::'+s+'">'+STATUS[s]+'</button>';}).join('')+'</div>'+
+        '</div>'+
         '<div><span class="itxt">'+esc(it.x)+'</span><span class="tag">'+TAGLBL[it.tag]+'</span>'+
         '<div class="adj">'+esc(it.note)+'</div></div>'+
       '</div>'+
@@ -614,10 +622,22 @@
   }
 
   function bind(){
-    app.querySelectorAll("[data-cycle]").forEach(b=>b.addEventListener("click",()=>{
-      const id=b.getAttribute("data-cycle"), base=baseOf(id), cur=eff(id,base), next=CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length];
-      if(next===base) delete U.status[id]; else U.status[id]=next;
-      save(); b.className="status-pill s-"+next; b.textContent=STATUS[next]; const itemEl=b.closest(".item"); if(itemEl) itemEl.classList.toggle("is-done", next==="done"); renderSummary(); renderFilters(); updateSectionCount();
+    app.querySelectorAll("[data-statusmenu]").forEach(b=>b.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      const id=b.getAttribute("data-statusmenu"), menu=app.querySelector('[data-menu="'+id+'"]'), open=menu&&menu.classList.contains("open");
+      app.querySelectorAll(".status-menu.open").forEach(m=>m.classList.remove("open"));
+      app.querySelectorAll(".item").forEach(it=>it.style.zIndex="");
+      if(menu&&!open){ menu.classList.add("open"); const it=b.closest(".item"); if(it) it.style.zIndex="20"; }
+    }));
+    app.querySelectorAll("[data-setstatus]").forEach(b=>b.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      const p=b.getAttribute("data-setstatus").split("::"), id=p[0], val=p[1], base=baseOf(id);
+      if(val===base) delete U.status[id]; else U.status[id]=val;
+      save();
+      const pill=app.querySelector('[data-statusmenu="'+id+'"]'); if(pill){ pill.className="status-pill s-"+val; pill.innerHTML=STATUS[val]+'<span class="caret">▾</span>'; }
+      const itemEl=b.closest(".item"); if(itemEl){ itemEl.classList.toggle("is-done", val==="done"); itemEl.style.zIndex=""; }
+      const menu=app.querySelector('[data-menu="'+id+'"]'); if(menu) menu.classList.remove("open");
+      renderSummary(); renderFilters(); updateSectionCount();
     }));
     app.querySelectorAll("[data-notetoggle]").forEach(b=>b.addEventListener("click",()=>{
       const id=b.getAttribute("data-notetoggle"); if(openNotes.has(id)) openNotes.delete(id); else openNotes.add(id); render();
@@ -662,6 +682,7 @@
     if(SB.connect()){ toast("Live sync connecting…"); setTimeout(copyLiveLink,1500); }
     else toast("Couldn’t connect — check the URL and key");
   });
+  document.addEventListener("click",function(){ app.querySelectorAll(".status-menu.open").forEach(m=>m.classList.remove("open")); app.querySelectorAll(".item").forEach(it=>it.style.zIndex=""); });
   render();
   SB.connect();   // auto-connects if a live backend is configured (via #b= link or saved config)
 })();
