@@ -487,7 +487,7 @@
   })();
 
   // viewer identity is per-person and LOCAL (does not travel in the link)
-  let viewer="Me"; try{ viewer=localStorage.getItem(VKEY)||"Me"; }catch(e){}
+  let viewer="Kennady"; try{ viewer=localStorage.getItem(VKEY)||"Kennady"; if(viewer==="Me")viewer="Kennady"; }catch(e){}
   function setViewer(v){ viewer=v||"Me"; try{ localStorage.setItem(VKEY,viewer); }catch(e){} }
 
   function eff(id, base){ return U.status[id]||base; }
@@ -561,8 +561,8 @@
   }
   function renderViewer(){
     const sel=document.getElementById("viewerSel");
-    const opts=["Me"].concat(U.people);
-    if(opts.indexOf(viewer)<0) viewer="Me";
+    const opts=["Kennady"].concat(U.people.filter(function(p){return p!=="Kennady";}));
+    if(opts.indexOf(viewer)<0) viewer="Kennady";
     sel.innerHTML=opts.map(o=>'<option'+(o===viewer?" selected":"")+'>'+esc(o)+'</option>').join("");
   }
 
