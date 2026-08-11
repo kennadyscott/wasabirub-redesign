@@ -179,6 +179,27 @@
     .faq details[open] summary::after{content:"\2212"}
     .faq details p{margin:0 0 18px;padding-right:30px;font-size:14.5px;line-height:1.65;color:#4a555f}
     .faq summary:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+    /* ===== Testimonials — 3-up carousel (matches homepage) ===== */
+    .proof{max-width:1180px;padding:64px 0 58px;text-align:left}
+    .proof-head{margin-bottom:26px}
+    .proof-head h2{font-size:clamp(27px,3.65vw,49px);line-height:.98;color:var(--ink);margin:0;letter-spacing:-.05em}
+    .proof-head h2 em{color:var(--red);font-style:normal}
+    .tcarousel{position:relative;overflow:hidden}
+    .ttrack{display:flex;gap:18px;align-items:flex-start;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+    .tslide{flex:0 0 calc((100% - 36px)/3);min-width:0;display:flex;flex-direction:column;align-items:flex-start;text-align:left;background:#fff;border:1px solid #e6e8ea;border-radius:10px;padding:24px 22px 20px}
+    .tslide .stars{margin:0 0 16px;color:var(--red);font-size:15px;letter-spacing:.1em}
+    .tslide blockquote{margin:0;font-size:14px;line-height:1.6;color:#3f4852;font-weight:400;letter-spacing:0}
+    .tslide .tattr{margin-top:auto;padding-top:20px}
+    .tslide .tattr b{display:block;font-size:12.5px;font-weight:900;color:var(--ink);letter-spacing:0}
+    .tslide .tattr span{display:block;margin-top:3px;font-size:11.5px;font-weight:600;line-height:1.45;color:#66737d;letter-spacing:0;text-transform:none}
+    .tnav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:30px}
+    .tarrow{width:38px;height:38px;border-radius:50%;border:1px solid #d7dcd9;background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s}
+    .tarrow:hover{border-color:var(--red);color:var(--red)}
+    .tdots{display:flex;gap:8px}
+    .tdot{width:8px;height:8px;border-radius:50%;background:#d2d7d4;border:0;cursor:pointer;padding:0;transition:.2s}
+    .tdot.is-active{background:var(--red);width:22px;border-radius:5px}
+    @media(max-width:900px){.tslide{flex:0 0 calc((100% - 18px)/2)}}
+    @media(max-width:600px){.tslide{flex:0 0 100%}.proof{padding:48px 0 40px}}
 
     @media(max-width:900px){
       .product-grid{grid-template-columns:1fr;gap:32px}
@@ -357,7 +378,7 @@
       </section>
 
       <section class="why shell" id="why">
-      <div class="section-heading"><p class="eyebrow dark"><i></i> THREE ACTIVE INGREDIENTS</p><h2>ONE RUB.<br><em>THREE SENSATIONS.</em></h2><p>Most topical products lead with either cooling or heat. WasabiRub combines both sensations with a third active ingredient for layered, targeted relief.</p></div>
+      <div class="section-heading"><p class="eyebrow dark">THREE ACTIVE INGREDIENTS</p><h2>ONE RUB.<br><em>THREE SENSATIONS.</em></h2><p>Most topical products lead with either cooling or heat. WasabiRub combines both sensations with a third active ingredient for layered, targeted relief.</p></div>
       <div class="ingredient-list">
         <article class="cool"><div class="ingredient-top"><span>01</span><small>MENTHOL • 10%</small></div><h3>COOLS ON CONTACT</h3><p>Creates an immediate cooling sensation where you apply it.</p></article>
         <article class="heat"><div class="ingredient-top"><span>02</span><small>CAPSAICIN • .0375%</small></div><h3>BRINGS THE HEAT</h3><p>Adds a gradual warming sensation for targeted relief.</p></article>
@@ -367,11 +388,52 @@
 
       <section class="use-section" id="use">
       <div class="shell use-grid">
-        <div><p class="eyebrow dark"><i></i> USE AS DIRECTED</p><h2>RUB IT IN.<br><em>FEEL IT WORK.</em></h2></div>
+        <div><h2>RUB IT IN.<br><em>FEEL IT WORK.</em></h2></div>
         <ol><li><b>APPLY</b><span>Use a small amount on the affected area.</span></li><li><b>MASSAGE</b><span>Rub in until the gel is absorbed.</span></li><li><b>WASH</b><span>Wash hands thoroughly after application.</span></li></ol>
         <div class="safety"><p>For external use only. Avoid eyes, damaged skin, bandages, and external heat. Read and follow the full Drug Facts label before use.</p></div>
       </div>
     </section>
+
+      <section class="proof shell" id="reviews">
+        <div class="proof-head"><h2>TRUSTED IN <em>TRAINING ROOMS.</em></h2></div>
+        <div class="tcarousel" id="tcarousel"><div class="ttrack" id="ttrack">
+          <div class="tslide">
+            <div class="stars">★★★★★</div>
+            <blockquote>“WasabiRub is in our kit every day. It gives players fast, localized relief and helps them stay game-ready.”</blockquote>
+            <div class="tattr"><b>Dr. Javier García, DAT, ATC, SMTC</b><span>Head Athletic Trainer, Seton Hall Basketball</span></div>
+          </div>
+          <div class="tslide">
+            <div class="stars">★★★★★</div>
+            <blockquote>“Our guys absolutely love using WasabiRub. The cooling and heating sensation lasts much longer than most products we’ve tried, and the feedback from our players has been outstanding. It has become a staple in our training room.”</blockquote>
+            <div class="tattr"><b>Michael Feliciano, MS, ATC, PES</b><span>Minor League Athletic Training, Boston Red Sox</span></div>
+          </div>
+          <div class="tslide">
+            <div class="stars">★★★★★</div>
+            <blockquote>“I’ve used a lot of topical pain relief gels, and this stuff is easily one of the best. You can tell this is professional-grade and not your average store-bought stuff. If you’re a runner, lifter, or just dealing with everyday aches and pains, this stuff is money.”</blockquote>
+            <div class="tattr"><b>Matt Furstenburg</b><span>CEO &amp; Co-Founder, Grip Boost Inc.</span></div>
+          </div>
+          <div class="tslide">
+            <div class="stars">★★★★★</div>
+            <blockquote>“We’ve had good results with a variety of SportPharm’s topicals and compounded medications. WasabiRub helps manage muscle soreness and minor strains so our athletes can stay available and ready.”</blockquote>
+            <div class="tattr"><b>Joel Lockhart</b><span>Assistant Athletic Trainer, St. Louis City Soccer Club</span></div>
+          </div>
+          <div class="tslide">
+            <div class="stars">★★★★★</div>
+            <blockquote>“With our match schedule and constant travel, we needed something fast, portable, and effective. WasabiRub helps manage muscle soreness and minor strains so our athletes can stay available and ready.”</blockquote>
+            <div class="tattr"><b>Najeeb Emmanuel, MS, LAT, ATC, PES</b><span>Assistant Athletic Trainer, FIU Soccer</span></div>
+          </div>
+          <div class="tslide">
+            <div class="stars">★★★★★</div>
+            <blockquote>“The WasabiRub is constantly being used by several players right now. The feedback has been really positive, and the biggest talking point has been the longevity of its use each time — no multiple applications on game days.”</blockquote>
+            <div class="tattr"><b>Daniel Medd</b><span>Head Coach, South West Sydney Academy of Sport</span></div>
+          </div>
+        </div></div>
+        <div class="tnav">
+          <button class="tarrow" id="tprev" aria-label="Previous testimonials">&#8249;</button>
+          <div class="tdots" id="tdots"></div>
+          <button class="tarrow" id="tnext" aria-label="Next testimonials">&#8250;</button>
+        </div>
+      </section>
 
       <section class="quality" id="quality">
         <div class="shell quality-inner">
@@ -388,7 +450,7 @@
       </section>
 
       <section class="compare shell" id="compare">
-      <div class="compare-head"><div><p class="eyebrow dark"><i></i> SEE THE DIFFERENCE</p><h2>NOT EVERY RUB<br><em>BRINGS THE SAME THING.</em></h2></div><p>A simple ingredient-level comparison of WasabiRub and familiar topical formats.</p></div>
+      <div class="compare-head"><div><h2>NOT EVERY RUB<br><em>BRINGS THE SAME THING.</em></h2></div><p>A simple ingredient-level comparison of WasabiRub and familiar topical formats.</p></div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>PRODUCT</th><th>CAPSAICIN SOURCE</th><th>SENSATION PROFILE</th><th>ACTIVE INGREDIENTS</th></tr></thead>
@@ -402,8 +464,6 @@
       </div>
       <p class="comparison-note">Ingredient information shown for comparison only. Product formulas may change; always review the current Drug Facts label.</p>
     </section>
-
-      <section class="review shell" id="reviews"><div class="stars">★★★★★</div><blockquote>“I get WasabiRub for my players to use and they love it. They request it specifically now!”</blockquote><p><b>SAMANTHA M.</b></p></section>
 
       <section class="faq shell" id="faq">
         <h2>FAQ</h2>
@@ -463,7 +523,7 @@
     <div class="modal">
       <button class="modal-close" type="button" aria-label="Close" data-close>&times;</button>
       <div id="contactFormWrap">
-        <p class="modal-eyebrow"><i></i> Contact Us</p>
+        <p class="modal-eyebrow">Contact Us</p>
         <h2 id="contactTitle">Get in touch.</h2>
         <p class="modal-sub">Questions about WasabiRub, bulk orders, or the pharmacy? Send us a note and our team will reply from info@sportpharm.com.</p>
         <span class="modal-source">From <b>WasabiRub product page</b></span>
@@ -542,6 +602,74 @@
   </script>
   <script>
     (function(){var count=0,badge=document.querySelector(".cart-count"),qtyEl=document.getElementById("quantity-value");document.querySelectorAll("[data-add-to-cart]").forEach(function(btn){btn.addEventListener("click",function(e){e.preventDefault();var add=btn.dataset.addToCart==="qty"?(parseInt(qtyEl&&qtyEl.textContent||"1",10)||1):1;count+=add;if(badge)badge.textContent=count;var html=btn.innerHTML;btn.innerHTML="ADDED \u2713";setTimeout(function(){btn.innerHTML=html;},1400);});});})();
+  </script>
+  <script>
+    (function(){
+      var car=document.getElementById("tcarousel");if(!car)return;
+      var track=document.getElementById("ttrack");
+      var order=[].slice.call(track.querySelectorAll(".tslide"));
+      var dotsWrap=document.getElementById("tdots");
+      var N=order.length, offset=0, timer=null, busy=false, DELAY=7000, GAP=18;
+      function per(){return window.innerWidth<=600?1:(window.innerWidth<=900?2:3);}
+      function pages(){return Math.max(1,Math.ceil(N/per()));}
+      function step(){return order[0].getBoundingClientRect().width+GAP;}
+      function render(){for(var i=0;i<N;i++){track.appendChild(order[(((offset+i)%N)+N)%N]);}}
+      function fit(){
+        order.forEach(function(sl){sl.style.height="auto";});
+        var vis=[];for(var i=0;i<per();i++){vis.push(order[(((offset+i)%N)+N)%N]);}
+        var h=Math.max.apply(null,vis.map(function(sl){return sl.getBoundingClientRect().height;}));
+        order.forEach(function(sl){sl.style.height=h+"px";});
+      }
+      function dots(){
+        var p=pages(), active=Math.floor(((offset%N)+N)%N/per())%p;
+        [].slice.call(dotsWrap.children).forEach(function(d,k){d.classList.toggle("is-active",k===active);});
+        order.forEach(function(sl){
+          var vis=false;for(var k=0;k<per();k++){if(order[(((offset+k)%N)+N)%N]===sl)vis=true;}
+          sl.setAttribute("aria-hidden",vis?"false":"true");
+        });
+      }
+      function go(dir){
+        if(busy) return; busy=true;
+        var d=step()*per();
+        offset+=dir*per();
+        render();
+        track.style.transition="none";
+        track.style.transform="translateX("+(dir>0?d:-d)+"px)";
+        void track.offsetWidth;
+        track.style.transition="";
+        requestAnimationFrame(function(){track.style.transform="translateX(0)";fit();dots();});
+        setTimeout(function(){track.style.transform="translateX(0)";busy=false;},480);
+      }
+      function jump(p){
+        if(busy) return;
+        var cur=Math.floor(((offset%N)+N)%N/per());
+        if(p===cur) return;
+        offset=p*per(); render(); fit(); dots();
+      }
+      function build(){
+        dotsWrap.innerHTML="";
+        for(var k=0;k<pages();k++){(function(k){
+          var b=document.createElement("button");
+          b.type="button"; b.className="tdot"+(k===0?" is-active":"");
+          b.setAttribute("aria-label","Testimonials page "+(k+1));
+          b.addEventListener("click",function(){jump(k);reset();});
+          dotsWrap.appendChild(b);})(k);}
+        busy=false; track.style.transition="none"; track.style.transform="translateX(0)";
+        void track.offsetWidth; track.style.transition="";
+        render(); fit(); dots();
+      }
+      function start(){timer=setInterval(function(){go(1);},DELAY);}
+      function stop(){clearInterval(timer);}
+      function reset(){stop();start();}
+      var pn=document.getElementById("tnext"),pp=document.getElementById("tprev");
+      if(pn)pn.addEventListener("click",function(){go(1);reset();});
+      if(pp)pp.addEventListener("click",function(){go(-1);reset();});
+      car.addEventListener("mouseenter",stop);
+      car.addEventListener("mouseleave",start);
+      var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){build();},150);});
+      build();
+      if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+    })();
   </script>
   <script src="assets/track.js"></script>
 </body>
