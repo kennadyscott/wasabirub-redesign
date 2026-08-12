@@ -123,7 +123,7 @@
     .modal-success .check{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:#e2eee8;color:var(--green);display:flex;align-items:center;justify-content:center}
     .modal-success .check svg{width:32px;height:32px}
     .modal-success p{color:#5f6a66;line-height:1.6;font-size:14px}
-    @media(max-width:900px){nav{display:none}.product-grid,.why,.feel-grid,.use-grid{grid-template-columns:1fr}.product-grid{gap:30px}.gallery{max-width:610px;margin:auto}.why{gap:45px}.feel-copy{padding-top:70px}.compare-head{align-items:flex-start;flex-direction:column}.use-grid{gap:35px}.final-buy .shell{align-items:flex-start;flex-direction:column}.footer-top{flex-direction:column;gap:30px}}
+    @media(max-width:900px){.nav-links{display:none}.product-grid,.why,.feel-grid,.use-grid{grid-template-columns:1fr}.product-grid{gap:30px}.gallery{max-width:610px;margin:auto}.why{gap:45px}.feel-copy{padding-top:70px}.compare-head{align-items:flex-start;flex-direction:column}.use-grid{gap:35px}.final-buy .shell{align-items:flex-start;flex-direction:column}.footer-top{flex-direction:column;gap:30px}}
     @media(max-width:600px){.shell{width:min(100% - 28px,1180px)}.announcement{font-size:8px}.nav{height:66px}.brand-name{font-size:23px}.brand-tag{font-size:9.5px}.nav-cta{padding:11px 14px;font-size:9px}.product-grid{padding:25px 0 50px}.thumbs button{height:76px}.product-copy{padding:24px 18px}.product-copy h1{font-size:41px}.product-subtitle{font-size:15px}.proof-row{align-items:flex-start;flex-direction:column}.ingredient-cards{grid-template-columns:1fr}.ingredient-cards article+article{border-left:0;border-top:1px solid var(--line)}.icon-badges{grid-template-columns:repeat(2,1fr);gap:16px 8px}.price-line{align-items:flex-start}.purchase-row{align-items:stretch;flex-direction:column}.quantity{width:106px}.purchase-notes{gap:8px}.signal-bar .shell{padding:18px 0;align-items:flex-start;flex-direction:column}.signal-bar i{display:none}.why,.compare{padding:62px 0}.feel-grid{min-height:auto}.feel-copy{padding:60px 0 15px}.feel-product{min-height:350px}.feel-product img{width:310px}.ring.one{width:280px;height:280px}.ring.two{width:340px;height:340px}.use-cases{flex-wrap:wrap}.compare h2,.section-heading h2,.use-section h2{font-size:42px}.use-section{padding:60px 0}.review{padding:62px 20px}.final-buy{padding:58px 0}.final-action{min-width:0;width:100%}.footer-brand img{width:180px}.mobile-buy{position:fixed;z-index:20;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;background:#fff;border-top:1px solid #d1d3d6;padding:10px 14px}.mobile-buy small{display:block;font-size:7px;font-weight:900;letter-spacing:.08em}.mobile-buy b{font-size:19px}.mobile-buy a{background:var(--red);color:#fff;padding:13px 18px;font-size:10px;font-weight:900;letter-spacing:.08em}footer{padding-bottom:78px}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   .modal-fallback{margin:14px 0 0;padding-top:12px;border-top:1px solid #e6e7e8;font-size:12.5px;color:#858e97;line-height:1.6}
@@ -395,8 +395,54 @@
         <div class="nav-right">
           <a class="nav-cta" href="https://kennadyscott.github.io/sportpharm-site/sports-medicine.html" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
           <a class="cart" href="coming-soon.html?f=Cart" aria-label="Cart">CART <span class="cart-count">0</span></a>
+          <button class="mnav-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         </div>
       </header>
+<style>
+.mnav-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;margin-left:2px;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mnav-btn svg{width:26px;height:26px}
+.mnav{position:fixed;inset:0;z-index:300;visibility:hidden;opacity:0;transition:opacity .22s ease,visibility .22s}
+.mnav.open{visibility:visible;opacity:1}
+.mnav-scrim{position:absolute;inset:0;background:rgba(15,29,51,.5)}
+.mnav-panel{position:absolute;top:0;right:0;height:100%;width:min(86%,340px);background:#fff;box-shadow:-20px 0 50px rgba(16,24,32,.25);display:flex;flex-direction:column;padding:18px 22px 28px;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,.01,.2,1);overflow-y:auto}
+.mnav.open .mnav-panel{transform:none}
+.mnav-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.mnav-head b{font-size:19px;font-weight:1000;letter-spacing:-.02em;color:var(--ink)}
+.mnav-x{width:40px;height:40px;border:0;background:none;font-size:28px;line-height:1;color:var(--ink);cursor:pointer}
+.mnav-panel a{display:block;padding:14px 2px;font-size:15px;font-weight:900;letter-spacing:.02em;color:var(--ink);border-bottom:1px solid #eceff1}
+.mnav-panel a:hover{color:var(--red)}
+.mnav-panel a.sub{padding-left:15px;font-size:13.5px;font-weight:700;color:#5a6672;letter-spacing:0}
+.mnav-panel a.mnav-pro{margin-top:14px;border-bottom:0;color:var(--red)}
+.mnav-panel a.mnav-cart{border-bottom:0}
+@media(max-width:900px){.mnav-btn{display:inline-flex}.nav-links{display:none}}@media(max-width:600px){.nav-cta{display:none}}
+</style>
+<div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mnav-scrim" data-mnav-close></div>
+  <div class="mnav-panel">
+    <div class="mnav-head"><b>Menu</b><button class="mnav-x" type="button" aria-label="Close menu" data-mnav-close>&times;</button></div>
+    <a href="wasabirub-shop.html">Shop</a>
+    <a class="sub" href="wasabirub.html">WasabiRub</a>
+    <a class="sub" href="wasabirub-super-hot.html">WasabiRub Super Hot</a>
+    <a class="sub" href="wasabirub-super-cold.html">WasabiRub Super Cold</a>
+    <a href="how-it-works.html">Why WasabiRub</a>
+    <a href="coming-soon.html?f=Quality">Quality</a>
+    <a href="articles.html">Articles</a>
+    <a class="mnav-pro" href="https://kennadyscott.github.io/sportpharm-site/sports-medicine.html" target="_blank" rel="noopener">For Professionals &#8599;</a>
+    <a class="mnav-cart" href="coming-soon.html?f=Cart">Cart (0)</a>
+  </div>
+</div>
+<script>
+(function(){
+  var b=document.querySelector('.mnav-btn'), m=document.getElementById('mnav');
+  if(!b||!m) return;
+  function open(){ m.classList.add('open'); b.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+  function close(){ m.classList.remove('open'); b.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  b.addEventListener('click',open);
+  m.addEventListener('click',function(e){ if(e.target.closest('[data-mnav-close]')||e.target.closest('a')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&m.classList.contains('open')) close(); });
+})();
+</script>
+
       <section class="product-hero" id="top">
         <div class="shell product-grid">
           <div class="gallery">
