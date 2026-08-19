@@ -210,7 +210,30 @@
     @media(max-width:820px){.navby{margin-left:33px}.navby img{height:9px}}
   
     h1,h2,h3{text-wrap:balance}
-    </style>
+    
+    /* ===== Why-tabs: 3-variant explainer ===== */
+    .wt-sec{padding:66px 0}
+    .wt{width:min(1120px,calc(100% - 40px));margin:0 auto}
+    .wt-intro{max-width:640px;margin:0 0 26px}
+    .wt-intro h2{margin:0;font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-.02em;line-height:1.02;color:#15202b}
+    .wt-intro h2 span{color:#d6202a}
+    .wt-intro p{margin:16px 0 0;font-size:16px;line-height:1.65;color:#5a6672;max-width:60ch}
+    .wt-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 26px}
+    .wt-tab{appearance:none;cursor:pointer;border:1px solid #d7dcd9;background:#fff;border-radius:12px;padding:11px 20px;font:inherit;font-size:13.5px;font-weight:900;letter-spacing:.01em;color:#33404b;transition:.16s;text-align:left}
+    .wt-tab:hover{border-color:#b6bcc2}
+    .wt-tab.is-on{background:#0f1d33;border-color:#0f1d33;color:#fff}
+    .wt-tab small{display:block;font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;opacity:.6;margin-bottom:3px}
+    .wt-panel[hidden]{display:none}
+    .wt-panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:0 0 22px;padding-bottom:18px;border-bottom:1px solid #e2e6e4}
+    .wt-panel-head h3{margin:0;font-size:clamp(22px,3vw,32px);font-weight:900;letter-spacing:-.02em;color:#15202b}
+    .wt-panel-head h3 span{color:#d6202a}
+    .wt-panel-head .wt-cue{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8a938f}
+    .wt-foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid #e2e6e4}
+    .wt-foot p{margin:0;font-size:14.5px;color:#5a6672}
+    .wt-buy{display:inline-flex;align-items:center;gap:9px;background:#d6202a;color:#fff;font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:12.5px;padding:13px 24px;border-radius:9px;text-decoration:none}
+    .wt-buy:hover{background:#b71720}.wt-buy b{font-weight:900}
+
+  </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b">
 <link rel="canonical" href="https://wasabirub.com/how-it-works.html">
 <meta property="og:site_name" content="WasabiRub">
@@ -319,12 +342,44 @@
       </div>
     </section>
 
-    <section class="sensations" id="how">
-      <div class="section-intro"><h2>ONE RUB.<br><span>THREE SENSATIONS.</span></h2><p>Most topicals lead with cooling or heat. WasabiRub combines both sensations with a third active ingredient for layered, targeted relief.</p></div>
-      <div class="sensation-list">
-        <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL • 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">Menthol activates TRPM8—cold-sensitive receptors in the skin—creating an immediate cooling sensation that can temporarily shift attention away from soreness.</span></div><div class="signal-icon">❄</div></article>
-        <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN • .0375%</p><h3>BRINGS THE HEAT</h3><span class="desc">Capsaicin activates heat-sensitive TRPV1 receptors. The first warm or tingling feeling gives way to local desensitization with continued use, quieting the intensity of pain signaling.</span></div><div class="signal-icon">♨</div></article>
-        <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE • 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">Methyl salicylate is a topical counterirritant used for temporary relief of minor muscle and joint aches—delivering localized action right where it is applied.</span></div><div class="signal-icon">◎</div></article>
+    <section id="how" class="wt-sec">
+      <div class="wt">
+        <div class="wt-intro">
+          <h2>ONE FORMULA.<br><span>THREE WAYS TO FEEL IT.</span></h2>
+          <p>The three WasabiRub rubs share the same pharmacist-formulated thinking &mdash; what changes is the balance of cool and heat. Pick a rub to see why.</p>
+        </div>
+        <div class="wt-tabs" role="tablist" aria-label="Choose a rub">
+          <button class="wt-tab is-on" role="tab" id="wtt-og" aria-controls="wtp-og" aria-selected="true" tabindex="0"><small>Everyday</small>Why WasabiRub</button>
+          <button class="wt-tab" role="tab" id="wtt-hot" aria-controls="wtp-hot" aria-selected="false" tabindex="-1"><small>Max heat</small>Why Super Hot</button>
+          <button class="wt-tab" role="tab" id="wtt-cold" aria-controls="wtp-cold" aria-selected="false" tabindex="-1"><small>Pure cooling</small>Why Super Cold</button>
+        </div>
+        <div class="wt-panel" id="wtp-og" role="tabpanel" aria-labelledby="wtt-og">
+          <div class="wt-panel-head"><h3>Cool, <span>then heat.</span></h3><span class="wt-cue">Balanced &middot; Everyday</span></div>
+          <div class="sensation-list">
+            <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">Menthol activates TRPM8&mdash;cold-sensitive receptors in the skin&mdash;creating an immediate cooling sensation.</span></div><div class="signal-icon">&#10052;</div></article>
+            <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN &bull; .0375%</p><h3>BRINGS THE HEAT</h3><span class="desc">Capsaicin activates heat-sensitive TRPV1 receptors, building a gradual, lasting warming sensation.</span></div><div class="signal-icon">&#9832;</div></article>
+            <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE &bull; 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">A topical counterirritant for temporary relief of minor muscle and joint aches, right where you apply it.</span></div><div class="signal-icon">&#9678;</div></article>
+          </div>
+          <div class="wt-foot"><p>The everyday rub &mdash; balanced cool and heat.</p><a class="wt-buy" href="wasabirub.html">Shop WasabiRub <b>$29.95</b> &rarr;</a></div>
+        </div>
+        <div class="wt-panel" id="wtp-hot" role="tabpanel" aria-labelledby="wtt-hot" hidden>
+          <div class="wt-panel-head"><h3>Cools first. <span>Then heats up.</span></h3><span class="wt-cue">Max heat &middot; Double capsaicin</span></div>
+          <div class="sensation-list">
+            <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">The cooling still lands first &mdash; menthol is unchanged from the original.</span></div><div class="signal-icon">&#10052;</div></article>
+            <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN &bull; .075%</p><h3>DOUBLE THE HEAT</h3><span class="desc">Twice the capsaicin of the original, for a stronger, longer-lasting warming sensation. The heat is the part that changed.</span></div><div class="signal-icon">&#9832;</div></article>
+            <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE &bull; 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">The same topical counterirritant for temporary relief of minor muscle and joint aches.</span></div><div class="signal-icon">&#9678;</div></article>
+          </div>
+          <div class="wt-foot"><p>For athletes who want serious heat.</p><a class="wt-buy" href="wasabirub-super-hot.html">Shop Super Hot <b>$39.95</b> &rarr;</a></div>
+        </div>
+        <div class="wt-panel" id="wtp-cold" role="tabpanel" aria-labelledby="wtt-cold" hidden>
+          <div class="wt-panel-head"><h3>One active. <span>Pure cooling.</span></h3><span class="wt-cue">Pure cooling &middot; No warming phase</span></div>
+          <div class="sensation-list">
+            <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 16%</p><h3>COOLS ON CONTACT</h3><span class="desc">The highest menthol concentration in the range, for an immediate, focused cooling sensation.</span></div><div class="signal-icon">&#10052;</div></article>
+            <article class="sensation-row green"><div class="step">02</div><div><p>FORMAT &bull; CREAM BASE</p><h3>ABSORBS FAST</h3><span class="desc">A smooth, non-greasy cream that spreads evenly over small areas or large muscle groups.</span></div><div class="signal-icon">&#9678;</div></article>
+            <article class="sensation-row blue"><div class="step">03</div><div><p>NO CAPSAICIN</p><h3>NO WARMING PHASE</h3><span class="desc">Cooling only &mdash; no heat, for when you want to keep it cold.</span></div><div class="signal-icon">&#10052;</div></article>
+          </div>
+          <div class="wt-foot"><p>Pure cooling, no heat.</p><a class="wt-buy" href="wasabirub-super-cold.html">Shop Super Cold <b>$39.95</b> &rarr;</a></div>
+        </div>
       </div>
     </section>
 
@@ -481,5 +536,34 @@
     (function(){var count=0,badge=document.querySelector(".cart-count");document.querySelectorAll("[data-add-to-cart]").forEach(function(btn){btn.addEventListener("click",function(e){e.preventDefault();count+=1;if(badge)badge.textContent=count;var html=btn.innerHTML;btn.innerHTML="ADDED \u2713";setTimeout(function(){btn.innerHTML=html;},1400);});});})();
   </script>
   <script src="assets/track.js"></script>
+<script>
+(function(){
+  var list=document.querySelector('.wt-tabs'); if(!list) return;
+  var tabs=[].slice.call(list.querySelectorAll('[role="tab"]'));
+  var panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'));});
+  if(panels.some(function(p){return !p;})) return;
+  function sel(i,focus){
+    tabs.forEach(function(t,k){
+      var on=k===i;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.setAttribute('tabindex',on?'0':'-1');
+      t.classList.toggle('is-on',on);
+      panels[k].hidden=!on;
+      if(on&&focus)t.focus();
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){sel(i,false);});
+    t.addEventListener('keydown',function(e){
+      var n=null,k=e.key;
+      if(k==='ArrowRight'||k==='ArrowDown')n=(i+1)%tabs.length;
+      else if(k==='ArrowLeft'||k==='ArrowUp')n=(i-1+tabs.length)%tabs.length;
+      else if(k==='Home')n=0; else if(k==='End')n=tabs.length-1;
+      if(n!==null){e.preventDefault();sel(n,true);}
+    });
+  });
+  sel(0,false);
+})();
+</script>
 </body>
 </html>
