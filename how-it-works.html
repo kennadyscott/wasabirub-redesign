@@ -233,6 +233,18 @@
     .wt-buy{display:inline-flex;align-items:center;gap:9px;background:#d6202a;color:#fff;font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:12.5px;padding:13px 24px;border-radius:9px;text-decoration:none}
     .wt-buy:hover{background:#b71720}.wt-buy b{font-weight:900}
 
+  
+    /* Why-tabs hero layout */
+    .wt-hero{padding-top:54px;padding-bottom:56px}
+    .wt-eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#a3161e;margin:0 0 14px}
+    .wt-intro h1{margin:0;font-size:clamp(30px,4.7vw,54px);font-weight:900;letter-spacing:-.03em;line-height:1;color:#15202b}
+    .wt-intro h1 span{color:#d6202a}
+    .wt-lead{margin:16px 0 0;font-size:16px;line-height:1.65;color:#5a6672;max-width:62ch}
+    .wt-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:44px;align-items:center}
+    .wt-media{background:#fef9f6;border-radius:18px;padding:30px;display:grid;place-items:center;align-self:stretch;min-height:340px}
+    .wt-media img{width:100%;max-width:330px;height:auto;display:block;filter:drop-shadow(0 22px 30px rgba(16,24,32,.16))}
+    @media(max-width:860px){.wt-grid{grid-template-columns:1fr;gap:22px}.wt-media{min-height:0;padding:26px}.wt-media img{max-width:250px}}
+
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b">
 <link rel="canonical" href="https://wasabirub.com/how-it-works.html">
@@ -327,26 +339,12 @@
 
 
   <main>
-    <section class="hero" id="top">
-      <div class="hero-copy">
-        <h1>WHY DOES IT<br><span>COOL—THEN HEAT?</span></h1>
-        <p class="hero-text">WasabiRub layers three active ingredients across different sensory pathways to temporarily relieve minor muscle and joint aches. It’s not only what’s in the jar—it’s how the ingredients work together.</p>
-        <a class="button primary" href="#how">FOLLOW THE SENSATION <span>↓</span></a>
-      </div>
-      <div class="product-stage" aria-label="WasabiRub ingredient diagram">
-        <div class="callout callout-menthol"><span>MENTHOL</span><strong>10%</strong></div>
-        <div class="callout callout-capsaicin"><span>CAPSAICIN</span><strong>.0375%</strong></div>
-        <div class="callout callout-salicylate"><span>METHYL SALICYLATE</span><strong>20%</strong></div>
-        <img src="assets/wasabirub-og-trushield-clear.png?v=3" alt="WasabiRub topical pain relief jar">
-        <div class="jar-shadow"></div>
-      </div>
-    </section>
-
-    <section id="how" class="wt-sec">
+    <section id="top" class="wt-sec wt-hero">
       <div class="wt">
         <div class="wt-intro">
-          <h2>ONE FORMULA.<br><span>THREE WAYS TO FEEL IT.</span></h2>
-          <p>The three WasabiRub rubs share the same pharmacist-formulated thinking &mdash; what changes is the balance of cool and heat. Pick a rub to see why.</p>
+          <p class="wt-eyebrow">Why WasabiRub</p>
+          <h1>ONE FORMULA.<br><span>THREE WAYS TO FEEL IT.</span></h1>
+          <p class="wt-lead">The three WasabiRub rubs share the same pharmacist-formulated thinking &mdash; what changes is the balance of cool and heat. Pick a rub to see how it works.</p>
         </div>
         <div class="wt-tabs" role="tablist" aria-label="Choose a rub">
           <button class="wt-tab is-on" role="tab" id="wtt-og" aria-controls="wtp-og" aria-selected="true" tabindex="0"><small>Everyday</small>Why WasabiRub</button>
@@ -354,31 +352,46 @@
           <button class="wt-tab" role="tab" id="wtt-cold" aria-controls="wtp-cold" aria-selected="false" tabindex="-1"><small>Pure cooling</small>Why Super Cold</button>
         </div>
         <div class="wt-panel" id="wtp-og" role="tabpanel" aria-labelledby="wtt-og">
-          <div class="wt-panel-head"><h3>Cool, <span>then heat.</span></h3><span class="wt-cue">Balanced &middot; Everyday</span></div>
-          <div class="sensation-list">
-            <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">Menthol activates TRPM8&mdash;cold-sensitive receptors in the skin&mdash;creating an immediate cooling sensation.</span></div><div class="signal-icon">&#10052;</div></article>
-            <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN &bull; .0375%</p><h3>BRINGS THE HEAT</h3><span class="desc">Capsaicin activates heat-sensitive TRPV1 receptors, building a gradual, lasting warming sensation.</span></div><div class="signal-icon">&#9832;</div></article>
-            <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE &bull; 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">A topical counterirritant for temporary relief of minor muscle and joint aches, right where you apply it.</span></div><div class="signal-icon">&#9678;</div></article>
+          <div class="wt-grid">
+            <div class="wt-media"><picture><source srcset="assets/wasabirub-og-trushield-clear.webp" type="image/webp"><img src="assets/wasabirub-og-trushield-clear.png" alt="WasabiRub jar" width="900" height="900" decoding="async"></picture></div>
+            <div class="wt-body">
+              <div class="wt-panel-head"><h3>Cool, <span>then heat.</span></h3><span class="wt-cue">Balanced &middot; Everyday</span></div>
+              <div class="sensation-list">
+                <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">Menthol activates TRPM8&mdash;cold-sensitive receptors in the skin&mdash;creating an immediate cooling sensation.</span></div><div class="signal-icon">&#10052;</div></article>
+                <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN &bull; .0375%</p><h3>BRINGS THE HEAT</h3><span class="desc">Capsaicin activates heat-sensitive TRPV1 receptors, building a gradual, lasting warming sensation.</span></div><div class="signal-icon">&#9832;</div></article>
+                <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE &bull; 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">A topical counterirritant for temporary relief of minor muscle and joint aches, right where you apply it.</span></div><div class="signal-icon">&#9678;</div></article>
+              </div>
+              <div class="wt-foot"><p>The everyday rub &mdash; balanced cool and heat.</p><a class="wt-buy" href="wasabirub.html">Shop WasabiRub <b>$29.95</b> &rarr;</a></div>
+            </div>
           </div>
-          <div class="wt-foot"><p>The everyday rub &mdash; balanced cool and heat.</p><a class="wt-buy" href="wasabirub.html">Shop WasabiRub <b>$29.95</b> &rarr;</a></div>
         </div>
         <div class="wt-panel" id="wtp-hot" role="tabpanel" aria-labelledby="wtt-hot" hidden>
-          <div class="wt-panel-head"><h3>Cools first. <span>Then heats up.</span></h3><span class="wt-cue">Max heat &middot; Double capsaicin</span></div>
-          <div class="sensation-list">
-            <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">The cooling still lands first &mdash; menthol is unchanged from the original.</span></div><div class="signal-icon">&#10052;</div></article>
-            <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN &bull; .075%</p><h3>DOUBLE THE HEAT</h3><span class="desc">Twice the capsaicin of the original, for a stronger, longer-lasting warming sensation. The heat is the part that changed.</span></div><div class="signal-icon">&#9832;</div></article>
-            <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE &bull; 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">The same topical counterirritant for temporary relief of minor muscle and joint aches.</span></div><div class="signal-icon">&#9678;</div></article>
+          <div class="wt-grid">
+            <div class="wt-media"><picture><source srcset="assets/superhot-trushield-clear.webp" type="image/webp"><img src="assets/superhot-trushield-clear.png" alt="Super Hot jar" width="900" height="900" decoding="async"></picture></div>
+            <div class="wt-body">
+              <div class="wt-panel-head"><h3>Cools first. <span>Then heats up.</span></h3><span class="wt-cue">Max heat &middot; Double capsaicin</span></div>
+              <div class="sensation-list">
+                <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 10%</p><h3>COOLS ON CONTACT</h3><span class="desc">The cooling still lands first &mdash; menthol is unchanged from the original.</span></div><div class="signal-icon">&#10052;</div></article>
+                <article class="sensation-row red"><div class="step">02</div><div><p>CAPSAICIN &bull; .075%</p><h3>DOUBLE THE HEAT</h3><span class="desc">Twice the capsaicin of the original, for a stronger, longer-lasting warming sensation. The heat is the part that changed.</span></div><div class="signal-icon">&#9832;</div></article>
+                <article class="sensation-row green"><div class="step">03</div><div><p>METHYL SALICYLATE &bull; 20%</p><h3>TARGETS THE SORE SPOT</h3><span class="desc">The same topical counterirritant for temporary relief of minor muscle and joint aches.</span></div><div class="signal-icon">&#9678;</div></article>
+              </div>
+              <div class="wt-foot"><p>For athletes who want serious heat.</p><a class="wt-buy" href="wasabirub-super-hot.html">Shop Super Hot <b>$39.95</b> &rarr;</a></div>
+            </div>
           </div>
-          <div class="wt-foot"><p>For athletes who want serious heat.</p><a class="wt-buy" href="wasabirub-super-hot.html">Shop Super Hot <b>$39.95</b> &rarr;</a></div>
         </div>
         <div class="wt-panel" id="wtp-cold" role="tabpanel" aria-labelledby="wtt-cold" hidden>
-          <div class="wt-panel-head"><h3>One active. <span>Pure cooling.</span></h3><span class="wt-cue">Pure cooling &middot; No warming phase</span></div>
-          <div class="sensation-list">
-            <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 16%</p><h3>COOLS ON CONTACT</h3><span class="desc">The highest menthol concentration in the range, for an immediate, focused cooling sensation.</span></div><div class="signal-icon">&#10052;</div></article>
-            <article class="sensation-row green"><div class="step">02</div><div><p>FORMAT &bull; CREAM BASE</p><h3>ABSORBS FAST</h3><span class="desc">A smooth, non-greasy cream that spreads evenly over small areas or large muscle groups.</span></div><div class="signal-icon">&#9678;</div></article>
-            <article class="sensation-row blue"><div class="step">03</div><div><p>NO CAPSAICIN</p><h3>NO WARMING PHASE</h3><span class="desc">Cooling only &mdash; no heat, for when you want to keep it cold.</span></div><div class="signal-icon">&#10052;</div></article>
+          <div class="wt-grid">
+            <div class="wt-media"><picture><source srcset="assets/icetrarub-trushield-clear.webp" type="image/webp"><img src="assets/icetrarub-trushield-clear.png" alt="Super Cold jar" width="900" height="900" decoding="async"></picture></div>
+            <div class="wt-body">
+              <div class="wt-panel-head"><h3>One active. <span>Pure cooling.</span></h3><span class="wt-cue">Pure cooling &middot; No warming phase</span></div>
+              <div class="sensation-list">
+                <article class="sensation-row blue"><div class="step">01</div><div><p>MENTHOL &bull; 16%</p><h3>COOLS ON CONTACT</h3><span class="desc">The highest menthol concentration in the range, for an immediate, focused cooling sensation.</span></div><div class="signal-icon">&#10052;</div></article>
+                <article class="sensation-row green"><div class="step">02</div><div><p>FORMAT &bull; CREAM BASE</p><h3>ABSORBS FAST</h3><span class="desc">A smooth, non-greasy cream that spreads evenly over small areas or large muscle groups.</span></div><div class="signal-icon">&#9678;</div></article>
+                <article class="sensation-row blue"><div class="step">03</div><div><p>NO CAPSAICIN</p><h3>NO WARMING PHASE</h3><span class="desc">Cooling only &mdash; no heat, for when you want to keep it cold.</span></div><div class="signal-icon">&#10052;</div></article>
+              </div>
+              <div class="wt-foot"><p>Pure cooling, no heat.</p><a class="wt-buy" href="wasabirub-super-cold.html">Shop Super Cold <b>$39.95</b> &rarr;</a></div>
+            </div>
           </div>
-          <div class="wt-foot"><p>Pure cooling, no heat.</p><a class="wt-buy" href="wasabirub-super-cold.html">Shop Super Cold <b>$39.95</b> &rarr;</a></div>
         </div>
       </div>
     </section>
