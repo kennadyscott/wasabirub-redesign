@@ -1,0 +1,1040 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Healthcare Professionals &amp; Athletic Trainers | SportPharm</title><meta name="description" content="Compounding, drug repackaging, unit-dose supply, inventory management and concierge pharmacy for athletic trainers, sports medicine physicians and professional teams."><style>
+:root{
+  --sp-red:#d6202a;--sp-red-2:#a3161e;
+  --navy-900:#0f1d33;--navy-800:#1a2c47;
+  --ink:#24303c;        /* headings on light */
+  --body:#656e77;       /* body text on light */
+  --line-l:#e8ebee;     /* light borders */
+  --bg:#ffffff;--bg-soft:#f6f8f9;
+  --navy-hero:#0f1d33;
+  --maxw:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+header .navlink,header .dropdown a,header .dd-head,header .dd-link .t,header .cap,header .cart-count,header .mobilemenu a{font-family:Arial,Helvetica,sans-serif}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:Arial,Helvetica,sans-serif;font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:.92rem;color:var(--sp-red)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;padding:.82rem 1.5rem;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:.18s;white-space:nowrap}
+.btn svg{width:15px;height:15px}
+.btn-red{background:var(--sp-red);color:#fff}.btn-red:hover{background:var(--sp-red-2);transform:translateY(-1px)}
+.btn-navy{background:var(--navy-900);color:#fff}.btn-navy:hover{background:var(--navy-800)}
+.btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* ---------- HEADER ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-l)}
+header .wrap{max-width:1320px}
+.nav{display:flex;align-items:center;gap:14px;height:78px}
+.logo{display:flex;flex-direction:column;line-height:1;flex-shrink:0}
+.logo .mark{font-family:Arial,Helvetica,sans-serif;font-weight:900;font-style:italic;font-size:1.55rem;color:var(--sp-red)}
+.logo .mark span{color:var(--ink)}
+.logo .tag{font-family:Georgia,serif;font-weight:700;font-size:.58rem;color:var(--ink);margin-top:3px}
+.logo img{height:42px;width:auto;display:block;flex-shrink:0}
+.mainnav{display:flex;align-items:center;gap:0;margin-left:16px}
+.navitem{position:relative}
+.navlink{display:flex;align-items:center;gap:5px;padding:9px 11px;border-radius:8px;font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:.88rem;color:var(--ink);cursor:pointer;transition:.15s;white-space:nowrap}
+.mainnav{gap:0}
+.navlink .caret{width:11px;height:11px;opacity:.5}
+.navitem:hover .navlink{color:var(--sp-red)}
+.navlink.active{color:var(--sp-red)}
+.navlink.active::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:2px;background:var(--sp-red);border-radius:2px}
+.dropdown{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--line-l);border-radius:12px;padding:10px;min-width:240px;box-shadow:0 20px 40px -16px rgba(16,41,74,.25);opacity:0;visibility:hidden;transform:translateY(6px);transition:.16s}
+.navitem:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown a{display:block;padding:9px 12px;border-radius:7px;font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:.9rem;color:var(--ink);transition:.14s}
+.dropdown a:hover{background:var(--bg-soft);color:var(--sp-red)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.nav-right .btn{padding:.7rem 1.05rem;font-size:.77rem}
+.pharmacy-pill{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;background:var(--sp-red);color:#fff;font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;padding:8px 16px;border-radius:999px;box-shadow:0 8px 20px -6px rgba(224,49,42,.5);transition:.16s}
+.pharmacy-pill svg{flex-shrink:0}
+.hub-cap{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;padding:8px 15px;border-radius:999px;border:1.5px solid var(--navy-900);color:var(--navy-900);background:transparent;transition:.16s}
+.hub-cap:hover{background:var(--navy-900);color:#fff;transform:translateY(-1px)}
+.hub-cap svg{width:15px;height:15px;flex-shrink:0}
+.pharmacy-pill:hover{background:var(--sp-red-2);transform:translateY(-1px)}
+.pharmacy-pill svg{width:16px;height:16px}
+.menu-btn{display:none;width:44px;height:44px;border:1px solid var(--line-l);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(90% 120% at 88% 10%, #1e4f63, transparent 55%),
+  linear-gradient(120deg, var(--navy-hero), #0f1d33)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;min-height:430px}
+.hero-left{padding:70px 30px 70px 0;display:flex;flex-direction:column;justify-content:center;align-self:center}
+.hero h1{font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:4.4rem;line-height:.96;letter-spacing:.01em;color:#fff;margin-bottom:20px}
+.hero h1 .r{color:var(--sp-red)}
+.hero p{color:#c2cad1;font-size:1.08rem;max-width:440px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-photo{position:relative}
+.hero-photo .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-photo .ph-ph{position:absolute;inset:0;background:linear-gradient(140deg,#263545,#0f1d33);display:grid;place-items:center}
+.hero-photo .ph-ph svg{width:120px;color:rgba(255,255,255,.12)}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, var(--navy-hero) 0%, transparent 22%);pointer-events:none}
+.cross{position:absolute;top:34px;right:44px;width:96px;height:96px;color:rgba(255,255,255,.14);z-index:2}
+
+/* ---------- TRUST BAR ---------- */
+.trust{background:#fff;border-bottom:1px solid var(--line-l)}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:26px 0}
+.trust-item{display:flex;gap:14px;align-items:center;padding:6px 26px;border-right:1px solid var(--line-l)}
+.trust-item:last-child{border-right:0}
+.trust-item .ti-ic{color:var(--sp-red);flex-shrink:0}
+.trust-item .tt{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:.92rem;color:var(--ink);line-height:1.3}
+
+/* ---------- SUPPORT ---------- */
+.section{padding:78px 0}
+.support-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start}
+h2.sec{font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:2.85rem;color:var(--ink);letter-spacing:.02em;line-height:1}
+.sec-sub{color:var(--body);font-size:1.05rem;margin:12px 0 30px;max-width:520px}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.svc{background:#fff;border:1px solid var(--line-l);border-radius:14px;padding:24px 22px;transition:.18s}
+.svc:hover{border-color:#d4dadf;box-shadow:0 16px 34px -18px rgba(16,41,74,.28);transform:translateY(-3px)}
+.svc .s-ic{width:52px;height:52px;border-radius:12px;background:var(--bg-soft);display:grid;place-items:center;color:var(--ink);margin-bottom:16px}
+.svc h3{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:1.12rem;color:var(--ink);margin-bottom:8px}
+.svc p{font-size:.9rem;color:var(--body);line-height:1.5;margin-bottom:14px}
+.learn{font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:.98rem;letter-spacing:.04em;color:var(--sp-red);display:inline-flex;align-items:center;gap:6px}
+.svc:hover .learn{gap:9px}
+
+.support-right{display:flex;flex-direction:column;gap:22px}
+.sr-photo{position:relative;border-radius:16px;overflow:hidden;height:220px;box-shadow:0 18px 40px -20px rgba(16,41,74,.35)}
+.sr-photo .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sr-photo .ph-ph{position:absolute;inset:0;background:linear-gradient(140deg,#ebeef1,#dbe0e5);display:grid;place-items:center;color:#aab2bb}
+.why{background:var(--bg-soft);border:1px solid var(--line-l);border-radius:16px;padding:28px 26px}
+.why h3{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:1.2rem;color:var(--ink);margin-bottom:18px}
+.why ul{list-style:none;display:flex;flex-direction:column;gap:15px}
+.why li{display:flex;gap:12px;align-items:flex-start;font-size:.94rem;color:var(--ink)}
+.why li .ck{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(224,49,42,.1);color:var(--sp-red);display:grid;place-items:center;margin-top:1px}
+.why li .ck svg{width:13px;height:13px}
+
+/* ---------- READY ---------- */
+.ready{background:linear-gradient(120deg,var(--navy-900),#0f1d33)}
+.ready-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:44px;align-items:center;padding:60px 0}
+.ready-l h2{font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:2.5rem;color:#fff;margin-bottom:14px;line-height:1.02;letter-spacing:.01em}
+.ready-l p{color:#c2cad1;font-size:1rem;max-width:360px;margin-bottom:24px}
+.ready-r{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;border-left:1px solid rgba(255,255,255,.14);padding-left:44px}
+.feat .f-ic{color:var(--sp-red);margin-bottom:12px}
+.feat h4{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:1rem;color:#fff;margin-bottom:7px}
+.feat p{font-size:.86rem;color:#aab2bb;line-height:1.5}
+
+/* ---------- FOOTER ---------- */
+footer{background:#0f1d33;padding:40px 0;text-align:center}
+
+@media(max-width:960px){
+  .mainnav{display:none}.menu-btn{display:grid;place-items:center}
+  .hero-grid,.support-grid,.ready-grid{grid-template-columns:1fr}
+  .hero-photo{min-height:300px}
+  .hero-left{padding:56px 0 40px}
+  .trust-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .trust-item{border-right:0}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .ready-r{border-left:0;padding-left:0;grid-template-columns:1fr}
+  .cross{display:none}}
+@media(max-width:560px){.svc-grid,.trust-grid{grid-template-columns:1fr}.hero h1{font-size:3rem}}
+@media(max-width:820px){.ptoggle{display:none}}
+
+/* ===== HCP homepage redesign ===== */
+.h-hero{position:relative;background:#0f1d33;overflow:hidden;isolation:isolate}
+.h-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:0% center;z-index:-2;transform:scaleX(-1);filter:brightness(1.42) saturate(1.06)}
+.h-hero:before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,rgba(16,24,32,.96) 0%,rgba(16,24,32,.88) 30%,rgba(16,24,32,.6) 48%,rgba(16,24,32,.16) 74%,rgba(16,24,32,0) 100%)}
+.h-hero-copy{max-width:600px;padding:88px 0 82px}
+.h-hero h1{font-family:Arial,Helvetica,sans-serif;font-stretch:normal;
+  font-weight:900;letter-spacing:-.035em;text-transform:uppercase;
+  font-size:clamp(40px,4.9vw,70px);line-height:.9;margin:0 0 20px;color:#fff}
+.h-hero h1 em{font-style:normal;color:#d6202a}
+.h-hero p{font-size:17.5px;line-height:1.62;color:#c7ccd0;margin:0 0 30px;max-width:500px}
+@media(max-width:900px){
+  .h-hero-copy{max-width:none;padding:76px 0 68px}
+  .h-hero:before{background:linear-gradient(180deg,rgba(16,24,32,.9),rgba(16,24,32,.78))}
+  .h-hero-bg{object-position:38% center}}
+
+.h-wrap{width:min(1180px,100% - 8vw);margin-inline:auto}
+.h-sec.wide .h-wrap{width:min(1260px,100% - 6vw)}
+
+.h-eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#aab7b1;margin:0 0 14px}
+
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 24px;border-radius:7px;font-size:12.5px;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;transition:.18s}
+.h-btn.solid{background:#d6202a;color:#fff}
+.h-btn.solid:hover{filter:brightness(.92)}
+.h-btn.line{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+.h-btn.line:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.h-btn.dark{background:#0f1d33;color:#fff}
+.h-trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14)}
+.h-trust span{font-size:12.5px;color:#c7ccd0;display:flex;align-items:center;gap:8px}
+.h-trust span:before{content:"";width:6px;height:6px;border-radius:50%;background:#d6202a}
+
+.h-sec{padding:48px 0}
+.h-sec.soft{background:#f4f5f6}
+.h-sec.dark{background:#0f1d33;color:#fff}
+.h-sec.tight{padding-bottom:44px}
+.h-sec.tight + .h-sec{padding-top:44px}
+.h-h2{font-family:Arial,Helvetica,sans-serif;font-size:clamp(28px,3.6vw,44px);line-height:1.02;
+  margin:0 0 16px;color:#24303c;letter-spacing:.01em}
+.h-sec.dark .h-h2{color:#fff}
+.h-h2 em{font-style:normal;color:#d6202a}
+.h-sub{color:#656e77;font-size:16px;line-height:1.7;max-width:660px;margin:0 0 34px}
+.h-sec.dark .h-sub{color:#bec3c8}
+.h-eyebrow.on-light{color:#a3161e}
+
+
+
+
+
+
+
+/* services */
+
+/* wasabirub band */
+.h-rub{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.h-rub-img img{width:100%;border-radius:12px;display:block}
+.h-rub h2{margin-bottom:14px}
+.h-rub ul{margin:0 0 26px;padding-left:0;list-style:none}
+.h-rub li{position:relative;padding-left:26px;margin-bottom:12px;color:#bec3c8;font-size:15px;line-height:1.6}
+.h-rub li:before{content:"";position:absolute;left:0;top:8px;width:9px;height:9px;border-radius:50%;border:2px solid #d6202a}
+.h-skus{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.h-sku{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;
+  padding:9px 15px;font-size:12.5px;color:#e6e9ec}
+
+/* credibility */
+.h-cred{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1220px;margin:0 auto}
+.h-cred div{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:26px 24px}
+.h-cred b{display:block;font-family:Arial,Helvetica,sans-serif;font-size:30px;color:#fff;margin-bottom:8px;letter-spacing:.02em}
+.h-cred span{font-size:13.5px;color:#bec3c8;line-height:1.6;display:block}
+.h-row{display:flex;gap:12px;flex-wrap:wrap}
+
+@media(max-width:1000px){
+  .h-cred{grid-template-columns:repeat(2,1fr)}
+  .h-rub{grid-template-columns:1fr;gap:32px}}
+.logo{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-decoration:none}
+.logo img{width:150px;height:auto;display:block}
+.logo-tag{font-family:Georgia,serif;font-weight:400;font-size:10.5px;letter-spacing:.005em;color:#24303c;white-space:nowrap}
+.h-dots{display:flex;gap:8px;justify-content:center;margin-top:22px}
+.h-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:#c9ced2;cursor:pointer;transition:.2s}
+.h-sec.dark .h-dot{background:rgba(255,255,255,.3)}
+.h-dot.on{background:#d6202a;width:22px;border-radius:4px}
+
+/* ===== services as expanding cards ===== */
+
+    .pmodal{position:fixed;inset:0;z-index:200;background:rgba(8,16,30,.72);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:24px}
+
+    .pmodal.show{display:flex}
+
+    .pmodal-card{background:#fff;border-radius:20px;max-width:1040px;width:100%;max-height:92vh;overflow:auto;padding:38px 36px 28px;text-align:center;box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+
+    .pmodal-card .plogo{height:30px;width:auto;display:inline-block;margin-bottom:18px}
+
+    .pmodal-card h2{font-family:Arial,Helvetica,sans-serif;font-stretch:normal;font-weight:900;text-transform:uppercase;font-size:2rem;letter-spacing:-.02em;color:#24303c;margin-bottom:6px}
+
+    .pmodal-card .psub{font-size:16px;color:#656e77;margin:0 auto 2px}
+
+    .pmodal-card .psub2{font-size:13px;color:#69717a;margin:0 auto 24px}
+
+
+
+
+
+
+.h-nform{display:flex;gap:10px;flex-wrap:wrap}
+.h-nform input{flex:1;min-width:220px;padding:15px 16px;border:1px solid rgba(255,255,255,.24);
+  border-radius:8px;background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:15px}
+.h-nform input::placeholder{color:#98a0a6}
+.h-nform input:focus{outline:0;border-color:#d6202a}
+.h-nform button{padding:15px 24px;border:0;border-radius:8px;background:#d6202a;color:#fff;font:inherit;
+  font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.h-nform button:hover{filter:brightness(.93)}
+.h-nfine{font-size:12px;color:#98a0a6;margin:14px 0 0;line-height:1.55}
+.h-ndone{color:#42d195;font-size:15px;margin:0}
+/* ===== article cards ===== */
+.h-arts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1220px;margin:0 auto}
+.h-art{background:#fff;border:1px solid #e0e3e6;border-radius:12px;overflow:hidden;text-decoration:none;
+  display:flex;flex-direction:column;transition:.18s}
+.h-art:hover{border-color:#d6202a;transform:translateY(-2px);box-shadow:0 14px 34px rgba(16,24,32,.09)}
+.h-art .ph{height:186px;background:#f4f5f6;overflow:hidden}
+.h-art .ph img{width:100%;height:100%;object-fit:cover}
+.h-art .bd{padding:22px 24px 24px;display:flex;gap:16px;flex:1}
+.h-art .dt{flex:0 0 auto;text-align:center;line-height:1}
+.h-art .dt b{display:block;font-family:Arial,Helvetica,sans-serif;font-size:28px;color:#d6202a}
+.h-art .dt span{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;color:#d6202a;margin-top:2px}
+.h-art .tx{flex:1}
+.h-art h3{margin:0 0 12px;font-size:16.5px;line-height:1.35;color:#24303c}
+.h-art .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:#656e77}
+/* ===== info band ===== */
+.h-info{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;max-width:1220px;margin:0 auto}
+@media(max-width:900px){.h-arts,.h-info{grid-template-columns:1fr}}
+
+/* ===== services: card rail + panel below (mirrors the everyday-athlete pattern) ===== */
+.h-rail{position:relative;max-width:1220px;margin:0 auto}
+.h-rail-vp{overflow:hidden}
+.h-rail-tr{display:flex;gap:12px;transition:transform .42s cubic-bezier(.4,.01,.2,1)}
+.h-sc{flex:0 0 calc((100% - 48px)/5);min-width:0;background:#fff;border:1px solid #e0e3e6;border-radius:12px;
+  padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;
+  font:inherit;text-align:center;transition:.16s}
+.h-sc:hover{border-color:#b6bcc2;transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,24,32,.08)}
+.h-sc[aria-expanded="true"]{border-color:#d6202a;box-shadow:0 10px 24px rgba(214,32,42,.16)}
+.h-sc .ic{width:46px;height:46px;border-radius:10px;background:#fdeeee;display:flex;align-items:center;
+  justify-content:center;flex:0 0 46px;margin:0}
+.h-sc .ic img{width:24px;height:24px;display:block}
+.h-sc .ic.glyph{color:#a3161e;font-size:19px}
+.h-sc b{font-size:14px;color:#24303c;line-height:1.3;font-weight:700}
+.h-sc i{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8f98a0}
+.h-sc[aria-expanded="true"] i{color:#a3161e}
+.h-rbtn{position:absolute;top:52px;width:38px;height:38px;border-radius:50%;border:1px solid #e0e3e6;
+  background:#fff;box-shadow:0 4px 14px rgba(16,24,32,.12);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;color:#24303c;z-index:3;padding:0;transition:.16s}
+.h-rbtn:hover:not(:disabled){border-color:#d6202a;color:#d6202a}
+.h-rbtn:disabled{opacity:.3;cursor:default}
+.h-rbtn svg{width:16px;height:16px}
+.h-rbtn.prev{left:-18px} .h-rbtn.next{right:-18px}
+.h-spanel{margin-top:16px;max-width:1220px;margin-left:auto;margin-right:auto}
+.h-spanel[hidden]{display:none}
+.h-spanel-in{position:relative;background:#f4f5f6;border:1px solid #e0e3e6;border-left:4px solid #d6202a;
+  border-radius:10px;padding:30px 34px}
+.h-spanel-x{position:absolute;top:12px;right:14px;border:0;background:none;font-size:24px;line-height:1;
+  color:#8f98a0;cursor:pointer}
+.h-spanel-x:hover{color:#24303c}
+.h-spanel h3{margin:0 0 8px;font-size:25px;color:#24303c}
+.h-spanel p{margin:0 0 18px;color:#656e77;font-size:15.5px;line-height:1.7;max-width:76ch}
+.h-spanel a{font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:#a3161e;text-decoration:none}
+.h-spanel a:hover{text-decoration:underline}
+@media(max-width:1100px){.h-sc{flex:0 0 calc((100% - 36px)/4)}}
+@media(max-width:860px){.h-sc{flex:0 0 calc((100% - 24px)/3)}.h-rbtn.prev{left:-8px}.h-rbtn.next{right:-8px}}
+@media(max-width:600px){.h-sc{flex:0 0 calc((100% - 12px)/2)}}
+
+/* intake */
+.pa-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+  padding:20px;background:rgba(16,24,32,.72)}
+
+.pa-modal.open{display:flex}
+
+.pa-dialog{position:relative;width:100%;max-width:600px;max-height:calc(100vh - 40px);overflow:auto;
+  background:#fff;border-radius:12px;padding:34px 36px 28px}
+
+.pa-x{position:absolute;top:12px;right:16px;border:0;background:none;font-size:26px;line-height:1;
+  color:#656e77;cursor:pointer}
+
+.pa-x:hover{color:#d6202a}
+
+.pa-dialog h2{font-size:26px;margin:0 0 6px;color:#24303c;line-height:1.1}
+
+.pa-dialog .dsub{margin:0 0 22px;color:#656e77;font-size:14px}
+
+.pa-f{margin-bottom:16px}
+
+.pa-f label{display:block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:#24303c;margin-bottom:7px}
+
+.pa-f input,.pa-f select,.pa-f textarea{width:100%;padding:13px 14px;border:1px solid #e0e3e6;
+  border-radius:8px;font:inherit;font-size:14.5px;color:#24303c;background:#fff}
+
+.pa-f textarea{min-height:104px;resize:vertical}
+
+.pa-f input:focus,.pa-f select:focus,.pa-f textarea:focus{outline:0;border-color:#d6202a}
+
+.pa-f .hint{font-size:12px;color:#656e77;margin:7px 0 0;line-height:1.5}
+
+.pa-notice{background:#f4f5f6;border-left:3px solid #a3161e;border-radius:6px;
+  padding:14px 16px;font-size:12.5px;color:#656e77;line-height:1.6;margin:0 0 18px}
+
+.pa-submit{width:100%;padding:15px;border:0;border-radius:8px;background:#d6202a;color:#fff;
+  font:inherit;font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+
+.pa-submit:hover{filter:brightness(.93)}
+
+.pa-done{text-align:center;padding:12px 0}
+
+.pa-done .tick{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;background:#e3efe9;
+  color:#167545;display:flex;align-items:center;justify-content:center;font-size:30px}
+
+.pa-done h2{margin-bottom:10px}
+@media(max-width:640px){.h-cred{grid-template-columns:1fr}.pa-dialog{padding:28px 20px 22px}}
+.site-foot{background:#0f1d33;color:#c9d1d9;font-family:Arial,Helvetica,sans-serif;text-align:left}
+.sf-wrap{max-width:1220px;margin:0 auto;padding:40px 24px 32px;display:grid;grid-template-columns:1.45fr .72fr .92fr .88fr 1fr 1.05fr;gap:30px}
+.sf-logo{height:34px;width:auto;display:block;margin:0 0 12px}
+.sf-about{margin:0;font-size:12.5px;line-height:1.5;color:#8a949f;max-width:34ch}
+.sf-social{display:flex;gap:8px;margin-top:16px}
+.sf-social a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.09);display:grid;place-items:center;transition:background .18s ease}
+.sf-social a:hover{background:#d6202a}
+.sf-social svg{width:14px;height:14px;fill:#fff}
+.sf-col h2{margin:0 0 10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#fff}
+.sf-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.sf-col a{color:#8a949f;font-size:12.5px;line-height:1.4;text-decoration:none;transition:color .16s ease}
+.sf-col a:hover{color:#fff}
+.sf-contact ul{gap:11px}
+.sf-contact li{display:flex;gap:10px;align-items:flex-start}
+.sf-ic{flex:0 0 15px;margin-top:2px}
+.sf-ic svg{width:14px;height:14px;fill:#8a949f}
+.sf-contact b{display:block;color:#fff;font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:3px}
+.sf-contact li>span:last-child{font-size:12.5px;line-height:1.42;color:#8a949f}
+.sf-bar{border-top:1px solid rgba(255,255,255,.1)}
+.sf-bar-in{max-width:1220px;margin:0 auto;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;font-size:12px;color:#7d8894}
+.sf-bar-in a{color:#7d8894;text-decoration:none}
+.sf-bar-in a:hover{color:#fff}
+.sf-bar-in span{margin-left:auto}
+.sf-disc{border-top:1px solid rgba(255,255,255,.07)}
+.sf-disc p{max-width:1220px;margin:0 auto;padding:14px 24px 20px;font-size:11.5px;line-height:1.55;color:#838e9a;text-align:left}
+.sf-disc strong{color:#8a949f;font-weight:600}
+@media(max-width:1180px){.sf-wrap{grid-template-columns:repeat(3,1fr);gap:28px 26px}.sf-brand{grid-column:1/-1}}
+@media(max-width:700px){.sf-wrap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.sf-wrap{padding:30px 20px 24px;gap:22px 18px}.sf-bar-in span{margin-left:0;width:100%}}
+.pa-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 24px;border-radius:7px;font-size:12.5px;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;
+  transition:.18s;cursor:pointer;font-family:inherit}
+.pa-btn.solid{background:#d6202a;color:#fff}
+.pa-btn.solid:hover{filter:brightness(.92)}
+.pa-btn.line{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+.pa-btn.line:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.pa-btn.dark{background:#0f1d33;color:#fff}
+.pa-btn.dark:hover{filter:brightness(1.15)}
+.pa-eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#a3161e;margin:0 0 12px}
+.pa-sec.navy .pa-eyebrow,.pa-hero .pa-eyebrow,.pa-final .pa-eyebrow{color:#aab7b1}
+.pa-panel .pa-btn{margin-top:4px}
+.t-wrap{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:.86fr 1.14fr;gap:64px;align-items:stretch}
+.t-rail .h-eyebrow{margin:0 0 12px}
+.t-rail{display:flex;flex-direction:column}
+.t-rail .h-h2{margin:0 0 16px;max-width:14ch}
+.t-lede{margin:0;font-size:14.5px;line-height:1.66;color:#656e77;max-width:34ch}
+.t-nav{display:flex;align-items:center;gap:20px;margin-top:auto;padding-top:32px}
+.t-count{font-family:Arial,Helvetica,sans-serif;display:flex;align-items:baseline;gap:5px}
+.t-count b{font-size:30px;font-weight:800;color:#24303c;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.t-count i{font-style:normal;font-size:13px;font-weight:600;color:#6e7780;font-variant-numeric:tabular-nums}
+.t-arrows{display:flex;gap:8px}
+.t-arrows button{width:40px;height:40px;border-radius:50%;border:1px solid #d3d8dd;background:#fff;color:#24303c;font-size:15px;line-height:1;cursor:pointer;transition:.18s ease}
+.t-arrows button:hover{background:#d6202a;border-color:#d6202a;color:#fff}
+.t-arrows button:focus-visible{outline:2px solid #d6202a;outline-offset:3px}
+.t-dots{display:flex;gap:7px;margin-top:18px}
+
+.t-stage{position:relative;border-left:2px solid #d6202a;padding:60px 0 4px 40px}
+.t-mark{position:absolute;left:38px;top:2px;font-family:Georgia,serif;font-size:92px;line-height:.62;color:#d6202a;opacity:.68;pointer-events:none}
+.t-car{display:grid;align-items:start;transition:height .38s cubic-bezier(.4,.01,.2,1)}
+.t-slide{grid-area:1/1;margin:0;opacity:0;visibility:hidden;transition:opacity .45s ease}
+.t-slide.on{opacity:1;visibility:visible}
+.t-slide blockquote{margin:0;font-size:21px;line-height:1.6;color:#24303c;font-weight:400;letter-spacing:-.006em}
+.t-attr{display:flex;align-items:center;gap:15px;margin-top:28px;padding-top:24px;border-top:1px solid #e6e9ec}
+.t-ini{flex:0 0 46px;height:46px;border-radius:50%;background:#f4f5f6;border:1px solid #e0e3e6;display:grid;place-items:center;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:800;letter-spacing:.03em;color:#24303c}
+.t-who{display:flex;flex-direction:column;gap:2px;min-width:0}
+.t-who b{font-size:15px;font-weight:700;color:#24303c;line-height:1.35}
+.t-role{font-size:13.5px;color:#656e77;line-height:1.4}
+.t-org{font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#a3161e;margin-top:4px}
+@media(max-width:980px){
+  .t-wrap{grid-template-columns:1fr;gap:34px}
+  .t-rail .h-h2{max-width:none}
+  .t-lede{max-width:60ch}
+  .t-nav{margin-top:24px}
+  .t-dots{margin-top:18px}
+  .t-stage{padding:58px 0 4px 24px}
+  .t-mark{left:23px;top:0;font-size:72px}
+  .t-slide blockquote{font-size:18.5px}}
+@media(max-width:560px){.t-attr{flex-wrap:wrap;gap:12px}}
+.h-sec.light-proof{background:#fff;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;padding:66px 0}
+.t-stars{position:relative;z-index:1;color:#d6202a;font-size:13px;letter-spacing:6px;margin:0 0 16px;line-height:1}
+/* ===== Testimonials — featured navy card + 3-up carousel (matches WasabiRub) ===== */
+.spt-head{margin:0 0 26px;max-width:640px}
+.spt-head .h-h2{margin:0 0 12px}
+.spt-lede{margin:0;font-size:15px;line-height:1.6;color:#656e77;max-width:56ch}
+.spt-feature{margin:0 0 22px;background:#0f1d33;border-radius:18px;padding:38px 42px}
+.spt-feature .spt-stars{font-size:16px;letter-spacing:.16em;color:#e0575e;margin:0 0 2px}
+.spt-feature blockquote{margin:14px 0 0;font-size:clamp(20px,2.2vw,26px);font-weight:900;line-height:1.36;letter-spacing:-.02em;color:#fff}
+.spt-feature figcaption{display:flex;flex-direction:column;gap:2px;margin-top:22px}
+.spt-feature figcaption b{font-size:15px;font-weight:900;color:#fff;letter-spacing:.01em}
+.spt-feature figcaption span{font-size:13px;color:#c2ccd6}
+.spt-car{position:relative;overflow:hidden}
+.spt-track{display:flex;gap:18px;align-items:stretch;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+.spt-slide{flex:0 0 calc((100% - 36px)/3);min-width:0;display:flex;flex-direction:column;align-items:flex-start;background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px 24px;margin:0}
+.spt-slide .spt-stars{font-size:13px;letter-spacing:.14em;color:#d6202a;margin:0 0 14px}
+.spt-slide blockquote{margin:0;font-size:14.5px;line-height:1.62;color:#3f4852;font-weight:400}
+.spt-slide figcaption{margin-top:auto;padding-top:18px}
+.spt-slide figcaption b{display:block;font-size:12.5px;font-weight:900;color:#24303c}
+.spt-slide figcaption span{display:block;margin-top:3px;font-size:11.5px;line-height:1.45;color:#66737d}
+.spt-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:30px}
+.spt-arrow{width:40px;height:40px;border-radius:50%;border:1px solid #d3d8dd;background:#fff;color:#24303c;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s ease}
+.spt-arrow:hover{background:#d6202a;border-color:#d6202a;color:#fff}
+.spt-arrow:focus-visible{outline:2px solid #d6202a;outline-offset:3px}
+.spt-dots{display:flex;gap:8px}
+.spt-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#c9ced2;cursor:pointer;transition:.2s}
+.spt-dot.is-active{background:#d6202a;width:22px;border-radius:4px}
+@media(max-width:900px){.spt-slide{flex:0 0 calc((100% - 18px)/2)}.spt-feature{padding:30px 26px}}
+@media(max-width:600px){.spt-slide{flex:0 0 100%}}
+
+.h-rub-img{position:relative}
+.h-rub-img img{width:100%;border-radius:12px;display:block}
+.h-rub-img img[data-rubimg]{aspect-ratio:1500/1047;object-fit:cover;display:none}
+.h-rub-img img[data-rubimg].on{display:block;animation:hpan .32s ease both}
+.h-tabs{display:inline-flex;gap:4px;padding:4px;margin:0 0 24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px}
+.h-tabs button{appearance:none;border:0;background:transparent;cursor:pointer;padding:9px 26px;border-radius:999px;
+  font-family:Arial,Helvetica,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#aab7c2;transition:.18s ease}
+.h-tabs button:hover{color:#fff}
+.h-tabs button.on{background:#d6202a;color:#fff}
+.h-tabs button:focus-visible{outline:2px solid #ec636b;outline-offset:3px}
+.h-pan{display:none}
+.h-pan.on{display:block;animation:hpan .32s ease both}
+@keyframes hpan{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.h-pan-lede{margin:0 0 20px;font-size:16px;line-height:1.62;color:#c9d1d9;max-width:52ch}
+.h-rxnote{margin:0 0 18px;font-size:12.5px;line-height:1.5;color:#9aa5b1;padding-left:14px;border-left:2px solid rgba(255,255,255,.18);max-width:52ch}
+
+.h-rxlab{margin:0 0 12px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9aa5b1}
+.h-pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 24px}
+.h-pc{position:relative;display:block;padding:16px 14px 15px;border-radius:10px;text-decoration:none;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);overflow:hidden;transition:.18s ease}
+.h-pc:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--pc)}
+.h-pc:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.26);transform:translateY(-2px)}
+.h-pc:focus-visible{outline:2px solid #ec636b;outline-offset:3px}
+.h-pc b{display:block;margin-top:6px;font-size:14.5px;font-weight:700;color:#fff;line-height:1.25}
+.h-pcs{display:block;margin-top:2px;font-family:Arial,Helvetica,sans-serif;font-size:19px;font-weight:800;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.h-pcg{display:block;margin-top:6px;font-size:12.5px;line-height:1.45;color:#c2ccd6}
+.h-pcd{display:block;margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.05em;color:#8f9ca8;font-variant-numeric:tabular-nums}
+@media(max-width:1000px){.h-pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.h-pgrid{grid-template-columns:repeat(2,1fr)}}
+
+.w-wrap{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:.64fr 1.36fr;gap:48px;align-items:start}
+.w-rail .h-h2{margin:0 0 16px}
+
+.w-lede{margin:0;font-size:14px;line-height:1.6;color:#656e77;max-width:34ch}
+.w-list{border-top:1px solid #e0e3e6}
+.w-row{border-bottom:1px solid #e0e3e6}
+.w-head{width:100%;display:grid;grid-template-columns:44px 1fr auto 16px;align-items:center;gap:16px;
+  padding:17px 4px;background:none;border:0;text-align:left;cursor:pointer;font:inherit}
+.w-head:hover .w-name{color:#d6202a}
+.w-head:focus-visible{outline:2px solid #d6202a;outline-offset:2px}
+.w-num{font-family:Arial,Helvetica,sans-serif;font-size:12.5px;font-weight:800;color:#6b7883;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.w-row.open .w-num{color:#d6202a}
+.w-mid{min-width:0}
+.w-lab{display:block;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6b747d;margin-bottom:7px}
+.w-name{display:block;font-family:Arial,Helvetica,sans-serif;font-stretch:normal;font-weight:900;
+  text-transform:uppercase;letter-spacing:-.01em;font-size:20px;line-height:1;color:#24303c;transition:color .16s ease}
+.w-sub{display:block;margin-top:5px;font-size:13.5px;line-height:1.5;color:#656e77}
+.w-tag{white-space:nowrap;padding:5px 12px;border-radius:999px;background:#fbe9ea;
+  font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#a3161e}
+.w-chev{justify-self:end;width:9px;height:9px;border-right:2px solid #8a939c;border-bottom:2px solid #8a939c;
+  transform:rotate(45deg) translate(-2px,-2px);transition:transform .24s ease,border-color .16s ease}
+.w-row.open .w-chev{border-color:#d6202a;transform:rotate(225deg) translate(-2px,-2px)}
+.w-body{padding:0 4px 20px 60px}
+.w-body p{margin:0;font-size:14px;line-height:1.62;color:#4b5560;max-width:70ch;
+  padding-left:14px;border-left:2px solid #d6202a}
+@media(max-width:1000px){
+  .w-wrap{grid-template-columns:1fr;gap:30px}
+  .w-lede{max-width:60ch}
+  .w-head{grid-template-columns:34px 1fr 14px;gap:12px;padding:15px 2px}
+  .w-tag{display:none}
+  .w-body{padding:0 2px 18px 46px}}
+@media(max-width:560px){.w-name{font-size:18px}.w-body{padding-left:2px}}.h-sec.tight-who{padding:46px 0}
+.w-lab{display:none}
+.sf-ext{display:inline-flex;align-items:center;gap:5px}
+.sf-arw{width:9px;height:9px;flex:0 0 9px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h12v12h-3V8.1L5.6 20.5 3.5 18.4 15.9 6H9V3Z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h12v12h-3V8.1L5.6 20.5 3.5 18.4 15.9 6H9V3Z'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.75;transition:opacity .16s ease}
+.sf-ext:hover .sf-arw{opacity:1}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.lnk{display:inline-flex;align-items:center;gap:7px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;font-weight:700;letter-spacing:.02em;color:#d6202a;text-decoration:none;border-bottom:2px solid #d6202a;padding-bottom:2px;transition:.16s ease}
+.lnk:hover{color:#a3161e;border-bottom-color:#a3161e;gap:11px}
+.lnk:focus-visible{outline:2px solid #d6202a;outline-offset:3px}
+.lnk-a{width:13px;height:13px;flex:0 0 13px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13.2 4.6 11.8 6l5 5H3v2h13.8l-5 5 1.4 1.4L20.6 12 13.2 4.6Z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13.2 4.6 11.8 6l5 5H3v2h13.8l-5 5 1.4 1.4L20.6 12 13.2 4.6Z'/%3E%3C/svg%3E") center/contain no-repeat}
+.dropdown .sf-ext{display:flex;align-items:center;gap:6px}
+.dropdown .sf-arw{opacity:.6}
+.sf-note{margin:10px 0 0;font-size:11.5px;line-height:1.5;color:#7d8894;max-width:26ch}
+.sf-note b{color:#9aa5b1;font-weight:600}
+
+.h-lede{max-width:820px;margin:0 0 34px}
+.h-lede .h-h2{margin-bottom:14px}
+.h-lede p{margin:0;font-size:1.02rem;line-height:1.7;color:#4a5568}
+.h-two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px;align-items:start}
+.h-tcard{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:26px 26px 28px}
+.h-tcard h3{margin:0 0 8px;font-size:1.18rem;letter-spacing:-.01em}
+.h-tcard p{margin:0 0 18px;color:#4a5568;line-height:1.65;font-size:.97rem}
+.h-tcard .h-nform{margin:0}
+.h-tcard .h-nfine{margin:12px 0 0;font-size:.82rem}
+@media(max-width:760px){.h-two{grid-template-columns:1fr}}
+
+/* ===== Hero — full-bleed lifestyle image, copy overlay, headline hierarchy ===== */
+.h-hero{isolation:auto;background:linear-gradient(90deg,rgba(9,17,28,.92) 0%,rgba(9,17,28,.80) 30%,rgba(9,17,28,.44) 56%,rgba(9,17,28,.06) 100%),url("assets/mainsite-hero.png") center/cover no-repeat,#0f1d33}
+.h-hero:before{display:none}
+.h-hero-bg,.h-hero-scrim{display:none}
+.h-hero .h-wrap{position:relative;z-index:2}
+.h-hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(9,17,28,.90) 0%,rgba(9,17,28,.78) 30%,rgba(9,17,28,.44) 56%,rgba(9,17,28,.06) 100%)}
+.h-hero-copy{max-width:560px;padding:92px 0 84px}
+.h-hero .h-eyebrow{color:#aeb8c2}
+.h-hero h1{color:#fff;font-size:clamp(30px,3.3vw,44px);line-height:1.03;letter-spacing:-.02em}
+.h-hero h1 em{display:block;margin-top:.7em;color:#d6202a;font-size:.46em;font-weight:700;line-height:1.2;letter-spacing:.01em}
+.h-hero p{color:#c7ccd0}
+.h-hero .h-btn.solid{background:#e0242e;color:#fff}
+.h-hero .h-btn.solid:hover{background:#b71d25}
+.h-hero .h-btn.line{color:#fff;border-color:rgba(255,255,255,.42)}
+.h-hero .h-btn.line:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.h-hero .h-trust{border-top-color:rgba(255,255,255,.18)}
+.h-hero .h-trust span{color:#c7ccd0}
+.h-hero-bg{object-position:center;transform:none;z-index:0;filter:none}
+@media(max-width:820px){.h-hero{background:linear-gradient(rgba(9,17,28,.52) 0%,rgba(9,17,28,.90) 100%),url("assets/mainsite-hero.png") center/cover no-repeat,#0f1d33}.h-hero-copy{padding:64px 0 56px;max-width:none}.h-hero h1{font-size:clamp(26px,6.4vw,36px)}}
+
+/* ===== Simplify: Stock band → light; credibility band kept as the single dark accent ===== */
+.h-sec.stock-light .h-rub li{color:#4b5560}
+.h-sec.stock-light .h-tabs{background:#eef1f3;border-color:#e0e3e6}
+.h-sec.stock-light .h-tabs button{color:#6b747d}
+.h-sec.stock-light .h-tabs button:hover{color:#24303c}
+.h-sec.stock-light .h-tabs button.on{background:#d6202a;color:#fff}
+.h-sec.stock-light .h-pan-lede{color:#4b5560}
+.h-sec.stock-light .h-pan-lede b{color:#24303c}
+.h-sec.stock-light .h-rxlab{color:#6b747d}
+.h-sec.stock-light .h-rxnote{color:#656e77;border-left-color:#d0d5da}
+.h-sec.stock-light .h-pc{background:#fff;border-color:#e0e3e6}
+.h-sec.stock-light .h-pc:hover{background:#fff;border-color:#b6bcc2;box-shadow:0 10px 24px rgba(16,24,32,.08)}
+.h-sec.stock-light .h-pc b,.h-sec.stock-light .h-pcs{color:#24303c}
+.h-sec.stock-light .h-pcg{color:#656e77}
+.h-sec.stock-light .h-pcd{color:#8a939c}
+.h-sec.stock-light .h-btn.line{color:#24303c;border-color:#cfd4d9}
+.h-sec.stock-light .h-btn.line:hover{border-color:#24303c;background:rgba(16,24,32,.04)}
+/* whitespace-forward: a touch more air between bands */
+.h-sec{padding:60px 0}
+</style><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#0f1d33"></head><body><header>
+  <div class="wrap nav">
+    <a class="logo" href="sports-medicine.html"><img src="assets/wordmark-dark.png" alt="SportPharm"><span class="logo-tag">Behind every athlete you care for.</span></a>
+    <nav class="mainnav">
+      <div class="navitem">
+        <a class="navlink active" href="services.html">Services <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="dropdown">
+          <a href="compounding.html">Specialized Compounding</a>
+          <a href="drug-repackaging.html">Drug Repackaging</a>
+          <a href="inventory-management.html">Inventory Management</a>
+          <a href="retail-pharmacy.html">Retail Pharmacy</a>
+          <a href="concierge-sports-pharmacy.html">Concierge Pharmacy</a>
+          <a href="supplement-support.html">Supplement Support</a>
+        </div>
+      </div>
+      <div class="navitem">
+        <a class="navlink" href="products.html">Products <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="dropdown"><a href="rx-prescriptions.html">Rx Prescriptions</a><a href="products.html#compounding">Compounding Pharmacy</a><a href="wasabirub.html">OTC Topicals</a></div>
+      </div>
+      <div class="navitem">
+        <div class="navlink">Resources <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="dropdown"><a href="articles.html">Articles</a><a class="sf-ext" href="https://sportsrxnetwork.com/" target="_blank" rel="noopener">SportsRx Network<span class="sf-arw" aria-hidden="true"></span><span class="sr-only"> (opens in a new tab)</span></a></div>
+      </div>
+      <div class="navitem">
+        <a class="navlink" href="about.html">About Us <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="dropdown"><a href="about.html">Our Story</a><a href="quality-compliance.html">Quality &amp; Compliance</a><a href="about.html#team">Our Team</a></div>
+      </div>
+      <div class="navitem"><a class="navlink" href="contact.html">Contact</a></div>
+    </nav>
+    <div class="nav-right">
+      <a class="hub-cap" href="wasabirub.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg> WasabiRub</a>
+    </div>
+    <button class="menu-btn" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  </div>
+</header><main><section class="h-hero">
+  <img class="h-hero-bg" src="assets/mainsite-hero.png" alt="Athletic trainer assessing an athlete's knee in a training room" decoding="async">
+  <div class="h-hero-scrim" aria-hidden="true"></div>
+  <div class="h-wrap">
+    <div class="h-hero-copy">
+      <p class="h-eyebrow">Healthcare professionals &amp; athletic trainers</p>
+      <h1>Pharmacy solutions for athletes.<br><em>Backed by science. Built for performance.</em></h1>
+      <p>Compounding, repackaging, supply and concierge coordination &mdash; built for training rooms, clinics and professional programs.</p>
+      <div class="h-row">
+        <a class="h-btn solid" href="#services">See what we do &rarr;</a>
+        <a class="h-btn line" href="#services">How we help</a>
+      </div>
+      <div class="h-trust"><span>Licensed sports pharmacy</span><span>Unit-dose &amp; team formats</span><span>East &amp; West divisions</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="h-sec wide soft" id="services">
+  <div class="h-wrap">
+    <div class="h-lede"><h2 class="h-h2">How our pharmacy supports<br><em>all athletes and their care teams.</em></h2>
+<p>SportPharm partners with sports medicine clinics, athletic programs, and professional sports teams to simplify medication management, enhance athlete safety, and deliver fast, compliant pharmaceutical support across sports medicine settings.</p></div>
+    <div class="h-rail"><div class="h-rail-vp"><div class="h-rail-tr" id="svcTrack"><a class="h-sc" href="compounding.html" data-svc="compounding" aria-expanded="false"><span class="ic"><img src="assets/icons/svc-compounding.svg" alt="" width="24" height="24"></span><b>Compounding</b><i>Learn more</i></a><a class="h-sc" href="drug-repackaging.html" data-svc="repackaging" aria-expanded="false"><span class="ic"><img src="assets/icons/svc-repackaging.svg" alt="" width="24" height="24"></span><b>Drug Repackaging</b><i>Learn more</i></a><a class="h-sc" href="concierge-sports-pharmacy.html" data-svc="concierge" aria-expanded="false"><span class="ic"><img src="assets/icons/svc-concierge.svg" alt="" width="24" height="24"></span><b>Concierge Pharmacy</b><i>Learn more</i></a><a class="h-sc" href="supplement-support.html" data-svc="supplements" aria-expanded="false"><span class="ic"><img src="assets/icons/svc-supplements.svg" alt="" width="24" height="24"></span><b>Supplements</b><i>Learn more</i></a><a class="h-sc" href="retail-pharmacy.html" data-svc="retail" aria-expanded="false"><span class="ic"><img src="assets/icons/svc-retail.svg" alt="" width="24" height="24"></span><b>Retail Pharmacy</b><i>Learn more</i></a><a class="h-sc" href="inventory-management.html" data-svc="inventory" aria-expanded="false"><span class="ic"><img src="assets/icons/svc-inventory.svg" alt="" width="24" height="24"></span><b>Inventory Management</b><i>Learn more</i></a></div></div><button class="h-rbtn prev" type="button" id="svcPrev" aria-label="Previous services"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button><button class="h-rbtn next" type="button" id="svcNext" aria-label="More services"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div><div class="h-spanel" id="svcPanel" hidden></div>
+  </div>
+</section>
+
+<section class="h-sec light-proof" id="proof">
+  <div class="h-wrap">
+    <div class="spt-head">
+      <p class="h-eyebrow on-light">From the sideline</p>
+      <h2 class="h-h2">Trusted by athletes and their care teams.</h2>
+      <p class="spt-lede">Athletic trainers, team physicians and coaches across pro, collegiate and academy sport.</p>
+    </div>
+    <div class="spt-car" id="sptCar"><div class="spt-track" id="sptTrack">
+      <figure class="spt-slide"><div class="spt-stars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>We&rsquo;ve had good results with a variety of SportPharm&rsquo;s topicals and compounded medications. WasabiRub helps manage muscle soreness and minor strains so our athletes can stay available and ready.</blockquote><figcaption><b>Joel Lockhart</b><span>Assistant Athletic Trainer &middot; St. Louis City Soccer Club</span></figcaption></figure>
+      <figure class="spt-slide"><div class="spt-stars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>With our match schedule and constant travel, we needed something fast, portable, and effective. WasabiRub helps manage muscle soreness and minor strains so our athletes can stay available and ready.</blockquote><figcaption><b>Najeeb Emmanuel, MS, LAT, ATC, PES</b><span>Assistant Athletic Trainer &middot; FIU Soccer</span></figcaption></figure>
+      <figure class="spt-slide"><div class="spt-stars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>WasabiRub is in our kit every day. It gives players fast, localized relief and helps them stay game-ready.</blockquote><figcaption><b>Dr. Javier Garc&iacute;a, DAT, ATC, SMTC</b><span>Head Athletic Trainer &middot; Seton Hall Basketball</span></figcaption></figure>
+      <figure class="spt-slide"><div class="spt-stars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>Our guys absolutely love using WasabiRub. The cooling and heating sensation lasts much longer than most products we&rsquo;ve tried, and the feedback from our players has been outstanding. It has become a staple in our training room.</blockquote><figcaption><b>Michael Feliciano, MS, ATC, PES</b><span>Minor League Athletic Training &middot; Boston Red Sox</span></figcaption></figure>
+      <figure class="spt-slide"><div class="spt-stars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>The WasabiRub is constantly being used by several players right now. The feedback has been really positive, and it even helped a guy with neck and shoulder issues get through a few workdays. The biggest talking point has been the longevity of each application &mdash; no reapplying on game days.</blockquote><figcaption><b>Daniel Medd</b><span>Head Coach &middot; South West Sydney Academy of Sport</span></figcaption></figure>
+      <figure class="spt-slide"><div class="spt-stars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>Fast, reliable service and competitive pricing. SportPharm makes it easy to get our athletes the medications they need without delays.</blockquote><figcaption><b>James Tuffy, MHA, LAT, ATC</b><span>Assistant Athletic Director &middot; St. Thomas University</span></figcaption></figure>
+    </div></div>
+    <div class="spt-nav">
+      <button class="spt-arrow" type="button" id="sptPrev" aria-label="Previous testimonials">&#8592;</button>
+      <div class="spt-dots" id="sptDots"></div>
+      <button class="spt-arrow" type="button" id="sptNext" aria-label="Next testimonials">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<section class="h-sec soft stock-light" id="stock">
+  <div class="h-wrap">
+    <div class="h-rub">
+      <div class="h-rub-img">
+        <img src="assets/wasabi-band.jpg?v=2" alt="WasabiRub topical range" class="on" data-rubimg="otc" loading="lazy">
+        <img src="assets/ea-medication.jpg" alt="Athlete holding a prescription bottle" data-rubimg="rx" loading="lazy">
+      </div>
+      <div>
+        <h2 class="h-h2">Stock the training room,<br><em>over-the-counter and prescription.</em></h2>
+
+        <div class="h-tabs" role="tablist" aria-label="Product type">
+          <button role="tab" id="tabOtc" aria-controls="panOtc" aria-selected="true" class="on" type="button">OTC</button>
+          <button role="tab" id="tabRx" aria-controls="panRx" aria-selected="false" type="button">Rx</button>
+        </div>
+
+        <div class="h-pan on" id="panOtc" role="tabpanel" aria-labelledby="tabOtc">
+          <p class="h-pan-lede">Topical analgesics your athletes already ask for &mdash; stocked by the unit or by the roster.</p>
+          <ul>
+            <li>Single units or team bundles, priced for a full roster</li>
+            
+            <li>Menthol, capsaicin and methyl salicylate formulations</li>
+            <li>Ships alongside the rest of your SportPharm order</li>
+          </ul>
+          <p class="h-rxlab">The topical range</p>
+          <div class="h-pgrid">
+            <a class="h-pc" href="wasabirub.html" style="--pc:#2f7d4f"><b>WasabiRub&trade;</b><span class="h-pcs">3-way</span><span class="h-pcg">capsaicin &middot; methyl salicylate &middot; menthol</span><span class="h-pcd">4 oz (113.4 g)</span></a>
+            <a class="h-pc" href="superhot.html" style="--pc:#d6202a"><b>Super Hot&trade;</b><span class="h-pcs">Max</span><span class="h-pcg">higher-capsaicin formulation</span><span class="h-pcd">4 oz (113.4 g)</span></a>
+            <a class="h-pc" href="icetrarub.html" style="--pc:#3d7ea6"><b>WasabiRub Super Cold&trade;</b><span class="h-pcs">16%</span><span class="h-pcg">menthol topical cream</span><span class="h-pcd">4 oz (113.4 g)</span></a>
+            <a class="h-pc" href="products.html" style="--pc:#8a939c"><b>Team bundles</b><span class="h-pcs">Roster</span><span class="h-pcg">multi-unit packs and duos</span><span class="h-pcd">Priced per roster</span></a>
+          </div>
+          <div class="h-row">
+            <a class="h-btn solid" href="wasabirub.html">Explore the range &rarr;</a>
+            <a class="h-btn line" href="#" data-intake>Ask about team pricing</a>
+          </div>
+        </div>
+
+        <div class="h-pan" id="panRx" role="tabpanel" aria-labelledby="tabRx" hidden>
+          <p class="h-pan-lede"><b>SportPharm is a compounding pharmacy.</b> We uphold high standards for compounding quality medications. Our compounding pharmacist will customize formulations to your individualized needs, all while working with your physician.</p>
+
+          <p class="h-rxlab">Prescription-strength topical line</p>
+          <div class="h-pgrid">
+            <a class="h-pc" href="https://sportpharm.com/rx/" style="--pc:#1f5f8b"><b>KetoRub&trade;</b><span class="h-pcs">10%</span><span class="h-pcg">ketoprofen topical cream</span><span class="h-pcd">100 mg/g &middot; 30 g</span></a>
+            <a class="h-pc" href="https://sportpharm.com/rx/" style="--pc:#7fa8b8"><b>LidoRub&trade;</b><span class="h-pcs">7.5%</span><span class="h-pcg">lidocaine topical cream</span><span class="h-pcd">75 mg/g &middot; 30 g</span></a>
+            <a class="h-pc" href="https://sportpharm.com/rx/" style="--pc:#d6202a"><b>NeuroRub&trade;</b><span class="h-pcs">10%</span><span class="h-pcg">gabapentin topical cream</span><span class="h-pcd">100 mg/g &middot; 30 g</span></a>
+            <a class="h-pc" href="https://sportpharm.com/rx/" style="--pc:#d98b62"><b>MisicaRub&trade;</b><span class="h-pcs">2%</span><span class="h-pcg">baclofen topical cream</span><span class="h-pcd">20 mg/g &middot; 30 g</span></a>
+          </div>
+
+          <ul>
+            <li>Custom formulations &mdash; transdermal gels, creams and sublingual drops</li>
+            <li>Unit-dose repackaging and blister packs for roster-wide distribution</li>
+            <li>Allergen-free and dose-adjusted for ingredient sensitivities</li>
+            <li>Shipped to your facility or direct to the athlete, home or away</li>
+          </ul>
+          <p class="h-rxnote">Rx only &mdash; dispensed through the pharmacy, not the online store. A valid prescription is required.</p>
+          <div class="h-row">
+            <a class="h-btn solid" href="#" data-intake>Request a prescription &rarr;</a>
+            <a class="h-btn line" href="https://sportpharm.com/rx/">See the full Rx line</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="h-sec wide tight-who" id="who">
+  <div class="h-wrap w-wrap">
+    <div class="w-rail">
+      <p class="h-eyebrow on-light">Who we serve</p>
+      <h2 class="h-h2">Built for the people<br><em>athletes rely on.</em></h2>
+      <p class="w-lede">Four audiences, one pharmacy. Open a row to see how the service actually runs.</p>
+    </div>
+    <div class="w-list"><div class="w-row"><button class="w-head" type="button" aria-expanded="false" aria-controls="wrow01"><span class="w-num">01</span><span class="w-mid"><span class="w-name">Athletic trainers</span><span class="w-sub">On-field and training-room support, unit-dose supply and fast turnarounds.</span></span><span class="w-tag">On-field</span><span class="w-chev" aria-hidden="true"></span></button><div class="w-body" id="wrow01" hidden><p>Unit-dose and blister-packed medications sized for a travel kit, compounded topicals for acute soreness, and documentation your compliance staff can file. Orders ship to the facility or meet the team on the road.</p></div></div><div class="w-row"><button class="w-head" type="button" aria-expanded="false" aria-controls="wrow02"><span class="w-num">02</span><span class="w-mid"><span class="w-name">Sports medicine physicians</span><span class="w-sub">Compounded formulations and dosage adjustments built to a specification.</span></span><span class="w-tag">Clinical</span><span class="w-chev" aria-hidden="true"></span></button><div class="w-body" id="wrow02" hidden><p>Our compounding pharmacist works from your script &mdash; transdermal gels, creams and sublingual drops, dose-adjusted and allergen-free where an athlete needs it. The prescription-strength topical line covers ketoprofen, lidocaine, gabapentin and baclofen.</p></div></div><div class="w-row"><button class="w-head" type="button" aria-expanded="false" aria-controls="wrow03"><span class="w-num">03</span><span class="w-mid"><span class="w-name">Athletic programs</span><span class="w-sub">Team-wide supply, inventory management and compliance documentation.</span></span><span class="w-tag">Program</span><span class="w-chev" aria-hidden="true"></span></button><div class="w-body" id="wrow03" hidden><p>Smart tracking and replenishment so the training room stays stocked without over-ordering. Blister-pack formats support roster-wide distribution and keep compliance tracking straightforward across a full season.</p></div></div><div class="w-row"><button class="w-head" type="button" aria-expanded="false" aria-controls="wrow04"><span class="w-num">04</span><span class="w-mid"><span class="w-name">Professional teams</span><span class="w-sub">Concierge coordination across a roster, a season and a travel schedule.</span></span><span class="w-tag">Roster</span><span class="w-chev" aria-hidden="true"></span></button><div class="w-body" id="wrow04" hidden><p>A dedicated pharmacist coordinates medication across the roster &mdash; home stand, road trip and post-season. Discreet handling, direct-to-athlete shipping, and one point of contact for the head trainer and the team physician.</p></div></div></div>
+  </div>
+</section>
+
+<section class="h-sec dark">
+  <div class="h-wrap">
+    <p class="h-eyebrow">Why teams choose SportPharm</p>
+    <h2 class="h-h2">A pharmacy, not a supplier.</h2>
+    <p class="h-sub">The difference matters when a formulation has to be right, a shipment has to arrive, or an athlete has a question nobody else can answer.</p>
+    <div class="h-cred"><div><b>30 yrs</b><span>Serving sports medicine since 1995, with divisions on both coasts.</span></div><div><b>Olympic</b><span>Founded by Robert Nickell, first pharmacist of the US Olympic Medical Team, Athens 2004.</span></div><div><b>TruShield</b><span>Certified products, with documentation your athletes and compliance staff can rely on.</span></div></div>
+  </div>
+</section>
+
+<section class="h-sec wide" id="contact">
+<div class="h-wrap">
+<h2 class="h-h2">Work with <em>our pharmacy.</em></h2>
+<div class="h-two">
+<div class="h-tcard">
+<h3>Tell us what you need</h3>
+<p>Tell us about your program and a member of our team will follow up directly.</p>
+<a class="h-btn solid" href="#" data-intake>Contact our team &rarr;</a>
+</div>
+<div class="h-tcard">
+<h3>Sports pharmacy, in your inbox</h3>
+<p>Clean-sport updates, formulation notes and practical guidance for training rooms &mdash; a few times a month, never more.</p>
+<form class="h-nform" id="nlForm" novalidate>
+<input id="nlEmail" name="email" type="email" placeholder="Work email" required aria-label="Work email">
+<button type="submit">Sign up</button>
+</form>
+<p class="h-nfine" id="nlFine">For athletic trainers, physicians and program staff. Unsubscribe any time.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="h-sec soft wide">
+  <div class="h-wrap">
+    <p class="h-eyebrow on-light">News &amp; blog</p>
+    <h2 class="h-h2">You may be <em>interested to know.</em></h2>
+    <div class="h-arts"><a class="h-art" href="https://sportpharm.com/green-whistle-what-sports-medicine-teams-should-know-about-penthrox/" target="_blank" rel="noopener"><span class="ph"><img src="assets/pts-warning.jpg" alt="" loading="lazy"></span><span class="bd"><span class="dt"><b>22</b><span>JUL</span></span><span class="tx"><h3>Green Whistle: What Sports Medicine Teams Should Know About Penthrox</h3><span class="meta"><span>Jessie Tobin</span><span>Clinic, Medical</span></span></span></span></a><a class="h-art" href="https://sportpharm.com/sportpharm-partners-with-trushield-to-advance-clean-sport-and-athlete-safety/" target="_blank" rel="noopener"><span class="ph"><img src="assets/spx-cleansport.jpg" alt="" loading="lazy"></span><span class="bd"><span class="dt"><b>07</b><span>JUL</span></span><span class="tx"><h3>SportPharm Partners With TruShield&trade; To Advance Clean Sport and Athlete Safety</h3><span class="meta"><span>Jessie Tobin</span><span>Clean Sport</span></span></span></span></a><a class="h-art" href="https://sportpharm.com/recovery-isnt-one-size-fits-all-routine-sleep-and-choosing-the-right-supplements/" target="_blank" rel="noopener"><span class="ph"><img src="assets/start-recover.jpg" alt="" loading="lazy"></span><span class="bd"><span class="dt"><b>22</b><span>JUN</span></span><span class="tx"><h3>Recovery Isn&rsquo;t One-Size-Fits-All: Routine, Sleep, and Choosing the Right Supplements</h3><span class="meta"><span>Jessie Tobin</span><span>Recovery</span></span></span></span></a></div>
+  </div>
+</section>
+
+</main><footer class="site-foot">
+  <div class="sf-wrap">
+    <div class="sf-brand">
+      <img src="assets/wordmark-white.png" alt="SportPharm" class="sf-logo">
+      <p class="sf-about">SportPharm delivers pharmaceutical excellence for athletes, high-performing individuals and sports medicine professionals &mdash; clinical expertise, advanced technology and a deep understanding of performance demands. Founded 1995.</p>
+      <div class="sf-social">
+        <a href="https://x.com/sportpharm" aria-label="SportPharm on X" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.2 8.5 11.2h-6.7l-5.2-6.8-6 6.8H1.6l7.7-8.8L1.1 2.3h6.8l4.7 6.2 5.6-6.2Zm-1.2 17.6h1.8L7.1 4.1H5.2L17 19.9Z"/></svg></a>
+        <a href="https://www.linkedin.com/company/sportpharm" aria-label="SportPharm on LinkedIn" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6.5 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.85V21h-4V9Z"/></svg></a>
+        <a href="https://www.instagram.com/sportpharm" aria-label="SportPharm on Instagram" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.25.07 1.62.07 4.8s0 3.56-.07 4.81c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.06-1.62.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 0 1-1.38-.9 3.8 3.8 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.21 15.56 2.2 15.19 2.2 12s0-3.55.07-4.8c.05-1.17.25-1.81.41-2.23.22-.56.48-.96.9-1.38a3.8 3.8 0 0 1 1.38-.9c.43-.17 1.06-.37 2.23-.42C8.44 2.21 8.81 2.2 12 2.2Zm0 1.8c-3.13 0-3.5.01-4.73.07-.9.04-1.39.19-1.71.32-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.13.32-.28.81-.32 1.71C3.43 8.5 3.42 8.87 3.42 12s.01 3.5.07 4.73c.04.9.19 1.39.32 1.71.17.43.37.74.69 1.06.32.32.63.52 1.06.69.32.13.81.28 1.71.32 1.23.06 1.6.07 4.73.07s3.5-.01 4.73-.07c.9-.04 1.39-.19 1.71-.32.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.13-.32.28-.81.32-1.71.06-1.23.07-1.6.07-4.73s-.01-3.5-.07-4.73c-.04-.9-.19-1.39-.32-1.71a2.9 2.9 0 0 0-.69-1.06 2.9 2.9 0 0 0-1.06-.69c-.32-.13-.81-.28-1.71-.32C15.5 4.01 15.13 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.1-2.95a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg></a>
+      </div>
+    </div>
+
+    <nav class="sf-col" aria-label="About SportPharm">
+      <h2>About Us</h2>
+      <ul>
+        <li><a href="about.html#team">Team</a></li>
+        <li><a href="#" data-intake>Contact</a></li>
+        <li><a href="articles.html">News</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <nav class="sf-col" aria-label="Services">
+      <h2>Services</h2>
+      <ul>
+        <li><a href="compounding.html">Compounding</a></li>
+        <li><a href="drug-repackaging.html">Drug Repackaging</a></li>
+        <li><a href="supplement-support.html">Supplement Support</a></li>
+        <li><a href="inventory-management.html">Inventory Management</a></li>
+        <li><a href="retail-pharmacy.html">Retail Pharmacy</a></li>
+        <li><a href="concierge-sports-pharmacy.html">Concierge Pharmacy</a></li>
+      </ul>
+    </nav>
+
+    <nav class="sf-col" aria-label="Products">
+      <h2>Products</h2>
+      <ul>
+        <li><a href="wasabirub.html">WasabiRub</a></li>
+        <li><a href="superhot.html">WasabiRub Super Hot</a></li>
+        <li><a href="icetrarub.html">WasabiRub Super Cold</a></li>
+        <li><a href="https://sportpharm.com/rx/">Prescription line</a></li>
+        <li><a href="products.html">All products</a></li>
+      </ul>
+    </nav>
+
+    <nav class="sf-col" aria-label="Resources">
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="sports-pharmacy-explained.html">Sports pharmacy explained</a></li>
+        <li><a href="injuries.html">Injury guide</a></li>
+        <li><a href="recovery-timelines.html">Recovery timelines</a></li>
+        <li><a href="find-your-rub.html">Find your rub</a></li>
+        <li><a class="sf-ext" href="https://sportsrxnetwork.com/" target="_blank" rel="noopener">SportsRx Network<span class="sf-arw" aria-hidden="true"></span><span class="sr-only"> (opens in a new tab)</span></a></li>
+      </ul>
+        <p class="sf-note">In partnership with <b>Sports Pharmacy Network</b>, our educational arm &mdash; a separate site with its own branding.</p>
+    </nav>
+
+    <div class="sf-col sf-contact">
+      <ul>
+        <li><span class="sf-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
+          <span><b>Main Location</b>East Division (Florida)<br>West Division (California)</span></li>
+        <li><span class="sf-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.6 4 2.3-1 1.7-5-2.9V6h2v6.6Z"/></svg></span>
+          <span><b>Business Hours</b>Mon&ndash;Fri, 8 AM &ndash; 6 PM EST</span></li>
+        <li><span class="sf-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 8.1L4.4 7.3 3.6 8.6 12 15l8.4-6.4-.8-1.3L12 13.1Z"/></svg></span>
+          <span><b>General Inquiries</b><a href="mailto:info@sportpharm.com">info@sportpharm.com</a></span></li>
+        <li><span class="sf-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.6a1 1 0 0 1-.25 1l-2.22 2.2Z"/></svg></span>
+          <span><b>Commercial Line</b><a href="tel:+18334263797">(833) 426-3797</a></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sf-bar">
+    <div class="sf-bar-in">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+      <span>Copyright &copy; 2026 SportPharm and Sports Medical Capital Investors</span>
+    </div>
+  </div>
+
+  <div class="sf-disc">
+    <p><strong>Medical disclaimer:</strong> The content on this site is provided for general educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the guidance of a qualified healthcare provider for an official diagnosis and recovery plan.</p>
+  </div>
+</footer><script>
+(function(){var D={"compounding": {"t": "Compounding", "d": "Customized medications formulated to meet the unique needs of each patient &mdash; ideal for topical pain relief, dosage adjustments, and ingredient sensitivities.", "h": "compounding.html", "l": "Learn more"}, "repackaging": {"t": "Drug Repackaging", "d": "Efficiently repackage bulk medications into unit-dose or team-specific formats, ensuring accuracy, compliance, and ease of distribution for athletic and clinical use.", "h": "drug-repackaging.html", "l": "Learn more"}, "concierge": {"t": "Concierge Pharmacy", "d": "Our pharmacists work one-on-one with athletes, offering services focused on optimizing performance and long-term athlete health.", "h": "concierge-sports-pharmacy.html", "l": "Learn more"}, "supplements": {"t": "Supplements", "d": "Pharmacist-guided supplement support for athletes, delivering evidence-based recommendations to optimize performance, recovery, and wellness.", "h": "supplement-support.html", "l": "Learn more"}, "retail": {"t": "Retail Pharmacy", "d": "Full-service pharmacy solutions offering both prescription and over-the-counter medications, with a focus on athlete wellness and proactive care.", "h": "retail-pharmacy.html", "l": "Learn more"}, "inventory": {"t": "Inventory Management", "d": "Smart tracking, monitoring and replenishment so clinics stay stocked and waste stays low.", "h": "inventory-management.html", "l": "Learn more"}},tr=document.getElementById("svcTrack"),panel=document.getElementById("svcPanel");if(!tr||!panel)return;var cards=[].slice.call(tr.children),prev=document.getElementById("svcPrev"),next=document.getElementById("svcNext"),page=0;function per(){var w=innerWidth;return w<=600?2:w<=860?3:w<=1100?4:5;}function pages(){return Math.max(1,Math.ceil(cards.length/per()));}function go(p){var n=pages();page=((p%n)+n)%n;var step=cards[0].getBoundingClientRect().width+12;tr.style.transform="translateX("+(-page*per()*step)+"px)";}function close(){panel.hidden=true;cards.forEach(function(c){c.setAttribute("aria-expanded","false");});}cards.forEach(function(c){c.addEventListener("click",function(ev){if(ev&&ev.preventDefault)ev.preventDefault();if(c.getAttribute("aria-expanded")==="true"){close();return;}var d=D[c.dataset.svc];cards.forEach(function(o){o.setAttribute("aria-expanded","false");});c.setAttribute("aria-expanded","true");panel.innerHTML='<div class="h-spanel-in"><button class="h-spanel-x" type="button" aria-label="Close">&times;</button>'+"<h3>"+d.t+"</h3><p>"+d.d+"</p>"+'<a class="lnk" href="'+d.h+'">'+d.l+'<span class="lnk-a" aria-hidden="true"></span></a></div>';panel.hidden=false;panel.querySelector(".h-spanel-x").addEventListener("click",close);});});document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-openservice]");if(!a)return;var k=a.getAttribute("data-openservice"),c=cards.filter(function(x){return x.dataset.svc===k;})[0];if(!c)return;e.preventDefault();go(Math.floor(cards.indexOf(c)/per()));var tgt=document.getElementById("services");if(tgt)tgt.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(function(){if(c.getAttribute("aria-expanded")!=="true")c.click();},420);});prev.addEventListener("click",function(){go(page-1);});next.addEventListener("click",function(){go(page+1);});var t;addEventListener("resize",function(){clearTimeout(t);t=setTimeout(function(){go(0);},140);});go(0);var svcParam=new URLSearchParams(location.search).get("svc");if(svcParam){var c0=cards.filter(function(x){return x.dataset.svc===svcParam;})[0];if(c0){go(Math.floor(cards.indexOf(c0)/per()));setTimeout(function(){c0.click();},300);}}})();
+</script>
+<script>
+(function(){
+  var car=document.getElementById("sptCar"); if(!car) return;
+  var track=document.getElementById("sptTrack");
+  var order=[].slice.call(track.querySelectorAll(".spt-slide"));
+  var dotsWrap=document.getElementById("sptDots");
+  var N=order.length, offset=0, timer=null, busy=false, DELAY=7000, GAP=18;
+  function per(){return window.innerWidth<=600?1:(window.innerWidth<=900?2:3);}
+  function pages(){return Math.max(1,Math.ceil(N/per()));}
+  function step(){return order[0].getBoundingClientRect().width+GAP;}
+  function render(){for(var i=0;i<N;i++){track.appendChild(order[(((offset+i)%N)+N)%N]);}}
+  function fit(){
+    order.forEach(function(sl){sl.style.height="auto";});
+    var vis=[];for(var i=0;i<per();i++){vis.push(order[(((offset+i)%N)+N)%N]);}
+    var h=Math.max.apply(null,vis.map(function(sl){return sl.getBoundingClientRect().height;}));
+    order.forEach(function(sl){sl.style.height=h+"px";});
+  }
+  function dots(){
+    var p=pages(), active=Math.floor(((offset%N)+N)%N/per())%p;
+    [].slice.call(dotsWrap.children).forEach(function(d,k){d.classList.toggle("is-active",k===active);});
+  }
+  function go(dir){
+    if(busy) return; busy=true;
+    var d=step()*per();
+    offset+=dir*per(); render();
+    track.style.transition="none"; track.style.transform="translateX("+(dir>0?d:-d)+"px)";
+    void track.offsetWidth; track.style.transition="";
+    requestAnimationFrame(function(){track.style.transform="translateX(0)";fit();dots();});
+    setTimeout(function(){track.style.transform="translateX(0)";busy=false;},480);
+  }
+  function jump(pp){
+    if(busy) return;
+    var cur=Math.floor(((offset%N)+N)%N/per());
+    if(pp===cur) return;
+    offset=pp*per(); render(); fit(); dots();
+  }
+  function build(){
+    dotsWrap.innerHTML="";
+    for(var k=0;k<pages();k++){(function(k){
+      var b=document.createElement("button");
+      b.type="button"; b.className="spt-dot"+(k===0?" is-active":"");
+      b.setAttribute("aria-label","Testimonials page "+(k+1));
+      b.addEventListener("click",function(){jump(k);reset();});
+      dotsWrap.appendChild(b);})(k);}
+    busy=false; track.style.transition="none"; track.style.transform="translateX(0)";
+    void track.offsetWidth; track.style.transition="";
+    render(); fit(); dots();
+  }
+  function start(){timer=setInterval(function(){go(1);},DELAY);}
+  function stop(){clearInterval(timer);}
+  function reset(){stop();start();}
+  var pn=document.getElementById("sptNext"),ppv=document.getElementById("sptPrev");
+  if(pn)pn.addEventListener("click",function(){go(1);reset();});
+  if(ppv)ppv.addEventListener("click",function(){go(-1);reset();});
+  car.addEventListener("mouseenter",stop);
+  car.addEventListener("mouseleave",start);
+  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){build();},150);});
+  build();
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+})();
+</script><div class="pa-modal" id="paIntake" role="dialog" aria-modal="true" aria-labelledby="paIntakeTitle">
+  <div class="pa-dialog">
+    <button class="pa-x" type="button" data-close aria-label="Close">&times;</button>
+    <div id="paIntakeForm">
+      <p class="pa-eyebrow" style="color:#a3161e">Connect with SportPharm</p>
+      <h2 id="paIntakeTitle">Tell us what you need.</h2>
+      <p class="dsub">Tell us about your program and a member of our team will follow up directly.</p>
+      <form id="paForm" novalidate>
+        <div class="pa-f"><label for="pa_name">Name</label><input id="pa_name" name="name" required></div>
+        <div class="pa-f"><label for="pa_email">Email</label><input id="pa_email" name="email" type="email" required></div>
+        <div class="pa-f"><label for="pa_role">I am contacting SportPharm as</label>
+          <select id="pa_role" name="role"><option>An athlete</option><option>An agent or representative</option><option>A parent or guardian</option><option>A member of the athlete&rsquo;s care team</option></select></div>
+        <div class="pa-f"><label for="pa_topic">What do you need help with?</label>
+          <select id="pa_topic" name="topic"><option>Medication review</option><option>Supplement review</option><option>Clean-sport support</option><option>Travel and competition</option><option>Pain, injury and recovery</option><option>Prescription coordination</option><option>Care-team coordination</option><option>Competition question</option><option>Not sure yet</option></select></div>
+        <div class="pa-f"><label for="pa_details">What would be helpful for us to know?</label>
+          <textarea id="pa_details" name="details" placeholder="Please avoid including sensitive medical information in this initial request."></textarea>
+          <p class="hint">Share enough for us to route you to the right pharmacist. Detailed medical information is better discussed directly.</p></div>
+        <p class="pa-notice"><b>Please keep this request general.</b> This form reaches the SportPharm team by email, which is not a secure channel for medical detail. Share enough to route you to the right pharmacist &mdash; specifics are better discussed directly.</p>
+        <button class="pa-submit" type="submit">Send support request &rarr;</button>
+      </form>
+    </div>
+    <div id="paIntakeDone" class="pa-done" hidden>
+      <div class="tick">&#10003;</div>
+      <h2>Request prepared.</h2>
+      <p class="dsub">A pharmacist will follow up directly. If anything is time-sensitive, say so when they reach out.</p>
+      <button class="pa-btn dark" type="button" data-close>Close</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var m=document.getElementById("paIntake"),f=document.getElementById("paIntakeForm"),
+      d=document.getElementById("paIntakeDone"),form=document.getElementById("paForm");
+  function open(e){ if(e)e.preventDefault(); f.hidden=false; d.hidden=true; m.classList.add("open");
+    document.body.style.overflow="hidden"; setTimeout(function(){document.getElementById("pa_name").focus();},40); }
+  function close(){ m.classList.remove("open"); document.body.style.overflow=""; }
+  document.addEventListener("click",function(e){
+    var t=e.target.closest&&e.target.closest("[data-intake]"); if(t) open(e);
+    if(e.target.closest&&e.target.closest("[data-close]")) close();
+  });
+  m.addEventListener("click",function(e){ if(e.target===m) close(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&m.classList.contains("open")) close(); });
+  var SOURCE = "Healthcare / AT \u00b7 Contact";
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+    var v = Object.fromEntries(new FormData(form).entries());
+    var btn = form.querySelector(".pa-submit");
+    if(btn){ btn.disabled=true; btn.dataset.label=btn.innerHTML; btn.innerHTML="Sending\u2026"; }
+    fetch("https://formsubmit.co/ajax/info@sportpharm.com",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({name:v.name,email:v.email,role:v.role,topic:v.topic,message:v.details||"",
+        _subject:"SportPharm inquiry \u2014 "+SOURCE+" \u2014 "+v.name,
+        _template:"table", page:SOURCE, persona:"Healthcare / AT"})
+    }).then(function(r){return r.json();}).then(function(){
+      f.hidden=true; d.hidden=false;
+    }).catch(function(){
+      f.hidden=true; d.hidden=false;
+      d.querySelector(".dsub").textContent="We couldn't send that automatically. Please email info@sportpharm.com and we'll pick it up from there.";
+    }).finally(function(){
+      if(btn){ btn.disabled=false; btn.innerHTML=btn.dataset.label||"Send support request"; }
+      m.querySelector(".pa-dialog").scrollTop=0;
+    });
+  });
+})();
+</script>
+<script>(function(){var f=document.getElementById("nlForm");if(!f)return;f.addEventListener("submit",function(e){e.preventDefault();if(!f.reportValidity())return;var v=document.getElementById("nlEmail").value;var b=f.querySelector("button");b.disabled=true;b.textContent="Sending\u2026";fetch("https://formsubmit.co/ajax/info@sportpharm.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({email:v,_subject:"SportPharm newsletter signup \u2014 Healthcare / AT",_template:"table",page:"Healthcare / AT \u00b7 Newsletter",persona:"Healthcare / AT"})}).then(function(r){return r.json();}).then(function(){f.innerHTML='<p class="h-ndone">\u2713 You\u2019re on the list. Thanks.</p>';document.getElementById("nlFine").textContent="";}).catch(function(){b.disabled=false;b.textContent="Sign up";document.getElementById("nlFine").textContent="That didn\u2019t go through. Email info@sportpharm.com and we\u2019ll add you.";});});})();</script><script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.h-tabs [role="tab"]'));
+  if(!tabs.length) return;
+  var imgs=[].slice.call(document.querySelectorAll("[data-rubimg]"));
+  var key={tabOtc:"otc",tabRx:"rx"};
+  function select(btn){
+    tabs.forEach(function(t){
+      var on=t===btn;
+      t.classList.toggle("on",on); t.setAttribute("aria-selected",on?"true":"false");
+      var p=document.getElementById(t.getAttribute("aria-controls"));
+      p.classList.toggle("on",on); p.hidden=!on;
+    });
+    imgs.forEach(function(im){ im.classList.toggle("on", im.dataset.rubimg===key[btn.id]); });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener("click",function(){select(t);});
+    t.addEventListener("keydown",function(e){
+      var i=tabs.indexOf(t);
+      if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
+        e.preventDefault();
+        var n=tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length];
+        n.focus(); select(n);
+      }
+    });
+  });
+})();
+</script><script>
+(function(){
+  var rows=[].slice.call(document.querySelectorAll(".w-row"));
+  if(!rows.length) return;
+  rows.forEach(function(r){
+    var btn=r.querySelector(".w-head"), body=r.querySelector(".w-body");
+    btn.addEventListener("click",function(){
+      var open=r.classList.contains("open");
+      rows.forEach(function(o){
+        o.classList.remove("open");
+        o.querySelector(".w-head").setAttribute("aria-expanded","false");
+        o.querySelector(".w-body").hidden=true;
+      });
+      if(!open){ r.classList.add("open"); btn.setAttribute("aria-expanded","true"); body.hidden=false; }
+    });
+  });
+})();
+</script></body></html>
