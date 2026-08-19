@@ -366,11 +366,6 @@
       .trustband article:first-child{border-top:0}
     }
   
-    /* --- triple-action formula: dark ground, ingredient cards --- */
-    .formula{background:var(--deep);color:#fff;padding:84px 0 90px}
-    .formula .eyebrow.light{color:rgba(255,255,255,.66)}
-    .formula h2{font-size:clamp(31px,4.22vw,57px);line-height:1;color:#fff;margin:0}
-    .formula-lead{margin:22px 0 0;max-width:70ch;font-size:15.5px;line-height:1.6;color:rgba(255,255,255,.74)}
     .fcards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
     .fcard{background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
     .fcard-img{position:relative;background:#f6f3ef;aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden}
@@ -382,7 +377,6 @@
     .fcard h3{margin:0;font-size:20px;line-height:1.1;color:var(--ink);font-family:inherit;letter-spacing:-.015em}
     .fcard-desc{margin:9px 0 0;font-size:14px;line-height:1.5;color:#4a555f}
     @media(max-width:900px){
-      .formula{padding:64px 0 68px}
       .fcards{grid-template-columns:1fr;gap:16px}
     }
   
@@ -430,10 +424,6 @@
       .hfaq-lead{max-width:none}
     }
   
-    /* --- formula: fit the whole section in one screen --- */
-    .formula{padding:56px 0 60px}
-    .formula h2{font-size:clamp(27px,3.74vw,49px)}
-    .formula-lead{margin-top:15px;font-size:15px}
     .fcards{margin-top:30px;gap:18px}
     .fcard-img{aspect-ratio:4/3}
     .fcard-chip{top:12px;left:12px;padding:5px 9px;font-size:9.5px}
@@ -457,53 +447,9 @@
       .navmark span{font-size:17px}
     }
   
-    /* --- ingredients as a master/detail drawer --- */
-    .ing{display:grid;grid-template-columns:300px 1fr;gap:24px;margin-top:30px;align-items:start}
-    .ing-tabs{display:flex;flex-direction:column;gap:8px}
-    .ing-tab{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;
-      padding:12px 14px;border:1px solid rgba(255,255,255,.16);border-radius:9px;
-      background:rgba(255,255,255,.04);color:#fff;font-family:inherit;transition:background .18s,border-color .18s}
-    .ing-tab:hover{background:rgba(255,255,255,.09)}
-    .ing-tab.is-on{background:#fff;border-color:#fff;color:var(--ink)}
-    .ing-tab:focus-visible{outline:2px solid #fff;outline-offset:2px}
-    .ing-thumb{flex:none;width:44px;height:44px;border-radius:6px;background:#fef9f6;
-      display:grid;place-items:center;overflow:hidden}
-    .ing-thumb img{width:82%;height:82%;object-fit:contain;display:block}
-    .ing-tab-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
-    .ing-tab-txt b{font-size:13.5px;font-weight:900;letter-spacing:-.005em}
-    .ing-tab-txt small{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.66}
-    .ing-tab.is-on .ing-tab-txt small{color:var(--red);opacity:1}
 
-    .ing-panels{position:relative}
-    .ing-panel{display:grid;grid-template-columns:1fr .9fr;gap:0;background:#fff;border-radius:10px;overflow:hidden}
-    .ing-panel[hidden]{display:none}
-    .ing-figure{position:relative;background:#fef9f6;aspect-ratio:4/3}
-    .ing-figure img{position:absolute;top:7%;left:7%;width:86%;height:86%;object-fit:contain}
-    .ing-chip{position:absolute;top:14px;left:14px;z-index:2;background:#fff;border-radius:3px;padding:6px 10px;
-      font-size:9.5px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--ink)}
-    .ing-copy{padding:26px 26px 28px;display:flex;flex-direction:column;justify-content:center}
-    .ing-meta{margin:0 0 8px;font-size:10.5px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--red)}
-    .ing-copy h3{margin:0;font-size:23px;line-height:1.08;color:var(--ink);letter-spacing:-.015em}
-    .ing-desc{margin:10px 0 0;font-size:14.5px;line-height:1.55;color:#4a555f}
-    @media(max-width:900px){
-      .ing{grid-template-columns:1fr;gap:16px}
-      .ing-panel{grid-template-columns:1fr}
-      .ing-copy{padding:20px}
-    }
-    @media(prefers-reduced-motion:reduce){.ing-tab{transition:none}}
   
     /* tighten the drawer: wider figure ratio, tighter head block */
-    .formula{padding:48px 0 54px}
-    .formula h2{font-size:clamp(25px,3.36vw,43px)}
-    .formula-lead{margin-top:13px;font-size:14.5px;max-width:64ch}
-    .ing{margin-top:26px;grid-template-columns:296px 1fr}
-    .ing-figure{aspect-ratio:16/10}
-    @media(max-width:900px){
-      .ing{grid-template-columns:1fr}
-      .ing-panel{grid-template-columns:1fr}
-    }
-    .ing-copy h3{font-size:21px}
-    .ing-desc{font-size:14px}
   
     /* --- hero: full-bleed photograph behind a navy gradient --- */
     .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:64% 52%;z-index:0}
@@ -520,16 +466,8 @@
     }
   
     /* panel matches the height of the tab column; lead on one line; tighter head */
-    .formula{padding:44px 0 50px}
-    .formula-lead{max-width:none;margin-top:11px}
-    .ing{align-items:stretch;margin-top:22px}
-    .ing-panel{height:100%}
-    .ing-figure{aspect-ratio:auto;height:100%;min-height:0}
-    .ing-copy{padding:22px 24px}
   
     /* narrow the figure so the ingredient is not floating in dead space */
-    .ing-panel{grid-template-columns:290px 1fr}
-    @media(max-width:900px){.ing-panel{grid-template-columns:1fr}.ing-figure{height:auto;aspect-ratio:16/10}}
   
     /* --- confidence bar on white --- */
     .quality{background:#fff;color:var(--ink);border-top:1px solid #e6e8ea;border-bottom:1px solid #e6e8ea}
@@ -781,7 +719,6 @@
 })();
 </script>
 
-
   <main>
     <section class="hero" id="top">
         <picture><source srcset="assets/wr-hero-lifestyle.webp" type="image/webp"><img class="hero-bg" src="assets/wr-hero-lifestyle.jpg" alt="Athlete resting after a workout with WasabiRub nearby" width="1536" height="1024" decoding="async"></picture>
@@ -978,7 +915,6 @@
       })();
     </script>
 
-
       <section class="quality" id="quality">
         <div class="shell quality-grid">
           <div class="quality-logo"><img src="assets/trushield-logo.png" alt="TruShield Certified" decoding="async"></div>
@@ -990,7 +926,6 @@
           <div class="quality-action"><a class="primary white" href="quality.html">OUR QUALITY STANDARD</a></div>
         </div>
       </section>
-
 
       <section class="featured" id="featured" aria-labelledby="featured-h">
       <div class="featured-in">
@@ -1075,7 +1010,6 @@
           </div>
         </div>
       </section>
-
 
     <section class="final">
       <div class="shell">
