@@ -978,55 +978,6 @@
       })();
     </script>
 
-    <section class="formula" id="difference">
-        <div class="shell">
-          <p class="eyebrow light">The triple-action formula</p>
-          <h2>MOST RUBS PICK ONE LANE.<br>WASABIRUB CHOSE THREE.</h2>
-          <p class="formula-lead">Three active ingredients work together to create cooling, warming, and targeted topical relief.</p>
-          <div class="ing">
-            <div class="ing-tabs" role="tablist" aria-label="Active ingredients">
-              <button class="ing-tab is-on" id="tab-capsaicin" role="tab" aria-selected="true" aria-controls="panel-capsaicin" tabindex="0">
-                <span class="ing-thumb"><img src="assets/ing-capsaicin.jpg" alt="" width="800" height="800" decoding="async"></span>
-                <span class="ing-tab-txt"><b>Chili pepper heat</b><small>&#46;0375% &middot; Warm</small></span>
-              </button>
-              <button class="ing-tab" id="tab-menthol" role="tab" aria-selected="false" aria-controls="panel-menthol" tabindex="-1">
-                <span class="ing-thumb"><img src="assets/ing-menthol.jpg" alt="" width="800" height="800" decoding="async"></span>
-                <span class="ing-tab-txt"><b>Menthol cooling</b><small>10% &middot; Cool</small></span>
-              </button>
-              <button class="ing-tab" id="tab-wintergreen" role="tab" aria-selected="false" aria-controls="panel-wintergreen" tabindex="-1">
-                <span class="ing-thumb"><img src="assets/ing-wintergreen.jpg" alt="" width="800" height="800" decoding="async"></span>
-                <span class="ing-tab-txt"><b>Oil of wintergreen</b><small>20% &middot; Target</small></span>
-              </button>
-            </div>
-            <div class="ing-panels">
-              <div class="ing-panel is-on" id="panel-capsaicin" role="tabpanel" aria-labelledby="tab-capsaicin">
-                <div class="ing-figure"><span class="ing-chip">Capsaicin</span><img src="assets/ing-capsaicin.jpg" alt="Chili pepper" width="800" height="800" decoding="async"></div>
-                <div class="ing-copy">
-                  <p class="ing-meta">&#46;0375% &middot; Warm</p>
-                  <h3>Chili pepper heat</h3>
-                  <p class="ing-desc">Builds a gradual, lasting warming sensation.</p>
-                </div>
-              </div>
-              <div class="ing-panel" id="panel-menthol" role="tabpanel" aria-labelledby="tab-menthol" hidden>
-                <div class="ing-figure"><span class="ing-chip">Menthol</span><img src="assets/ing-menthol.jpg" alt="Mint leaf" width="800" height="800" decoding="async"></div>
-                <div class="ing-copy">
-                  <p class="ing-meta">10% &middot; Cool</p>
-                  <h3>Menthol cooling</h3>
-                  <p class="ing-desc">Creates a crisp cooling sensation on contact.</p>
-                </div>
-              </div>
-              <div class="ing-panel" id="panel-wintergreen" role="tabpanel" aria-labelledby="tab-wintergreen" hidden>
-                <div class="ing-figure"><span class="ing-chip">Methyl salicylate</span><img src="assets/ing-wintergreen.jpg" alt="Wintergreen sprig" width="800" height="800" decoding="async"></div>
-                <div class="ing-copy">
-                  <p class="ing-meta">20% &middot; Target</p>
-                  <h3>Oil of wintergreen</h3>
-                  <p class="ing-desc">Targets minor muscle and joint aches.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section class="quality" id="quality">
         <div class="shell quality-grid">
@@ -1259,33 +1210,5 @@
     (function(){var items=document.querySelectorAll('.announcement .promo-item');if(items.length<2)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var i=0;setInterval(function(){items[i].classList.remove('is-active');i=(i+1)%items.length;items[i].classList.add('is-active');},2000);})();
   </script>
   <script src="assets/track.js"></script>
-  <script>
-    (function(){
-      var wrap=document.querySelector(".ing"); if(!wrap) return;
-      var tabs=[].slice.call(wrap.querySelectorAll(".ing-tab"));
-      var panels=[].slice.call(wrap.querySelectorAll(".ing-panel"));
-      function show(i){
-        tabs.forEach(function(t,k){
-          var on=k===i;
-          t.classList.toggle("is-on",on);
-          t.setAttribute("aria-selected",on?"true":"false");
-          t.tabIndex=on?0:-1;
-          panels[k].hidden=!on;
-          panels[k].classList.toggle("is-on",on);
-        });
-      }
-      tabs.forEach(function(t,i){
-        t.addEventListener("click",function(){show(i);});
-        t.addEventListener("keydown",function(e){
-          var n=null;
-          if(e.key==="ArrowDown"||e.key==="ArrowRight") n=(i+1)%tabs.length;
-          if(e.key==="ArrowUp"||e.key==="ArrowLeft") n=(i-1+tabs.length)%tabs.length;
-          if(e.key==="Home") n=0;
-          if(e.key==="End") n=tabs.length-1;
-          if(n!==null){e.preventDefault();show(n);tabs[n].focus();}
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
