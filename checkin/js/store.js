@@ -77,7 +77,7 @@
     var d = device();
     var letter = (d && d.letter) || 'A';
     var n = rows().length + 1;
-    return letter + '-' + String(n).padStart(CFG.raffle.padDigits, '0');
+    return letter + '-' + String(n).padStart(CFG.codes.padDigits, '0');
   }
 
   /* Add a check-in. Returns the saved record synchronously-ish (via promise)
@@ -98,6 +98,8 @@
       state:       fields.state,
       zip:         fields.zip,
       role:        fields.role || '',
+      prize:       '',              // set after the wheel stops, not before
+      prize_label: '',
       synced:      false
     };
     var all = rows();
@@ -105,6 +107,22 @@
     if (!write(K_ROWS, all)) throw new Error('Could not save on this device.');
     setTimeout(sync, 0);           // background, never blocks the guest
     return rec;
+  }
+
+  /* The wheel result lands after the record is already saved. Writing it back
+     clears `synced` so the row is re-sent — the POST uses on_conflict=id with
+     merge, so the existing row is updated rather than duplicated. */
+  function setPrize(id, prizeId, prizeLabel) {
+    var all = rows(), hit = false;
+    all = all.map(function (r) {
+      if (r.id !== id) return r;
+      hit = true;
+      return Object.assign({}, r, { prize: prizeId, prize_label: prizeLabel, synced: false });
+    });
+    if (!hit) return null;
+    write(K_ROWS, all);
+    setTimeout(sync, 0);
+    return true;
   }
 
   /* ---------- Supabase sync ---------------------------------------------- */
@@ -124,15 +142,18 @@
       return o;
     });
 
-    /* on_conflict=id + ignore-duplicates makes a retry after a timeout safe:
-       a row that actually landed the first time is not inserted twice. */
+    /* on_conflict=id + merge-duplicates does two jobs at once: a retry after a
+       timeout can't insert the same guest twice, AND a row re-sent because its
+       prize was filled in afterwards updates the existing row. Do NOT switch
+       this to ignore-duplicates — the prize would then never reach the cloud
+       for anyone, because the row already exists by the time the wheel stops. */
     return fetch(base + '/rest/v1/' + CFG.supabase.table + '?on_conflict=id', {
       method: 'POST',
       headers: {
         'apikey':        CFG.supabase.anonKey,
         'Authorization': 'Bearer ' + CFG.supabase.anonKey,
         'Content-Type':  'application/json',
-        'Prefer':        'return=minimal,resolution=ignore-duplicates'
+        'Prefer':        'return=minimal,resolution=merge-duplicates'
       },
       body: JSON.stringify(body)
     }).then(function (res) {
@@ -161,7 +182,7 @@
        the unambiguous sortable one. Both, because they answer different questions. */
     var cols = ['raffle', 'checked_in_local', 'created_at', 'full_name', 'company', 'role',
                 'email', 'phone', 'street', 'city', 'state', 'zip',
-                'device', 'event', 'synced'];
+                'prize_label', 'prize', 'device', 'event', 'synced'];
     function cell(v) {
       if (Array.isArray(v)) v = v.join('; ');
       v = (v === null || v === undefined) ? '' : String(v);
@@ -183,7 +204,7 @@
 
   window.Store = {
     isSetUp: isSetUp, setUpDevice: setUpDevice, checkPin: checkPin, device: device,
-    add: add, rows: rows, nextRaffleNumber: nextRaffleNumber,
+    add: add, setPrize: setPrize, rows: rows, nextRaffleNumber: nextRaffleNumber,
     sync: sync, pendingCount: pendingCount, configured: configured,
     csv: csv, clearAll: clearAll
   };
