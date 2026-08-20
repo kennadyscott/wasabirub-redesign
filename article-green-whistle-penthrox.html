@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Five Recovery Habits That Make a Real Difference | SportPharm</title>
+<title>The Green Whistle: What Sports-Medicine Teams Should Know About Penthrox | WasabiRub</title>
+<meta name="description" content="What sports-medicine teams should know about inhaled methoxyflurane (Penthrox), the 'green whistle' used for acute pain on the field.">
+<link rel="canonical" href="https://wasabirub.com/article-green-whistle-penthrox.html">
 <style>
 :root{
   --sp-red:#d6202a;--sp-red-2:#a3161e;--navy:#18232e;--navy-2:#22303e;
@@ -212,7 +214,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 @media(max-width:560px){.need .row{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.final .wrap{flex-direction:column;align-items:flex-start}}
 
 /* ---- site chrome ---- */
-.menu{display:none}
+.header2 .menu{display:none}
 .header2{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.98);border-bottom:1px solid #e8eaec}
 .h2wrap{display:flex;align-items:center;gap:18px;height:76px;padding:0 4vw}
 .logo2{display:flex;flex-direction:column;line-height:1;flex-shrink:0}
@@ -243,7 +245,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .mobilemenu2.open{display:flex}
 .mobilemenu2 a{font-weight:600;font-size:14px;color:var(--ink);padding:12px 0;border-bottom:1px solid var(--line);text-transform:none}
 .mm2-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:12px 0 2px}
-@media(max-width:950px){.menu{background:none;border:0;display:block}.menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
+@media(max-width:950px){.header2 .menu{background:none;border:0;display:block}.header2 .menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
 @media(max-width:1120px){.mainnav2,.caps2{display:none}.header2 .menu{display:block;margin-left:auto}}
 :root{--red:var(--sp-red)}
 
@@ -298,9 +300,57 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 #contactModal .primary{width:100%;margin-top:6px;cursor:pointer;border:0;background:var(--red);color:#fff;padding:15px 20px;border-radius:8px;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.06em;font-family:inherit;transition:.2s}
 #contactModal .primary:hover{filter:brightness(.93)}
 #contactModal .primary:disabled{opacity:.6;cursor:default}
+
+/* ===== WasabiRub site nav (consistent across all pages) ===== */
+:root{--red:#d6202a;--deep:#0f1d33;--paper:#f4f5f6}
+.shell{width:min(1180px,calc(100% - 40px));margin:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.announcement{position:relative;height:34px;background:var(--red);color:#fff;overflow:hidden;font-size:11px;font-weight:800;letter-spacing:.13em;font-family:Arial,Helvetica,sans-serif}
+.promo-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;white-space:nowrap;opacity:0;transition:opacity .45s ease}
+.promo-item.is-active{opacity:1}
+header.nav{position:relative;z-index:100;background:#fff;height:82px;display:flex;align-items:center;justify-content:flex-start;gap:28px;border-bottom:0;font-family:Arial,Helvetica,sans-serif}
+.navlock{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:none;margin-right:30px}
+.navmark{display:flex;flex-direction:row;align-items:center;gap:9px;flex:none;color:var(--ink)}
+.navmark img{height:27px;width:auto;display:block}
+.navmark span{font-size:20px;font-weight:900;letter-spacing:-.022em;line-height:1}
+.navby{display:flex;flex-direction:row;align-items:center;gap:5px;flex:none;margin:0 0 0 36px}
+.navby i{font-style:normal;font-size:7.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#6d767e;line-height:1}
+.navby img{height:10px;width:auto;display:block;opacity:.85}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.menu{position:relative;display:block}
+.menu-top{display:inline-flex;align-items:center;gap:6px;padding:8px 0;cursor:pointer;color:var(--ink)}
+.nav-links .menu-top:hover{color:var(--red)}
+.caret{font-size:8px;transition:transform .2s}
+.menu:hover .caret,.menu:focus-within .caret{transform:rotate(180deg)}
+.dropdown{position:absolute;top:100%;left:-16px;min-width:214px;background:#fff;border:1px solid #e6e8ea;box-shadow:0 20px 44px rgba(16,24,32,.16);padding:8px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .18s,transform .18s;z-index:60}
+.menu:hover .dropdown,.menu:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown.shop-dd{min-width:326px;padding:11px}
+.shop-dd a.dd-item,.shop-dd span.dd-item{display:flex;align-items:center;gap:13px;padding:9px 7px;border-radius:7px;color:var(--ink)}
+.shop-dd a.dd-item:hover{background:var(--paper)}
+.shop-dd .dd-thumb{flex:none;width:46px;height:46px;border-radius:6px;background:var(--paper);display:grid;place-items:center;overflow:hidden}
+.shop-dd .dd-thumb img{width:90%;height:90%;object-fit:contain;display:block}
+.shop-dd .dd-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.shop-dd .dd-txt b{font-size:12px;font-weight:900;letter-spacing:.04em}
+.shop-dd .dd-txt small{font-size:10.5px;font-weight:600;color:#5a6672;white-space:nowrap;letter-spacing:0}
+.shop-dd span.dd-item.is-soon{opacity:.5;cursor:default}
+.shop-dd .is-soon .dd-thumb{background:#eceff1}
+.nav-right{display:flex;align-items:center;gap:26px;margin-left:auto}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.nav-cta:hover{color:var(--red)}
+.cart{position:relative;display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.cart:hover{color:var(--red)}
+.cart-count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:800}
+@media(max-width:820px){
+  header.nav{flex-wrap:wrap;height:auto;padding:10px 0;gap:14px}
+  .navlock{margin-right:0}
+  .navmark img{height:24px}.navmark span{font-size:17px}
+  .nav-right{order:1;margin-left:auto;gap:18px}
+  .nav-links{order:2;width:100%;gap:22px;overflow-x:auto;padding:4px 0 6px}
+  .nav-links::-webkit-scrollbar{display:none}
+  .dropdown.shop-dd{left:0;width:min(300px,86vw)}
+}
 </style>
-<style>
-.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
+<style>.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
 .art-top{padding:46px 0 6px;text-align:center}
 .backlink{display:inline-flex;align-items:center;gap:6px;font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:.82rem;color:var(--sp-red);margin-bottom:20px}
 .backlink svg{width:13px;height:13px;transform:rotate(180deg)}
@@ -320,56 +370,124 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .more{border-top:1px solid var(--line);margin-top:40px;padding:38px 0 20px}
 .more h3{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;text-align:center;font-size:1.5rem;letter-spacing:.04em;color:var(--ink);margin-bottom:22px}
 .more-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto}
+
+.art-body ul,.art-body ol{margin:0 0 20px;padding-left:22px;color:#3f4852;font-size:1.05rem;line-height:1.72}
+.art-body li{margin-bottom:9px}
+.art-body li strong{color:var(--ink)}
+.art-body a{color:var(--sp-red);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.art-body a[target="_blank"]::after{content:"\2197";font-size:.72em;margin-left:3px;vertical-align:1px;text-decoration:none;display:inline-block}
+.art-cta .sub{font-family:Arial,Helvetica,sans-serif;font-size:.95rem;font-weight:400;line-height:1.62;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.82);max-width:56ch;margin:0 auto 22px}
+.art-disc{max-width:62ch;margin:0 auto;color:#55606a}
+.art-disc a{color:var(--sp-red);font-weight:600}
+.art-note{border-left:3px solid var(--sp-red);background:#fbf6f6;padding:14px 18px;margin:0 0 20px;font-size:1.02rem;line-height:1.68;color:#3f4852}
+.art-body>p.q{font-family:Georgia,serif;font-weight:700;font-size:1.14rem;line-height:1.55;color:var(--ink)}
 @media(max-width:760px){.art-title{font-size:2.5rem}.more-grid{grid-template-columns:1fr}}
-/* index page */
-.idx-head{padding:52px 0 8px;text-align:center}
-.idx-head h1{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;font-size:3.4rem;color:var(--ink);margin-bottom:10px}
-.idx-head p{font-size:1.08rem;color:var(--body);max-width:52ch;margin:0 auto}
-.idx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:34px 0 70px}
-@media(max-width:900px){.idx-grid{grid-template-columns:1fr}}
+
+.art-body h3{font-family:Arial,Helvetica,sans-serif;font-weight:800;font-size:1.24rem;color:var(--ink);margin:24px 0 8px}
+.art-banner .bimg{display:grid;place-items:center}
+.art-banner .bimg svg{width:88px;height:88px;color:rgba(255,255,255,.22)}
+.art-byline{font-size:.85rem;color:var(--muted);margin-top:12px}
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b">
+</head>
 <body>
-<header class="header2">
-    <div class="h2wrap">
-      <a class="logo2" href="athlete-hub.html"><img src="assets/wordmark-dark.png" alt="SportPharm"><span class="tag2">Stay ready for whatever moves you.</span></a>
-      <nav class="mainnav2">
-        <div class="ni">
-          <button class="nl">What Brings You Here <svg class="crt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="dd"><a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a></div>
-        </div>
-        <a class="nl" href="articles.html">Articles</a>
-        <a class="nl" href="#contact" data-open-contact>Contact</a>
-      </nav>
-      <div class="caps2">
-        <a class="cap2 capred" href="wasabirub.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg> WasabiRub</a>
-        <div class="ptoggle" role="group" aria-label="Choose your experience"><a class="pt-opt on" href="athlete-hub.html">Everyday Athlete</a><a class="pt-opt" href="pro-athlete.html">Pro Athlete</a><a class="pt-opt" href="sports-medicine.html">Healthcare / AT</a></div>
+<div class="announcement">
+  <span class="sr-only">Free shipping on all orders. Buy direct from the pharmacists who made it.</span>
+  <span class="promo-item is-active">FREE SHIPPING ON ALL ORDERS</span>
+  <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
+</div>
+<header class="nav shell">
+  <div class="navlock"><a class="navmark" href="index.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <div class="menu">
+      <a class="menu-top" href="wasabirub-shop.html">SHOP <span class="caret">&#8964;</span></a>
+      <div class="dropdown shop-dd">
+        <a class="dd-item" href="wasabirub.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced cool + heat</small></span></a>
+        <a class="dd-item" href="wasabirub-super-hot.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Hot</b><small>Maximum warming relief</small></span></a>
+        <a class="dd-item" href="wasabirub-super-cold.html"><span class="dd-thumb"><img src="assets/wr-supercold-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Cold</b><small>Pure cooling relief</small></span></a>
+        <span class="dd-item is-soon" aria-disabled="true"><span class="dd-thumb"></span><span class="dd-txt"><b>LidoRub</b><small>Coming soon</small></span></span>
       </div>
-      <button class="menu" aria-label="Toggle navigation" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
-    <nav class="mobilemenu2" id="mobilemenu2">
-      <div class="mm2-lbl">What Brings You Here</div>
-      <a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a>
-      <a href="articles.html">Articles</a>
-      <a href="#contact" data-open-contact>Contact</a>
-      <a href="wasabirub.html">WasabiRub</a>
-      <div class="mm2-lbl">I&rsquo;m a</div>
-      <a href="athlete-hub.html">Everyday Athlete</a><a href="pro-athlete.html">Pro Athlete</a><a href="sports-medicine.html">Healthcare / Athletic Trainer</a>
-    </nav>
-  </header>
+    <a class="menu-top" href="how-it-works.html">WHY WASABIRUB</a>
+    <a class="menu-top" href="quality.html">QUALITY</a>
+    <a class="menu-top" href="articles.html">ARTICLES</a>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="sportpharm" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
+    
+  </div>
+</header>
 <div class="art-top artwrap">
   <a class="backlink" href="articles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All Articles</a>
-  <div><span class="art-cat">Recovery</span></div>
-  <h1 class="art-title">Five Recovery Habits That Make a Real Difference</h1>
-  <p class="art-lead">Recovery doesn&rsquo;t require an elaborate routine. Start with five habits that help your body respond to the work you&rsquo;re asking it to do.</p>
+  <div><span class="art-cat">Sports Medicine</span></div>
+  <h1 class="art-title">The Green Whistle: What Sports-Medicine Teams Should Know About Penthrox</h1>
+  <p class="art-lead">Inhaled methoxyflurane &mdash; the &ldquo;green whistle&rdquo; &mdash; is making headlines in elite sport. Here&rsquo;s what sports-medicine teams need to understand about it.</p>
 </div>
-<div class="art-banner"><div class="bimg"><img src="assets/blog-recovery.jpg" alt="Five Recovery Habits That Make a Real Difference" onerror="this.parentNode.style.aspectRatio='16/5'"></div></div>
+<div class="art-banner"><div class="bimg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></div></div>
 <article class="art-body artwrap">
-  <p>A great recovery plan usually isn&rsquo;t built around one expensive tool. It&rsquo;s built around a few fundamentals practiced consistently.</p><h2>1. Protect your sleep</h2><p>Your body does important repair work while you sleep. Create a consistent routine and treat sleep as part of your training&mdash;not whatever happens after everything else is finished.</p><h2>2. Refuel after demanding sessions</h2><p>Training uses energy. Give your body the nutrients it needs to replenish that energy and support muscle recovery. The American College of Sports Medicine emphasizes that appropriate post-exercise food and fluids, along with adequate sleep, are central to recovery.<span class="src">ACSM</span></p><h2>3. Hydrate throughout the day</h2><p>Don&rsquo;t wait until a workout begins to think about hydration. Water supports normal body function and helps prevent dehydration, which can affect thinking, mood and temperature regulation.<span class="src">CDC</span></p><h2>4. Keep easy movement easy</h2><p>Not every session should leave you exhausted. Walking, gentle mobility and low-intensity activity can keep you moving without adding another demanding workout.</p><h2>5. Pay attention to patterns</h2><p>Persistent soreness, unusual fatigue, declining performance or pain that changes how you move deserves attention. Recovery isn&rsquo;t about ignoring discomfort&mdash;it&rsquo;s about responding before a small issue becomes a bigger one.</p>
-  <div class="art-disc">This article is for general educational purposes and is not a substitute for professional medical advice.</div>
+  <p>If you watched the 2026 World Cup, you might have seen Canadian international Ismaël Koné suffer a serious broken tibia/fibula injury. As he was carted off the pitch, ending his tournament, you may have noticed a small, bright green device held to his mouth during sideline treatment. That device, known as the "green whistle", is inhaled methoxyflurane (brand name Penthrox™), and it is quickly becoming one of the most talked-about tools in international sports medicine pain management.</p>
+  <p>For athletic trainers, team physicians, and sports pharmacists, this is more than a viral moment. It's a window into how sideline acute pain management is evolving and why programs need to stay ahead of the curve.</p>
+  <p>What Is the Green Whistle?</p>
+  <p>Methoxyflurane is a halogenated ether originally developed as a volatile inhalational anesthetic. At low, sub-anesthetic doses, it acts as a potent non-opioid analgesic. The Penthrox™ inhaler is a handheld, whistle-shaped, disposable draw-over vaporizer. Each device contains 3 mL of methoxyflurane, and the athlete breathes through it to administer pain relief under supervision of trained medical personnel. It is manufactured by the Australian pharmaceutical and medical technology company Medical Developments International (MDI).</p>
+  <p>It has been used in Australia and New Zealand by paramedics, the military, and civilian first aid providers for over 30 years, and is approved in the UK and across Europe for the emergency relief of moderate-to- severe trauma pain in conscious adult patients. It is not currently FDA-approved in the United States.1</p>
+  <p>What We Have Heard and Studied</p>
+  <p>What makes the green whistle stand out for sports medicine is a combination of speed, simplicity, and safety:</p>
+  <p><strong>Rapid onset</strong> &mdash; According to the manufacturer, pain relief begins within 5 minutes of first inhalation, much quicker than IV morphine or intranasal fentanyl in head-to-head trials.</p>
+  <p><strong>Self-administered</strong> &mdash; The athlete controls the dose by breathing through the device. No needles, no IV access, no complex setup needed.</p>
+  <p><strong>Rapidly reversible</strong> &mdash; According to the manufacturer, the effects will wear off quickly once the athlete stops inhaling, allowing for a clearer neurological and musculoskeletal assessment shortly after.</p>
+  <p><strong>Non-opioid</strong> &mdash; Methoxyflurane is not a narcotic. It does not carry the regulatory burden, abuse potential, or side effect profile of opioid analgesics, a significant advantage in the current landscape of sports medicine.</p>
+  <p><strong>Portable and disposable</strong> &mdash; The device is lightweight, requires no refrigeration, and is single-use, making it ideal for travel kits, sideline bags, and tournament settings in countries where it is legal to use.</p>
+  <p>What Does the Evidence Say?</p>
+  <p>The clinical evidence behind methoxyflurane is robust and growing:</p>
+  <p>The phase III STOP! trial showed that methoxyflurane provided a median time to first pain relief of 5 minutes, compared to 20 minutes for placebo, with a highly significant treatment effect.1,2</p>
+  <p>A systematic review and meta-analysis of pooled data from randomized controlled trials showed that methoxyflurane was superior to standard-of-care analgesics at every timepoint from 5 to 30 minutes after administration.3</p>
+  <p>The 2026 PreMeFen trial, published in The Lancet, was the first randomized phase 3 trial to directly compare methoxyflurane against IV morphine and intranasal fentanyl. The result: methoxyflurane was non-inferior to both at 10 minutes, with notably faster onset of effect.4</p>
+  <p>A 2025 systematic review of six randomized controlled trials concluded that inhaled methoxyflurane provides rapid and effective pain relief for acute trauma, consistently outperforming placebo and standard treatments, with high patient and clinician satisfaction and a low incidence of adverse events.5</p>
+  <p>Is It Safe?</p>
+  <p>According to the Australian manufacturer, at the low analgesic doses used in the Penthrox™ inhaler (maximum 6 mL/day, 15 mL/week), methoxyflurane has a strong safety profile. Although historically linked to dose-dependent nephrotoxicity at much higher anesthetic doses, the analgesic dose offers a safety margin at least 2.7- to 8-fold below the nephrotoxic threshold.6</p>
+  <p>A large post-authorization safety study published in BMC Emergency Medicine (2023) confirmed no increased risk of hepatotoxicity or nephrotoxicity compared with other common analgesics. Renal events were significantly less common in the methoxyflurane group.7</p>
+  <p>The most common reported side effects are mild and transient: dizziness, headache, and somnolence. Cardiovascular, respiratory, and neurological changes during use are not clinically significant. Contraindications include renal or hepatic impairment, personal or family history of malignant hyperthermia, and known hypersensitivity to fluorinated anesthetics.9</p>
+  <p>The Sideline Advantage</p>
+  <p>Traditional sideline pain management often relies on oral NSAIDs, acetaminophen, or injectable analgesics requiring IV access, physician oversight, and careful monitoring. Each has limitations in the fast-paced, resource-limited environment of competitive sports.</p>
+  <p>The green whistle can address most of these gaps. It can be administered immediately at the point of injury, requires no IV access, can provide rapid and effective analgesia, and allows the medical team to proceed with assessment and stabilization without delay.</p>
+  <p>For athletic trainers working with their team physicians, at practices and games, this tool represents a meaningful step forward in emergency preparedness.</p>
+  <p>What Sports Medicine Programs Should Know</p>
+  <p>Regulatory status varies by country. Methoxyflurane is widely available in Australia, New Zealand, the UK, and Europe. It is not currently approved by the FDA in the United States. Canadian and international programs should consult local regulatory guidance.1</p>
+  <p><strong>Anti-doping considerations</strong> &mdash; Methoxyflurane is not currently listed on the World Anti-Doping Agency (WADA) Prohibited List and does not fall within any of the prohibited substance categories (e.g., narcotics, stimulants, anabolic agents) as defined in the current WADA Code. However, the USADA, which administers the anti-doping program for U.S. Olympic, Paralympic, and Pan American athletes, adopts the WADA Prohibited List and may apply additional guidance. Programs with athletes under WADA/USADA or NCAA jurisdiction should independently verify methoxyflurane's status through the applicable governing body's resources before any use, as prohibited lists are updated annually and substance classifications can change. SportPharm recommends that the sports medicine team reach out to their sports pharmacists and consult the current USADA and/or NCAA banned substance databases directly and document clearance prior to administration in any competitive context.</p>
+  <p><strong>Storage and handling</strong> &mdash; According to the manufacture package insert, the Penthrox™ inhaler does not require refrigeration and has a long shelf life, making it practical for inclusion in sideline kits and travel medical bags.</p>
+  <p><strong>Training</strong> &mdash; Administration should be supervised by personnel trained in its use. The device is intuitive, but proper protocols should be established including clinician physician supervision, documentation, contraindication screening, and post-use monitoring.</p>
+  <h2>Key Takeaways</h2>
+  <p>The "green whistle" (Penthrox™/inhaled methoxyflurane) is a non-opioid, self-administered analgesic used internationally for acute trauma pain in prehospital and emergency settings. It is not currently FDA-approved or available in the United States.</p>
+  <p>Published clinical trials report onset of analgesia within minutes of first inhalation, with effects that dissipate rapidly once inhalation stops, characteristics that have made it a widely used option for prehospital and sideline care in countries where it is approved.</p>
+  <p>In the 2026 PreMeFen trial published in The Lancet, methoxyflurane met non-inferiority criteria compared with IV morphine and intranasal fentanyl for acute pain at 10 minutes, with a notably faster early onset of effect.</p>
+  <p>The device is portable, disposable, and designed for single use under the supervision of trained medical personnel, features that have practical appeal for athletic trainers and team medical staff in jurisdictions where it is approved.</p>
+  <p>SportPharm stays at the forefront of monitoring emerging developments in sideline pain management so your program stays informed.</p>
+  <p><strong>Regulatory/anti-doping</strong> &mdash; Methoxyflurane is not FDA-approved for use in the United States and is not currently prohibited under the WADA Prohibited List (including USADA-adopted rules). Verify both regulatory availability and current anti-doping status before use in competitive athletes.</p>
+  <p><strong>Disclaimer</strong> &mdash; The information provided is for educational and informational purposes only. SportPharm does not endorse this product and has no affiliation, financial relationship, sponsorship, or commercial interest with the manufacturer. Any product mentioned is discussed solely for educational purposes.</p>
+  <p>The SportPharm Perspective</p>
+  <p>Moments like Ismaël Koné's injury shine a spotlight on what happens in the critical minutes after an athlete goes down. The green whistle is a reminder that international sideline medicine is evolving, and that the tools available to sports medicine teams are expanding beyond the traditional formulary.</p>
+  <p>At SportPharm, staying current with emerging analgesic options, understanding their evidence base, and ensuring compliant access for athletic programs is core to what we do. Whether it's stocking emergency medication kits, advising on anti-doping compliance, or helping programs navigate the regulatory landscape of new products, SportPharm is here to support your team.</p>
+  <p>Want to learn more about other emerging sideline pain management tools that could fit into your program's emergency preparedness plan? Reach out to us at info@sportpharm.com. We will let you know when Penthrox™ is available in the USA.</p>
+  <p>Join the SportPharm™ Newsletter</p>
+  <h3>References</h3>
+  <p><strong>Methoxyflurane</strong> &mdash; A Review in Trauma Pain. Blair HA, Frampton JE. Clinical Drug Investigation. 2016;36(12):1067-1073. doi:10.1007/s40261-016-0473-0.</p>
+  <p>Coffey F, Wright J, Hartshorn S, et al. STOP!: a randomised, double-blind, placebo-controlled study of the efficacy and safety of methoxyflurane for the treatment of acute pain. Emerg Med J. 2014;31(8):613-618. doi:10.1136/emermed-2013-202909</p>
+  <p>Low-Dose Methoxyflurane Versus Standard of Care Analgesics for Emergency Trauma Pain: A Systematic Review and Meta-Analysis of Pooled Data. Fabbri A, Borobia AM, Ricard-Hibon A, et al. Journal of Pain Research. 2021;14:93-105. doi:10.2147/JPR.S292521.</p>
+  <p>Comparison of Inhalational Methoxyflurane, Intranasal Fentanyl, and Intravenous Morphine for Treatment of Prehospital Acute Pain in Norway (PreMeFen): A Randomised, Non-Inferiority, Three-Arm, Phase 3 Trial. Simensen R, Fjose LO, Thorsen K, et al. Lancet (London, England). 2026;406(10522):2957-2967. doi:10.1016/S0140-6736(25)01575-2.</p>
+  <p>Effectiveness of Inhaled Methoxyflurane in Acute Pain in an Emergency Department - A Systematic Review of Randomized Controlled Trials. Lam L, Brouwer HJ, Gupta M, et al. The American Journal of Emergency Medicine. 2025;94:37-45. doi:10.1016/j.ajem.2025.04.021.</p>
+  <p><strong>Analgesic Use of Inhaled Methoxyflurane</strong> &mdash; Evaluation of Its Potential Nephrotoxicity. Dayan AD. Human &amp; Experimental Toxicology. 2016;35(1):91-100. doi:10.1177/0960327115578743.</p>
+  <p>Real World Safety of Methoxyflurane Analgesia in the Emergency Setting: A Comparative Hybrid Prospective-Retrospective Post-Authorisation Safety Study. Qizilbash N, Kataria H, Jarman H, et al. BMC Emergency Medicine. 2023;23(1):100. doi:10.1186/s12873-023-00862-2.</p>
+  <p>Wilderness Medical Society Clinical Practice Guidelines for the Treatment of Acute Pain in Austere Environments: 2024 Update. Fink PB, Wheeler AR, Smith WR, et al. Wilderness &amp; Environmental Medicine. 2024;35(2):198-218. doi:10.1177/10806032241248422.</p>
+  <p>A Review of the Safety and Efficacy of Inhaled Methoxyflurane as an Analgesic for Outpatient Procedures. Jephcott C, Grummet J, Nguyen N, Spruyt O. British Journal of Anaesthesia. 2018;120(5):1040-1048. doi:10.1016/j.bja.2018.01.011.</p>
+  <div class="art-cta">
+    <p>Questions about sideline medications?</p>
+    <p class="sub">SportPharm's pharmacists help sports-medicine teams navigate medication options, compliance, and clean-sport considerations.</p>
+    <a class="btn btn-white" href="#contact" data-open-contact>Talk to a SportPharm pharmacist</a>
+  </div>
+  <div class="art-disc"><strong>This article provides general educational information</strong> and does not diagnose a condition or replace individualized medical advice. Always read the complete Drug Facts or prescription label and consult a qualified healthcare professional with questions about medication or injury care.</div>
   <div class="more">
     <h3>Keep Reading</h3>
-    <div class="more-grid"><a class="blog-card" href="article-nsaids.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/blog-nsaids.jpg" alt="Understanding NSAIDs: When and How to Use Them" onerror="this.remove()"></div><div class="bd"><div class="cat">Medication</div><h3>Understanding NSAIDs: When and How to Use Them</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-return-injury.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/blog-return.jpg" alt="Returning From Injury: A Smarter Game Plan" onerror="this.remove()"></div><div class="bd"><div class="cat">Return to Play</div><h3>Returning From Injury: A Smarter Game Plan</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
+    <div class="more-grid"><a class="blog-card" href="article-sportpharm-trushield-partnership.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4l11 4V6zM15 9a3 3 0 010 6M4 14h3l1 5"/></svg></span></div><div class="bd"><div class="cat">News</div><h3>SportPharm Partners With TruShield to Advance Clean Sport &amp; Athlete Safety</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-summer-pain-management.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l1.8-4.5 3.2 9 2-4.5H21"/></svg></span></div><div class="bd"><div class="cat">Recovery</div><h3>5 Essential Summer Pain-Management Tips</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
   </div>
 </article>
 <style>
@@ -466,11 +584,11 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
         <p class="modal-eyebrow"><i></i> Contact Us</p>
         <h2 id="contactTitle">Get in touch.</h2>
         <p class="modal-sub">Not sure what your next step should be? Send us a note and our team will reply from info@sportpharm.com.</p>
-        <span class="modal-source">From <b>Five Recovery Habits That Make a Real Difference</b></span>
+        <span class="modal-source">From <b>The Green Whistle: What Sports-Medicine Teams Should Know About Penthrox</b></span>
         <form id="contactForm" novalidate>
           <div class="field"><label for="cf_name">Name</label><input id="cf_name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="cf_email">Email</label><input id="cf_email" name="email" type="email" autocomplete="email" required></div>
-          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#667069">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#9aa3a0">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
           <div class="field"><label for="cf_message">Message</label><textarea id="cf_message" name="message" required></textarea></div>
           <button class="primary" type="submit">Send message <span>→</span></button>
         </form>
@@ -489,7 +607,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
        info@sportpharm.com. In the production Next.js + Payload build this POSTs
        to an API route that creates a Payload Lead and sends the notification. */
     (function(){
-      const SOURCE = "Everyday Athlete · Five Recovery Habits That Make a Real Difference";
+      const SOURCE = "WasabiRub · The Green Whistle: What Sports-Medicine Teams Should Know About Penthrox";
       const modal = document.getElementById("contactModal");
       const form = document.getElementById("contactForm");
       const wrap = document.getElementById("contactFormWrap");
@@ -529,5 +647,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
       });
     })();
   </script>
+<script>(function(){var items=document.querySelectorAll('.announcement .promo-item');if(items.length<2)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var i=0;setInterval(function(){items[i].classList.remove('is-active');i=(i+1)%items.length;items[i].classList.add('is-active');},2000);})();</script>
+
 </body>
 </html>

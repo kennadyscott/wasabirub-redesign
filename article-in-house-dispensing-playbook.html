@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Is Sports Pharmacy? | SportPharm</title>
-<meta name="description" content="Sports pharmacy looks at how prescriptions, over-the-counter products, supplements, and pain relief fit the demands of an active body.">
+<title>The In-House Pharmacy Dispensing Playbook | WasabiRub</title>
+<meta name="description" content="Best practices for compliant, cost-effective in-house medication storage, labeling, and dispensing in the athletic-training setting.">
+<link rel="canonical" href="https://wasabirub.com/article-in-house-dispensing-playbook.html">
 <style>
 :root{
   --sp-red:#d6202a;--sp-red-2:#a3161e;--navy:#18232e;--navy-2:#22303e;
@@ -213,7 +214,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 @media(max-width:560px){.need .row{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.final .wrap{flex-direction:column;align-items:flex-start}}
 
 /* ---- site chrome ---- */
-.menu{display:none}
+.header2 .menu{display:none}
 .header2{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.98);border-bottom:1px solid #e8eaec}
 .h2wrap{display:flex;align-items:center;gap:18px;height:76px;padding:0 4vw}
 .logo2{display:flex;flex-direction:column;line-height:1;flex-shrink:0}
@@ -244,7 +245,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .mobilemenu2.open{display:flex}
 .mobilemenu2 a{font-weight:600;font-size:14px;color:var(--ink);padding:12px 0;border-bottom:1px solid var(--line);text-transform:none}
 .mm2-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:12px 0 2px}
-@media(max-width:950px){.menu{background:none;border:0;display:block}.menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
+@media(max-width:950px){.header2 .menu{background:none;border:0;display:block}.header2 .menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
 @media(max-width:1120px){.mainnav2,.caps2{display:none}.header2 .menu{display:block;margin-left:auto}}
 :root{--red:var(--sp-red)}
 
@@ -299,9 +300,57 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 #contactModal .primary{width:100%;margin-top:6px;cursor:pointer;border:0;background:var(--red);color:#fff;padding:15px 20px;border-radius:8px;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.06em;font-family:inherit;transition:.2s}
 #contactModal .primary:hover{filter:brightness(.93)}
 #contactModal .primary:disabled{opacity:.6;cursor:default}
+
+/* ===== WasabiRub site nav (consistent across all pages) ===== */
+:root{--red:#d6202a;--deep:#0f1d33;--paper:#f4f5f6}
+.shell{width:min(1180px,calc(100% - 40px));margin:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.announcement{position:relative;height:34px;background:var(--red);color:#fff;overflow:hidden;font-size:11px;font-weight:800;letter-spacing:.13em;font-family:Arial,Helvetica,sans-serif}
+.promo-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;white-space:nowrap;opacity:0;transition:opacity .45s ease}
+.promo-item.is-active{opacity:1}
+header.nav{position:relative;z-index:100;background:#fff;height:82px;display:flex;align-items:center;justify-content:flex-start;gap:28px;border-bottom:0;font-family:Arial,Helvetica,sans-serif}
+.navlock{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:none;margin-right:30px}
+.navmark{display:flex;flex-direction:row;align-items:center;gap:9px;flex:none;color:var(--ink)}
+.navmark img{height:27px;width:auto;display:block}
+.navmark span{font-size:20px;font-weight:900;letter-spacing:-.022em;line-height:1}
+.navby{display:flex;flex-direction:row;align-items:center;gap:5px;flex:none;margin:0 0 0 36px}
+.navby i{font-style:normal;font-size:7.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#6d767e;line-height:1}
+.navby img{height:10px;width:auto;display:block;opacity:.85}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.menu{position:relative;display:block}
+.menu-top{display:inline-flex;align-items:center;gap:6px;padding:8px 0;cursor:pointer;color:var(--ink)}
+.nav-links .menu-top:hover{color:var(--red)}
+.caret{font-size:8px;transition:transform .2s}
+.menu:hover .caret,.menu:focus-within .caret{transform:rotate(180deg)}
+.dropdown{position:absolute;top:100%;left:-16px;min-width:214px;background:#fff;border:1px solid #e6e8ea;box-shadow:0 20px 44px rgba(16,24,32,.16);padding:8px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .18s,transform .18s;z-index:60}
+.menu:hover .dropdown,.menu:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown.shop-dd{min-width:326px;padding:11px}
+.shop-dd a.dd-item,.shop-dd span.dd-item{display:flex;align-items:center;gap:13px;padding:9px 7px;border-radius:7px;color:var(--ink)}
+.shop-dd a.dd-item:hover{background:var(--paper)}
+.shop-dd .dd-thumb{flex:none;width:46px;height:46px;border-radius:6px;background:var(--paper);display:grid;place-items:center;overflow:hidden}
+.shop-dd .dd-thumb img{width:90%;height:90%;object-fit:contain;display:block}
+.shop-dd .dd-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.shop-dd .dd-txt b{font-size:12px;font-weight:900;letter-spacing:.04em}
+.shop-dd .dd-txt small{font-size:10.5px;font-weight:600;color:#5a6672;white-space:nowrap;letter-spacing:0}
+.shop-dd span.dd-item.is-soon{opacity:.5;cursor:default}
+.shop-dd .is-soon .dd-thumb{background:#eceff1}
+.nav-right{display:flex;align-items:center;gap:26px;margin-left:auto}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.nav-cta:hover{color:var(--red)}
+.cart{position:relative;display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.cart:hover{color:var(--red)}
+.cart-count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:800}
+@media(max-width:820px){
+  header.nav{flex-wrap:wrap;height:auto;padding:10px 0;gap:14px}
+  .navlock{margin-right:0}
+  .navmark img{height:24px}.navmark span{font-size:17px}
+  .nav-right{order:1;margin-left:auto;gap:18px}
+  .nav-links{order:2;width:100%;gap:22px;overflow-x:auto;padding:4px 0 6px}
+  .nav-links::-webkit-scrollbar{display:none}
+  .dropdown.shop-dd{left:0;width:min(300px,86vw)}
+}
 </style>
-<style>
-.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
+<style>.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
 .art-top{padding:46px 0 6px;text-align:center}
 .backlink{display:inline-flex;align-items:center;gap:6px;font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:.82rem;color:var(--sp-red);margin-bottom:20px}
 .backlink svg{width:13px;height:13px;transform:rotate(180deg)}
@@ -328,96 +377,85 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .art-body a{color:var(--sp-red);font-weight:600;text-decoration:underline;text-underline-offset:2px}
 .art-body a[target="_blank"]::after{content:"\2197";font-size:.72em;margin-left:3px;vertical-align:1px;text-decoration:none;display:inline-block}
 .art-cta .sub{font-family:Arial,Helvetica,sans-serif;font-size:.95rem;font-weight:400;line-height:1.62;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.82);max-width:56ch;margin:0 auto 22px}
+.art-disc{max-width:62ch;margin:0 auto;color:#55606a}
+.art-disc a{color:var(--sp-red);font-weight:600}
+.art-note{border-left:3px solid var(--sp-red);background:#fbf6f6;padding:14px 18px;margin:0 0 20px;font-size:1.02rem;line-height:1.68;color:#3f4852}
+.art-body>p.q{font-family:Georgia,serif;font-weight:700;font-size:1.14rem;line-height:1.55;color:var(--ink)}
 @media(max-width:760px){.art-title{font-size:2.5rem}.more-grid{grid-template-columns:1fr}}
-/* index page */
-.idx-head{padding:52px 0 8px;text-align:center}
-.idx-head h1{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;font-size:3.4rem;color:var(--ink);margin-bottom:10px}
-.idx-head p{font-size:1.08rem;color:var(--body);max-width:52ch;margin:0 auto}
-.idx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:34px 0 70px}
-@media(max-width:900px){.idx-grid{grid-template-columns:1fr}}
+
+.art-body h3{font-family:Arial,Helvetica,sans-serif;font-weight:800;font-size:1.24rem;color:var(--ink);margin:24px 0 8px}
+.art-banner .bimg{display:grid;place-items:center}
+.art-banner .bimg svg{width:88px;height:88px;color:rgba(255,255,255,.22)}
+.art-byline{font-size:.85rem;color:var(--muted);margin-top:12px}
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b">
+</head>
 <body>
-<header class="header2">
-    <div class="h2wrap">
-      <a class="logo2" href="athlete-hub.html"><img src="assets/wordmark-dark.png" alt="SportPharm"><span class="tag2">Stay ready for whatever moves you.</span></a>
-      <nav class="mainnav2">
-        <div class="ni">
-          <button class="nl">What Brings You Here <svg class="crt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="dd"><a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a></div>
-        </div>
-        <a class="nl" href="articles.html">Articles</a>
-        <a class="nl" href="#contact" data-open-contact>Contact</a>
-      </nav>
-      <div class="caps2">
-        <a class="cap2 capred" href="wasabirub.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg> WasabiRub</a>
-        <div class="ptoggle" role="group" aria-label="Choose your experience"><a class="pt-opt on" href="athlete-hub.html">Everyday Athlete</a><a class="pt-opt" href="pro-athlete.html">Pro Athlete</a><a class="pt-opt" href="sports-medicine.html">Healthcare / AT</a></div>
+<div class="announcement">
+  <span class="sr-only">Free shipping on all orders. Buy direct from the pharmacists who made it.</span>
+  <span class="promo-item is-active">FREE SHIPPING ON ALL ORDERS</span>
+  <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
+</div>
+<header class="nav shell">
+  <div class="navlock"><a class="navmark" href="index.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <div class="menu">
+      <a class="menu-top" href="wasabirub-shop.html">SHOP <span class="caret">&#8964;</span></a>
+      <div class="dropdown shop-dd">
+        <a class="dd-item" href="wasabirub.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced cool + heat</small></span></a>
+        <a class="dd-item" href="wasabirub-super-hot.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Hot</b><small>Maximum warming relief</small></span></a>
+        <a class="dd-item" href="wasabirub-super-cold.html"><span class="dd-thumb"><img src="assets/wr-supercold-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Cold</b><small>Pure cooling relief</small></span></a>
+        <span class="dd-item is-soon" aria-disabled="true"><span class="dd-thumb"></span><span class="dd-txt"><b>LidoRub</b><small>Coming soon</small></span></span>
       </div>
-      <button class="menu" aria-label="Toggle navigation" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
-    <nav class="mobilemenu2" id="mobilemenu2">
-      <div class="mm2-lbl">What Brings You Here</div>
-      <a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a>
-      <a href="articles.html">Articles</a>
-      <a href="#contact" data-open-contact>Contact</a>
-      <a href="wasabirub.html">WasabiRub</a>
-      <div class="mm2-lbl">I&rsquo;m a</div>
-      <a href="athlete-hub.html">Everyday Athlete</a><a href="pro-athlete.html">Pro Athlete</a><a href="sports-medicine.html">Healthcare / Athletic Trainer</a>
-    </nav>
-  </header>
+    <a class="menu-top" href="how-it-works.html">WHY WASABIRUB</a>
+    <a class="menu-top" href="quality.html">QUALITY</a>
+    <a class="menu-top" href="articles.html">ARTICLES</a>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="sportpharm" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
+    
+  </div>
+</header>
 <div class="art-top artwrap">
   <a class="backlink" href="articles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All Articles</a>
-  <div><span class="art-cat">Education</span></div>
-  <h1 class="art-title">What Is Sports Pharmacy?</h1>
-  <p class="art-lead">Athletes think carefully about training, nutrition, recovery, and equipment. Medication is often treated as a separate subject&mdash;something managed only when a prescription is written or a health problem appears.</p>
+  <div><span class="art-cat">Sports Medicine</span></div>
+  <h1 class="art-title">The In-House Pharmacy Dispensing Playbook</h1>
+  <p class="art-lead">Best practices for compliant, cost-effective medication management in the athletic-training medical office.</p>
 </div>
-<div class="art-banner"><div class="bimg"><img src="assets/spx-hero.jpg" alt="Athlete reviewing a medication label at home" onerror="this.parentNode.style.aspectRatio='16/5'"></div></div>
+<div class="art-banner"><div class="bimg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></div></div>
 <article class="art-body artwrap">
-  <p>Sports pharmacy brings those pieces together.</p>
-  <p>It examines how prescription medications, over-the-counter products, supplements, and pain-relief options fit within the demands of an active body. The goal is not simply to determine whether someone can take a product. It is to help athletes understand how everything they take may affect their health, training, recovery, travel, and competition responsibilities.</p>
-  <h2>Pharmacy care through the lens of sport</h2>
-  <p>Traditional pharmacy questions still matter:</p>
-  <ul><li>Is this the correct medication and dose?</li><li>Could it interact with something else?</li><li>What side effects should the patient know about?</li><li>How and when should it be taken?</li><li>Are there storage or administration requirements?</li></ul>
-  <p>Sports pharmacy adds another layer:</p>
-  <ul><li>Could this affect hydration or heat tolerance?</li><li>Could it influence sleep, alertness, coordination, or perceived exertion?</li><li>Does the dosing schedule work around training and travel?</li><li>Is the athlete combining products with overlapping ingredients?</li><li>Is the medication prohibited in or out of competition?</li><li>Could documentation or a Therapeutic Use Exemption be required?</li><li>Does the athlete's full routine tell a different story than one product viewed alone?</li></ul>
-  <p>A medication can be appropriate for treating a health condition and still require thoughtful planning around sport.</p>
-  <h2>Medications can affect the athletic experience</h2>
-  <p>Medications do not need to be "performance-enhancing" to affect performance.</p>
-  <p>Some may influence alertness, balance, heart rate, blood pressure, gastrointestinal comfort, sweating, thirst, or temperature regulation. Others may affect sleep or how an athlete feels during exertion.</p>
-  <p>These effects are highly individual. They can depend on the medication, dose, health condition, environment, training intensity, and other products being used.</p>
-  <p>Heat deserves particular attention. The CDC notes that certain medications can contribute to heat sensitivity by affecting thirst, sweating, fluid balance, blood pressure, or the body's ability to regulate temperature. The concern may increase when several medications with related effects are used together. Athletes should never stop a medication because of an upcoming hot workout, but they may benefit from discussing a personalized heat plan with a pharmacist or prescriber. <a href="https://www.cdc.gov/heat-health/hcp/clinical-guidance/heat-and-medications-guidance-for-clinicians.html" target="_blank" rel="noopener">CDC heat and medication guidance</a></p>
-  <h2>Sports pharmacists look at the full routine</h2>
-  <p>An athlete may receive prescriptions from several providers while also using allergy medicine, occasional pain relief, sleep products, vitamins, pre-workout formulas, protein products, and recovery supplements.</p>
-  <p>Each item may appear reasonable on its own. The complete routine can reveal questions that are easy to miss:</p>
-  <ul><li>Two products contain the same active ingredient.</li><li>A supplement compounds a medication's stimulating or sedating effects.</li><li>Several products affect hydration or blood pressure.</li><li>A side effect is mistaken for poor conditioning or inadequate recovery.</li><li>A medication schedule becomes difficult during travel.</li><li>A product introduces an avoidable clean-sport concern.</li></ul>
-  <p>A sports pharmacist can organize this information into one understandable picture and identify questions that should be discussed with the athlete's prescriber or broader care team.</p>
-  <h2>Sports pharmacy and clean sport</h2>
-  <p>Medication safety and competition eligibility are related, but they are not the same question.</p>
-  <p>Athletes subject to anti-doping rules must check whether medications are prohibited in competition, out of competition, or in specific sports. The World Anti-Doping Agency updates its Prohibited List annually; the current 2026 list took effect January 1, 2026. <a href="https://www.wada-ama.org/en/resources/world-anti-doping-code-and-international-standards/prohibited-list" target="_blank" rel="noopener">WADA 2026 Prohibited List</a></p>
-  <p>For athletes under USADA jurisdiction, Global DRO can be used to check the status of many prescription and over-the-counter medications. It does not evaluate dietary supplements. <a href="https://www.usada.org/substances/" target="_blank" rel="noopener">USADA medication resources</a></p>
-  <p>If a medically necessary treatment contains a prohibited substance or uses a prohibited method, the athlete may need to explore the Therapeutic Use Exemption process. Athletes should address this early rather than waiting until competition.</p>
-  <p>Sports pharmacists can help athletes identify what requires verification and what documentation may need to be gathered. They cannot guarantee that every product is universally permitted or replace the athlete's governing organization.</p>
-  <h2>A connected member of the care team</h2>
-  <p>Sports pharmacists do not replace physicians, athletic trainers, physical therapists, dietitians, or other professionals supporting an athlete.</p>
-  <p>They strengthen the pharmacy layer around that team.</p>
-  <p>Depending on the athlete's needs and the pharmacist's scope, that may include:</p>
-  <ul><li>Reviewing medications and supplements</li><li>Identifying interactions or duplicate ingredients</li><li>Explaining medication timing and administration</li><li>Supporting travel and refill planning</li><li>Reviewing pain-relief options</li><li>Identifying clean-sport questions</li><li>Communicating with authorized members of the care team</li><li>Helping the athlete prepare questions for a prescriber</li></ul>
-  <p>The result is not another disconnected opinion. It is clearer coordination around what the athlete takes and why.</p>
-  <h2>When should an athlete consult a sports pharmacist?</h2>
-  <p>A review may be useful when:</p>
-  <ul><li>Starting or stopping a medication</li><li>Adding a new supplement</li><li>Managing several products at once</li><li>Experiencing unexplained changes during training</li><li>Preparing for hot-weather training</li><li>Traveling with medications</li><li>Returning from an injury</li><li>Approaching a competition</li><li>Unsure about an ingredient or anti-doping rule</li><li>Receiving recommendations from several providers</li></ul>
-  <p>Athletes should not stop, skip, or modify prescribed treatment without consulting the appropriate healthcare professional.</p>
-  <h2>Know how your routine works together</h2>
-  <p>Medication is part of an athlete's health&amp;mdash;and health is part of performance.</p>
+  <p>Medication storage and management may seem straightforward in the athletic training medical office, yet it remains one of the most common areas where compliance issues could arise. Proper storage and medication management support adherence to pharmacy and medical regulations, protect medication integrity, and enable compliant sourcing through pharmacy partners that provide pharmacist oversight and competitively priced medications.</p>
+  <h2>Essential Best Practices for Medication Storage and Labeling:</h2>
+  <p><strong>Original Containers Only</strong> &mdash; Keep medications in their original containers, as provided by the manufacturer or repackager. These should not come in vials.</p>
+  <p><strong>Tamper-evident, sealed packaging</strong> &mdash; Medications must be received and maintained in tamper-evident, sealed packaging to ensure product integrity and confirm the medication has not been altered or adulterated. Medications received without tamper-evident seals may present quantity discrepancies and compliance risks.</p>
+  <p><strong>Labeling Requirements</strong> &mdash; Each container must clearly display the drug name, strength, lot number, and expiration date. When dispensing medication to a patient, a pharmacy-generated label should be applied using a label printer (e.g., Dymo) that includes the patient’s name, NDC, prescribing physician, prescription number, directions for use, and quantity dispensed.</p>
+  <p><strong>No Team-Specific Labeling</strong> &mdash; Medications should not display a team name or organization. Labels must follow pharmacy standards.</p>
+  <p><strong>Segregation and Expiration</strong> &mdash; Expired or recalled medications should be immediately removed from active inventory and stored separately to prevent accidental use.</p>
+  <h2>High-Risk Indicators When Working With a Pharmacy Partner (Checklist)</h2>
+  <p>Be cautious if any of the following apply.</p>
+  <p>Medications are received in vials with team- or organization-specific labeling, rather than in tamper-evident, vacuum-sealed, unit-of-use repackaging clearly labeled with the medication name, lot number, NDC, etc.</p>
+  <p>You are not provided with a label printer and dispensing software to generate pharmacy-regulated, patient-specific labels when dispensing medications.</p>
+  <p>Medications are received without vacuum-sealed or tamper-evident packaging, increasing the risk of product adulteration, compromised integrity, or inventory discrepancies.</p>
+  <h2>Injury Patterns &amp; Localized Treatment in Soccer</h2>
+  <p>Soccer presents a distinct injury profile driven by high training volume, repetitive sprinting, cutting, and frequent contact. As a ground-based sport, the majority of injuries involve the lower extremities, with medical staff commonly managing muscle tightness, strains, sprains, and contusions throughout the season.</p>
+  <p>Muscle cramps and persistent tightness, particularly in the calves and hamstrings, are common during periods of congested match schedules and travel. Hamstring and ankle strains remain among the most frequent causes of missed time, often requiring ongoing localized management rather than one-time intervention. Contact-related contusions to the thigh and lower leg are also routine and require short-term pain control to support functional movement during recovery.</p>
+  <p>Because many of these conditions are managed over time, localized treatment options play an important role in daily care plans. When incorporated appropriately, topical therapies allow medical teams to address targeted pain and inflammation while minimizing unnecessary systemic exposure. For in-house medical rooms, ensuring these therapies are sourced, stored, and dispensed through compliant pharmacy channels helps maintain consistency, documentation, and regulatory alignment.</p>
+  <p>Amber vial present compliance concerns because they are not unit-of-use, tamper-evident packaging, and can obscure lot number, expiration, and sourcing documentation. Without proper pharmacy labeling and sealing, they increase regulatory &amp; audit risk</p>
+  <p>This example shows a pharmacy-generated dispensing label applied at point of care. The label clearly identifies the medication name and strength and includes required patient-specific information.</p>
+  <h2>Pricing Transparency</h2>
+  <p>As part of our commitment to compliance and responsible medication management, we shop multiple wholesalers to efficiently and responsibly source medications. This approach allows us to offer competitive pricing while maintaining pharmacy oversight and regulatory standards.</p>
+  <p>For pricing, product availability, and onboarding support, contact our National Sales Director, Julia Mollick, at juliam@sportpharm.com</p>
+  <p>For questions related to compliance, prescribing, or pharmacy oversight, connect with our President and Pharmacist, Brandon Welch, at brandonw@sportpharm.com</p>
   <div class="art-cta">
-    <p>Know how your routine works together</p>
-    <p class="sub">SportPharm can help organize your complete routine, identify important questions, and determine the appropriate next step.</p>
-    <a class="btn btn-white" href="medication-supplement-review.html">Request a Medication &amp; Supplement Review</a>
+    <p>Set up compliant in-house dispensing</p>
+    <p class="sub">For pricing, product availability, and onboarding support, connect with the SportPharm team.</p>
+    <a class="btn btn-white" href="#contact" data-open-contact>Contact our team</a>
   </div>
-  <div class="art-disc">This article is for general educational purposes and is not a substitute for professional medical advice.</div>
+  <div class="art-disc"><strong>This article provides general educational information</strong> and does not diagnose a condition or replace individualized medical advice. Always read the complete Drug Facts or prescription label and consult a qualified healthcare professional with questions about medication or injury care.</div>
   <div class="more">
     <h3>Keep Reading</h3>
-    <div class="more-grid"><a class="blog-card" href="article-medications-training-recovery.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/spx-cleansport.jpg" alt="How Medications Can Affect Training and Recovery" onerror="this.remove()"></div><div class="bd"><div class="cat">Medication</div><h3>How Medications Can Affect Training and Recovery</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-review-medications-supplements.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/spx-routine.jpg" alt="Why Review Medications and Supplements Together?" onerror="this.remove()"></div><div class="bd"><div class="cat">Education</div><h3>Why Review Medications and Supplements Together?</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
+    <div class="more-grid"><a class="blog-card" href="article-green-whistle-penthrox.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></span></div><div class="bd"><div class="cat">Sports Medicine</div><h3>The Green Whistle: What Sports-Medicine Teams Should Know About Penthrox</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-sportpharm-trushield-partnership.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4l11 4V6zM15 9a3 3 0 010 6M4 14h3l1 5"/></svg></span></div><div class="bd"><div class="cat">News</div><h3>SportPharm Partners With TruShield to Advance Clean Sport &amp; Athlete Safety</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
   </div>
 </article>
 <style>
@@ -514,11 +552,11 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
         <p class="modal-eyebrow"><i></i> Contact Us</p>
         <h2 id="contactTitle">Get in touch.</h2>
         <p class="modal-sub">Not sure what your next step should be? Send us a note and our team will reply from info@sportpharm.com.</p>
-        <span class="modal-source">From <b>Understanding NSAIDs: When and How to Use Them</b></span>
+        <span class="modal-source">From <b>The In-House Pharmacy Dispensing Playbook</b></span>
         <form id="contactForm" novalidate>
           <div class="field"><label for="cf_name">Name</label><input id="cf_name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="cf_email">Email</label><input id="cf_email" name="email" type="email" autocomplete="email" required></div>
-          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#667069">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#9aa3a0">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
           <div class="field"><label for="cf_message">Message</label><textarea id="cf_message" name="message" required></textarea></div>
           <button class="primary" type="submit">Send message <span>→</span></button>
         </form>
@@ -537,7 +575,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
        info@sportpharm.com. In the production Next.js + Payload build this POSTs
        to an API route that creates a Payload Lead and sends the notification. */
     (function(){
-      const SOURCE = "Everyday Athlete · Understanding NSAIDs: When and How to Use Them";
+      const SOURCE = "WasabiRub · The In-House Pharmacy Dispensing Playbook";
       const modal = document.getElementById("contactModal");
       const form = document.getElementById("contactForm");
       const wrap = document.getElementById("contactFormWrap");
@@ -577,5 +615,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
       });
     })();
   </script>
+<script>(function(){var items=document.querySelectorAll('.announcement .promo-item');if(items.length<2)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var i=0;setInterval(function(){items[i].classList.remove('is-active');i=(i+1)%items.length;items[i].classList.add('is-active');},2000);})();</script>
+
 </body>
 </html>

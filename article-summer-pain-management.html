@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Why Review Medications and Supplements Together? | SportPharm</title>
-<meta name="description" content="Reviewed separately, every product can look reasonable. Reviewed together, a routine can raise entirely different questions.">
+<title>5 Essential Summer Pain-Management Tips | WasabiRub</title>
+<meta name="description" content="Five practical, evidence-informed tips to manage pain, stay hydrated, and recover well through a high-activity summer.">
+<link rel="canonical" href="https://wasabirub.com/article-summer-pain-management.html">
 <style>
 :root{
   --sp-red:#d6202a;--sp-red-2:#a3161e;--navy:#18232e;--navy-2:#22303e;
@@ -213,7 +214,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 @media(max-width:560px){.need .row{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.final .wrap{flex-direction:column;align-items:flex-start}}
 
 /* ---- site chrome ---- */
-.menu{display:none}
+.header2 .menu{display:none}
 .header2{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.98);border-bottom:1px solid #e8eaec}
 .h2wrap{display:flex;align-items:center;gap:18px;height:76px;padding:0 4vw}
 .logo2{display:flex;flex-direction:column;line-height:1;flex-shrink:0}
@@ -244,7 +245,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .mobilemenu2.open{display:flex}
 .mobilemenu2 a{font-weight:600;font-size:14px;color:var(--ink);padding:12px 0;border-bottom:1px solid var(--line);text-transform:none}
 .mm2-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:12px 0 2px}
-@media(max-width:950px){.menu{background:none;border:0;display:block}.menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
+@media(max-width:950px){.header2 .menu{background:none;border:0;display:block}.header2 .menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
 @media(max-width:1120px){.mainnav2,.caps2{display:none}.header2 .menu{display:block;margin-left:auto}}
 :root{--red:var(--sp-red)}
 
@@ -299,9 +300,57 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 #contactModal .primary{width:100%;margin-top:6px;cursor:pointer;border:0;background:var(--red);color:#fff;padding:15px 20px;border-radius:8px;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.06em;font-family:inherit;transition:.2s}
 #contactModal .primary:hover{filter:brightness(.93)}
 #contactModal .primary:disabled{opacity:.6;cursor:default}
+
+/* ===== WasabiRub site nav (consistent across all pages) ===== */
+:root{--red:#d6202a;--deep:#0f1d33;--paper:#f4f5f6}
+.shell{width:min(1180px,calc(100% - 40px));margin:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.announcement{position:relative;height:34px;background:var(--red);color:#fff;overflow:hidden;font-size:11px;font-weight:800;letter-spacing:.13em;font-family:Arial,Helvetica,sans-serif}
+.promo-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;white-space:nowrap;opacity:0;transition:opacity .45s ease}
+.promo-item.is-active{opacity:1}
+header.nav{position:relative;z-index:100;background:#fff;height:82px;display:flex;align-items:center;justify-content:flex-start;gap:28px;border-bottom:0;font-family:Arial,Helvetica,sans-serif}
+.navlock{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:none;margin-right:30px}
+.navmark{display:flex;flex-direction:row;align-items:center;gap:9px;flex:none;color:var(--ink)}
+.navmark img{height:27px;width:auto;display:block}
+.navmark span{font-size:20px;font-weight:900;letter-spacing:-.022em;line-height:1}
+.navby{display:flex;flex-direction:row;align-items:center;gap:5px;flex:none;margin:0 0 0 36px}
+.navby i{font-style:normal;font-size:7.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#6d767e;line-height:1}
+.navby img{height:10px;width:auto;display:block;opacity:.85}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.menu{position:relative;display:block}
+.menu-top{display:inline-flex;align-items:center;gap:6px;padding:8px 0;cursor:pointer;color:var(--ink)}
+.nav-links .menu-top:hover{color:var(--red)}
+.caret{font-size:8px;transition:transform .2s}
+.menu:hover .caret,.menu:focus-within .caret{transform:rotate(180deg)}
+.dropdown{position:absolute;top:100%;left:-16px;min-width:214px;background:#fff;border:1px solid #e6e8ea;box-shadow:0 20px 44px rgba(16,24,32,.16);padding:8px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .18s,transform .18s;z-index:60}
+.menu:hover .dropdown,.menu:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown.shop-dd{min-width:326px;padding:11px}
+.shop-dd a.dd-item,.shop-dd span.dd-item{display:flex;align-items:center;gap:13px;padding:9px 7px;border-radius:7px;color:var(--ink)}
+.shop-dd a.dd-item:hover{background:var(--paper)}
+.shop-dd .dd-thumb{flex:none;width:46px;height:46px;border-radius:6px;background:var(--paper);display:grid;place-items:center;overflow:hidden}
+.shop-dd .dd-thumb img{width:90%;height:90%;object-fit:contain;display:block}
+.shop-dd .dd-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.shop-dd .dd-txt b{font-size:12px;font-weight:900;letter-spacing:.04em}
+.shop-dd .dd-txt small{font-size:10.5px;font-weight:600;color:#5a6672;white-space:nowrap;letter-spacing:0}
+.shop-dd span.dd-item.is-soon{opacity:.5;cursor:default}
+.shop-dd .is-soon .dd-thumb{background:#eceff1}
+.nav-right{display:flex;align-items:center;gap:26px;margin-left:auto}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.nav-cta:hover{color:var(--red)}
+.cart{position:relative;display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.cart:hover{color:var(--red)}
+.cart-count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:800}
+@media(max-width:820px){
+  header.nav{flex-wrap:wrap;height:auto;padding:10px 0;gap:14px}
+  .navlock{margin-right:0}
+  .navmark img{height:24px}.navmark span{font-size:17px}
+  .nav-right{order:1;margin-left:auto;gap:18px}
+  .nav-links{order:2;width:100%;gap:22px;overflow-x:auto;padding:4px 0 6px}
+  .nav-links::-webkit-scrollbar{display:none}
+  .dropdown.shop-dd{left:0;width:min(300px,86vw)}
+}
 </style>
-<style>
-.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
+<style>.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
 .art-top{padding:46px 0 6px;text-align:center}
 .backlink{display:inline-flex;align-items:center;gap:6px;font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:.82rem;color:var(--sp-red);margin-bottom:20px}
 .backlink svg{width:13px;height:13px;transform:rotate(180deg)}
@@ -328,107 +377,96 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .art-body a{color:var(--sp-red);font-weight:600;text-decoration:underline;text-underline-offset:2px}
 .art-body a[target="_blank"]::after{content:"\2197";font-size:.72em;margin-left:3px;vertical-align:1px;text-decoration:none;display:inline-block}
 .art-cta .sub{font-family:Arial,Helvetica,sans-serif;font-size:.95rem;font-weight:400;line-height:1.62;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.82);max-width:56ch;margin:0 auto 22px}
+.art-disc{max-width:62ch;margin:0 auto;color:#55606a}
+.art-disc a{color:var(--sp-red);font-weight:600}
+.art-note{border-left:3px solid var(--sp-red);background:#fbf6f6;padding:14px 18px;margin:0 0 20px;font-size:1.02rem;line-height:1.68;color:#3f4852}
+.art-body>p.q{font-family:Georgia,serif;font-weight:700;font-size:1.14rem;line-height:1.55;color:var(--ink)}
 @media(max-width:760px){.art-title{font-size:2.5rem}.more-grid{grid-template-columns:1fr}}
-/* index page */
-.idx-head{padding:52px 0 8px;text-align:center}
-.idx-head h1{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;font-size:3.4rem;color:var(--ink);margin-bottom:10px}
-.idx-head p{font-size:1.08rem;color:var(--body);max-width:52ch;margin:0 auto}
-.idx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:34px 0 70px}
-@media(max-width:900px){.idx-grid{grid-template-columns:1fr}}
+
+.art-body h3{font-family:Arial,Helvetica,sans-serif;font-weight:800;font-size:1.24rem;color:var(--ink);margin:24px 0 8px}
+.art-banner .bimg{display:grid;place-items:center}
+.art-banner .bimg svg{width:88px;height:88px;color:rgba(255,255,255,.22)}
+.art-byline{font-size:.85rem;color:var(--muted);margin-top:12px}
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b">
+</head>
 <body>
-<header class="header2">
-    <div class="h2wrap">
-      <a class="logo2" href="athlete-hub.html"><img src="assets/wordmark-dark.png" alt="SportPharm"><span class="tag2">Stay ready for whatever moves you.</span></a>
-      <nav class="mainnav2">
-        <div class="ni">
-          <button class="nl">What Brings You Here <svg class="crt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="dd"><a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a></div>
-        </div>
-        <a class="nl" href="articles.html">Articles</a>
-        <a class="nl" href="#contact" data-open-contact>Contact</a>
-      </nav>
-      <div class="caps2">
-        <a class="cap2 capred" href="wasabirub.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg> WasabiRub</a>
-        <div class="ptoggle" role="group" aria-label="Choose your experience"><a class="pt-opt on" href="athlete-hub.html">Everyday Athlete</a><a class="pt-opt" href="pro-athlete.html">Pro Athlete</a><a class="pt-opt" href="sports-medicine.html">Healthcare / AT</a></div>
+<div class="announcement">
+  <span class="sr-only">Free shipping on all orders. Buy direct from the pharmacists who made it.</span>
+  <span class="promo-item is-active">FREE SHIPPING ON ALL ORDERS</span>
+  <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
+</div>
+<header class="nav shell">
+  <div class="navlock"><a class="navmark" href="index.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <div class="menu">
+      <a class="menu-top" href="wasabirub-shop.html">SHOP <span class="caret">&#8964;</span></a>
+      <div class="dropdown shop-dd">
+        <a class="dd-item" href="wasabirub.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced cool + heat</small></span></a>
+        <a class="dd-item" href="wasabirub-super-hot.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Hot</b><small>Maximum warming relief</small></span></a>
+        <a class="dd-item" href="wasabirub-super-cold.html"><span class="dd-thumb"><img src="assets/wr-supercold-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Cold</b><small>Pure cooling relief</small></span></a>
+        <span class="dd-item is-soon" aria-disabled="true"><span class="dd-thumb"></span><span class="dd-txt"><b>LidoRub</b><small>Coming soon</small></span></span>
       </div>
-      <button class="menu" aria-label="Toggle navigation" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
-    <nav class="mobilemenu2" id="mobilemenu2">
-      <div class="mm2-lbl">What Brings You Here</div>
-      <a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a>
-      <a href="articles.html">Articles</a>
-      <a href="#contact" data-open-contact>Contact</a>
-      <a href="wasabirub.html">WasabiRub</a>
-      <div class="mm2-lbl">I&rsquo;m a</div>
-      <a href="athlete-hub.html">Everyday Athlete</a><a href="pro-athlete.html">Pro Athlete</a><a href="sports-medicine.html">Healthcare / Athletic Trainer</a>
-    </nav>
-  </header>
+    <a class="menu-top" href="how-it-works.html">WHY WASABIRUB</a>
+    <a class="menu-top" href="quality.html">QUALITY</a>
+    <a class="menu-top" href="articles.html">ARTICLES</a>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="sportpharm" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
+    
+  </div>
+</header>
 <div class="art-top artwrap">
   <a class="backlink" href="articles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All Articles</a>
-  <div><span class="art-cat">Education</span></div>
-  <h1 class="art-title">Why Review Medications and Supplements Together?</h1>
-  <p class="art-lead">A medication list rarely tells the whole story.</p>
+  <div><span class="art-cat">Recovery</span></div>
+  <h1 class="art-title">5 Essential Summer Pain-Management Tips</h1>
+  <p class="art-lead">Summer brings more activity, longer days, and more time outdoors &mdash; and more stress on the body. Here&rsquo;s how to stay active and recover smart when the heat is on.</p>
 </div>
-<div class="art-banner"><div class="bimg"><img src="assets/spx-routine.jpg" alt="Medications and supplements laid out together for review" onerror="this.parentNode.style.aspectRatio='16/5'"></div></div>
+<div class="art-banner"><div class="bimg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l1.8-4.5 3.2 9 2-4.5H21"/></svg></div></div>
 <article class="art-body artwrap">
-  <p>An athlete may report two prescriptions while also using an allergy product, occasional pain reliever, electrolyte mix, multivitamin, sleep aid, protein powder, pre-workout formula, and several recovery supplements.</p>
-  <p>If those products are reviewed separately, every individual choice may appear straightforward. Viewed together, they may raise entirely different questions.</p>
-  <p>That is why a complete medication and supplement review matters.</p>
-  <h2>Your body does not separate products by category</h2>
-  <p>Prescriptions, over-the-counter medications, supplements, energy products, and topical treatments may be regulated and marketed differently.</p>
-  <p>The body still experiences them together.</p>
-  <p>One product may influence the way another is absorbed or processed. Two products may produce similar side effects. Several may affect the same body system. A supplement may complicate a health condition or interact with prescribed treatment.</p>
-  <p>A complete review helps identify the cumulative effect&amp;mdash;not just the purpose printed on each label.</p>
-  <h2>Overlapping ingredients are easy to miss</h2>
-  <p>Duplicate ingredients are not always obvious.</p>
-  <p>An athlete might use:</p>
-  <ul><li>A standalone pain reliever and a multi-symptom cold product containing the same ingredient</li><li>A multivitamin plus separate products containing the same vitamins or minerals</li><li>A pre-workout and energy product that both contain caffeine</li><li>Several "recovery" formulas with overlapping herbal ingredients</li><li>A sleep supplement combined with a medication that causes drowsiness</li></ul>
-  <p>Different brand names and benefit claims can make products feel unrelated even when their ingredient panels overlap.</p>
-  <p>This is particularly important with combination products. Reviewing the full label&amp;mdash;not only the product name or front-of-package claims&amp;mdash;is essential.</p>
-  <h2>Side effects can add up</h2>
-  <p>One product may have a manageable effect on its own. Several products with similar effects may change the picture.</p>
-  <p>Potential areas of overlap include:</p>
-  <ul><li>Drowsiness or impaired coordination</li><li>Stimulation, restlessness, or disrupted sleep</li><li>Blood pressure or heart-rate effects</li><li>Bleeding risk</li><li>Gastrointestinal irritation</li><li>Dehydration or electrolyte changes</li><li>Heat sensitivity</li><li>Blood sugar effects</li></ul>
-  <p>Risk depends on the specific ingredients, amounts, frequency of use, medical history, and training environment. A list of products is only the starting point; context determines why the combination matters.</p>
-  <h2>Supplements are not reviewed like medications before sale</h2>
-  <p>Medications and dietary supplements do not go through the same regulatory process.</p>
-  <p>The FDA generally reviews new drugs for safety and effectiveness before approval. Dietary supplements are regulated under a different framework, and the FDA does not approve them for safety and effectiveness before they reach the market. Manufacturers are responsible for ensuring that their products comply with applicable requirements. <a href="https://www.fda.gov/consumers/consumer-updates/fda-101-dietary-supplements" target="_blank" rel="noopener">FDA dietary supplement information</a></p>
-  <p>This does not mean every supplement is dangerous or ineffective. It means athletes should not assume that "available for purchase" provides the same assurance as an approved medication.</p>
-  <p>The FDA advises consumers to tell healthcare professionals about all supplements they use because supplements may interact with medications, interfere with laboratory tests, or create problems around medical procedures.</p>
-  <h2>The goal of a review is not to eliminate everything</h2>
-  <p>A good review is not an automatic recommendation to stop every supplement.</p>
-  <p>It asks:</p>
-  <ul><li>What is the athlete trying to accomplish?</li><li>Is there a clear reason for each product?</li><li>Is there evidence that supports its use?</li><li>Does it duplicate something else?</li><li>Could it interact with medication or a health condition?</li><li>Is the amount appropriate?</li><li>Is the athlete noticing a benefit or unwanted effect?</li><li>Is there a lower-risk or simpler alternative?</li><li>Does it introduce competition risk?</li></ul>
-  <p>Sometimes the outcome is to continue the routine. Sometimes it is to simplify it, adjust timing with professional guidance, gather more information, or discuss an alternative with the prescriber.</p>
-  <h2>Clean-sport risk requires a separate review</h2>
-  <p>For drug-tested athletes, supplement use introduces concerns beyond ordinary interactions.</p>
-  <p>USADA explains that medications and supplements are regulated differently and that dietary supplement labels may not always reliably represent their contents. It recommends that athletes evaluate supplement risk rather than assuming a product is safe because it is legal, natural, or widely available. <a href="https://www.usada.org/dietary-supplements/medications-vs-supplements/" target="_blank" rel="noopener">USADA medications versus supplements</a></p>
-  <p>Global DRO can help athletes check the prohibited status of many medications. It does not evaluate dietary supplements. <a href="https://www.usada.org/durl/global-dro-ext/" target="_blank" rel="noopener">Global DRO</a></p>
-  <p>Third-party certification can help reduce supplement risk, but it cannot create a universal guarantee. Athletes remain responsible for substances found in their bodies under applicable anti-doping rules.</p>
-  <p>A supplement review should therefore consider:</p>
-  <ul><li>The complete ingredient label</li><li>Product and lot information</li><li>Manufacturer transparency</li><li>Independent certification</li><li>High-risk marketing claims</li><li>The athlete's governing organization</li><li>The current WADA Prohibited List</li><li>Whether the product is necessary at all</li></ul>
-  <h2>Routines change faster than medication lists</h2>
-  <p>A one-time review is useful, but it should not be treated as permanent.</p>
-  <p>The routine may need another look when:</p>
-  <ul><li>A medication is started, stopped, or adjusted</li><li>A supplement is added</li><li>A product changes formulation</li><li>The athlete's health changes</li><li>Training volume or environment changes</li><li>The athlete begins traveling more frequently</li><li>A competition approaches</li><li>The governing rules are updated</li><li>A new symptom appears</li></ul>
-  <p>Athletes should also include occasional products. Something used only for allergies, colds, headaches, sleep, or travel can still matter.</p>
-  <h2>How to prepare for a complete review</h2>
-  <p>Bring or document:</p>
-  <ul><li>All prescription medications</li><li>OTC medications</li><li>Vitamins and minerals</li><li>Protein, energy, hydration, and recovery products</li><li>Herbal and botanical supplements</li><li>Topical products</li><li>Products used only occasionally</li><li>Photos of complete labels</li><li>Dose and frequency</li><li>Reason for using each item</li><li>Sport and governing organization</li><li>Upcoming competition and travel dates</li><li>Questions or symptoms you want to discuss</li></ul>
-  <p>Do not rely on memory when a product label is available. Exact ingredients and amounts matter.</p>
-  <h2>One routine. One complete picture.</h2>
-  <p>Reviewing medications without supplements leaves gaps. Reviewing supplements without considering prescriptions and health conditions does the same.</p>
+  <h3>Stay Active, Recover Smarter, and Keep Cool with Icetra</h3>
+  <p>Summer brings increased activity, longer days, and more time outdoors, but also adds stress to the body. Heat, dehydration, and repetitive movement contribute to muscle soreness, joint discomfort, and inflammation.</p>
+  <p>Adjusting your recovery routine for summer can make a meaningful difference in how you feel daily. Below are five essential strategies to manage pain, support recovery, and stay consistent throughout the season.</p>
+  <h2>1. Prioritize Hydration</h2>
+  <p>Hydration plays a critical role in muscle function, recovery, and performance. When fluid levels are low, the body is more prone to fatigue, tightness, and prolonged soreness.</p>
+  <p>A general guideline is 9–13 cups of water per day, though activity and heat exposure may require more.</p>
+  <p>Common signs of dehydration include:</p>
+  <ul><li>Dry mouth</li><li>Fatigue</li><li>Dizziness</li><li>Dark-colored urine</li></ul>
+  <p>Monitoring hydration can be as simple as checking urine color; pale yellow usually indicates adequate hydration. Keeping a reusable water bottle nearby or setting reminders helps maintain consistent intake throughout the day.</p>
+  <h2>2. Adjust Activity for Heat and Intensity</h2>
+  <p>High temperatures place additional strain on the body, especially during peak daylight hours. Modifying your routine helps reduce unnecessary stress while maintaining consistency.</p>
+  <p>Consider:</p>
+  <ul><li>Training in the early morning or evening</li><li>Incorporating lower-impact activities such as swimming or walking</li><li>Allowing flexibility in intensity on particularly hot days</li></ul>
+  <p>These adjustments support both performance and recovery over time.</p>
+  <h2>3. Incorporate Cooling Strategies</h2>
+  <p>In summer, recovery often benefits from a cooling approach rather than heat.</p>
+  <p>IcetraRub, with 16% menthol, delivers a strong cooling sensation to targeted areas after activity, making it a practical option in warmer conditions.</p>
+  <p>For those who prefer alternating approaches, heat and cooling-based topicals such as WasabiRub can still play a role, but it all depends on the individual's preference.</p>
+  <h2>4. Maintain a Cool Environment</h2>
+  <p>External temperature influences how the body responds to physical stress. Maintaining a cooler environment helps reduce discomfort from heat.</p>
+  <p>Simple strategies are:</p>
+  <ul><li>Using air conditioning or fans</li><li>Taking breaks indoors after prolonged outdoor activity</li><li>Allowing the body to cool down before resuming activity</li></ul>
+  <h2>5. Build Recovery into Your Routine</h2>
+  <p>Consistent recovery is essential for long-term performance and injury prevention. Rest days let the body repair and adapt, reducing the likelihood of overuse discomfort.</p>
+  <p>Incorporating lower-intensity recovery practices like stretching, walking, or yoga supports both physical and mental recovery. Listening to your body and adjusting when needed is key. Recovery is a critical part of any sustainable routine.</p>
+  <h2>Ice and Heat Therapy: A Practical Approach</h2>
+  <p>Both cold and heat therapy can be effective tools for managing discomfort associated with activity.</p>
+  <ul><li>Cold therapy, including ice and cooling topicals, is often used after activity or to address localized irritation.</li><li>Heat therapy may be beneficial in more controlled settings or for general muscle relaxation.</li></ul>
+  <p>Selecting the appropriate method depends on timing, environment, and individual preference.</p>
+  <h2>Stay Cool with Icetra</h2>
+  <p>Summer activity doesn’t need to come at the expense of comfort or consistency. With the right approach to hydration, activity, and recovery, you can stay active throughout the season.</p>
+  <p>IcetraRub, featuring a 16% menthol formulation, is designed to support a cooling-focused recovery routine, helping you stay comfortable, consistent, and prepared for whatever summer brings.</p>
+  <p>Consistency and small practical changes are key to summer pain management. Hydrate consistently, adapt activities, and prioritize recovery. Take action today: adjust your routine, stay hydrated, and build in recovery with IcetraRub, so you can feel your best all summer long.</p>
   <div class="art-cta">
-    <p>One routine. One complete picture.</p>
-    <p class="sub">SportPharm can help organize what you take, identify possible overlap or interaction questions, and determine which items need additional clinical or clean-sport review.</p>
-    <a class="btn btn-white" href="medication-supplement-review.html">Review My Full Routine</a>
+    <p>Cooling relief when the heat is on</p>
+    <p class="sub">Pure cooling menthol for fast, targeted relief after a hot summer session.</p>
+    <a class="btn btn-white" href="wasabirub-super-cold.html">Shop WasabiRub Super Cold</a>
   </div>
-  <div class="art-disc">This article is for general educational purposes and is not a substitute for professional medical advice.</div>
+  <div class="art-disc"><strong>This article provides general educational information</strong> and does not diagnose a condition or replace individualized medical advice. Always read the complete Drug Facts or prescription label and consult a qualified healthcare professional with questions about medication or injury care.</div>
   <div class="more">
     <h3>Keep Reading</h3>
-    <div class="more-grid"><a class="blog-card" href="article-what-is-sports-pharmacy.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/spx-hero.jpg" alt="What Is Sports Pharmacy?" onerror="this.remove()"></div><div class="bd"><div class="cat">Education</div><h3>What Is Sports Pharmacy?</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-medications-training-recovery.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/spx-cleansport.jpg" alt="How Medications Can Affect Training and Recovery" onerror="this.remove()"></div><div class="bd"><div class="cat">Medication</div><h3>How Medications Can Affect Training and Recovery</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
+    <div class="more-grid"><a class="blog-card" href="article-evidence-based-recovery.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l1.8-4.5 3.2 9 2-4.5H21"/></svg></span></div><div class="bd"><div class="cat">Recovery</div><h3>Recovery Isn&rsquo;t One-Size-Fits-All</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-anti-inflammatory-compounds.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></span></div><div class="bd"><div class="cat">Sports Medicine</div><h3>Anti-Inflammatory Compounds in Sports Medicine</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
   </div>
 </article>
 <style>
@@ -525,11 +563,11 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
         <p class="modal-eyebrow"><i></i> Contact Us</p>
         <h2 id="contactTitle">Get in touch.</h2>
         <p class="modal-sub">Not sure what your next step should be? Send us a note and our team will reply from info@sportpharm.com.</p>
-        <span class="modal-source">From <b>Understanding NSAIDs: When and How to Use Them</b></span>
+        <span class="modal-source">From <b>5 Essential Summer Pain-Management Tips</b></span>
         <form id="contactForm" novalidate>
           <div class="field"><label for="cf_name">Name</label><input id="cf_name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="cf_email">Email</label><input id="cf_email" name="email" type="email" autocomplete="email" required></div>
-          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#667069">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#9aa3a0">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
           <div class="field"><label for="cf_message">Message</label><textarea id="cf_message" name="message" required></textarea></div>
           <button class="primary" type="submit">Send message <span>→</span></button>
         </form>
@@ -548,7 +586,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
        info@sportpharm.com. In the production Next.js + Payload build this POSTs
        to an API route that creates a Payload Lead and sends the notification. */
     (function(){
-      const SOURCE = "Everyday Athlete · Understanding NSAIDs: When and How to Use Them";
+      const SOURCE = "WasabiRub · 5 Essential Summer Pain-Management Tips";
       const modal = document.getElementById("contactModal");
       const form = document.getElementById("contactForm");
       const wrap = document.getElementById("contactFormWrap");
@@ -588,5 +626,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
       });
     })();
   </script>
+<script>(function(){var items=document.querySelectorAll('.announcement .promo-item');if(items.length<2)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var i=0;setInterval(function(){items[i].classList.remove('is-active');i=(i+1)%items.length;items[i].classList.add('is-active');},2000);})();</script>
+
 </body>
 </html>

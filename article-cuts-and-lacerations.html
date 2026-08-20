@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Why Does the Same Pain Keep Coming Back? | SportPharm</title>
+<title>Why Athletic Trainers Need to Be Ready for Cuts and Lacerations | WasabiRub</title>
+<meta name="description" content="A practical guide for athletic trainers on preparing for, assessing, and managing cuts and lacerations on the sideline.">
+<link rel="canonical" href="https://wasabirub.com/article-cuts-and-lacerations.html">
 <style>
 :root{
   --sp-red:#d6202a;--sp-red-2:#a3161e;--navy:#18232e;--navy-2:#22303e;
@@ -212,7 +214,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 @media(max-width:560px){.need .row{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.final .wrap{flex-direction:column;align-items:flex-start}}
 
 /* ---- site chrome ---- */
-.menu{display:none}
+.header2 .menu{display:none}
 .header2{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.98);border-bottom:1px solid #e8eaec}
 .h2wrap{display:flex;align-items:center;gap:18px;height:76px;padding:0 4vw}
 .logo2{display:flex;flex-direction:column;line-height:1;flex-shrink:0}
@@ -243,7 +245,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .mobilemenu2.open{display:flex}
 .mobilemenu2 a{font-weight:600;font-size:14px;color:var(--ink);padding:12px 0;border-bottom:1px solid var(--line);text-transform:none}
 .mm2-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:12px 0 2px}
-@media(max-width:950px){.menu{background:none;border:0;display:block}.menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
+@media(max-width:950px){.header2 .menu{background:none;border:0;display:block}.header2 .menu i{background:var(--navy);display:block;height:2px;margin:5px;width:24px}}
 @media(max-width:1120px){.mainnav2,.caps2{display:none}.header2 .menu{display:block;margin-left:auto}}
 :root{--red:var(--sp-red)}
 
@@ -298,9 +300,57 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 #contactModal .primary{width:100%;margin-top:6px;cursor:pointer;border:0;background:var(--red);color:#fff;padding:15px 20px;border-radius:8px;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.06em;font-family:inherit;transition:.2s}
 #contactModal .primary:hover{filter:brightness(.93)}
 #contactModal .primary:disabled{opacity:.6;cursor:default}
+
+/* ===== WasabiRub site nav (consistent across all pages) ===== */
+:root{--red:#d6202a;--deep:#0f1d33;--paper:#f4f5f6}
+.shell{width:min(1180px,calc(100% - 40px));margin:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.announcement{position:relative;height:34px;background:var(--red);color:#fff;overflow:hidden;font-size:11px;font-weight:800;letter-spacing:.13em;font-family:Arial,Helvetica,sans-serif}
+.promo-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;white-space:nowrap;opacity:0;transition:opacity .45s ease}
+.promo-item.is-active{opacity:1}
+header.nav{position:relative;z-index:100;background:#fff;height:82px;display:flex;align-items:center;justify-content:flex-start;gap:28px;border-bottom:0;font-family:Arial,Helvetica,sans-serif}
+.navlock{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:none;margin-right:30px}
+.navmark{display:flex;flex-direction:row;align-items:center;gap:9px;flex:none;color:var(--ink)}
+.navmark img{height:27px;width:auto;display:block}
+.navmark span{font-size:20px;font-weight:900;letter-spacing:-.022em;line-height:1}
+.navby{display:flex;flex-direction:row;align-items:center;gap:5px;flex:none;margin:0 0 0 36px}
+.navby i{font-style:normal;font-size:7.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#6d767e;line-height:1}
+.navby img{height:10px;width:auto;display:block;opacity:.85}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.menu{position:relative;display:block}
+.menu-top{display:inline-flex;align-items:center;gap:6px;padding:8px 0;cursor:pointer;color:var(--ink)}
+.nav-links .menu-top:hover{color:var(--red)}
+.caret{font-size:8px;transition:transform .2s}
+.menu:hover .caret,.menu:focus-within .caret{transform:rotate(180deg)}
+.dropdown{position:absolute;top:100%;left:-16px;min-width:214px;background:#fff;border:1px solid #e6e8ea;box-shadow:0 20px 44px rgba(16,24,32,.16);padding:8px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .18s,transform .18s;z-index:60}
+.menu:hover .dropdown,.menu:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown.shop-dd{min-width:326px;padding:11px}
+.shop-dd a.dd-item,.shop-dd span.dd-item{display:flex;align-items:center;gap:13px;padding:9px 7px;border-radius:7px;color:var(--ink)}
+.shop-dd a.dd-item:hover{background:var(--paper)}
+.shop-dd .dd-thumb{flex:none;width:46px;height:46px;border-radius:6px;background:var(--paper);display:grid;place-items:center;overflow:hidden}
+.shop-dd .dd-thumb img{width:90%;height:90%;object-fit:contain;display:block}
+.shop-dd .dd-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.shop-dd .dd-txt b{font-size:12px;font-weight:900;letter-spacing:.04em}
+.shop-dd .dd-txt small{font-size:10.5px;font-weight:600;color:#5a6672;white-space:nowrap;letter-spacing:0}
+.shop-dd span.dd-item.is-soon{opacity:.5;cursor:default}
+.shop-dd .is-soon .dd-thumb{background:#eceff1}
+.nav-right{display:flex;align-items:center;gap:26px;margin-left:auto}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.nav-cta:hover{color:var(--red)}
+.cart{position:relative;display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.09em}
+.cart:hover{color:var(--red)}
+.cart-count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:800}
+@media(max-width:820px){
+  header.nav{flex-wrap:wrap;height:auto;padding:10px 0;gap:14px}
+  .navlock{margin-right:0}
+  .navmark img{height:24px}.navmark span{font-size:17px}
+  .nav-right{order:1;margin-left:auto;gap:18px}
+  .nav-links{order:2;width:100%;gap:22px;overflow-x:auto;padding:4px 0 6px}
+  .nav-links::-webkit-scrollbar{display:none}
+  .dropdown.shop-dd{left:0;width:min(300px,86vw)}
+}
 </style>
-<style>
-.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
+<style>.artwrap{max-width:748px;margin:0 auto;padding:0 26px}
 .art-top{padding:46px 0 6px;text-align:center}
 .backlink{display:inline-flex;align-items:center;gap:6px;font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:.82rem;color:var(--sp-red);margin-bottom:20px}
 .backlink svg{width:13px;height:13px;transform:rotate(180deg)}
@@ -320,88 +370,119 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
 .more{border-top:1px solid var(--line);margin-top:40px;padding:38px 0 20px}
 .more h3{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;text-align:center;font-size:1.5rem;letter-spacing:.04em;color:var(--ink);margin-bottom:22px}
 .more-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto}
+
+.art-body ul,.art-body ol{margin:0 0 20px;padding-left:22px;color:#3f4852;font-size:1.05rem;line-height:1.72}
+.art-body li{margin-bottom:9px}
+.art-body li strong{color:var(--ink)}
+.art-body a{color:var(--sp-red);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.art-body a[target="_blank"]::after{content:"\2197";font-size:.72em;margin-left:3px;vertical-align:1px;text-decoration:none;display:inline-block}
+.art-cta .sub{font-family:Arial,Helvetica,sans-serif;font-size:.95rem;font-weight:400;line-height:1.62;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.82);max-width:56ch;margin:0 auto 22px}
+.art-disc{max-width:62ch;margin:0 auto;color:#55606a}
+.art-disc a{color:var(--sp-red);font-weight:600}
+.art-note{border-left:3px solid var(--sp-red);background:#fbf6f6;padding:14px 18px;margin:0 0 20px;font-size:1.02rem;line-height:1.68;color:#3f4852}
+.art-body>p.q{font-family:Georgia,serif;font-weight:700;font-size:1.14rem;line-height:1.55;color:var(--ink)}
 @media(max-width:760px){.art-title{font-size:2.5rem}.more-grid{grid-template-columns:1fr}}
-/* index page */
-.idx-head{padding:52px 0 8px;text-align:center}
-.idx-head h1{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;font-size:3.4rem;color:var(--ink);margin-bottom:10px}
-.idx-head p{font-size:1.08rem;color:var(--body);max-width:52ch;margin:0 auto}
-.idx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:34px 0 70px}
-@media(max-width:900px){.idx-grid{grid-template-columns:1fr}}
+
+.art-body h3{font-family:Arial,Helvetica,sans-serif;font-weight:800;font-size:1.24rem;color:var(--ink);margin:24px 0 8px}
+.art-banner .bimg{display:grid;place-items:center}
+.art-banner .bimg svg{width:88px;height:88px;color:rgba(255,255,255,.22)}
+.art-byline{font-size:.85rem;color:var(--muted);margin-top:12px}
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"></head>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b">
+</head>
 <body>
-<header class="header2">
-    <div class="h2wrap">
-      <a class="logo2" href="athlete-hub.html"><img src="assets/wordmark-dark.png" alt="SportPharm"><span class="tag2">Stay ready for whatever moves you.</span></a>
-      <nav class="mainnav2">
-        <div class="ni">
-          <button class="nl">What Brings You Here <svg class="crt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="dd"><a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a></div>
-        </div>
-        <a class="nl" href="articles.html">Articles</a>
-        <a class="nl" href="#contact" data-open-contact>Contact</a>
-      </nav>
-      <div class="caps2">
-        <a class="cap2 capred" href="wasabirub.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></svg> WasabiRub</a>
-        <div class="ptoggle" role="group" aria-label="Choose your experience"><a class="pt-opt on" href="athlete-hub.html">Everyday Athlete</a><a class="pt-opt" href="pro-athlete.html">Pro Athlete</a><a class="pt-opt" href="sports-medicine.html">Healthcare / AT</a></div>
+<div class="announcement">
+  <span class="sr-only">Free shipping on all orders. Buy direct from the pharmacists who made it.</span>
+  <span class="promo-item is-active">FREE SHIPPING ON ALL ORDERS</span>
+  <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
+</div>
+<header class="nav shell">
+  <div class="navlock"><a class="navmark" href="index.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <div class="menu">
+      <a class="menu-top" href="wasabirub-shop.html">SHOP <span class="caret">&#8964;</span></a>
+      <div class="dropdown shop-dd">
+        <a class="dd-item" href="wasabirub.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced cool + heat</small></span></a>
+        <a class="dd-item" href="wasabirub-super-hot.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Hot</b><small>Maximum warming relief</small></span></a>
+        <a class="dd-item" href="wasabirub-super-cold.html"><span class="dd-thumb"><img src="assets/wr-supercold-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Cold</b><small>Pure cooling relief</small></span></a>
+        <span class="dd-item is-soon" aria-disabled="true"><span class="dd-thumb"></span><span class="dd-txt"><b>LidoRub</b><small>Coming soon</small></span></span>
       </div>
-      <button class="menu" aria-label="Toggle navigation" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
-    <nav class="mobilemenu2" id="mobilemenu2">
-      <div class="mm2-lbl">What Brings You Here</div>
-      <a href="push-through-or-stop.html">Push Through or Stop?</a><a href="recovery-made-simple.html">Recovery Made Simple</a><a href="sports-pharmacy-explained.html">Sports Pharmacy Explained</a><a href="is-this-for-me.html">Is This for Me?</a>
-      <a href="articles.html">Articles</a>
-      <a href="#contact" data-open-contact>Contact</a>
-      <a href="wasabirub.html">WasabiRub</a>
-      <div class="mm2-lbl">I&rsquo;m a</div>
-      <a href="athlete-hub.html">Everyday Athlete</a><a href="pro-athlete.html">Pro Athlete</a><a href="sports-medicine.html">Healthcare / Athletic Trainer</a>
-    </nav>
-  </header>
+    <a class="menu-top" href="how-it-works.html">WHY WASABIRUB</a>
+    <a class="menu-top" href="quality.html">QUALITY</a>
+    <a class="menu-top" href="articles.html">ARTICLES</a>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="sportpharm" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
+    
+  </div>
+</header>
 <div class="art-top artwrap">
   <a class="backlink" href="articles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All Articles</a>
-  <div><span class="art-cat">Recurring Pain</span></div>
-  <h1 class="art-title">Why Does the Same Pain Keep Coming Back?</h1>
-  <p class="art-lead">You rest until it feels better. You return to your normal routine. A few workouts later, the same pain is back.</p>
+  <div><span class="art-cat">Sports Medicine</span></div>
+  <h1 class="art-title">Why Athletic Trainers Need to Be Ready for Cuts and Lacerations</h1>
+  <p class="art-lead">Cuts and lacerations are among the most common &mdash; and most time-sensitive &mdash; issues an athletic trainer manages. Preparation makes the difference.</p>
 </div>
-<div class="art-banner"><div class="bimg"><img src="assets/ea-recurring.jpg?v=2" alt="Why Does the Same Pain Keep Coming Back?" onerror="this.parentNode.style.aspectRatio='16/5'"></div></div>
+<div class="art-banner"><div class="bimg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></div></div>
 <article class="art-body artwrap">
-<p>You rest until it feels better. You return to your normal routine. A few workouts later, the same pain is back.</p>
-<p>Recurring pain can feel unpredictable, but the pattern often contains useful clues. Rest may calm symptoms without changing the workload, movement, recovery, equipment, or health factor that helped create the problem. When the original demand returns, the symptoms may return with it.</p>
-<p>That does not mean you should diagnose yourself. It means the cycle is worth examining.</p>
-<h2>Relief is not always resolution</h2>
-<p>Feeling better during a break tells you that reducing the demand helped. It does not necessarily tell you why the area became irritated or whether it is ready for the exact same workload.</p>
-<p>Recurring symptoms can be influenced by:</p>
-<ul><li>increasing training volume or intensity too quickly;</li><li>repeating one movement without enough variation or recovery;</li><li>returning at full speed after time away;</li><li>technique that changes under fatigue;</li><li>footwear, equipment, playing surface, or bike setup;</li><li>limited strength, mobility, or control for the task;</li><li>a previous injury that never fully regained capacity;</li><li>sleep, stress, nutrition, medications, or an underlying health issue.</li></ul>
-<p>Several factors can be present at once. Generic advice often misses this because the same location can hurt for different reasons in different people.</p>
-<h2>Track the pattern, not just the pain score</h2>
-<p>For one to two weeks, record:</p>
-<ul><li>the exact location and type of sensation;</li><li>when it begins—during warm-up, at a certain distance or weight, after training, or the next day;</li><li>which movements increase or decrease it;</li><li>recent changes in volume, load, pace, frequency, terrain, or equipment;</li><li>whether it changes how you walk, lift, pedal, throw, or sleep;</li><li>how long it takes to settle.</li></ul>
-<p>This is not a self-diagnosis. It is useful context for deciding whether your plan needs to change and for helping a clinician understand the issue.</p>
-<h2>Break the repeat-and-rest cycle</h2>
-<p>A better return is usually graduated. Start below the level that reliably provokes the problem. Change one training variable at a time, then observe the response during the session and afterward.</p>
-<p>For example, a runner might reduce distance while keeping the route easy. A lifter might reduce load and range of motion before adding weight again. A pickleball player might shorten play time before returning to multiple consecutive games.</p>
-<p>If symptoms return, do not keep escalating. Step back to an easier level that does not increase them. Repeatedly pushing to the same flare point gives you the same information at a higher cost.</p>
-<h2>When recurring pain should be evaluated</h2>
-<p>Schedule an assessment when the pain:</p>
-<ul><li>keeps returning despite reasonable changes;</li><li>appears earlier or at lower effort;</li><li>becomes more intense or more localized;</li><li>causes weakness, instability, numbness, or tingling;</li><li>affects walking, sleep, work, or other daily activity;</li><li>follows a significant injury;</li><li>requires frequent medication in order to stay active.</li></ul>
-<p>Depending on the issue and your access, a primary-care clinician, sports-medicine clinician, physical therapist, or athletic trainer may be an appropriate starting point. A pharmacist can help review whether a medicine or supplement affects symptoms, recovery, or the safe use of pain relievers.</p>
-<h3>Bottom line</h3>
-<p>Recurring pain is not a character flaw and rest is not a complete investigation. Look for the repeatable relationship between symptoms and workload, then rebuild gradually. If the pattern persists or function is declining, get it assessed.</p>
-<h3>Continue your pathway</h3>
-<ul><li>Need a lower-demand option? Read <strong>What Does Modifying a Workout Look Like?</strong></li><li>Unsure about today’s workout? Read <strong>Should I Work Out When Something Hurts?</strong></li><li>Ready for professional help? Read <strong>When Is It Time to Get an Injury Checked?</strong></li></ul>
-<h2>FAQ</h2>
-<h3>Why does pain go away with rest and return with exercise?</h3>
-<p>Rest reduces demand on the area, which can reduce symptoms. If the original workload or contributing factor has not changed, symptoms may return when that demand returns.</p>
-<h3>Does recurring pain always mean an injury?</h3>
-<p>No. Recurring pain has many possible causes and cannot be classified from one symptom alone. A repeated or worsening pattern is a reason to adjust training and consider an assessment.</p>
-<h3>Who should I see for recurring workout pain?</h3>
-<p>The best entry point depends on the problem and your access. Primary care, sports medicine, physical therapy, and athletic training can all be appropriate. Urgent or severe symptoms require more immediate care.</p>
-<h3>Editorial sources</h3>
-<ul><li>[AAOS: Shin Splints](https://orthoinfo.aaos.org/en/diseases--conditions/shin-splints/)</li><li>[AAOS: Hip Strains](https://orthoinfo.aaos.org/diseases--conditions/hip-strains/)</li><li>[MedlinePlus: How to avoid exercise injuries](https://medlineplus.gov/ency/patientinstructions/000859.htm)</li></ul>
-<div class="art-disc">This article is for general educational purposes and is not a substitute for professional medical advice.</div>
+  <h2>Key Takeaways</h2>
+  <ul><li>Cuts and facial lacerations are common injuries in high-contact sports such as basketball and hockey.</li><li>About 1 in 8 NBA players get a facial injury each season, and facial cuts are still some of the most common injuries treated in the NHL.</li><li>Facial wounds tend to bleed heavily because the face has many blood vessels, so they require prompt attention and care.</li><li>Quick wound care keeps athletes safe, lowers the risk of infection, and helps them spend less time out of the game.</li><li>Rammer’s Cut Cream uses phenylephrine, lidocaine, and bacitracin to help stop bleeding, ease pain, and prevent bacteria in minor cuts and lacerations.</li></ul>
+  <h3>A Hidden Challenge of Contact Sports</h3>
+  <p>In fast-paced, physical sports like basketball and hockey, injuries are bound to happen.</p>
+  <p>Facial lacerations and soft tissue injuries are quite common in the NBA, accounting for roughly one-third of all facial trauma sustained by players. In fact, one study reported that 1 in 8 NBA players experience some form of facial injury each season, with accidental contact from elbows, collisions, and rebounding battles being among the leading causes.</p>
+  <p>Similarly, facial lacerations are one of the most common injuries in the NHL, occurring at a rate of approximately 4.1 to 5.0 per 1,000 player-games. Because players generally wear partial face protection (visors) rather than full cages, facial cuts from high sticks, pucks, or physical play are common, often requiring a stitch or two.</p>
+  <p>For athletic trainers and medical staff, these injuries present an immediate challenge: control bleeding, clean and protect the wound, and ensure the athlete can safely return to play.</p>
+  <p><strong>Image credit ESPN </strong> &mdash; Matt Calvert Avalanche</p>
+  <h3>What is Rammer’s Cut Cream, and how do its ingredients work together?</h3>
+  <p>Rammer’s Cut Cream is a topical wound-care product designed to manage minor cuts and lacerations common in athletic settings. By combining phenylephrine, lidocaine, and bacitracin in a fast-absorbing base, the formula addresses immediate concerns with sports-related wounds, helping trainers and sports medicine professionals provide prompt on-site care.</p>
+  <ul><li>Phenylephrine is a vasoconstrictor that narrows blood vessels at the injury site, reducing localized bleeding and improving visibility for wound assessment and treatment. This is especially beneficial in fast-paced athletic environments where efficient wound management is important.</li><li>Lidocaine is a local anesthetic that numbs the affected area, allowing trainers and medical professionals to clean and treat the wound with greater comfort for the athlete. By reducing discomfort, lidocaine facilitates the wound-care process and improves the treatment experience.</li><li>Bacitracin is a topical antibiotic that protects the wound from bacterial contamination and infection. This is important in athletic environments where sweat, equipment, and close contact increase exposure to bacteria. By reducing infection risk, bacitracin supports normal healing.</li></ul>
+  <p>By controlling bleeding, reducing discomfort, and protecting against bacterial contamination, Rammer’s Cut Cream gives trainers a practical way to care for wounds in athletic settings.</p>
+  <p>Rammer’s Cut Cream is only for minor, shallow wounds. Do not use it on deep cuts, puncture wounds, or wounds that bleed a lot. People allergic to any of its ingredients should avoid it. If you are unsure about treatment or the wound does not get better, always check with a medical professional.</p>
+  <h3>Why are cuts and facial lacerations common</h3>
+  <p>Basketball players are jumping for rebounds, driving to the basket, and fighting for loose balls, which puts them at risk for injury in every play. Because the action is so close, elbows, hands, and even fingernails can cause injuries. Physical contact is part of the game, and quick collisions often lead to cuts, scrapes, and other injuries, especially to the face and head.</p>
+  <p>Common facial injuries in basketball include cuts to the eyebrows, lips, nose, and forehead. Even a minor collision can leave a player bleeding and needing immediate care. In NCAA men’s basketball, 11.3% of reported injuries involve the head or face, making these injuries a regular part of what athletic trainers manage throughout the season.</p>
+  <p><strong>Image credit Fox News </strong> &mdash; Josh Hart Knicks</p>
+  <p>In ice hockey, cuts and facial lacerations are common because players wear only partial facial protection (helmets with half-visors). Given the game’s extreme physical intensity, high speed, and sharp equipment, players are bound to get cuts.</p>
+  <p>A 2024 study by the International Journal of Sports Physical Therapy found that ice hockey injuries of traumatic origin accounted for 76% to 96.6% of all injuries, with contusions and lacerations being the most common.</p>
+  <p><strong>Image credit Yahoo Sports </strong> &mdash; Brendan Gallagher Canadians</p>
+  <p>Cuts happen less often in hockey than bruises, sprains, or concussions, but when they do, they can be very serious.</p>
+  <p>An analysis of injury surveillance data in elite hockey found that skate blade cuts were responsible for several serious injuries each season, particularly affecting the lower leg and ankle region.</p>
+  <p>Even though cuts are less likely than other injuries, their consequences can be much more serious.</p>
+  <h3>Why do facial cuts bleed so much, and why is fast bleeding control important?</h3>
+  <p>The face has an exceptionally rich network of small blood vessels just beneath the skin’s surface. This means even a minor cut or scrape can result in surprisingly heavy bleeding compared to injuries elsewhere on the body. The bleeding can quickly obscure vision, making it difficult for athletes to see and continue playing.</p>
+  <p>If bleeding continues, referees may have to stop the game, which can break the flow and affect the team’s momentum.</p>
+  <p>Professional sports leagues such as the NBA and NHL maintain strict protocols regarding bleeding injuries. Athletes with active bleeding or visible blood on their body, uniform, or equipment must leave the playing area until the bleeding is controlled and the wound is properly treated and covered.</p>
+  <p><strong>Image credit Marca </strong> &mdash; Joel Embiid Sixers</p>
+  <p>For athletic trainers and medical staff, stopping bleeding quickly is key for athlete safety, preventing infection, and keeping time out of the game short. Trainers need to assess, clean, and treat facial wounds fast to follow league rules and help players get back in the game.</p>
+  <h3>How can Rammer’s Cut Cream help athletic trainers courtside?</h3>
+  <p>A product like Rammer’s Cut Cream can help trainers quickly slow bleeding, ease pain during treatment, protect the wound, and get the area ready for bandaging or stitches. Its mix of active ingredients lets trainers handle the three biggest needs on the court: stopping bleeding, reducing pain, and preventing infection, all at once.</p>
+  <p>This is especially important during big games, when every second matters. Being able to treat wounds quickly can decide if a key player gets back in or has to sit out longer. Having a fast, reliable wound-care product helps trainers stay calm and focused, knowing they can give quick care and keep athletes safe when it counts.</p>
+  <h3>When does a cut need stitches or more medical care?</h3>
+  <p>A small, shallow cut that stops bleeding quickly and has wound edges that stay together can often be treated with a topical product. In these cases, something like Rammer’s Cut Cream can help speed up recovery by stopping bleeding, numbing pain, and lowering infection risk, so players can get back to the game faster. Trainers should still watch the wound for infection or slow healing, even if the first treatment works.</p>
+  <p>A player might need stitches or more medical help if the bleeding does not stop, the cut is deep, the wound is wide open, or you can see fat or muscle. Cuts near sensitive areas like the eye need extra care and should be checked by a doctor right away, since problems there can affect healing and long-term health.</p>
+  <h3>Examples of Players with Facial Cuts</h3>
+  <h2>NBA</h2>
+  <p>LeBron James suffered a significant forehead laceration during a game against the Oklahoma City Thunder in 2014 after colliding with Serge Ibaka. The injury caused heavy bleeding and required immediate courtside medical attention and suturing before he returned to play.</p>
+  <p><strong>Image credit ABC News </strong> &mdash; Lebron James Cavaliers</p>
+  <p>Kobe Bryant famously sustained multiple facial lacerations throughout his career, including cuts requiring sutures after elbow contact during games. These injuries demonstrated how quickly bleeding can occur from eyebrow and facial trauma during basketball.</p>
+  <p>Joel Embiid has experienced facial injuries and orbital trauma during NBA competition, highlighting the physical nature of rebounding and interior play. Such injuries emphasize the importance of rapid wound assessment and bleeding management by sports medicine staff.</p>
+  <h2>NHL</h2>
+  <p>Connor McDavid sustained a significant facial laceration during a preseason game in 2019 after a teammate’s skate blade struck his face during a collision. The injury required extensive medical treatment and highlighted the unique risks posed by skate-related lacerations in hockey.</p>
+  <p>Joe Pavelski suffered a severe facial injury during the 2019 Stanley Cup Playoffs after falling awkwardly following a collision. The incident resulted in substantial bleeding and required immediate medical attention, underscoring the importance of rapid wound management in high-stakes competition.</p>
+  <p>Sidney Crosby has experienced multiple facial cuts and lacerations throughout his NHL career from high sticks, pucks, and player contact. Several of these injuries required stitches and showcased the routine challenges athletic trainers face when managing bleeding injuries in professional hockey.</p>
+  <h3>Be Ready Before the Injury Happens</h3>
+  <p>Cuts and facial lacerations are an unavoidable reality in many sports, especially in high-contact environments like basketball and hockey. Whether it’s from an elbow, a high stick, or a collision, these injuries need quick and effective care to keep athletes safe and help them get back to playing sooner.</p>
+  <p>For athletic trainers and sports medicine staff, being ready before an injury happens is just as important as treating it. Having the right wound-care supplies on hand makes it easier to care for injuries, stop bleeding, ease pain, and help players get back in the game safely.</p>
+  <p>SportPharm offers emergency medications and sports medicine products, like Rammer’s Cut Cream, to help athletic trainers, team doctors, and sports medicine staff stay ready for injuries. To find out more about Rammer’s Cut Cream or talk about your team’s emergency medication needs, contact SportPharm at info@sportpharm.com.</p>
+  <div class="art-cta">
+    <p>Be ready for what the game brings</p>
+    <p class="sub">SportPharm helps athletic trainers build sideline-ready kits and compliant medication supplies.</p>
+    <a class="btn btn-white" href="#contact" data-open-contact>Talk to a SportPharm pharmacist</a>
+  </div>
+  <div class="art-disc"><strong>This article provides general educational information</strong> and does not diagnose a condition or replace individualized medical advice. Always read the complete Drug Facts or prescription label and consult a qualified healthcare professional with questions about medication or injury care.</div>
   <div class="more">
     <h3>Keep Reading</h3>
-    <div class="more-grid"><a class="blog-card" href="article-nsaids.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/blog-nsaids.jpg" alt="Understanding NSAIDs: When and How to Use Them" onerror="this.remove()"></div><div class="bd"><div class="cat">Medication</div><h3>Understanding NSAIDs: When and How to Use Them</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-return-injury.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 8h7M8 12h7"/></svg></span><img src="assets/blog-return.jpg" alt="Returning From Injury: A Smarter Game Plan" onerror="this.remove()"></div><div class="bd"><div class="cat">Return to Play</div><h3>Returning From Injury: A Smarter Game Plan</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
+    <div class="more-grid"><a class="blog-card" href="article-sideline-ready-emergency-preparedness.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></span></div><div class="bd"><div class="cat">Sports Medicine</div><h3>Sideline Ready: A Pharmacist&rsquo;s Guide to Emergency Medication Preparedness</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a><a class="blog-card" href="article-in-house-dispensing-playbook.html"><div class="imgph"><span class="ph-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3.1 7.8-7 9-3.9-1.2-7-4.4-7-9V6z"/><path d="M12 8.2v5.6M9.2 11h5.6"/></svg></span></div><div class="bd"><div class="cat">Sports Medicine</div><h3>The In-House Pharmacy Dispensing Playbook</h3><span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></div>
   </div>
 </article>
 <style>
@@ -498,11 +579,11 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
         <p class="modal-eyebrow"><i></i> Contact Us</p>
         <h2 id="contactTitle">Get in touch.</h2>
         <p class="modal-sub">Not sure what your next step should be? Send us a note and our team will reply from info@sportpharm.com.</p>
-        <span class="modal-source">From <b>Why Does the Same Pain Keep Coming Back?</b></span>
+        <span class="modal-source">From <b>Why Athletic Trainers Need to Be Ready for Cuts and Lacerations</b></span>
         <form id="contactForm" novalidate>
           <div class="field"><label for="cf_name">Name</label><input id="cf_name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="cf_email">Email</label><input id="cf_email" name="email" type="email" autocomplete="email" required></div>
-          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#667069">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="cf_phone">Phone <span style="text-transform:none;color:#9aa3a0">(optional)</span></label><input id="cf_phone" name="phone" type="tel" autocomplete="tel"></div>
           <div class="field"><label for="cf_message">Message</label><textarea id="cf_message" name="message" required></textarea></div>
           <button class="primary" type="submit">Send message <span>→</span></button>
         </form>
@@ -521,7 +602,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
        info@sportpharm.com. In the production Next.js + Payload build this POSTs
        to an API route that creates a Payload Lead and sends the notification. */
     (function(){
-      const SOURCE = "Everyday Athlete · Why Does the Same Pain Keep Coming Back?";
+      const SOURCE = "WasabiRub · Why Athletic Trainers Need to Be Ready for Cuts and Lacerations";
       const modal = document.getElementById("contactModal");
       const form = document.getElementById("contactForm");
       const wrap = document.getElementById("contactFormWrap");
@@ -561,5 +642,7 @@ footer{background:#11181f;color:#9da5ae;padding:52px 0 26px}
       });
     })();
   </script>
+<script>(function(){var items=document.querySelectorAll('.announcement .promo-item');if(items.length<2)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var i=0;setInterval(function(){items[i].classList.remove('is-active');i=(i+1)%items.length;items[i].classList.add('is-active');},2000);})();</script>
+
 </body>
 </html>
