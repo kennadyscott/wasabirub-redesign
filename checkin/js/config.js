@@ -138,8 +138,10 @@ window.CHECKIN_CONFIG = {
      anon: this file is downloaded by every browser that opens the kiosk, so
      anything anon can read becomes a public download of the guest list. */
   supabase: {
-    url:     '',   // e.g. 'https://abcdefgh.supabase.co'
-    anonKey: '',   // the anon / publishable key — NOT the service_role key
+    url:     'https://aihxmysugxnzxwvowqth.supabase.co',
+    // The anon / publishable key. Verified role="anon" by decoding it before
+    // it went in here — service_role would bypass every policy in the schema.
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpaHhteXN1Z3huenh3dm93cXRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyNTAxMTMsImV4cCI6MjEwMjgyNjExM30.zAUSPfjXHNA4X5RIX_hSIuJs63MPyG0KRrV6rxfLXYE',
     table:   'checkins'
   },
 

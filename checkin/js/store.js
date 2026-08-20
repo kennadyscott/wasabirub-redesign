@@ -100,7 +100,8 @@
       role:        fields.role || '',
       prize:       '',              // set after the wheel stops, not before
       prize_label: '',
-      synced:      false
+      synced:      false,           // row exists in the cloud
+      prizeSynced: false            // the prize has reached the cloud too
     };
     var all = rows();
     all.push(rec);
@@ -109,15 +110,15 @@
     return rec;
   }
 
-  /* The wheel result lands after the record is already saved. Writing it back
-     clears `synced` so the row is re-sent — the POST uses on_conflict=id with
-     merge, so the existing row is updated rather than duplicated. */
+  /* The wheel result lands after the record is already saved, so the prize is
+     written back and re-queued. If the row has not reached the cloud yet the
+     insert will simply carry the prize with it. */
   function setPrize(id, prizeId, prizeLabel) {
     var all = rows(), hit = false;
     all = all.map(function (r) {
       if (r.id !== id) return r;
       hit = true;
-      return Object.assign({}, r, { prize: prizeId, prize_label: prizeLabel, synced: false });
+      return Object.assign({}, r, { prize: prizeId, prize_label: prizeLabel, prizeSynced: false });
     });
     if (!hit) return null;
     write(K_ROWS, all);
@@ -133,49 +134,107 @@
   function sb() { return (CFG && CFG.supabase) || {}; }
   function configured() { return !!(sb().url && sb().anonKey); }
 
+  function headers(extraPrefer) {
+    return {
+      'apikey':        sb().anonKey,
+      'Authorization': 'Bearer ' + sb().anonKey,
+      'Content-Type':  'application/json',
+      'Prefer':        extraPrefer || 'return=minimal'
+    };
+  }
+  function base() { return sb().url.replace(/\/+$/, '') + '/rest/v1/' + (sb().table || 'checkins'); }
+
+  /* Strip the local bookkeeping flags — they are not columns. */
+  function payload(r) {
+    var o = Object.assign({}, r);
+    delete o.synced; delete o.prizeSynced;
+    return o;
+  }
+
+  function mark(id, patch) {
+    write(K_ROWS, rows().map(function (r) {
+      return r.id === id ? Object.assign({}, r, patch) : r;
+    }));
+  }
+
+  /* ---- pass 1: insert rows the cloud has never seen ---------------------
+     A PLAIN insert, deliberately NOT an upsert. See the note in
+     supabase/schema.sql: `ON CONFLICT DO UPDATE` needs a SELECT policy under
+     RLS, and the only way to give it one is to make the guest list publicly
+     readable. So a duplicate is handled here instead, by asking for it. */
+  function insertBatch(batch) {
+    return fetch(base(), { method: 'POST', headers: headers(), body: JSON.stringify(batch.map(payload)) })
+      .then(function (res) {
+        if (res.ok) {
+          batch.forEach(function (r) { mark(r.id, { synced: true, prizeSynced: !!r.prize }); });
+          return batch.length;
+        }
+        /* 409 = at least one row already landed, from a POST whose response we
+           never saw. One bad row fails the whole batch, so fall back to one at
+           a time and let each answer for itself. */
+        if (res.status === 409 && batch.length > 1) return insertOneByOne(batch);
+        if (res.status === 409) { mark(batch[0].id, { synced: true, prizeSynced: !!batch[0].prize }); return 1; }
+        return res.text().then(function (t) { throw new Error(res.status + ' ' + t); });
+      });
+  }
+
+  function insertOneByOne(batch) {
+    var done = 0;
+    return batch.reduce(function (chain, r) {
+      return chain.then(function () {
+        return fetch(base(), { method: 'POST', headers: headers(), body: JSON.stringify([payload(r)]) })
+          .then(function (res) {
+            // 409 means it is already there — that is a success, not a failure.
+            if (res.ok || res.status === 409) { mark(r.id, { synced: true, prizeSynced: !!r.prize }); done++; }
+          }).catch(function () {});
+      });
+    }, Promise.resolve()).then(function () { return done; });
+  }
+
+  /* ---- pass 2: attach prizes to rows already in the cloud ---------------- */
+  function patchPrizes(list) {
+    return list.reduce(function (chain, r) {
+      return chain.then(function () {
+        return fetch(base() + '?id=eq.' + encodeURIComponent(r.id), {
+          method: 'PATCH', headers: headers(),
+          body: JSON.stringify({ prize: r.prize, prize_label: r.prize_label })
+        }).then(function (res) {
+          if (res.ok) mark(r.id, { prizeSynced: true });
+        }).catch(function () {});
+      });
+    }, Promise.resolve());
+  }
+
   var syncing = false;
   function sync() {
     if (syncing || !configured() || !navigator.onLine) return Promise.resolve(0);
-    var pending = rows().filter(function (r) { return !r.synced; });
-    if (!pending.length) return Promise.resolve(0);
+    var toInsert = rows().filter(function (r) { return !r.synced; });
+    var toPatch  = rows().filter(function (r) { return r.synced && r.prize && !r.prizeSynced; });
+    if (!toInsert.length && !toPatch.length) return Promise.resolve(0);
 
     syncing = true;
-    var base = sb().url.replace(/\/+$/, '');
-    var body = pending.map(function (r) {
-      var o = Object.assign({}, r);
-      delete o.synced;                       // local bookkeeping, not a column
-      return o;
-    });
-
-    /* on_conflict=id + merge-duplicates does two jobs at once: a retry after a
-       timeout can't insert the same guest twice, AND a row re-sent because its
-       prize was filled in afterwards updates the existing row. Do NOT switch
-       this to ignore-duplicates — the prize would then never reach the cloud
-       for anyone, because the row already exists by the time the wheel stops. */
-    return fetch(base + '/rest/v1/' + (sb().table || 'checkins') + '?on_conflict=id', {
-      method: 'POST',
-      headers: {
-        'apikey':        sb().anonKey,
-        'Authorization': 'Bearer ' + sb().anonKey,
-        'Content-Type':  'application/json',
-        'Prefer':        'return=minimal,resolution=merge-duplicates'
-      },
-      body: JSON.stringify(body)
-    }).then(function (res) {
-      if (!res.ok) return res.text().then(function (t) { throw new Error(res.status + ' ' + t); });
-      var ids = {};
-      pending.forEach(function (r) { ids[r.id] = true; });
-      var all = rows().map(function (r) { return ids[r.id] ? Object.assign({}, r, { synced: true }) : r; });
-      write(K_ROWS, all);
-      document.dispatchEvent(new CustomEvent('spci:sync', { detail: { sent: pending.length } }));
-      return pending.length;
-    }).catch(function (err) {
-      console.warn('[store] sync deferred —', err.message);
-      return 0;                              // rows stay pending; we try again later
-    }).finally(function () { syncing = false; });
+    return (toInsert.length ? insertBatch(toInsert) : Promise.resolve(0))
+      .then(function (n) {
+        // Re-read: pass 1 may have just made more rows eligible for a patch.
+        var now = rows().filter(function (r) { return r.synced && r.prize && !r.prizeSynced; });
+        return patchPrizes(now).then(function () { return n; });
+      })
+      .then(function (n) {
+        document.dispatchEvent(new CustomEvent('spci:sync', { detail: { sent: n } }));
+        return n;
+      })
+      .catch(function (err) {
+        console.warn('[store] sync deferred —', err.message);
+        return 0;                            // rows stay pending; we try again later
+      })
+      .finally(function () { syncing = false; });
   }
 
-  function pendingCount() { return rows().filter(function (r) { return !r.synced; }).length; }
+  function pendingCount() {
+    return rows().filter(function (r) {
+      return !r.synced || (r.prize && !r.prizeSynced);
+    }).length;
+  }
 
   /* Retry whenever the network comes back, and on a slow heartbeat. */
   window.addEventListener('online', sync);
