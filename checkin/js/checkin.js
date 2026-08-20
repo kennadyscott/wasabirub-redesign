@@ -47,6 +47,7 @@
     $('#h-line2').textContent  = CFG.hero.line2;
     $('#excited').textContent  = CFG.hero.excited;
     $('#done-sub').textContent = CFG.event.prizeLine;
+    $('#closing').textContent  = CFG.event.closingLine;
 
     // State dropdown, defaulted to the state the event is in.
     var sel = $('#in-state');
@@ -92,7 +93,7 @@
       b.setAttribute('aria-pressed', 'true');
     });
 
-    if (CFG.wheel.enabled) Wheel.render($('#wheel'));
+    if (CFG.wheel.enabled) Wheel.render($('#wheel-labels'));
   }
 
   /* ---------------------------------------------------------------------- */
@@ -184,7 +185,7 @@
     var w = $('#wheel');
     w.style.transition = 'none';
     w.style.transform = 'rotate(0deg)';
-    Wheel.render(w);
+    Wheel.render($('#wheel-labels'));
     $('#wheel-stage').hidden = false;
     $('#prize-stage').hidden = true;
     $('#btn-spin').disabled = false;
@@ -262,18 +263,19 @@
     if (p) {
       var lost = (p.id === 'none');
       var card = $('#prize-card');
-      card.style.setProperty('--prize', p.color);
+      /* Prizes no longer carry their own colour — the wheel's palette is
+         positional. A win is brand red; a loss is a muted grey. */
+      card.style.setProperty('--prize', lost ? '#8B96A2' : '#D6202A');
       card.classList.toggle('is-loss', lost);
       $('#prize-kicker').textContent = lost ? 'This time' : 'You won';
       $('#prize-name').textContent   = p.label;
       $('#done-sub').textContent     = lost ? 'Thanks for coming out.' : 'Nice one.';
+      /* Prizes are handed over at the table, so a winner needs a nudge to
+         collect. There is no code to show anyone. */
+      $('.prize-claim').textContent  = CFG.event.collectLine;
     } else {
       $('#prize-card').hidden = true;
     }
-
-    $('#ticket-num').textContent  = rec.raffle || '';
-    $('#ticket-name').textContent = rec.full_name || '';
-    renderQR(rec.raffle, p);
 
     var left = CFG.kiosk.confirmSeconds;
     $('#done-timer').textContent = left;
@@ -282,33 +284,6 @@
       left--; $('#done-timer').textContent = Math.max(0, left);
       if (left <= 0) { clearInterval(doneCountdown); reset(); }
     }, 1000);
-  }
-
-  /* ---------------------------------------------------------------------- */
-  /*  QR — generated on-device, so it works with the wifi completely down.   */
-  /*  It carries the claim code and the prize. Never a guest's details: a    */
-  /*  URL ends up in browser history, in referrer headers, and in any server */
-  /*  log along the way.                                                     */
-  /* ---------------------------------------------------------------------- */
-  function renderQR(code, prize) {
-    var wrap = $('#ticket-qr');
-    if (!code) { $('#ticket-qr-wrap').hidden = true; return; }
-    var base = (CFG.ticketBaseUrl || '').trim();
-    var frag = code + (prize ? '~' + prize.id : '');
-    var data = base ? base.replace(/#.*$/, '') + '#' + encodeURIComponent(frag)
-                    : CFG.event.brand + ' ' + CFG.event.name + ' — claim code ' + code;
-    try {
-      var q = qrcode(0, 'M');
-      q.addData(data);
-      q.make();
-      wrap.innerHTML = q.createSvgTag({ cellSize: 5, margin: 2, scalable: true });
-      var svg = wrap.querySelector('svg');
-      if (svg) { svg.setAttribute('width', '124'); svg.setAttribute('height', '124'); }
-      $('#ticket-qr-wrap').hidden = false;
-    } catch (err) {
-      console.warn('[qr]', err);
-      $('#ticket-qr-wrap').hidden = true;   // the code is still on screen, large
-    }
   }
 
   /* ---------------------------------------------------------------------- */

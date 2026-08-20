@@ -78,6 +78,7 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
    without scrolling if the iPad isn't rotation-locked. */
 @media (orientation: landscape) and (max-height: 900px) {
   .lockup img { width: min(46vw, 350px); }
+  .wheel-holder { width: min(330px, 46vh); }
   .hero { padding-top: max(16px, env(safe-area-inset-top)); }
   .hero-mark { height: 20px; margin-bottom: 12px; }
   .hero-line1 { margin-top: clamp(12px, 2vw, 18px); }
@@ -281,30 +282,20 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
 }
 .done-sub { color: var(--onnavy); font-size: 15px; margin-top: 9px; }
 
-.ticket {
-  margin-top: 24px; background: var(--paper); border-radius: 16px;
-  box-shadow: var(--shadow); padding: 22px 26px;
-  display: flex; align-items: center; gap: 26px; text-align: left;
-}
-.ticket-l { flex: 1; min-width: 0; }
-.ticket-num-label {
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .13em; color: var(--ink-faint);
-}
-.ticket-num {
-  font-family: 'Anton', var(--display); font-weight: 400; letter-spacing: .01em;
-  font-size: clamp(42px, 6vw, 60px); color: var(--navy); line-height: 1;
-  -webkit-user-select: all; user-select: all;
-}
-.ticket-name { color: var(--ink-soft); font-size: 13.5px; margin-top: 4px; }
-.ticket-qr { border-left: 1.5px dashed var(--line); padding-left: 24px; text-align: center; }
-.ticket-qr svg { display: block; }
-.ticket-qr p { font-size: 11px; color: var(--ink-faint); margin-top: 8px; max-width: 124px; line-height: 1.35; }
-@media (max-width: 480px) {
-  .ticket { flex-direction: column; gap: 18px; text-align: center; }
-  .ticket-qr { border-left: 0; border-top: 1.5px dashed var(--line); padding: 18px 0 0; }
-}
+
+
+
+
+
+
+
+
+
 .done-count { color: #6F8098; font-size: 12.5px; margin-top: 16px; }
+.closing {
+  margin-top: 22px; color: #fff; font-weight: 700; font-style: italic;
+  font-size: clamp(16px, 2.4vw, 20px);
+}
 
 /* =============================================================================
    OVERLAYS
@@ -394,41 +385,44 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
 .toast.is-on { transform: translateX(-50%) translateY(0); opacity: 1; }
 
 /* =============================================================================
-   THE PRIZE WHEEL
+   THE PRIZE WHEEL — the artwork is the client's own render. Only the face
+   turns; the centre cap and the pointer stay put, as on a real wheel.
+   The disc was healed of its baked-in pointer so it can rotate, and the
+   pointer lifted out with its own alpha — see the notes in the repo history.
 ============================================================================= */
 .wheel-stage { margin-top: 22px; }
 .wheel-holder {
-  position: relative; width: min(340px, 78vw); aspect-ratio: 1; margin: 0 auto;
+  position: relative; width: min(430px, 84vw); aspect-ratio: 1; margin: 0 auto;
+  filter: drop-shadow(0 20px 32px rgba(0,0,0,.5));
 }
-.wheel {
-  width: 100%; height: 100%; display: block;
-  border-radius: 50%; background: var(--paper);
-  box-shadow: 0 0 0 7px var(--paper), 0 0 0 10px rgba(255,255,255,.22), var(--shadow-lift);
-  /* The spin itself is set from JS so the duration can come from config. */
-  transform: rotate(0deg);
-}
-.wheel text {
-  font-family: 'Inter', system-ui, sans-serif; font-weight: 700;
-  fill: #fff; font-size: 11px; letter-spacing: .01em;
-}
-.wheel .seg-out { opacity: .34; }        /* prize ran out — visibly not in play */
 
-/* The pointer sits at 12 o'clock and the wheel turns under it. */
-.wheel-pin {
-  position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
-  width: 0; height: 0; z-index: 3;
-  border-left: 13px solid transparent; border-right: 13px solid transparent;
-  border-top: 24px solid var(--red);
-  filter: drop-shadow(0 3px 5px rgba(15,29,51,.35));
+/* The turning face: artwork plus the labels that must travel with it. */
+.wheel { position: absolute; inset: 0; transform: rotate(0deg); }
+.wheel-disc, .wheel-labels { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.wheel-labels text {
+  font-family: 'Inter', system-ui, sans-serif; font-weight: 700;
+  font-size: 15px; letter-spacing: .005em;
+  paint-order: stroke; stroke: rgba(0,0,0,.16); stroke-width: .6px;
 }
+
+/* Fixed to the axle, so it does not spin with the face. Sized and positioned
+   from the artwork it was cut out of. */
 .wheel-hub {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 52px; height: 52px; border-radius: 50%; z-index: 2;
-  background: var(--paper); box-shadow: 0 2px 10px rgba(15,29,51,.22);
+  width: 20.7%; height: auto; z-index: 3; pointer-events: none;
 }
+
+/* Percentages measured off the source render, so the pointer lands exactly
+   where it did in the original artwork. */
+.wheel-pin {
+  position: absolute; left: 43.51%; top: -2.81%; width: 13.77%; height: auto;
+  z-index: 4; pointer-events: none;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,.5));
+}
+
 .wheel-note { font-size: 12px; color: #6F8098; margin-top: 10px; }
-#btn-spin { margin-top: 22px; }
-#btn-spin:disabled { background: var(--ink-faint); box-shadow: none; }
+#btn-spin { margin-top: 26px; }
+#btn-spin:disabled { background: #43536B; box-shadow: none; color: #93A2B8; }
 
 /* ---- the result ---- */
 .prize-card {

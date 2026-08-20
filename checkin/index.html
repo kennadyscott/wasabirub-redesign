@@ -190,9 +190,14 @@
     <!-- ---- the wheel ---- -->
     <div class="wheel-stage" id="wheel-stage">
       <div class="wheel-holder">
-        <svg class="wheel" id="wheel" viewBox="0 0 300 300" aria-hidden="true"></svg>
-        <div class="wheel-pin"></div>
-        <div class="wheel-hub"></div>
+        <!-- The face turns; the centre cap and the pointer are fixed, exactly
+             as they are on a real wheel. -->
+        <div class="wheel" id="wheel">
+          <img class="wheel-disc" src="assets/wheel-disc.webp" alt="">
+          <svg class="wheel-labels" id="wheel-labels" viewBox="0 0 400 400" aria-hidden="true"></svg>
+        </div>
+        <img class="wheel-hub" src="assets/wheel-hub.webp" alt="">
+        <img class="wheel-pin" src="assets/wheel-pointer.webp" alt="">
       </div>
       <button class="cta cta-narrow" id="btn-spin"><span>Spin the wheel</span></button>
       <p class="wheel-note" id="wheel-note"></p>
@@ -206,17 +211,7 @@
         <p class="prize-claim">Show this to a team member to claim it.</p>
       </div>
 
-      <div class="ticket" id="ticket">
-        <div class="ticket-l">
-          <p class="ticket-num-label">Claim code</p>
-          <p class="ticket-num" id="ticket-num">A-001</p>
-          <p class="ticket-name" id="ticket-name"></p>
-        </div>
-        <div class="ticket-qr" id="ticket-qr-wrap">
-          <div id="ticket-qr"></div>
-          <p>Scan to save this</p>
-        </div>
-      </div>
+      <p class="closing" id="closing">Enjoy the evening!</p>
 
       <button class="cta cta-narrow" id="btn-next">
         <span>Next guest</span>
@@ -295,7 +290,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="js/qr.js"></script>
 <script src="js/config.js"></script>
 <script src="js/store.js"></script>
 <script src="js/wheel.js"></script>

@@ -25,7 +25,12 @@ window.CHECKIN_CONFIG = {
     location:  'Florida',              // e.g. 'Fort Lauderdale, FL'
     dateLabel: '',                     // e.g. 'Thursday, October 9' — blank hides it
     // Shown on the confirmation screen, above the wheel.
-    prizeLine:   'Give the wheel a spin.'
+    prizeLine:   'Give the wheel a spin.',
+    // Nudge for a winner. Prizes are handed over at the table — there is no
+    // claim code, nothing for a guest to show and nothing to look up.
+    collectLine: 'See a team member to collect it.',
+    // The last thing a guest reads before the kiosk resets.
+    closingLine: 'Enjoy the evening!'
   },
 
   /* ---- The hero lockup -------------------------------------------------
@@ -92,31 +97,35 @@ window.CHECKIN_CONFIG = {
   wheel: {
     enabled: true,
     spinSeconds: 5.2,          // how long the wheel spins before it settles
+
+    /* EVERY GUEST WINS. There is no losing wedge.
+
+       Two of the five prizes are RATIONED — five of each for the whole night —
+       and the other three are products we have plenty of. `stock` is the hard
+       guarantee: once five gift cards are gone, the wheel physically cannot
+       land there again.
+
+       `expectedGuests` is what stops the rationed prizes going out in the
+       first twenty minutes. Each spin, a rationed prize's chance is
+       `remaining / guests we still expect`, so five gift cards spread evenly
+       across the evening instead of front-loading. SET THIS to roughly how
+       many people you expect. Guess low rather than high: if more people turn
+       up than expected the prizes simply run out early, whereas guessing high
+       means some are never given away.
+
+       `slots` is how many wedges a prize occupies on the 8-wedge wheel — the
+       three products take two wedges each, the two rationed prizes one each.
+       It is presentation only and has nothing to do with the odds. */
+    expectedGuests: 150,
+    maxRationedChance: 0.25,   // a rationed prize is never a near-certainty
+
     prizes: [
-      { id: 'wasabirub', label: 'WasabiRub',        color: '#27865A', weight: 17, slots: 1, stock: null },
-      { id: 'icetrarub', label: 'IcetraRub',        color: '#337FA7', weight: 17, slots: 1, stock: null },
-      { id: 'superhot',  label: 'Super Hot',        color: '#C85B38', weight: 14, slots: 1, stock: null },
-      { id: 'giftcard',  label: 'Gift card',        color: '#C9971F', weight:  9, slots: 1, stock: 20   },
-      { id: 'wine',      label: 'Bottle of wine',   color: '#8E1B36', weight:  3, slots: 1, stock: 6    },
-      { id: 'none',      label: 'Better luck next time', color: '#98A2AE', weight: 40, slots: 3, stock: null }
+      { id: 'wasabirub', label: 'WasabiRub',      weight: 34, slots: 2, stock: null },
+      { id: 'icetrarub', label: 'IcetraRub',      weight: 33, slots: 2, stock: null },
+      { id: 'superhot',  label: 'Super Hot',      weight: 33, slots: 2, stock: null },
+      { id: 'giftcard',  label: 'Gift card',      weight:  0, slots: 1, stock: 5, rationed: true },
+      { id: 'wine',      label: 'Bottle of wine', weight:  0, slots: 1, stock: 5, rationed: true }
     ]
-  },
-
-  /* ---- Ticket page the QR code points at -------------------------------
-     Must be an absolute https:// URL once deployed, or phones can't open it.
-     Leave blank while developing — the QR then encodes the number as plain
-     text, which still scans, it just doesn't open a page.
-     The URL carries the RAFFLE NUMBER ONLY. Never add name/email to it.     */
-  ticketBaseUrl: 'https://wasabirub.com/checkin/ticket.html',
-
-  /* ---- Supabase sync ---------------------------------------------------
-     Fill these in after running supabase/schema.sql. Leave blank and the
-     kiosk still works perfectly — it just stays local to the iPad and the
-     staff screen will say "Local only".                                     */
-  supabase: {
-    url:     '',   // e.g. 'https://abcdefgh.supabase.co'
-    anonKey: '',   // the anon / publishable key — NOT the service_role key
-    table:   'checkins'
   },
 
   /* ---- Optional fields: flip to false to remove them from the form ------ */
