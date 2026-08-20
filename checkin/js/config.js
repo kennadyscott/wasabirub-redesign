@@ -30,7 +30,10 @@ window.CHECKIN_CONFIG = {
     // claim code, nothing for a guest to show and nothing to look up.
     collectLine: 'See a team member to collect it.',
     // The last thing a guest reads before the kiosk resets.
-    closingLine: 'Enjoy the evening!'
+    closingLine: 'Enjoy the evening!',
+    // Sits under the wheel. The wheel itself is the button — there is no
+    // separate Spin control, so this is the only thing telling them that.
+    spinHint:    'Tap the wheel to spin'
   },
 
   /* ---- The hero lockup -------------------------------------------------
@@ -116,7 +119,7 @@ window.CHECKIN_CONFIG = {
        `slots` is how many wedges a prize occupies on the 8-wedge wheel — the
        three products take two wedges each, the two rationed prizes one each.
        It is presentation only and has nothing to do with the odds. */
-    expectedGuests: 150,
+    expectedGuests: 50,
     maxRationedChance: 0.25,   // a rationed prize is never a near-certainty
 
     prizes: [
@@ -126,6 +129,21 @@ window.CHECKIN_CONFIG = {
       { id: 'giftcard',  label: 'Gift card',      weight:  0, slots: 1, stock: 5, rationed: true },
       { id: 'wine',      label: 'Bottle of wine', weight:  0, slots: 1, stock: 5, rationed: true }
     ]
+  },
+
+  /* ---- Supabase sync ---------------------------------------------------
+     Fill these in after running supabase/schema.sql. Leave blank and the
+     kiosk still works perfectly — it just stays local to the iPad and the
+     staff screen says "Local only".
+
+     The anon key is safe to publish here ONLY because the table's RLS grants
+     anon INSERT and UPDATE and nothing else. Never add a SELECT policy for
+     anon: this file is downloaded by every browser that opens the kiosk, so
+     anything anon can read becomes a public download of the guest list. */
+  supabase: {
+    url:     '',   // e.g. 'https://abcdefgh.supabase.co'
+    anonKey: '',   // the anon / publishable key — NOT the service_role key
+    table:   'checkins'
   },
 
   /* ---- Optional fields: flip to false to remove them from the form ------ */

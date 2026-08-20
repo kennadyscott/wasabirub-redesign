@@ -189,7 +189,9 @@
 
     <!-- ---- the wheel ---- -->
     <div class="wheel-stage" id="wheel-stage">
-      <div class="wheel-holder">
+      <!-- The wheel IS the button. A real <button> rather than a tap handler
+           on a div, so it is focusable and answers the keyboard too. -->
+      <button class="wheel-holder" id="wheel-tap" aria-label="Spin the wheel">
         <!-- The face turns; the centre cap and the pointer are fixed, exactly
              as they are on a real wheel. -->
         <div class="wheel" id="wheel">
@@ -198,9 +200,8 @@
         </div>
         <img class="wheel-hub" src="assets/wheel-hub.webp" alt="">
         <img class="wheel-pin" src="assets/wheel-pointer.webp" alt="">
-      </div>
-      <button class="cta cta-narrow" id="btn-spin"><span>Spin the wheel</span></button>
-      <p class="wheel-note" id="wheel-note"></p>
+      </button>
+      <p class="wheel-note" id="wheel-note">Tap the wheel to spin</p>
     </div>
 
     <!-- ---- the result ---- -->

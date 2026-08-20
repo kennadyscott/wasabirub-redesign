@@ -126,7 +126,12 @@
   }
 
   /* ---------- Supabase sync ---------------------------------------------- */
-  function configured() { return !!(CFG.supabase.url && CFG.supabase.anonKey); }
+  /* Read through a default rather than off CFG directly. A config edit once
+     dropped the whole `supabase` block and this threw on every 30-second sync
+     tick — noisy in the console, and it would have silently disabled cloud
+     sync at the event. The kiosk must degrade to local-only, never break. */
+  function sb() { return (CFG && CFG.supabase) || {}; }
+  function configured() { return !!(sb().url && sb().anonKey); }
 
   var syncing = false;
   function sync() {
@@ -135,7 +140,7 @@
     if (!pending.length) return Promise.resolve(0);
 
     syncing = true;
-    var base = CFG.supabase.url.replace(/\/+$/, '');
+    var base = sb().url.replace(/\/+$/, '');
     var body = pending.map(function (r) {
       var o = Object.assign({}, r);
       delete o.synced;                       // local bookkeeping, not a column
@@ -147,11 +152,11 @@
        prize was filled in afterwards updates the existing row. Do NOT switch
        this to ignore-duplicates — the prize would then never reach the cloud
        for anyone, because the row already exists by the time the wheel stops. */
-    return fetch(base + '/rest/v1/' + CFG.supabase.table + '?on_conflict=id', {
+    return fetch(base + '/rest/v1/' + (sb().table || 'checkins') + '?on_conflict=id', {
       method: 'POST',
       headers: {
-        'apikey':        CFG.supabase.anonKey,
-        'Authorization': 'Bearer ' + CFG.supabase.anonKey,
+        'apikey':        sb().anonKey,
+        'Authorization': 'Bearer ' + sb().anonKey,
         'Content-Type':  'application/json',
         'Prefer':        'return=minimal,resolution=merge-duplicates'
       },

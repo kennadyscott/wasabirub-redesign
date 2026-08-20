@@ -391,10 +391,28 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
    pointer lifted out with its own alpha — see the notes in the repo history.
 ============================================================================= */
 .wheel-stage { margin-top: 22px; }
+/* The wheel is the button. It has to look tappable without a control next to
+   it saying so, hence the resting breathe and the press response. */
 .wheel-holder {
-  position: relative; width: min(430px, 84vw); aspect-ratio: 1; margin: 0 auto;
+  position: relative; display: block;
+  width: min(430px, 84vw); aspect-ratio: 1; margin: 0 auto;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  border-radius: 50%; -webkit-tap-highlight-color: transparent;
   filter: drop-shadow(0 20px 32px rgba(0,0,0,.5));
+  animation: breathe 3.4s ease-in-out infinite;
+  transition: transform .12s;
 }
+.wheel-holder:active { transform: scale(.975); }
+.wheel-holder:focus-visible { outline: 3px solid var(--red-lift); outline-offset: 6px; }
+/* Once it is turning it is no longer an invitation. */
+.wheel-holder.is-spinning { animation: none; cursor: default; }
+.wheel-holder.is-spinning:active { transform: none; }
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.018); }
+}
+@media (prefers-reduced-motion: reduce) { .wheel-holder { animation: none; } }
 
 /* The turning face: artwork plus the labels that must travel with it. */
 .wheel { position: absolute; inset: 0; transform: rotate(0deg); }
@@ -420,9 +438,12 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
   filter: drop-shadow(0 3px 5px rgba(0,0,0,.5));
 }
 
-.wheel-note { font-size: 12px; color: #6F8098; margin-top: 10px; }
-#btn-spin { margin-top: 26px; }
-#btn-spin:disabled { background: #43536B; box-shadow: none; color: #93A2B8; }
+.wheel-note {
+  margin-top: 20px; color: #fff;
+  font-family: 'Anton', var(--display); font-weight: 400;
+  text-transform: uppercase; letter-spacing: .085em;
+  font-size: clamp(15px, 2.2vw, 19px);
+}
 
 /* ---- the result ---- */
 .prize-card {

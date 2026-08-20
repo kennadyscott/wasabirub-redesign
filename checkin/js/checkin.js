@@ -48,6 +48,7 @@
     $('#excited').textContent  = CFG.hero.excited;
     $('#done-sub').textContent = CFG.event.prizeLine;
     $('#closing').textContent  = CFG.event.closingLine;
+    $('#wheel-note').textContent = CFG.event.spinHint;
 
     // State dropdown, defaulted to the state the event is in.
     var sel = $('#in-state');
@@ -188,8 +189,10 @@
     Wheel.render($('#wheel-labels'));
     $('#wheel-stage').hidden = false;
     $('#prize-stage').hidden = true;
-    $('#btn-spin').disabled = false;
-    $('#btn-spin').querySelector('span').textContent = 'Spin the wheel';
+    spinning = false;
+    $('#wheel-tap').classList.remove('is-spinning');
+    $('#wheel-tap').removeAttribute('aria-disabled');
+    $('#wheel-note').textContent = CFG.event.spinHint;
 
     show('screen-form');
     window.scrollTo(0, 0);
@@ -239,11 +242,17 @@
   /* ---------------------------------------------------------------------- */
   /*  The spin                                                               */
   /* ---------------------------------------------------------------------- */
+  var spinning = false;
   function spin() {
-    var btn = $('#btn-spin');
-    if (btn.disabled) return;
-    btn.disabled = true;
-    btn.querySelector('span').textContent = 'Good luck…';
+    /* Guard on our own flag, not on the button's disabled state — a disabled
+       <button> stops firing click, but a guest can land two taps inside the
+       same frame and a second spin would draw a second prize against stock. */
+    if (spinning) return;
+    spinning = true;
+    var tap = $('#wheel-tap');
+    tap.classList.add('is-spinning');
+    tap.setAttribute('aria-disabled', 'true');
+    $('#wheel-note').textContent = 'Good luck…';
 
     var prize = Wheel.draw();            // decided here, before anything moves
     Wheel.spinTo($('#wheel'), prize).then(function (p) {
@@ -251,6 +260,7 @@
          guest — a spin abandoned mid-animation shouldn't burn a bottle. */
       Wheel.recordAward(p.id);
       if (pendingRec) Store.setPrize(pendingRec.id, p.id, p.label);
+      spinning = false;
       revealPrize(p);
     });
   }
@@ -346,7 +356,7 @@
   /* ---------------------------------------------------------------------- */
   function wire() {
     $('#checkin-form').addEventListener('submit', submit);
-    $('#btn-spin').addEventListener('click', spin);
+    $('#wheel-tap').addEventListener('click', spin);
     $('#btn-next').addEventListener('click', reset);
     $('#btn-still-here').addEventListener('click', function () { disarmIdle(); armIdle(); });
 
