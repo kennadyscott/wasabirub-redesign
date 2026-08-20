@@ -15,7 +15,7 @@
   'use strict';
 
   var CFG      = window.CHECKIN_CONFIG;
-  var K_DEVICE = 'spci-device-v1';    // this iPad's letter + staff PIN hash
+  var K_DEVICE = 'spci-device-v1';    // this iPad's letter
   var K_ROWS   = 'spci-checkins-v1';  // every check-in taken on this iPad
 
   /* ---------- tiny helpers ---------------------------------------------- */
@@ -36,38 +36,26 @@
     });
   }
 
-  /* PIN hashing. Note this is NOT a security boundary against a determined
-     attacker — it is a "guest who found the staff screen" boundary. The real
-     protection is that the PIN is chosen on the device and never ships in the
-     bundle, so there is no shared passcode to leak. */
-  function hashPin(pin) {
-    var salted = 'spci:' + pin;
-    if (window.crypto && crypto.subtle && window.isSecureContext) {
-      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(salted))
-        .then(function (buf) {
-          return Array.from(new Uint8Array(buf))
-            .map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
-        });
-    }
-    // http:// dev fallback — crypto.subtle is unavailable outside secure contexts.
-    var h = 0;
-    for (var i = 0; i < salted.length; i++) { h = (h * 31 + salted.charCodeAt(i)) | 0; }
-    return Promise.resolve('weak:' + (h >>> 0).toString(16));
-  }
-
   /* ---------- device identity ------------------------------------------- */
-  function device()          { return read(K_DEVICE, null); }
-  function isSetUp()         { var d = device(); return !!(d && d.letter && d.pinHash); }
-  function setUpDevice(letter, pin) {
-    return hashPin(pin).then(function (pinHash) {
-      write(K_DEVICE, { letter: String(letter).toUpperCase().slice(0, 2), pinHash: pinHash, setAt: new Date().toISOString() });
-      return true;
+  /* There is no setup step any more. The device letter only prefixes an
+     internal reference on the staff screen and in the CSV — guests never see
+     it, now that claim codes are gone — so asking for it on first run was
+     making the team answer a question that no longer means anything to anyone
+     at the event. It defaults to A and can be changed on the staff screen if a
+     second iPad is ever running.
+
+     The PIN went with it. It had been guarding the only copy of the night's
+     leads; Supabase is now the second copy, so it was protecting far less than
+     it cost. The staff screen is still unadvertised — five taps on the
+     wordmark — but that is obscurity, not a lock. */
+  function device() { return read(K_DEVICE, null) || { letter: 'A' }; }
+
+  function setDeviceLetter(letter) {
+    write(K_DEVICE, {
+      letter: String(letter).toUpperCase().slice(0, 2),
+      setAt:  new Date().toISOString()
     });
-  }
-  function checkPin(pin) {
-    var d = device();
-    if (!d) return Promise.resolve(false);
-    return hashPin(pin).then(function (h) { return h === d.pinHash; });
+    return Promise.resolve(true);
   }
 
   /* ---------- records ---------------------------------------------------- */
@@ -267,7 +255,7 @@
   function clearAll() { write(K_ROWS, []); }
 
   window.Store = {
-    isSetUp: isSetUp, setUpDevice: setUpDevice, checkPin: checkPin, device: device,
+    setDeviceLetter: setDeviceLetter, device: device,
     add: add, setPrize: setPrize, rows: rows, nextRaffleNumber: nextRaffleNumber,
     sync: sync, pendingCount: pendingCount, configured: configured,
     csv: csv, clearAll: clearAll

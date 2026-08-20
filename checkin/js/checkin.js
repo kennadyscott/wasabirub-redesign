@@ -85,13 +85,20 @@
     if (CFG.venue.hours)   meta.push('<span>' + icon('clock') + esc(CFG.venue.hours) + '</span>');
     $('#trust-meta').innerHTML = meta.join('');
 
-    $('#chips-letter').innerHTML = ['A', 'B', 'C', 'D'].map(function (l, i) {
-      return '<button type="button" class="chip" aria-pressed="' + (i === 0) + '" data-v="' + l + '">iPad ' + l + '</button>';
+    /* Only relevant if a second iPad is running, so it lives on the staff
+       screen rather than in front of the team on first launch. */
+    var cur = (Store.device() || {}).letter || 'A';
+    $('#chips-letter').innerHTML = ['A', 'B', 'C', 'D'].map(function (l) {
+      return '<button type="button" class="lchip" aria-pressed="' + (l === cur) + '" data-v="' + l + '">' + l + '</button>';
     }).join('');
     $('#chips-letter').addEventListener('click', function (e) {
-      var b = e.target.closest('.chip'); if (!b) return;
-      $$('.chip', this).forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+      var b = e.target.closest('.lchip'); if (!b) return;
+      $$('.lchip', this).forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
       b.setAttribute('aria-pressed', 'true');
+      Store.setDeviceLetter(b.dataset.v).then(function () {
+        renderStaff();
+        toast('This is iPad ' + b.dataset.v + '. Check-ins already taken keep their old reference.');
+      });
     });
 
     if (CFG.wheel.enabled) Wheel.render($('#wheel-labels'));
@@ -300,7 +307,6 @@
   function renderStaff() {
     var rows = Store.rows();
     var pending = Store.pendingCount();
-    $('#staff-letter').textContent = (Store.device() || {}).letter || 'A';
     $('#stat-total').textContent   = rows.length;
     /* With no Supabase project configured there is nothing to be synced or
        pending — "3 waiting to sync" would imply a queue that never drains. */
@@ -388,23 +394,10 @@
       taps.push(now);
       if (taps.length >= 5) {
         taps = [];
-        $('#pin-in').value = ''; setErr('pin-in', 0);
-        veil('#veil-pin', true);
-        setTimeout(function () { $('#pin-in').focus(); }, 60);
-      }
-    });
-    $('#btn-pin-cancel').addEventListener('click', function () { veil('#veil-pin', false); });
-    $('#btn-pin-ok').addEventListener('click', tryPin);
-    $('#pin-in').addEventListener('keydown', function (e) { if (e.key === 'Enter') tryPin(); });
-
-    function tryPin() {
-      Store.checkPin($('#pin-in').value).then(function (ok) {
-        if (!ok) { setErr('pin-in', 1); return; }
-        veil('#veil-pin', false);
         renderStaff();
         veil('#veil-staff', true);
-      });
-    }
+      }
+    });
 
     $('#btn-staff-close').addEventListener('click', function () { veil('#veil-staff', false); });
     $('#btn-sync-now').addEventListener('click', function () {
@@ -430,8 +423,13 @@
     $('#btn-wipe').addEventListener('click', function () {
       var n = Store.rows().length, pending = Store.pendingCount();
       var warn = 'Erase all ' + n + ' check-in' + (n === 1 ? '' : 's') + ' from this iPad?';
-      if (pending) warn += '\n\n' + pending + ' have NOT synced to the cloud yet and will be lost. ' +
-                          'Download the CSV first.';
+      if (pending) {
+        warn += '\n\n⚠️ ' + pending + ' have NOT reached the cloud yet and exist ' +
+                'ONLY on this iPad. They will be lost for good. Download the CSV first.';
+      } else if (Store.configured()) {
+        warn += '\n\nThese are all synced, so they remain in Supabase — this clears ' +
+                'the copy on this iPad only.';
+      }
       warn += '\n\nThis also resets the prize stock counters.\n\nThis cannot be undone.';
       if (!confirm(warn)) return;
       if (!confirm('Really erase? Last chance.')) return;
@@ -442,17 +440,6 @@
       if ($('#veil-staff').classList.contains('is-active')) renderStaff();
     });
 
-    $('#btn-setup-save').addEventListener('click', function () {
-      var chip = $('#chips-letter .chip[aria-pressed="true"]');
-      var pin = $('#setup-pin').value.trim();
-      if (!chip || !/^\d{4}$/.test(pin)) { setErr('setup-pin', 1); return; }
-      setErr('setup-pin', 0);
-      Store.setUpDevice(chip.dataset.v, pin).then(function () {
-        veil('#veil-setup', false);
-        toast('Ready. This is iPad ' + chip.dataset.v + '.');
-        armIdle();
-      });
-    });
   }
 
   /* Keep the screen awake between guests. iOS 16.4+ honours this; on older
@@ -476,6 +463,6 @@
   build();
   wire();
   keepAwake();
-  if (!Store.isSetUp()) veil('#veil-setup', true); else armIdle();
+  armIdle();
   Store.sync();
 })();

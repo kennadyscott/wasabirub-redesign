@@ -232,43 +232,16 @@
   </div>
 </div>
 
-<div class="veil" id="veil-setup">
-  <div class="sheet">
-    <h2>Set up this iPad</h2>
-    <p>One time only. If you’re running two iPads, give each a different letter
-       so no two guests get the same claim code.</p>
-    <div style="text-align:left">
-      <span class="lab lab-block">This iPad’s letter</span>
-      <div class="chips" id="chips-letter"></div>
-      <span class="lab lab-block" style="margin-top:20px">Staff PIN — 4 digits</span>
-      <input class="pin-in" type="tel" id="setup-pin" inputmode="numeric" maxlength="4" placeholder="••••">
-      <p class="err" data-for="setup-pin">Choose a letter and a 4-digit PIN.</p>
-      <p class="fine">This PIN opens the staff screen. It’s stored on this iPad
-         only — nobody can read it from the website.</p>
-    </div>
-    <div class="row"><button class="btn btn-primary" id="btn-setup-save">Start the event</button></div>
-  </div>
-</div>
-
-<div class="veil" id="veil-pin">
-  <div class="sheet">
-    <h2>Staff</h2>
-    <p>Enter the PIN for this iPad.</p>
-    <input class="pin-in" type="tel" id="pin-in" inputmode="numeric" maxlength="4" placeholder="••••">
-    <p class="err" data-for="pin-in">Wrong PIN.</p>
-    <div class="row">
-      <button class="btn btn-ghost" id="btn-pin-cancel">Cancel</button>
-      <button class="btn btn-primary" id="btn-pin-ok">Open</button>
-    </div>
-  </div>
-</div>
-
 <div class="veil" id="veil-staff">
   <div class="sheet wide">
     <div class="staff-head">
       <div>
         <h2>Check-ins on this iPad</h2>
-        <p style="margin:0">Device <b id="staff-letter">A</b> · <span id="staff-sync"></span></p>
+        <p style="margin:0">
+          <span class="lab" style="display:inline;margin:0">iPad</span>
+          <span class="letter-pick" id="chips-letter"></span>
+          · <span id="staff-sync"></span>
+        </p>
       </div>
       <button class="btn btn-ghost" id="btn-staff-close">Back to kiosk</button>
     </div>
