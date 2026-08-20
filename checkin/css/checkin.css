@@ -44,11 +44,38 @@
 html, body { height: 100%; overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Solid navy is the FALLBACK, and it matters: if the photo fails to load the
+     page must still be dark, or the white headline artwork vanishes. */
   background: var(--navy-deep); color: #fff; line-height: 1.5;
   -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none; user-select: none;
 }
 input, textarea, select { -webkit-user-select: text; user-select: text; }
+
+/* =============================================================================
+   BACKGROUND — a Fort Lauderdale photograph per screen, under a navy scrim:
+   morning beach behind the form, sunset behind the wheel.
+
+   Two fixed layers rather than `background-attachment: fixed`, which stutters
+   badly on iOS Safari while a long form scrolls.
+
+   The scrim is not decoration. The photo's sky averages 170/255 and the
+   headline artwork is white — unscrimmed it simply disappears. At these values
+   white sits at 11-14:1 against the composite, past AAA, and about a quarter
+   of the scene still reads through.
+============================================================================= */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -2;
+  background: url('../assets/bg-beach.webp') center center / cover no-repeat;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: -1;
+  background: linear-gradient(180deg,
+    rgba(1,20,48,.86) 0%,
+    rgba(1,20,48,.76) 34%,
+    rgba(1,20,48,.74) 62%,
+    rgba(1,20,48,.88) 100%);
+}
 
 .screen { display: none; }
 .screen.is-active { display: block; }
@@ -265,9 +292,34 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
 #screen-done {
   min-height: 100%; place-items: center; text-align: center;
   padding: 30px max(22px, env(safe-area-inset-left));
-  background: var(--navy-deep);
+  background: transparent;
 }
-.done-inner { max-width: 560px; width: 100%; }
+
+/* The wheel screen swaps in the sunset. Its own fixed layers, painted above
+   the body's beach pair, so the two never blend. They only exist while this
+   screen is displayed — a hidden screen renders no pseudo-elements.
+
+   The scrim here is a WARM near-black, not the navy used on the form. Navy over
+   an orange sunset is a complementary mix: measured, it flattened the sky to
+   rgb(63,55,56) — a channel spread of 8, i.e. grey. The whole reason to use
+   this photograph is its warmth. A warm near-black at the same darkness keeps a
+   spread of ~46 while holding white text at ~12:1. */
+#screen-done::before,
+#screen-done::after { content: ''; position: fixed; inset: 0; }
+#screen-done::before {
+  z-index: 0;
+  background: url('../assets/bg-sunset.webp') center center / cover no-repeat;
+}
+#screen-done::after {
+  z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(18,10,6,.70) 0%,
+    rgba(18,10,6,.48) 40%,
+    rgba(18,10,6,.52) 66%,
+    rgba(18,10,6,.78) 100%);
+}
+/* Lift the content clear of both layers. */
+.done-inner { position: relative; z-index: 2; max-width: 560px; width: 100%; }
 .done-tick {
   width: 58px; height: 58px; border-radius: 50%; background: var(--green);
   display: grid; place-items: center; margin: 0 auto 20px;
