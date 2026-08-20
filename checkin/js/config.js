@@ -26,9 +26,6 @@ window.CHECKIN_CONFIG = {
     dateLabel: '',                     // e.g. 'Thursday, October 9' — blank hides it
     // Shown on the confirmation screen, above the wheel.
     prizeLine:   'Give the wheel a spin.',
-    // Nudge for a winner. Prizes are handed over at the table — there is no
-    // claim code, nothing for a guest to show and nothing to look up.
-    collectLine: 'See a team member to collect it.',
     // The last thing a guest reads before the kiosk resets.
     closingLine: 'Enjoy the evening!',
     // Sits under the wheel. The wheel itself is the button — there is no
@@ -170,7 +167,13 @@ window.CHECKIN_CONFIG = {
      which is why the idle wipe matters. A part-filled form left on a kiosk is
      somebody's home address sitting in public. */
   kiosk: {
-    confirmSeconds: 25,   // confirmation screen holds this long, then resets
+    /* 0 = the confirmation screen waits for "Next guest" to be tapped and
+       never advances on its own, which is what the team asked for. Nothing
+       personal is on that screen, so a guest who wanders off blocks the queue
+       rather than exposing anything. If you would rather it recovered by
+       itself, set this to a number of seconds and a quiet auto-reset comes
+       back — there is no visible countdown either way. */
+    confirmSeconds: 0,
     idleSeconds:    90,   // a part-filled form untouched this long is wiped
     idleWarnSeconds: 15   // countdown shown before the wipe
   }

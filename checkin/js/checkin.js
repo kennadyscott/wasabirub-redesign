@@ -172,7 +172,7 @@
   /* ---------------------------------------------------------------------- */
   function reset() {
     disarmIdle();
-    clearInterval(doneCountdown);
+    clearTimeout(doneCountdown);
     pendingRec = null;
     $('#checkin-form').reset();
     ['in-name','in-company','in-email','in-phone','in-street','in-city','in-state','in-zip','in-role']
@@ -280,20 +280,18 @@
       $('#prize-kicker').textContent = lost ? 'This time' : 'You won';
       $('#prize-name').textContent   = p.label;
       $('#done-sub').textContent     = lost ? 'Thanks for coming out.' : 'Nice one.';
-      /* Prizes are handed over at the table, so a winner needs a nudge to
-         collect. There is no code to show anyone. */
-      $('.prize-claim').textContent  = CFG.event.collectLine;
     } else {
       $('#prize-card').hidden = true;
     }
 
-    var left = CFG.kiosk.confirmSeconds;
-    $('#done-timer').textContent = left;
-    clearInterval(doneCountdown);
-    doneCountdown = setInterval(function () {
-      left--; $('#done-timer').textContent = Math.max(0, left);
-      if (left <= 0) { clearInterval(doneCountdown); reset(); }
-    }, 1000);
+    /* No countdown. The guest taps "Next guest" when they are done reading —
+       a screen that snatches itself away mid-sentence is worse than one that
+       waits. `confirmSeconds` can reinstate a quiet auto-reset if the queue
+       ever needs it, but it is off by default. */
+    clearTimeout(doneCountdown);
+    if (CFG.kiosk.confirmSeconds > 0) {
+      doneCountdown = setTimeout(reset, CFG.kiosk.confirmSeconds * 1000);
+    }
   }
 
   /* ---------------------------------------------------------------------- */
