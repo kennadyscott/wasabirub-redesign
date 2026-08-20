@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your Drawing Number — SportPharm</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A1526">
+<!-- No referrer: the drawing number sits in the URL fragment, and this stops
+     it travelling anywhere in a Referer header. -->
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F1D33; --navy-deep: #0A1526; --red: #D6202A; --paper: #fff;
+    --ink: #15202B; --ink-soft: #566371; --ink-faint: #8B96A2; --line: #E1E4E7;
+    --display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh; display: grid; place-items: center; padding: 26px;
+    font-family: 'Inter', system-ui, sans-serif; color: var(--ink);
+    background: radial-gradient(120% 80% at 50% 0%, #172C4C 0%, var(--navy-deep) 62%), var(--navy-deep);
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    background: var(--paper); border-radius: 20px; width: 100%; max-width: 400px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.42); overflow: hidden; text-align: center;
+  }
+  .card-top { background: var(--navy); padding: 26px 24px 22px; }
+  .card-top img { height: 26px; }
+  .kicker {
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    letter-spacing: .2em; font-size: 11px; color: var(--red); margin-top: 14px;
+  }
+  .card-body { padding: 34px 26px 30px; }
+  .lab {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .15em; color: var(--ink-faint);
+  }
+  .num {
+    font-family: var(--display); font-weight: 900; letter-spacing: -.045em;
+    font-size: 82px; line-height: 1; color: var(--navy); margin: 10px 0 6px;
+    /* A drawing number gets read aloud across a room — it must be selectable
+       and it must not be mistaken for a decoration. */
+    -webkit-user-select: all; user-select: all;
+  }
+  .rule { height: 1.5px; background: var(--line); margin: 24px 0; }
+  .note { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+  .note b { color: var(--ink); }
+  .tip {
+    margin-top: 20px; font-size: 12.5px; color: var(--ink-faint);
+    background: #F4F5F6; border-radius: 10px; padding: 12px 14px; line-height: 1.5;
+  }
+  .bad { padding: 40px 26px; color: var(--ink-soft); font-size: 15px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-top">
+      <img src="assets/wordmark-white.png" alt="SportPharm">
+      <p class="kicker" id="kicker">Grand Opening · Florida</p>
+    </div>
+    <div class="card-body" id="body">
+      <p class="lab">Your drawing number</p>
+      <p class="num" id="num">—</p>
+      <div class="rule"></div>
+      <p class="note">Keep this handy. We’ll call the winning number at the
+         event — and if you’re not there when we draw, we’ll reach out using
+         the details you checked in with.</p>
+      <p class="tip">Screenshot this screen so you don’t lose your number.</p>
+    </div>
+  </div>
+
+<script src="js/config.js"></script>
+<script>
+  (function () {
+    var CFG = window.CHECKIN_CONFIG || { event: {} };
+    var k = [CFG.event.name, CFG.event.location].filter(Boolean).join(' · ');
+    if (k) document.getElementById('kicker').textContent = k;
+
+    /* The number is the only thing this page ever receives — no name, no
+       email, no address. Validate its shape before rendering so a crafted
+       link can't paint arbitrary text into a SportPharm-branded card. */
+    var raw = decodeURIComponent((location.hash || '').replace(/^#/, '')).trim().toUpperCase();
+    if (/^[A-Z]{1,2}-\d{1,6}$/.test(raw)) {
+      document.getElementById('num').textContent = raw;
+      document.title = raw + ' — SportPharm Grand Opening';
+    } else {
+      document.getElementById('body').innerHTML =
+        '<p class="bad">This link doesn’t have a drawing number in it. ' +
+        'Scan the QR code on the check-in iPad again, or ask a staff member.</p>';
+    }
+  })();
+</script>
+</body>
+</html>

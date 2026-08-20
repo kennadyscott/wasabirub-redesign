@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Check In — SportPharm Grand Opening</title>
+<!-- viewport-fit=cover so the layout reaches under the iPad's rounded corners;
+     user-scalable=no is honoured once this is added to the Home Screen. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A1526">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Check In">
+<link rel="apple-touch-icon" href="assets/wordmark-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/checkin.css">
+</head>
+<body>
+
+<!-- =========================================================================
+     1. WELCOME — also the resting state. No guest data is ever on screen here,
+     which is why every reset and every timeout lands back on it.
+========================================================================== -->
+<section class="screen is-active" id="screen-welcome">
+  <button class="secret" id="secret-tap" aria-label="Staff"></button>
+  <img class="welcome-mark" src="assets/wordmark-white.png" alt="SportPharm">
+  <p class="welcome-kicker" id="w-kicker">Grand Opening · Florida</p>
+  <h1 class="welcome-title">Welcome<em>Check in</em></h1>
+  <p class="welcome-meta" id="w-meta">Welcome. Check in to be entered in today’s drawing.</p>
+  <button class="welcome-cta" id="btn-start">Tap to check in</button>
+  <p class="welcome-tap">Takes about 30 seconds</p>
+</section>
+
+<!-- =========================================================================
+     2. FORM
+========================================================================== -->
+<section class="screen" id="screen-form">
+  <header class="form-head">
+    <img src="assets/wordmark-dark.png" alt="SportPharm">
+    <p class="form-head-t"><b id="f-event">Grand Opening</b> · <span id="f-loc">Florida</span></p>
+  </header>
+
+  <div class="form-body">
+    <h1 class="display form-title">Check in</h1>
+    <p class="form-sub">So we can follow up and get you entered in the drawing.</p>
+
+    <form id="checkin-form" novalidate autocomplete="off">
+      <div class="grid">
+
+        <div class="f-6">
+          <label>
+            <span class="lab">Full name<span class="req">*</span></span>
+            <!-- name="off-*" defeats Safari's autofill dropdown. On a shared
+                 kiosk an autofill suggestion would show the PREVIOUS guest's
+                 details to the next one. -->
+            <input type="text" id="in-name" name="off-name" autocomplete="off"
+                   autocapitalize="words" autocorrect="off" spellcheck="false"
+                   enterkeyhint="next" placeholder="Jane Rodriguez">
+          </label>
+          <p class="err" data-for="in-name">Please enter your name.</p>
+        </div>
+
+        <div class="f-6">
+          <label>
+            <span class="lab">Company / practice<span class="opt">optional</span></span>
+            <input type="text" id="in-company" name="off-company" autocomplete="off"
+                   autocapitalize="words" autocorrect="off" spellcheck="false"
+                   enterkeyhint="next" placeholder="Gulf Coast Sports Medicine">
+          </label>
+        </div>
+
+        <div class="f-6">
+          <label>
+            <span class="lab">Email<span class="req">*</span></span>
+            <input type="email" id="in-email" name="off-email" autocomplete="off"
+                   inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false"
+                   enterkeyhint="next" placeholder="jane@practice.com">
+          </label>
+          <p class="err" data-for="in-email">Please enter a valid email address.</p>
+        </div>
+
+        <div class="f-6" id="wrap-phone">
+          <label>
+            <span class="lab">Mobile<span class="opt">optional</span></span>
+            <input type="tel" id="in-phone" name="off-phone" autocomplete="off"
+                   inputmode="tel" enterkeyhint="next" placeholder="(555) 123-4567">
+          </label>
+          <p class="err" data-for="in-phone">That doesn’t look like a 10-digit number.</p>
+        </div>
+
+        <div class="f-12">
+          <label>
+            <span class="lab">Home address<span class="req">*</span></span>
+            <input type="text" id="in-street" name="off-street" autocomplete="off"
+                   autocapitalize="words" autocorrect="off" spellcheck="false"
+                   enterkeyhint="next" placeholder="Street address">
+          </label>
+          <p class="err" data-for="in-street">Please enter your street address.</p>
+        </div>
+
+        <div class="f-5">
+          <label>
+            <span class="lab">City<span class="req">*</span></span>
+            <input type="text" id="in-city" name="off-city" autocomplete="off"
+                   autocapitalize="words" autocorrect="off" spellcheck="false"
+                   enterkeyhint="next" placeholder="Tampa">
+          </label>
+          <p class="err" data-for="in-city">Please enter your city.</p>
+        </div>
+
+        <div class="f-3 f-state">
+          <label>
+            <span class="lab">State<span class="req">*</span></span>
+            <select id="in-state" name="off-state" autocomplete="off"></select>
+          </label>
+          <p class="err" data-for="in-state">Please choose a state.</p>
+        </div>
+
+        <div class="f-4 f-zip">
+          <label>
+            <span class="lab">ZIP<span class="req">*</span></span>
+            <input type="text" id="in-zip" name="off-zip" autocomplete="off"
+                   inputmode="numeric" maxlength="10" enterkeyhint="done" placeholder="33602">
+          </label>
+          <p class="err" data-for="in-zip">Please enter a 5-digit ZIP.</p>
+        </div>
+
+        <div class="f-12" id="wrap-role">
+          <span class="lab">Your role<span class="opt">optional</span></span>
+          <div class="chips" id="chips-role" role="group" aria-label="Your role"></div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <footer class="form-foot">
+    <p class="privacy">
+      We’ll use this to follow up about SportPharm services and to contact you
+      if you win. We don’t sell your information.
+    </p>
+    <div style="display:flex;gap:12px;align-items:center">
+      <button type="button" class="btn btn-ghost" id="btn-cancel">Cancel</button>
+      <button type="submit" form="checkin-form" class="btn btn-primary" id="btn-submit">Check me in</button>
+    </div>
+  </footer>
+</section>
+
+<!-- =========================================================================
+     3. CONFIRMATION
+========================================================================== -->
+<section class="screen" id="screen-done">
+  <div class="done-tick">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4 12.5l5.5 5.5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <h1 class="done-title">You’re checked in</h1>
+  <p class="done-sub" id="done-sub">You’re entered in the drawing.</p>
+
+  <div class="ticket" id="ticket">
+    <div>
+      <p class="ticket-num-label">Your drawing number</p>
+      <p class="ticket-num" id="ticket-num">A-001</p>
+      <p class="ticket-name" id="ticket-name"></p>
+    </div>
+    <div class="ticket-qr" id="ticket-qr-wrap">
+      <div id="ticket-qr"></div>
+      <p>Scan to save your number to your phone</p>
+    </div>
+  </div>
+
+  <div class="done-next">
+    <button class="btn btn-primary" id="btn-next">Next guest</button>
+  </div>
+  <p class="done-count">Returning to the welcome screen in <span id="done-timer">25</span>s</p>
+</section>
+
+<!-- =========================================================================
+     OVERLAYS
+========================================================================== -->
+
+<!-- Idle wipe. A part-filled form left on a kiosk is somebody's home address
+     sitting in public. It gets cleared. -->
+<div class="veil" id="veil-idle">
+  <div class="sheet">
+    <h2>Still there?</h2>
+    <p>For privacy we’ll clear this form in <b id="idle-timer">15</b> seconds.</p>
+    <div class="row">
+      <button class="btn btn-primary" id="btn-still-here">I’m still here</button>
+    </div>
+  </div>
+</div>
+
+<!-- First-run setup. The device letter and the staff PIN are chosen HERE, on
+     the iPad, and stored only on the iPad. Neither ships in the bundle. -->
+<div class="veil" id="veil-setup">
+  <div class="sheet">
+    <h2>Set up this iPad</h2>
+    <p>One time only. If you’re running two iPads, give each a different letter
+       so no two guests get the same drawing number.</p>
+    <div style="text-align:left">
+      <span class="lab">This iPad’s letter</span>
+      <div class="chips" id="chips-letter" style="margin-bottom:20px"></div>
+      <span class="lab">Staff PIN — 4 digits</span>
+      <input class="pin-in" type="tel" id="setup-pin" inputmode="numeric" maxlength="4" placeholder="····">
+      <p class="err" data-for="setup-pin">Choose a letter and a 4-digit PIN.</p>
+      <p style="font-size:13px;color:var(--ink-faint);margin-top:12px">
+        This PIN opens the staff screen. It’s stored on this iPad only — nobody
+        can read it from the website.
+      </p>
+    </div>
+    <div class="row"><button class="btn btn-primary" id="btn-setup-save">Start the event</button></div>
+  </div>
+</div>
+
+<!-- Staff PIN prompt -->
+<div class="veil" id="veil-pin">
+  <div class="sheet">
+    <h2>Staff</h2>
+    <p>Enter the PIN for this iPad.</p>
+    <input class="pin-in" type="tel" id="pin-in" inputmode="numeric" maxlength="4" placeholder="····">
+    <p class="err" data-for="pin-in">Wrong PIN.</p>
+    <div class="row">
+      <button class="btn btn-ghost" id="btn-pin-cancel">Cancel</button>
+      <button class="btn btn-primary" id="btn-pin-ok">Open</button>
+    </div>
+  </div>
+</div>
+
+<!-- Staff screen -->
+<div class="veil" id="veil-staff">
+  <div class="sheet wide">
+    <div class="staff-head">
+      <div>
+        <h2>Check-ins on this iPad</h2>
+        <p style="margin:0">Device <b id="staff-letter">A</b> · <span id="staff-sync"></span></p>
+      </div>
+      <button class="btn btn-ghost" id="btn-staff-close">Back to kiosk</button>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><b id="stat-total">0</b><span>Checked in</span></div>
+      <div class="stat"><b id="stat-synced">0</b><span>Synced to cloud</span></div>
+      <div class="stat"><b id="stat-pending">0</b><span>Waiting to sync</span></div>
+    </div>
+
+    <div class="staff-list" id="staff-list"></div>
+
+    <div class="staff-foot">
+      <button class="btn btn-primary" id="btn-export">Download CSV</button>
+      <button class="btn btn-ghost" id="btn-sync-now">Sync now</button>
+      <button class="btn btn-ghost" id="btn-draw">Draw a winner</button>
+      <button class="btn btn-ghost" id="btn-wipe" style="margin-left:auto;color:var(--red);border-color:#F3C9CB">Erase all data</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/qr.js"></script>
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/checkin.js"></script>
+</body>
+</html>

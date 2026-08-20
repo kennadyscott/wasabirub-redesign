@@ -1,0 +1,312 @@
+/* =============================================================================
+   SportPharm Grand Opening — check-in kiosk
+   Palette + display voice are the WasabiRub masterbrand, read from HQ's hq.css:
+   heavy native grotesque at 900, tracked negative, uppercase — never Bebas.
+============================================================================= */
+:root {
+  --bg:        #F4F5F6;
+  --paper:     #FFFFFF;
+  --ink:       #15202B;
+  --ink-soft:  #566371;
+  --ink-faint: #8B96A2;
+  --navy:      #0F1D33;
+  --navy-deep: #0A1526;
+  --red:       #D6202A;
+  --red-deep:  #AF1A22;
+  --green:     #27865A;
+  --amber:     #C85B38;
+  --line:      #E1E4E7;
+  --line-soft: #EDEFF1;
+  --display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --shadow:      0 1px 2px rgba(15,29,51,.06), 0 9px 27px rgba(15,29,51,.10);
+  --shadow-lift: 0 18px 44px rgba(15,29,51,.20);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  height: 100%;
+  /* A kiosk must not rubber-band or pull-to-refresh under a guest's finger. */
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--navy-deep);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Guests should never be able to select and drag someone else's data around,
+   but they must still be able to select inside the fields they're typing in. */
+body { -webkit-user-select: none; user-select: none; }
+input, textarea { -webkit-user-select: text; user-select: text; }
+
+.display {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -.03em;
+  line-height: .95;
+  color: var(--navy);
+}
+
+/* =============================================================================
+   SCREENS — exactly one is visible at a time.
+============================================================================= */
+.screen {
+  position: fixed; inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+           max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+}
+.screen.is-active { display: flex; }
+
+/* ---------- 1. WELCOME / ATTRACT ---------------------------------------- */
+/* Also the safe resting state: nothing on screen when nobody is standing here. */
+#screen-welcome {
+  background:
+    radial-gradient(120% 90% at 50% 0%, #172C4C 0%, var(--navy-deep) 62%),
+    var(--navy-deep);
+  align-items: center; justify-content: center; text-align: center;
+  cursor: pointer;
+}
+.welcome-mark { height: 44px; margin-bottom: 34px; }
+.welcome-kicker {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  letter-spacing: .22em; font-size: 11.5px; color: var(--red);
+  margin-bottom: 14px;
+}
+.welcome-title {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  letter-spacing: -.035em; line-height: .88; color: #fff;
+  font-size: clamp(40px, 7vw, 82px);
+}
+.welcome-title em { font-style: normal; color: var(--red); display: block; }
+.welcome-meta {
+  margin-top: 20px; color: #A9B6C7; font-size: 15.5px; max-width: 520px;
+}
+.welcome-cta {
+  margin-top: 38px;
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--red); color: #fff;
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  letter-spacing: .04em; font-size: 17px;
+  padding: 19px 46px; border: 0; border-radius: 11px;
+  box-shadow: 0 14px 40px rgba(214,32,42,.34);
+  animation: pulse 2.8s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@media (prefers-reduced-motion: reduce) { .welcome-cta { animation: none; } }
+.welcome-tap { margin-top: 16px; color: #6F8098; font-size: 12.5px; letter-spacing: .04em; }
+
+/* ---------- 2. FORM ------------------------------------------------------ */
+#screen-form { background: var(--bg); }
+
+.form-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding-bottom: 16px; flex-shrink: 0;
+}
+.form-head img { height: 24px; }
+.form-head-t { font-size: 12.5px; color: var(--ink-soft); }
+.form-head-t b { color: var(--navy); }
+
+.form-body {
+  flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: var(--paper); border-radius: 16px; box-shadow: var(--shadow);
+  padding: 24px 28px 28px;
+}
+.form-title { font-size: clamp(23px, 3vw, 30px); margin-bottom: 3px; }
+.form-sub { color: var(--ink-soft); font-size: 13.5px; margin-bottom: 20px; }
+
+.grid { display: grid; gap: 16px 20px; grid-template-columns: repeat(12, 1fr); }
+.f-12 { grid-column: span 12; }
+.f-8  { grid-column: span 8;  }
+.f-6  { grid-column: span 6;  }
+.f-4  { grid-column: span 4;  }
+.f-3  { grid-column: span 3;  }
+.f-5  { grid-column: span 5;  }
+@media (max-width: 780px) {
+  .f-8, .f-6, .f-4, .f-3, .f-5 { grid-column: span 12; }
+  .f-zip, .f-state { grid-column: span 6; }
+}
+
+label { display: block; }
+.lab {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink-soft); margin-bottom: 6px;
+}
+.lab .req { color: var(--red); margin-left: 3px; }
+.lab .opt { color: var(--ink-faint); font-weight: 600; text-transform: none;
+            letter-spacing: 0; margin-left: 6px; font-size: 11px; }
+
+/* 16px is exactly iOS's zoom-on-focus threshold — Safari zooms BELOW it. This
+   is a hard floor, not a style choice. Drop it to 15px to "match" the smaller
+   labels and the whole kiosk lurches mid-typing. */
+input[type="text"], input[type="email"], input[type="tel"], select {
+  width: 100%; font: inherit; font-size: 16px; color: var(--ink);
+  background: var(--bg); border: 1.5px solid var(--line);
+  border-radius: 9px; padding: 12px 14px; min-height: 46px;
+  transition: border-color .12s, background .12s, box-shadow .12s;
+  appearance: none; -webkit-appearance: none;
+}
+select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23566371' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 16px center;
+  padding-right: 40px;
+}
+input:focus, select:focus {
+  outline: none; background: var(--paper);
+  border-color: var(--navy); box-shadow: 0 0 0 4px rgba(15,29,51,.10);
+}
+input.is-bad, select.is-bad { border-color: var(--red); background: #FDF3F3; }
+.err { color: var(--red); font-size: 12px; font-weight: 600; margin-top: 5px; display: none; }
+.err.is-on { display: block; }
+
+/* Chips — one-tap answers beat a dropdown when someone is standing up. */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: inherit; font-size: 13.5px; font-weight: 600;
+  background: var(--bg); color: var(--ink-soft);
+  border: 1.5px solid var(--line); border-radius: 999px;
+  padding: 9px 16px; min-height: 40px; cursor: pointer;
+  transition: all .12s;
+}
+.chip[aria-pressed="true"] {
+  background: var(--navy); border-color: var(--navy); color: #fff;
+}
+.chips.chips-red .chip[aria-pressed="true"] {
+  background: var(--red); border-color: var(--red);
+}
+
+.form-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px; padding-top: 16px; flex-shrink: 0;
+}
+.btn {
+  font: inherit; font-family: var(--display); font-weight: 900;
+  text-transform: uppercase; letter-spacing: .04em;
+  border: 0; border-radius: 11px; cursor: pointer;
+  min-height: 52px; padding: 0 30px; font-size: 15.5px;
+  /* Never let a button label wrap — in iPad portrait the privacy note next to
+     it squeezed "CHECK ME IN" onto two lines. The note gives way instead. */
+  white-space: nowrap; flex-shrink: 0;
+  transition: transform .1s, background .12s;
+}
+.btn:active { transform: scale(.985); }
+.btn-primary { background: var(--red); color: #fff; box-shadow: 0 10px 26px rgba(214,32,42,.28); }
+.btn-primary:disabled { background: var(--ink-faint); box-shadow: none; }
+.btn-ghost {
+  background: transparent; color: var(--ink-soft);
+  border: 1.5px solid var(--line); min-height: 46px; padding: 0 22px; font-size: 13.5px;
+}
+.privacy {
+  font-size: 11.5px; color: var(--ink-faint); max-width: 400px; line-height: 1.45;
+  min-width: 0;   /* the flex item that is allowed to shrink */
+}
+
+/* ---------- 3. CONFIRMATION --------------------------------------------- */
+#screen-done {
+  background: radial-gradient(120% 90% at 50% 0%, #172C4C 0%, var(--navy-deep) 62%), var(--navy-deep);
+  align-items: center; justify-content: center; text-align: center;
+}
+.done-tick {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--green); display: grid; place-items: center;
+  margin-bottom: 20px; animation: pop .42s cubic-bezier(.2,.9,.3,1.4);
+}
+@keyframes pop { from { transform: scale(.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.done-title {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  letter-spacing: -.03em; color: #fff; font-size: clamp(28px, 4.2vw, 44px); line-height: .95;
+}
+.done-sub { color: #A9B6C7; font-size: 15px; margin-top: 10px; }
+
+.ticket {
+  margin-top: 26px; background: var(--paper); border-radius: 16px;
+  box-shadow: var(--shadow-lift); padding: 22px 28px;
+  display: flex; align-items: center; gap: 28px;
+}
+.ticket-num-label {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--ink-faint);
+}
+.ticket-num {
+  font-family: var(--display); font-weight: 900; letter-spacing: -.04em;
+  font-size: clamp(42px, 6vw, 62px); color: var(--navy); line-height: 1;
+}
+.ticket-name { color: var(--ink-soft); font-size: 13.5px; margin-top: 5px; }
+.ticket-qr {
+  border-left: 1.5px dashed var(--line); padding-left: 26px; text-align: center;
+}
+.ticket-qr canvas, .ticket-qr img { width: 124px; height: 124px; display: block; image-rendering: pixelated; }
+.ticket-qr p { font-size: 11px; color: var(--ink-faint); margin-top: 9px; max-width: 126px; line-height: 1.35; }
+
+.done-next { margin-top: 26px; display: flex; align-items: center; gap: 16px; }
+.done-count { color: #6F8098; font-size: 12.5px; margin-top: 18px; }
+
+/* =============================================================================
+   OVERLAYS — idle warning, setup, staff
+============================================================================= */
+.veil {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(10,21,38,.72); backdrop-filter: blur(6px);
+  display: none; align-items: center; justify-content: center; padding: 24px;
+}
+.veil.is-active { display: flex; }
+.sheet {
+  background: var(--paper); border-radius: 18px; box-shadow: var(--shadow-lift);
+  padding: 28px 30px; width: 100%; max-width: 430px; text-align: center;
+}
+.sheet.wide { max-width: 940px; text-align: left; }
+.sheet h2 { font-size: 21px; margin-bottom: 7px; }
+.sheet p { color: var(--ink-soft); font-size: 13.5px; margin-bottom: 18px; }
+.sheet .row { display: flex; gap: 12px; justify-content: center; margin-top: 22px; }
+
+.pin-in {
+  font-family: var(--display); font-size: 27px; font-weight: 900;
+  letter-spacing: .34em; text-align: center; padding: 13px;
+}
+
+/* Staff screen */
+.staff-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+.stat { background: var(--bg); border-radius: 12px; padding: 18px 20px; }
+.stat b { display: block; font-family: var(--display); font-weight: 900; font-size: 31px; letter-spacing: -.03em; color: var(--navy); line-height: 1; }
+.stat span { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-soft); }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+.pill-ok   { background: #E4F3EB; color: var(--green); }
+.pill-wait { background: #FBEDE7; color: var(--amber); }
+.pill-off  { background: var(--bg); color: var(--ink-faint); }
+.staff-list { max-height: 40vh; overflow-y: auto; border: 1.5px solid var(--line); border-radius: 12px; }
+.staff-list table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.staff-list th {
+  position: sticky; top: 0; background: var(--bg); text-align: left;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-soft); padding: 11px 14px; border-bottom: 1.5px solid var(--line);
+}
+.staff-list td { padding: 11px 14px; border-bottom: 1px solid var(--line-soft); }
+.staff-list tr:last-child td { border-bottom: 0; }
+.staff-list .mono { font-family: var(--display); font-weight: 900; letter-spacing: -.01em; }
+.staff-empty { padding: 34px; text-align: center; color: var(--ink-faint); }
+.staff-foot { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+
+/* The way into the staff screen: an unlabelled hit area over the wordmark.
+   Nothing on the kiosk advertises it. */
+.secret { position: absolute; top: 0; left: 0; width: 190px; height: 74px; opacity: 0; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 30px;
+  /* Parked well clear of the viewport. translateY(120%) left a sliver of the
+     pill visible along the bottom edge of a 1180x820 iPad. */
+  transform: translateX(-50%) translateY(260%);
+  opacity: 0; pointer-events: none;
+  background: var(--navy); color: #fff; padding: 14px 24px; border-radius: 10px;
+  font-size: 15px; font-weight: 600; z-index: 90;
+  transition: transform .28s cubic-bezier(.2,.9,.3,1.2), opacity .2s;
+  box-shadow: var(--shadow-lift);
+}
+.toast.is-on { transform: translateX(-50%) translateY(0); opacity: 1; }
