@@ -22,7 +22,10 @@ window.CHECKIN_CONFIG = {
   event: {
     name:      'Grand Opening',
     brand:     'SportPharm',
-    location:  'Florida',              // e.g. 'Fort Lauderdale, FL'
+    /* Stamped onto every check-in record's `event` column, and the trailing
+       two-letter state is what the form's State dropdown defaults to. Keep the
+       ", XX" on the end or that default falls back to FL. */
+    location:  'Fort Lauderdale, FL',
     dateLabel: '',                     // e.g. 'Thursday, October 9' — blank hides it
     // Shown on the confirmation screen, above the wheel.
     prizeLine:   'Give the wheel a spin.',
