@@ -41,13 +41,11 @@
     var loc = CFG.event.location || '';
     document.title = 'Check In — ' + CFG.event.brand + ' ' + CFG.event.name;
 
-    $('#h-t1').textContent  = CFG.hero.title;
-    $('#h-t2').textContent  = CFG.hero.title2;
-    $('#h-sub').textContent = CFG.hero.sub;
-    if (CFG.hero.image) $('#h-img').src = CFG.hero.image;
-    $('#hb-kicker').textContent = CFG.hero.badgeKicker || '';
-    $('#hb-lines').innerHTML = (CFG.hero.badgeLines || [])
-      .map(function (l) { return esc(l); }).join('<br>');
+    $('#lk-grand').textContent = CFG.hero.title;
+    $('#lk-script').textContent = CFG.hero.script;
+    $('#h-line1').textContent  = CFG.hero.line1;
+    $('#h-line2').textContent  = CFG.hero.line2;
+    $('#excited').textContent  = CFG.hero.excited;
     $('#done-sub').textContent = CFG.event.prizeLine;
 
     // State dropdown, defaulted to the state the event is in.
@@ -58,8 +56,15 @@
     sel.value = STATES.indexOf(home) > -1 ? home : 'FL';
 
     var role = $('#in-role');
-    role.innerHTML = '<option value="">Select your role</option>' +
+    role.innerHTML = '<option value="">Role (optional)</option>' +
       CFG.roles.map(function (r) { return '<option value="' + esc(r) + '">' + esc(r) + '</option>'; }).join('');
+
+    // A select showing its empty option should look like a placeholder, not
+    // like an answer the guest already gave.
+    $$('#in-role, #in-state').forEach(function (el) {
+      var mark = function () { el.classList.toggle('is-empty', !el.value); };
+      el.addEventListener('change', mark); mark();
+    });
 
     $('#wrap-phone').hidden = !CFG.fields.phone;
     $('#wrap-role').hidden  = !CFG.fields.role;
@@ -171,8 +176,9 @@
     ['in-name','in-company','in-email','in-phone','in-street','in-city','in-state','in-zip','in-role']
       .forEach(function (id) { setErr(id, 0); });
     $('#in-state').value = 'FL';
+    $$('#in-role, #in-state').forEach(function (el) { el.classList.toggle('is-empty', !el.value); });
     $('#btn-submit').disabled = false;
-    $('#btn-submit').querySelector('span').textContent = 'Complete check-in';
+    $('#btn-submit').querySelector('span').textContent = 'Check in';
 
     // Put the wheel back to its unspun state for the next guest.
     var w = $('#wheel');

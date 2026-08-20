@@ -28,18 +28,19 @@ window.CHECKIN_CONFIG = {
     prizeLine:   'Give the wheel a spin.'
   },
 
-  /* ---- The hero band across the top of the check-in page --------------- */
+  /* ---- The hero lockup -------------------------------------------------
+     `title` is set in heavy condensed caps; `script` is the brush face that
+     rides over the bottom of it. Keep `script` short — one or two words. A
+     long string will not fit under the caps and will overrun the page. */
   hero: {
-    title:    'Grand Opening',
-    title2:   'Check-In',          // the red second line
-    sub:      'Thanks for stopping by SportPharm. Please fill out the quick ' +
-              'form below to complete your check-in.',
-    image:    'assets/hero.jpg',
-    badgeKicker: 'Today only',
-    badgeLines:  ['Big perks.', 'Better performance.']
+    title:   'Grand',
+    script:  'Opening!',
+    line1:   'Thank you for joining us!',
+    line2:   'Please check in below',
+    excited: 'We’re excited to have you here!'
   },
 
-  /* ---- The three cards under the form --------------------------------- */
+  /* ---- The three perks shown under the form ---------------------------- */
   perks: [
     { icon: 'trophy', title: 'Enter to win',
       body: 'Check in for a chance to win premium recovery products and gear.' },
@@ -94,7 +95,7 @@ window.CHECKIN_CONFIG = {
       { id: 'wasabirub', label: 'WasabiRub',        color: '#27865A', weight: 17, slots: 1, stock: null },
       { id: 'icetrarub', label: 'IcetraRub',        color: '#337FA7', weight: 17, slots: 1, stock: null },
       { id: 'superhot',  label: 'Super Hot',        color: '#C85B38', weight: 14, slots: 1, stock: null },
-      { id: 'giftcard',  label: 'Gift card',        color: '#0F1D33', weight:  9, slots: 1, stock: 20   },
+      { id: 'giftcard',  label: 'Gift card',        color: '#C9971F', weight:  9, slots: 1, stock: 20   },
       { id: 'wine',      label: 'Bottle of wine',   color: '#8E1B36', weight:  3, slots: 1, stock: 6    },
       { id: 'none',      label: 'Better luck next time', color: '#98A2AE', weight: 40, slots: 3, stock: null }
     ]
