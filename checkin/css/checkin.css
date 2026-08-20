@@ -12,10 +12,6 @@
   src: url('../assets/fonts/anton.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Kaushan Script'; font-style: normal; font-weight: 400; font-display: block;
-  src: url('../assets/fonts/kaushan-script.woff2') format('woff2');
-}
-@font-face {
   font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
   src: url('../assets/fonts/inter-var.woff2') format('woff2');
 }
@@ -23,7 +19,7 @@
 :root {
   --paper:     #FFFFFF;
   --navy:      #0F1D33;
-  --navy-deep: #0B1730;   /* the page ground */
+  --navy-deep: #011430;   /* the page ground — sampled from the Grand Opening artwork */
   --navy-lift: #17284A;   /* raised panels on the ground */
   --ink:       #15202B;
   --ink-soft:  #566371;
@@ -65,37 +61,31 @@ input, textarea, select { -webkit-user-select: text; user-select: text; }
   position: relative; text-align: center;
   padding: max(26px, env(safe-area-inset-top)) 22px 4px;
 }
-.hero-mark { height: 26px; margin: 0 auto 26px; display: block; opacity: .95; }
+.hero-mark { height: 24px; margin: 0 auto 18px; display: block; opacity: .95; }
 
-/* GRAND with Opening! riding over its lower half. The script is absolutely
-   positioned so the two overlap the way a drawn lockup does; the container is
-   inline-block so it hugs the width of the word and the script can centre on
-   it rather than on the page. */
-.lockup { position: relative; display: inline-block; line-height: 1; }
-.lk-grand {
-  display: block;
-  font-family: 'Anton', 'Helvetica Neue', Impact, sans-serif; font-weight: 400;
-  text-transform: uppercase; letter-spacing: .004em;
-  font-size: clamp(58px, 14.5vw, 116px); line-height: .86; color: #fff;
+/* The lockup is artwork, so it just needs sizing. Capped in both directions:
+   by viewport width so it never overflows, and by an absolute max so it does
+   not balloon on a big landscape iPad. */
+.lockup { display: block; line-height: 0; }
+.lockup img {
+  display: block; margin: 0 auto;
+  /* Sized so CHECK IN clears the fold on an iPad in portrait. At 560px the
+     lockup pushed the primary action 16px below it. */
+  width: min(80vw, 500px); height: auto;
 }
-.lk-script {
-  position: absolute; left: 50%; bottom: 0; z-index: 2;
-  /* Rides across the LOWER THIRD of the caps and overhangs them slightly on
-     both sides — that overlap is what makes it read as one drawn lockup
-     rather than two stacked words. */
-  transform: translate(-50%, 54%) rotate(-5deg);
-  transform-origin: 50% 50%;
-  font-family: 'Kaushan Script', 'Snell Roundhand', cursive; font-weight: 400;
-  font-size: clamp(48px, 11.8vw, 96px); line-height: 1;
-  color: #ED1C24; white-space: nowrap;
-  /* Just enough shadow to separate it from the white caps underneath. A wide
-     blur here turns the red muddy against navy. */
-  text-shadow: 0 2px 7px rgba(11,23,48,.55);
-  padding-right: .1em;   /* room for the exclamation's tail */
+/* In landscape the height is the scarce dimension, not the width. The lockup
+   is the one element that can give way — shrinking it keeps CHECK IN reachable
+   without scrolling if the iPad isn't rotation-locked. */
+@media (orientation: landscape) and (max-height: 900px) {
+  .lockup img { width: min(46vw, 350px); }
+  .hero { padding-top: max(16px, env(safe-area-inset-top)); }
+  .hero-mark { height: 20px; margin-bottom: 12px; }
+  .hero-line1 { margin-top: clamp(12px, 2vw, 18px); }
+  .wrap { padding-top: 18px; }
 }
 
 .hero-line1 {
-  margin-top: clamp(42px, 8.6vw, 74px);
+  margin-top: clamp(20px, 3.6vw, 30px);
   font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
   font-size: clamp(13px, 2.1vw, 15px); color: #fff;
 }

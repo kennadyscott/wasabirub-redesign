@@ -29,12 +29,13 @@ window.CHECKIN_CONFIG = {
   },
 
   /* ---- The hero lockup -------------------------------------------------
-     `title` is set in heavy condensed caps; `script` is the brush face that
-     rides over the bottom of it. Keep `script` short — one or two words. A
-     long string will not fit under the caps and will overrun the page. */
+     This is the real "Grand Opening!" artwork, not type. Its navy background
+     has been knocked out to transparency, so it sits on the page ground
+     cleanly. Swap `image` for a different file to change the headline — there
+     is no text version to keep in sync. */
   hero: {
-    title:   'Grand',
-    script:  'Opening!',
+    image:   'assets/grand-opening.png',
+    alt:     'Grand Opening!',
     line1:   'Thank you for joining us!',
     line2:   'Please check in below',
     excited: 'We’re excited to have you here!'

@@ -41,8 +41,8 @@
     var loc = CFG.event.location || '';
     document.title = 'Check In — ' + CFG.event.brand + ' ' + CFG.event.name;
 
-    $('#lk-grand').textContent = CFG.hero.title;
-    $('#lk-script').textContent = CFG.hero.script;
+    if (CFG.hero.image) $('#lk-img').src = CFG.hero.image;
+    $('#lk-img').alt = CFG.hero.alt || 'Grand Opening!';
     $('#h-line1').textContent  = CFG.hero.line1;
     $('#h-line2').textContent  = CFG.hero.line2;
     $('#excited').textContent  = CFG.hero.excited;
