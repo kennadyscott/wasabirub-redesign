@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="WasabiRub triple-action sports topical pain relief from SportPharm.">
-  <title>WasabiRub | Feel It Work</title>
+  <meta name="description" content="Pharmacist-formulated OTC gel with menthol, capsaicin, and methyl salicylate. Cool-then-warm relief for muscle and joint pain. TruShield certified. Free shipping.">
+  <title>WasabiRub | Triple-Action Topical Pain Relief Gel</title>
   <style>
     :root{--fam-og:#27865a;--fam-hot:#d6202a;--fam-cold:#2b6c8f;--red:#d6202a;--deep:#0f1d33;--green:#27865a;--blue:#337fa7;--orange:#c85b38;--paper:#f4f5f6;--ink:#15202b}
     *{box-sizing:border-box}
@@ -375,16 +375,20 @@
     .partners{background:#f4f2ee;padding:44px 0 48px}
     .partners-eyebrow{margin:0 0 22px;text-align:center;font-size:10px;font-weight:800;
       letter-spacing:.19em;text-transform:uppercase;color:#6f6a5e}
-    .partners-row{list-style:none;margin:0;padding:0;display:grid;
-      grid-template-columns:repeat(3,1fr);align-items:center;max-width:1080px;margin-inline:auto}
-    .partners-row li{text-align:center;padding:6px 18px;border-left:1px solid #dcd8d0;
-      font-size:14.5px;font-weight:900;letter-spacing:.045em;text-transform:uppercase;color:var(--ink);
+    .partners-row{list-style:none;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;
+      justify-content:center;align-items:center;max-width:1080px}
+    .partners-row li{display:flex;align-items:center;justify-content:center;text-align:center;
+      padding:8px 40px;border-left:1px solid #dcd8d0;
+      font-size:16px;font-weight:900;letter-spacing:.045em;text-transform:uppercase;color:var(--ink);
       text-wrap:balance}
     .partners-row li:first-child{border-left:0}
+    .partners-row a{color:inherit;display:flex;align-items:center;justify-content:center}
+    .partners-row img{height:78px;width:auto;display:block}
     @media(max-width:760px){
       .partners{padding:34px 0 36px}
-      .partners-row{grid-template-columns:1fr;gap:14px}
+      .partners-row{flex-direction:column;gap:22px}
       .partners-row li{border-left:0;padding:0;font-size:15px}
+      .partners-row img{height:92px}
     }
   
     /* --- selector heading: left aligned, tighter to the testimonials below --- */
@@ -560,82 +564,204 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "What does WasabiRub feel like?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "WasabiRub begins with a cooling sensation from menthol, followed by gradual warmth from capsaicin. Sensation and intensity can vary by person and application area."
+      "@type": "Organization",
+      "@id": "https://wasabirub.com/#organization",
+      "name": "SportPharm",
+      "url": "https://wasabirub.com/",
+      "logo": "https://wasabirub.com/assets/wordmark-dark.png",
+      "email": "info@sportpharm.com",
+      "brand": {
+        "@type": "Brand",
+        "name": "WasabiRub",
+        "url": "https://wasabirub.com/"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Robert Nickell, R.Ph.",
+        "jobTitle": "Founder, sports pharmacist",
+        "description": "First official sports pharmacist for U.S. Olympic Training facilities and the 2004 Athens Games."
+      },
+      "sameAs": [
+        "https://www.instagram.com/sportpharmofficial/",
+        "https://www.linkedin.com/company/sportpharm/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://wasabirub.com/#website",
+      "url": "https://wasabirub.com/",
+      "name": "WasabiRub",
+      "publisher": {
+        "@id": "https://wasabirub.com/#organization"
       }
     },
     {
-      "@type": "Question",
-      "name": "Who is WasabiRub for?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Active people who want fast, targeted relief: athletes, trainers, weekend warriors and anyone dealing with the everyday muscle and joint aches that come with training and daily life. It is an over-the-counter topical, so no prescription is needed. If you are pregnant, nursing or managing a health condition, ask your doctor first, and always read and follow the Drug Facts label."
-      }
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does WasabiRub feel like?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WasabiRub begins with a cooling sensation from menthol, followed by gradual warmth from capsaicin. Sensation and intensity can vary by person and application area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is WasabiRub for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Active people who want fast, targeted relief: athletes, trainers, weekend warriors and anyone dealing with the everyday muscle and joint aches that come with training and daily life. It is an over-the-counter topical, so no prescription is needed. If you are pregnant, nursing or managing a health condition, ask your doctor first, and always read and follow the Drug Facts label."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I apply it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apply to the affected area as directed on the Drug Facts label. Many customers use it around training or whenever minor muscle and joint aches slow them down."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it tested for athletes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WasabiRub carries TruShield certification. Visit our quality page for details about the testing standard and certification."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which product should I choose?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Choose WasabiRub for balanced cool and heat, Super Hot for more intense warmth, or Super Cold for focused cooling without heat."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it with a heating pad or wrap?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Do not use WasabiRub with a heating pad, bandage or wrap, and avoid external heat after applying. This is on the Drug Facts label for a reason."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a prescription?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. WasabiRub is an over-the-counter product."
+          }
+        }
+      ]
     },
     {
-      "@type": "Question",
-      "name": "When should I apply it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Apply to the affected area as directed on the Drug Facts label. Many customers use it around training or whenever minor muscle and joint aches slow them down."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is it tested for athletes?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "WasabiRub carries TruShield certification. Visit our quality page for details about the testing standard and certification."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Which product should I choose?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Choose WasabiRub for balanced cool and heat, Super Hot for more intense warmth, or Super Cold for focused cooling without heat."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I use it with a heating pad or wrap?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Do not use WasabiRub with a heating pad, bandage or wrap, and avoid external heat after applying. This is on the Drug Facts label for a reason."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need a prescription?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. WasabiRub is an over-the-counter product."
-      }
+      "@type": "Product",
+      "@id": "https://wasabirub.com/wasabirub.html#product",
+      "name": "WasabiRub",
+      "url": "https://wasabirub.com/wasabirub.html",
+      "image": "https://wasabirub.com/assets/og-wasabirub.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "WasabiRub"
+      },
+      "description": "Triple-action OTC topical pain relief gel with menthol, capsaicin, and methyl salicylate.",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "ratingCount": "5"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewBody": "We’ve had good results with a variety of SportPharm’s topicals and compounded medications. WasabiRub helps manage muscle soreness and minor strains so our athletes can stay available and ready.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Joel Lockhart"
+          }
+        },
+        {
+          "@type": "Review",
+          "reviewBody": "WasabiRub is in our kit every day. It gives players fast, localized relief and helps them stay game-ready.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Dr. Javier García, DAT, ATC, SMTC"
+          }
+        },
+        {
+          "@type": "Review",
+          "reviewBody": "Our guys absolutely love using WasabiRub. The cooling and heating sensation lasts much longer than most products we’ve tried, and the feedback from our players has been outstanding.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Michael Feliciano, MS, ATC, PES"
+          }
+        },
+        {
+          "@type": "Review",
+          "reviewBody": "My 84 year old mother originally purchased the regular-strength WasabiRub for her arthritis, and she loved it. The menthol-warm spice scent was pleasant without being overwhelming, and it didn’t stain her clothes or sheets.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Cathy"
+          }
+        },
+        {
+          "@type": "Review",
+          "reviewBody": "This product is the best on the market for easing my pain very quickly. I have been dealing with some minor injuries for years now and have tried so many things, but this stuff is the only product out there that has given me true relief for a good amount of time.",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Cheryl"
+          }
+        }
+      ]
     }
   ]
 }
 </script>
 
-<link rel="canonical" href="https://wasabirub.com/">
+<link rel="canonical"<link rel="canonical" href="https://wasabirub.com/">
 <meta property="og:site_name" content="WasabiRub">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="WasabiRub | Feel It Work">
-<meta property="og:description" content="WasabiRub triple-action sports topical pain relief from SportPharm.">
+<meta property="og:title" content="WasabiRub | Triple-Action Topical Pain Relief Gel">
+<meta property="og:description" content="Pharmacist-formulated OTC gel with menthol, capsaicin, and methyl salicylate. Cool-then-warm relief for muscle and joint pain. TruShield certified. Free shipping.">
 <meta property="og:url" content="https://wasabirub.com/">
 <meta property="og:image" content="https://wasabirub.com/assets/og-home.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="WasabiRub jar on a deep navy background with the TruShield Certified mark">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="WasabiRub | Feel It Work">
-<meta name="twitter:description" content="WasabiRub triple-action sports topical pain relief from SportPharm.">
+<meta name="twitter:title" content="WasabiRub | Triple-Action Topical Pain Relief Gel">
+<meta name="twitter:description" content="Pharmacist-formulated OTC gel with menthol, capsaicin, and methyl salicylate. Cool-then-warm relief for muscle and joint pain. TruShield certified. Free shipping.">
 <meta name="twitter:image" content="https://wasabirub.com/assets/og-home.jpg">
 <meta name="twitter:image:alt" content="WasabiRub jar on a deep navy background with the TruShield Certified mark">
 </head>
@@ -646,14 +772,14 @@
     <span class="promo-item">BUY DIRECT FROM THE PHARMACISTS WHO MADE IT</span>
   </div>
   <header class="nav shell">
-        <div class="navlock"><a class="navmark" href="index.html" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
+        <div class="navlock"><a class="navmark" href="/" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="WasabiRub" decoding="async"><span>WasabiRub</span></a><span class="navby" aria-hidden="true"><i>Created by</i><img src="assets/sp-wordmark-nav.png" alt="SportPharm"></span></div>
         <nav class="nav-links" aria-label="Main navigation">
           <div class="menu">
             <a class="menu-top" href="wasabirub-shop.html">SHOP <span class="caret">&#8964;</span></a>
             <div class="dropdown shop-dd">
-            <a class="dd-item" href="wasabirub.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced cool + heat</small></span></a>
-            <a class="dd-item" href="wasabirub-super-hot.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png?v=4" alt="" decoding="async"></span><span class="dd-txt"><b>Super Hot</b><small>Maximum warming relief</small></span></a>
-            <a class="dd-item" href="wasabirub-super-cold.html"><span class="dd-thumb"><img src="assets/wr-supercold-thumb.png" alt="" decoding="async"></span><span class="dd-txt"><b>Super Cold</b><small>Pure cooling relief</small></span></a>
+            <a class="dd-item" href="wasabirub.html"><span class="dd-thumb"><img src="assets/wr-wasabirub-thumb.png" alt="WasabiRub jar" decoding="async"></span><span class="dd-txt"><b>WasabiRub</b><small>Balanced cool + heat</small></span></a>
+            <a class="dd-item" href="wasabirub-super-hot.html"><span class="dd-thumb"><img src="assets/wr-superhot-thumb.png?v=4" alt="WasabiRub Super Hot jar" decoding="async"></span><span class="dd-txt"><b>Super Hot</b><small>Maximum warming relief</small></span></a>
+            <a class="dd-item" href="wasabirub-super-cold.html"><span class="dd-thumb"><img src="assets/wr-supercold-thumb.png" alt="WasabiRub Super Cold jar" decoding="async"></span><span class="dd-txt"><b>Super Cold</b><small>Pure cooling relief</small></span></a>
             <span class="dd-item is-soon" aria-disabled="true"><span class="dd-thumb"></span><span class="dd-txt"><b>LidoRub</b><small>Coming soon</small></span></span>
           </div>
           </div>
@@ -662,7 +788,7 @@
           <a class="menu-top" href="articles.html">ARTICLES</a>
         </nav>
         <div class="nav-right">
-          <a class="nav-cta" href="sportpharm" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
+          <a class="nav-cta" href="https://sportpharm.com" target="_blank" rel="noopener">FOR PROFESSIONALS <span>&#8599;</span></a>
           
           <button class="mnav-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         </div>
@@ -696,7 +822,7 @@
     <a href="how-it-works.html">Why WasabiRub</a>
     <a href="quality.html">Quality</a>
     <a href="articles.html">Articles</a>
-    <a class="mnav-pro" href="sportpharm" target="_blank" rel="noopener">For Professionals &#8599;</a>
+    <a class="mnav-pro" href="https://sportpharm.com" target="_blank" rel="noopener">For Professionals &#8599;</a>
     
   </div>
 </div>
@@ -1100,7 +1226,7 @@
           <p class="partners-eyebrow" id="partners-h">Proud partners</p>
           <ul class="partners-row">
             <li>USA Handball</li>
-            <li>Nexus Sports Medicine Bags</li>
+            <li><a href="https://www.nexus-sportsmed.com/" target="_blank" rel="noopener"><img src="assets/partner-nexus.png" alt="Nexus Sports Medicine &amp; Tactical Design" width="282" height="400" decoding="async"></a></li>
           </ul>
         </div>
       </section>
@@ -1120,6 +1246,7 @@
         <div class="footer-menu">
           <a href="wasabirub-shop.html">Products</a>
           <a href="how-it-works.html">Why WasabiRub</a>
+          <a href="quality.html">Quality</a>
           <a href="articles.html">Articles</a>
           <a href="#contact" data-open-contact>Contact</a>
           <a href="https://sportpharm.com">Pharmacy</a>
