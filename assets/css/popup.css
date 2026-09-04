@@ -1,0 +1,38 @@
+/* WasabiRub first-purchase popup */
+.wrp-scrim{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(9,17,28,.55);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
+.wrp-scrim.wrp-open{opacity:1;visibility:visible}
+.wrp-card{position:relative;width:100%;max-width:420px;background:#fff;border-radius:16px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(9,17,28,.4);transform:translateY(14px) scale(.98);transition:transform .28s cubic-bezier(.4,.01,.2,1)}
+.wrp-scrim.wrp-open .wrp-card{transform:none}
+.wrp-top{background:#0f1d33;color:#fff;padding:26px 28px 22px;text-align:center}
+.wrp-eyebrow{margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ff6a6f}
+.wrp-top h2{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.03}
+.wrp-top h2 em{font-style:normal;color:#ff6a6f}
+.wrp-body{padding:22px 28px 26px}
+.wrp-sub{margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14.5px;line-height:1.55;color:#4b5560;text-align:center}
+.wrp-form{display:flex;flex-direction:column;gap:10px}
+.wrp-form input[type=email]{width:100%;padding:13px 14px;border:1px solid #cdd3d8;border-radius:9px;font:inherit;font-size:15px;color:#18232e}
+.wrp-form input[type=email]:focus{outline:none;border-color:#d6202a;box-shadow:0 0 0 3px rgba(214,32,42,.12)}
+.wrp-btn{border:0;cursor:pointer;background:#d6202a;color:#fff;border-radius:9px;padding:14px 18px;
+  font-family:Arial,Helvetica,sans-serif;font-size:12.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;transition:background .18s}
+.wrp-btn:hover{background:#ac151e}
+.wrp-btn:disabled{opacity:.6;cursor:default}
+.wrp-err{margin:2px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#d6202a;min-height:1em}
+.wrp-alt{margin:14px 0 0;text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#8a938f}
+.wrp-alt b{color:#4b5560;letter-spacing:.06em}
+.wrp-close{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;background:transparent;color:#fff;
+  font-size:24px;line-height:1;cursor:pointer;border-radius:8px;opacity:.85}
+.wrp-close:hover{opacity:1;background:rgba(255,255,255,.14)}
+.wrp-fine{margin:14px 0 0;text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;color:#9aa3a9}
+/* success state */
+.wrp-done{text-align:center}
+.wrp-done .wrp-check{width:54px;height:54px;margin:0 auto 14px;border-radius:50%;background:#e2eee8;color:#167545;display:grid;place-items:center}
+.wrp-done .wrp-check svg{width:28px;height:28px}
+.wrp-code{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px auto 4px}
+.wrp-code b{font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:900;letter-spacing:.06em;color:#0f1d33}
+.wrp-copy{border:1px solid #cdd3d8;background:#f4f5f6;border-radius:7px;padding:8px 12px;cursor:pointer;
+  font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#4b5560}
+.wrp-copy:hover{border-color:#0f1d33;color:#0f1d33}
+@media(max-width:480px){.wrp-top h2{font-size:26px}.wrp-top{padding:22px 20px 18px}.wrp-body{padding:20px}}
+@media(prefers-reduced-motion:reduce){.wrp-scrim,.wrp-card{transition:none}}
