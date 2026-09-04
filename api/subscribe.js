@@ -6,14 +6,32 @@ function parseBody(req) {
   return req.body;
 }
 
+/* Which Resend audience to file signups into. Use RESEND_AUDIENCE_ID if set;
+   otherwise look it up automatically — prefer one named like WasabiRub, else
+   the only/first audience on the account. No manual ID hunting required. */
+let _cachedAudienceId = null;
+async function resolveAudienceId(key) {
+  if (process.env.RESEND_AUDIENCE_ID) return process.env.RESEND_AUDIENCE_ID;
+  if (_cachedAudienceId) return _cachedAudienceId;
+  const r = await fetch("https://api.resend.com/audiences", {
+    headers: { Authorization: `Bearer ${key}` },
+  });
+  if (!r.ok) throw new Error("list audiences " + r.status);
+  const j = await r.json();
+  const list = (j && j.data) || [];
+  if (!list.length) throw new Error("no audiences on this Resend account");
+  const pick = list.find((a) => /wasabi/i.test(a.name || "")) || list[0];
+  _cachedAudienceId = pick.id;
+  return _cachedAudienceId;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") { res.status(204).end(); return; }
   if (req.method !== "POST") { res.status(405).json({ error: "Method not allowed" }); return; }
 
   const key = process.env.RESEND_API_KEY;
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!key || !audienceId) {
-    console.error("subscribe: missing RESEND_API_KEY or RESEND_AUDIENCE_ID");
+  if (!key) {
+    console.error("subscribe: missing RESEND_API_KEY");
     res.status(500).json({ error: "Signup is not configured yet." });
     return;
   }
@@ -26,6 +44,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    const audienceId = await resolveAudienceId(key);
     const r = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
