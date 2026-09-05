@@ -88,11 +88,13 @@ async function sendOrderEmail(session, lineItems) {
   });
 
   const total = money(session.amount_total, session.currency);
-  const orderRef = session.id;
+  const orderNo = (session.metadata && session.metadata.order_number) || ("WR-" + session.id.slice(-8).toUpperCase());
+  const sessionId = session.id;
   const when = new Date((session.created || Date.now() / 1000) * 1000).toLocaleString("en-US");
 
   const text =
-`New WasabiRub.com order — ${total}
+`New WasabiRub.com order
+Order ${orderNo} — ${total}
 
 Items:
 ${lines.join("\n")}
@@ -108,13 +110,14 @@ ${cust.email || ""}
 ${cust.phone || ""}
 
 Placed: ${when}
-Stripe session: ${orderRef}
+Order ${orderNo} · Stripe ${sessionId}
 `;
 
   const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const html =
 `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#18232e;line-height:1.6">
-  <h2 style="margin:0 0 4px">New WasabiRub.com order</h2>
+  <h2 style="margin:0 0 2px">New WasabiRub.com order</h2>
+  <p style="margin:0 0 4px;font-size:13px;font-weight:bold;letter-spacing:.04em;color:#0f1d33">${esc(orderNo)}</p>
   <p style="margin:0 0 16px;font-size:20px;font-weight:bold;color:#d6202a">${esc(total)}</p>
   <table style="border-collapse:collapse;margin:0 0 16px">
     ${(lineItems || []).map((li) => `<tr>
@@ -127,13 +130,13 @@ Stripe session: ${orderRef}
   <p style="margin:0 0 16px;white-space:pre-line">${esc(shipName)}\n${esc(shipAddr)}</p>
   <p style="margin:0 0 4px"><b>Customer</b></p>
   <p style="margin:0 0 16px">${esc(cust.email || "")}<br>${esc(cust.phone || "")}</p>
-  <p style="margin:0;color:#66737d;font-size:12px">Placed ${esc(when)} &middot; Stripe ${esc(orderRef)}</p>
+  <p style="margin:0;color:#66737d;font-size:12px">Order ${esc(orderNo)} &middot; Placed ${esc(when)} &middot; Stripe ${esc(sessionId)}</p>
 </div>`;
 
   const body = {
     from: from,
     to: [to],
-    subject: `New WasabiRub order — ${total}${shipName ? " (" + shipName + ")" : ""}`,
+    subject: `New WasabiRub order ${orderNo} — ${total}${shipName ? " · " + shipName : ""}`,
     text: text,
     html: html,
   };

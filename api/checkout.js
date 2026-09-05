@@ -44,6 +44,18 @@ function parseBody(req) {
   return req.body;
 }
 
+/* Human-friendly order reference: WR-YYMMDD-XXXX (date + 4 chars, no 0/O/1/I).
+   Stored in the session + payment metadata so it shows in Stripe, both emails,
+   and can carry into HQ fulfillment. */
+function makeOrderNumber() {
+  const d = new Date();
+  const ymd = d.toISOString().slice(2, 10).replace(/-/g, "");
+  const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for (let i = 0; i < 4; i++) s += A[Math.floor(Math.random() * A.length)];
+  return "WR-" + ymd + "-" + s;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") {
     res.status(204).end();
@@ -107,6 +119,7 @@ module.exports = async function handler(req, res) {
   });
 
   const origin = siteOrigin(req);
+  const orderNo = makeOrderNumber();
   const stripe = new Stripe(secret);
 
   try {
@@ -117,7 +130,8 @@ module.exports = async function handler(req, res) {
       success_url: origin + "/order-confirmation.html?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: origin + "/cart.html",
       client_reference_id: "wasabirub",
-      metadata: { source: "wasabirub.com" },
+      metadata: { source: "wasabirub.com", order_number: orderNo },
+      payment_intent_data: { metadata: { source: "wasabirub.com", order_number: orderNo } },
       shipping_address_collection: { allowed_countries: ["US"] },
       shipping_options: [
         {
