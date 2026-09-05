@@ -131,7 +131,10 @@ module.exports = async function handler(req, res) {
       cancel_url: origin + "/cart.html",
       client_reference_id: "wasabirub",
       metadata: { source: "wasabirub.com", order_number: orderNo },
-      payment_intent_data: { metadata: { source: "wasabirub.com", order_number: orderNo } },
+      payment_intent_data: {
+        description: `WasabiRub order ${orderNo}`,
+        metadata: { source: "wasabirub.com", order_number: orderNo },
+      },
       shipping_address_collection: { allowed_countries: ["US"] },
       shipping_options: [
         {
