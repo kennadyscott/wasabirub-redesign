@@ -7,39 +7,119 @@
   <meta name="description" content="Thank you for your WasabiRub order. Free US shipping from SportPharm.">
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-  <link rel="stylesheet" href="assets/css/cart.css">
   <style>
-    :root{--red:#d6202a;--ink:#15202b}
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+    :root{--red:#d6202a;--red-dark:#ac151e;--navy:#0f1d33;--ink:#18232e;--muted:#66737d;--line:#e6e9ec;--paper:#f4f5f6;--green:#167545}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
     .shell{width:min(1180px,calc(100% - 40px));margin:auto}
     .announcement{height:34px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.13em}
-    header.nav{height:82px;display:flex;align-items:center;gap:28px}
-    .navmark{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:900}
-    .navmark img{height:27px}
-    .nav-right{margin-left:auto}
-    footer{background:#07100d;color:#aab7b1;padding:36px 0 22px;font-size:13px}
-    footer a{color:#fff}
+    header.nav{height:76px;display:flex;align-items:center;background:#fff;border-bottom:1px solid var(--line)}
+    .navmark{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:900;color:var(--ink)}
+    .navmark img{height:27px;width:auto}
+    .nav-right{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.08em}
+    .nav-right a:hover{color:var(--red)}
+    main{padding:44px 0 64px}
+    .card{max-width:560px;margin:auto;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(16,41,74,.4)}
+    .card-top{background:var(--navy);color:#fff;padding:36px 32px 32px;text-align:center}
+    .check{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;color:#7ee0a6}
+    .check svg{width:34px;height:34px}
+    .card-top .eyebrow{margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ff6a6f}
+    .card-top h1{margin:0;font-size:30px;font-weight:900;letter-spacing:-.03em;line-height:1.05}
+    .order-no{display:inline-block;margin-top:14px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.12);font-size:13px;font-weight:800;letter-spacing:.06em}
+    .card-body{padding:28px 32px 32px}
+    .summary{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 24px}
+    .summary table{border-collapse:collapse;width:100%;font-size:14px}
+    .summary td{padding:5px 0;vertical-align:top}
+    .summary .qty{color:var(--muted);white-space:nowrap;padding-right:12px}
+    .summary .amt{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .summary .sum td{color:var(--muted)}
+    .summary .sum.total td{font-weight:900;color:var(--ink);border-top:1px solid var(--line);padding-top:10px}
+    .summary .sum.disc td{color:var(--green)}
+    .summary-sep{height:1px;background:var(--line);margin:10px 0}
+    .next{list-style:none;margin:0 0 26px;padding:0;display:flex;flex-direction:column;gap:14px}
+    .next li{display:flex;gap:13px;align-items:flex-start}
+    .next .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--paper);color:var(--red);display:grid;place-items:center;font-weight:900;font-size:13px}
+    .next b{display:block;font-size:14.5px}
+    .next span{font-size:13px;color:var(--muted);line-height:1.5}
+    .cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--red);color:#fff;border-radius:10px;padding:16px;font-size:12.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;transition:background .18s}
+    .cta:hover{background:var(--red-dark)}
+    .help{margin:18px 0 0;text-align:center;font-size:13px;color:var(--muted)}
+    .help a{color:var(--red);font-weight:700}
+    footer{background:#07100d;color:#aab7b1;padding:30px 0;font-size:12px;margin-top:20px}
+    footer a{color:#fff}footer a:hover{color:var(--red)}
+    @media(max-width:520px){.card-top{padding:30px 22px 26px}.card-top h1{font-size:25px}.card-body{padding:24px 20px 26px}}
   </style>
 </head>
 <body>
   <div class="announcement">FREE SHIPPING ON ALL ORDERS</div>
   <header class="nav shell">
     <a class="navmark" href="/" aria-label="WasabiRub home"><img src="assets/wr-mark.png" alt="WasabiRub"><span>WasabiRub</span></a>
-    <div class="nav-right"><a href="wasabirub-shop.html">Shop</a></div>
+    <div class="nav-right"><a href="wasabirub-shop.html">Shop &rarr;</a></div>
   </header>
-  <main class="confirm-page">
-    <div class="confirm-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
-    <h1>Order received.</h1>
-    <p>Thank you. Stripe has your payment. You’ll get a receipt at the email you used at checkout, and we’ll email tracking when the order ships (usually 1–2 business days). Free shipping within the United States.</p>
-    <p>Questions? <a href="mailto:info@sportpharm.com">info@sportpharm.com</a></p>
-    <a class="confirm-cta" href="wasabirub-shop.html">Back to shop</a>
+
+  <main>
+    <div class="card">
+      <div class="card-top">
+        <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+        <p class="eyebrow">Order confirmed</p>
+        <h1>Thank you for your order!</h1>
+        <div id="orderNo" class="order-no" hidden></div>
+      </div>
+      <div class="card-body">
+        <div id="summary" class="summary" hidden></div>
+
+        <ul class="next">
+          <li><span class="n">1</span><div><b>Receipt on the way</b><span>Stripe emailed a receipt to the address you used at checkout.</span></div></li>
+          <li><span class="n">2</span><div><b>Packed &amp; shipped</b><span>Your order is prepared and ships within 1&ndash;2 business days &mdash; free within the U.S.</span></div></li>
+          <li><span class="n">3</span><div><b>Tracking to follow</b><span>We&rsquo;ll email you a tracking link the moment it ships.</span></div></li>
+        </ul>
+
+        <a class="cta" href="wasabirub-shop.html">Continue shopping <span>&rarr;</span></a>
+        <p class="help">Questions? <a href="mailto:info@sportpharm.com">info@sportpharm.com</a></p>
+      </div>
+    </div>
   </main>
+
   <footer>
-    <div class="shell"><a href="shipping-returns.html">Shipping &amp; Returns</a></div>
+    <div class="shell"><a href="shipping-returns.html">Shipping &amp; Returns</a> &nbsp;&middot;&nbsp; <a href="/">WasabiRub.com</a></div>
   </footer>
+
   <script>
+    /* Empty the cart now that the order is placed. */
     try { localStorage.removeItem("wr_cart"); } catch (e) {}
+
+    (function () {
+      function money(cents, cur) {
+        try { return new Intl.NumberFormat("en-US", { style: "currency", currency: (cur || "usd").toUpperCase() }).format((cents || 0) / 100); }
+        catch (e) { return "$" + ((cents || 0) / 100).toFixed(2); }
+      }
+      var id = new URLSearchParams(location.search).get("session_id");
+      if (!id) return;
+      fetch("/api/order-summary?session_id=" + encodeURIComponent(id))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d) return;
+          if (d.order_number) {
+            var el = document.getElementById("orderNo");
+            el.textContent = "Order " + d.order_number;
+            el.hidden = false;
+          }
+          var rows = (d.items || []).map(function (it) {
+            return '<tr><td class="qty">' + it.qty + ' &times;</td><td>' + escapeHtml(it.name) + '</td><td class="amt">' + money(it.amount, d.currency) + '</td></tr>';
+          }).join("");
+          var sums = '<tr class="sum"><td colspan="2">Subtotal</td><td class="amt">' + money(d.subtotal, d.currency) + '</td></tr>';
+          if (d.discount > 0) sums += '<tr class="sum disc"><td colspan="2">Discount</td><td class="amt">&minus;' + money(d.discount, d.currency) + '</td></tr>';
+          sums += '<tr class="sum"><td colspan="2">Shipping</td><td class="amt">' + (d.shipping > 0 ? money(d.shipping, d.currency) : "Free") + '</td></tr>';
+          sums += '<tr class="sum total"><td colspan="2">Total</td><td class="amt">' + money(d.total, d.currency) + '</td></tr>';
+          var box = document.getElementById("summary");
+          box.innerHTML = '<table>' + rows + '</table><div class="summary-sep"></div><table>' + sums + '</table>';
+          box.hidden = false;
+        })
+        .catch(function () {});
+      function escapeHtml(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+    })();
   </script>
 </body>
 </html>
