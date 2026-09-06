@@ -47,6 +47,18 @@ async function handler(req, res) {
           console.error("webhook: customer confirmation failed —", e.message);
         }
       }
+    } else if (event.type === "checkout.session.expired") {
+      const s = event.data.object;
+      const isWasabi = s.client_reference_id === "wasabirub" ||
+        (s.metadata && s.metadata.source === "wasabirub.com");
+      if (isWasabi && s.customer_details && s.customer_details.email) {
+        try {
+          const full = await stripe.checkout.sessions.retrieve(s.id, { expand: ["line_items"] });
+          await sendAbandonmentEmail(full);
+        } catch (e) {
+          console.error("webhook: abandonment email failed —", e.message);
+        }
+      }
     }
     res.status(200).json({ received: true });
   } catch (err) {
@@ -231,6 +243,49 @@ For external use only. Use only as directed.
   </div>
 </div>`;
   await resendSend({ from, to: [v.cust.email], reply_to: replyTo, subject: `Your WasabiRub order is confirmed — ${v.orderNo}`, text, html });
+}
+
+/* Branded cart-abandonment email -> the customer, when a session expires unpaid */
+async function sendAbandonmentEmail(session) {
+  const v = orderView(session);
+  if (!v.cust.email) return;
+  const from = process.env.CUSTOMER_FROM_EMAIL || "WasabiRub <orders@wasabirub.com>";
+  const replyTo = process.env.ORDER_TO_EMAIL || "orders@sportpharm.com";
+  const first = (v.shipName || v.cust.name || "").trim().split(" ")[0] || "there";
+  const recoverUrl =
+    (session.after_expiration && session.after_expiration.recovery && session.after_expiration.recovery.url) ||
+    "https://wasabirub.com/wasabirub-shop.html";
+
+  const text =
+`Still thinking it over, ${first}?
+
+Your WasabiRub is waiting in your cart — pick up right where you left off:
+${recoverUrl}
+
+In your cart:
+${v.linesText}
+
+First time? Use code RELIEF10 for 10% off your first order.
+
+— WasabiRub, by SportPharm
+`;
+  const html =
+`<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#18232e;line-height:1.6;max-width:520px">
+  <div style="background:#0f1d33;color:#fff;padding:24px;border-radius:12px 12px 0 0;text-align:center">
+    <p style="margin:0 0 4px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ff6a6f">Your cart is waiting</p>
+    <h2 style="margin:0;font-size:24px;font-weight:900;letter-spacing:-.02em">Still thinking it over, ${esc(first)}?</h2>
+  </div>
+  <div style="border:1px solid #e6e9ec;border-top:0;border-radius:0 0 12px 12px;padding:24px">
+    <p style="margin:0 0 18px;color:#4b5560">You left your WasabiRub in the cart &mdash; pick up right where you left off.</p>
+    <table style="border-collapse:collapse;width:100%;margin:0 0 20px">${v.itemRows}</table>
+    <div style="text-align:center;margin:0 0 18px">
+      <a href="${esc(recoverUrl)}" style="display:inline-block;background:#d6202a;color:#fff;text-decoration:none;font-weight:900;letter-spacing:.06em;text-transform:uppercase;font-size:13px;padding:15px 30px;border-radius:9px">Complete your order</a>
+    </div>
+    <p style="margin:0;text-align:center;color:#4b5560">First time? Use code <b>RELIEF10</b> for <b>10% off</b> your first order.</p>
+    <p style="margin:16px 0 0;color:#8a938f;font-size:12px;border-top:1px solid #e6e9ec;padding-top:12px;text-align:center">WasabiRub, by SportPharm</p>
+  </div>
+</div>`;
+  await resendSend({ from, to: [v.cust.email], reply_to: replyTo, subject: "Your WasabiRub cart is waiting", text, html });
 }
 
 module.exports = handler;
