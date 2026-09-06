@@ -147,6 +147,28 @@ module.exports = async function handler(req, res) {
       ],
       billing_address_collection: "required",
       phone_number_collection: { enabled: true },
+      custom_fields: [
+        {
+          key: "referral",
+          label: { type: "custom", custom: "How did you hear about us?" },
+          type: "dropdown",
+          optional: true,
+          dropdown: {
+            options: [
+              { label: "Instagram", value: "instagram" },
+              { label: "Facebook", value: "facebook" },
+              { label: "A friend or teammate", value: "friend" },
+              { label: "My athletic trainer or coach", value: "trainer" },
+              { label: "Google or search", value: "search" },
+              { label: "SportPharm", value: "sportpharm" },
+              { label: "Other", value: "other" },
+            ],
+          },
+        },
+      ],
+      /* Cart abandonment: if they leave checkout, Stripe emails them a link
+         back to their cart (with promo codes allowed). */
+      after_expiration: { recovery: { enabled: true, allow_promotion_codes: true } },
     });
     res.status(200).json({ url: session.url });
   } catch (err) {

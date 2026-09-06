@@ -123,7 +123,14 @@ function orderView(session) {
   if (tax > 0) summaryHtml += sumRow("Tax", esc(money(tax, cur)));
   summaryHtml += sumRow("Total", esc(money(total, cur)), { bold: true });
 
-  return { cur, cust, shipName, shipAddr, orderNo, when, total, linesText, sumText, itemRows, summaryHtml };
+  let referral = "";
+  const cf = (session.custom_fields || []).find((f) => f.key === "referral");
+  if (cf && cf.dropdown && cf.dropdown.value) {
+    const MAP = { instagram: "Instagram", facebook: "Facebook", friend: "A friend or teammate", trainer: "Athletic trainer / coach", search: "Google / search", sportpharm: "SportPharm", other: "Other" };
+    referral = MAP[cf.dropdown.value] || cf.dropdown.value;
+  }
+
+  return { cur, cust, shipName, shipAddr, orderNo, when, total, referral, linesText, sumText, itemRows, summaryHtml };
 }
 
 async function resendSend(body) {
@@ -158,7 +165,7 @@ ${v.shipAddr}
 Customer:
 ${v.cust.email || ""}
 ${v.cust.phone || ""}
-
+${v.referral ? "Heard about us: " + v.referral + "\n" : ""}
 Placed: ${v.when}
 Order ${v.orderNo} · Stripe ${session.id}
 `;
@@ -171,6 +178,7 @@ Order ${v.orderNo} · Stripe ${session.id}
   <p style="margin:0 0 16px;white-space:pre-line">${esc(v.shipName)}\n${esc(v.shipAddr)}</p>
   <p style="margin:0 0 4px"><b>Customer</b></p>
   <p style="margin:0 0 18px">${esc(v.cust.email || "")}${v.cust.phone ? "<br>" + esc(v.cust.phone) : ""}</p>
+  ${v.referral ? `<p style="margin:0 0 4px"><b>Heard about us</b></p><p style="margin:0 0 18px">${esc(v.referral)}</p>` : ""}
   <p style="margin:0;color:#66737d;font-size:12px;border-top:1px solid #e6e9ec;padding-top:12px">Order ${esc(v.orderNo)} &middot; Placed ${esc(v.when)} &middot; Stripe ${esc(session.id)}</p>
 </div>`;
   const body = { from, to: [to], subject: `New WasabiRub order ${v.orderNo} — ${money(v.total, v.cur)}${v.shipName ? " · " + v.shipName : ""}`, text, html };
