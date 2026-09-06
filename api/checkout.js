@@ -166,8 +166,14 @@ module.exports = async function handler(req, res) {
           },
         },
       ],
-      /* Cart abandonment: if they leave checkout, Stripe emails them a link
-         back to their cart (with promo codes allowed). */
+      /* Cart abandonment. The session expires ~2 hours after it is created;
+         an expired, unpaid session is what HQ treats as an abandoned cart and
+         then works through its own branded 2-hour / 1-day / 3-day reminder
+         sequence. Recovery stays enabled so Stripe mints the "back to your
+         cart" link (promo codes allowed) that those reminders link to — but
+         Stripe's OWN recovery emails should be turned off in the dashboard so
+         the customer is not emailed twice. */
+      expires_at: Math.floor(Date.now() / 1000) + 2 * 60 * 60,
       after_expiration: { recovery: { enabled: true, allow_promotion_codes: true } },
     });
     res.status(200).json({ url: session.url });
