@@ -342,3 +342,33 @@
 
   window.WasabiCart = { add: add, open: openDrawer, count: count };
 })();
+
+/* Mobile buy bar: reveal it only once no in-page "Add to cart" button is on
+   screen. On load the product card's button is visible, so the bar stays
+   tucked away; it slides up after that button scrolls off, and tucks away
+   again at any bottom CTA. Guarded, so pages without the bar do nothing. */
+(function () {
+  function init() {
+    var bar = document.querySelector(".mobile-buy");
+    if (!bar || !("IntersectionObserver" in window)) return;
+    var targets = Array.prototype.slice
+      .call(document.querySelectorAll("[data-add-to-cart]"))
+      .filter(function (el) { return !el.closest(".mobile-buy"); });
+    if (!targets.length) return;
+
+    var visible = new Set();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) visible.add(e.target);
+        else visible.delete(e.target);
+      });
+      bar.classList.toggle("show", visible.size === 0);
+    }, { threshold: 0 });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
