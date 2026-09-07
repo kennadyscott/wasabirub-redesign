@@ -343,28 +343,28 @@
   window.WasabiCart = { add: add, open: openDrawer, count: count };
 })();
 
-/* Mobile buy bar: reveal it only once no in-page "Add to cart" button is on
-   screen. On load the product card's button is visible, so the bar stays
-   tucked away; it slides up after that button scrolls off, and tucks away
-   again at any bottom CTA. Guarded, so pages without the bar do nothing. */
+/* Mobile buy bar: slide it up only once the main "Add to cart" button has
+   scrolled off the TOP of the screen -- i.e. the shopper has passed it and can
+   no longer reach it. It stays tucked away at the very top (before you have
+   reached the button) and while the button itself is on screen. Guarded, so
+   pages without the bar do nothing. */
 (function () {
   function init() {
     var bar = document.querySelector(".mobile-buy");
     if (!bar || !("IntersectionObserver" in window)) return;
-    var targets = Array.prototype.slice
+    var btn = Array.prototype.slice
       .call(document.querySelectorAll("[data-add-to-cart]"))
-      .filter(function (el) { return !el.closest(".mobile-buy"); });
-    if (!targets.length) return;
+      .filter(function (el) { return !el.closest(".mobile-buy"); })[0];
+    if (!btn) return;
 
-    var visible = new Set();
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) visible.add(e.target);
-        else visible.delete(e.target);
-      });
-      bar.classList.toggle("show", visible.size === 0);
+      var e = entries[0];
+      var rootTop = e.rootBounds ? e.rootBounds.top : 0;
+      // scrolled past = not visible AND sitting above the viewport's top edge
+      var scrolledPast = !e.isIntersecting && e.boundingClientRect.bottom <= rootTop;
+      bar.classList.toggle("show", scrolledPast);
     }, { threshold: 0 });
-    targets.forEach(function (t) { io.observe(t); });
+    io.observe(btn);
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
