@@ -1,3 +1,10 @@
+/* No sideways scroll on any storefront page. Off-canvas overlays (the mobile
+   nav, the cart drawer) and edge-positioned carousel controls sit past the
+   right edge by design; without this they let the whole page drift ~36px
+   sideways on a phone. No element on these pages is position:sticky, so
+   clipping the horizontal axis here is free of side effects. */
+html,body{overflow-x:hidden;max-width:100%}
+
 .wr-cart-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;margin-left:4px;border:0;background:none;color:var(--ink,#15202b);cursor:pointer}
 .wr-cart-btn:hover{color:var(--red,#d6202a)}
 .wr-cart-btn svg{width:22px;height:22px;display:block}
