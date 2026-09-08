@@ -568,6 +568,17 @@
         .proof .tslide blockquote{display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word}
     .tmore{align-self:flex-start;margin:10px 0 0;padding:0;background:none;border:0;font:inherit;font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--red);cursor:pointer}
     .tmore:hover{text-decoration:underline}
+    /* Mobile density pass: trim desktop-scale section padding on phones so the
+       page is not needlessly tall. Scoped to <=600px, appended last so it wins
+       -- desktop and tablet layouts are untouched. */
+    @media(max-width:600px){
+      .selector{padding:42px 0}
+      .proof{padding:38px 20px 28px}
+      .quality{padding:44px 0}
+      .featured{padding:44px 0 46px}
+      .hfaq{padding:44px 0 46px}
+      .final{padding:52px 0}
+    }
   </style>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"><meta name="theme-color" content="#15202b"><script type="application/ld+json">
 {
