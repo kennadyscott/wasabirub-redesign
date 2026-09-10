@@ -46,9 +46,16 @@ window.CHECKIN_CONFIG = {
   /* ---- What the visitor is actually agreeing to. Say it plainly on the
      form rather than burying it — they are being asked for an email so we
      can ask them for a review. ------------------------------------------- */
-  consentLine: 'We’ll email you once to ask how we did, and occasionally about ' +
-               'SportPharm news. We don’t sell your information, and you can ' +
-               'unsubscribe from any email.',
+  consentLine: 'We’ll email you once to ask how we did. Untick the box if you’d ' +
+               'rather not hear about SportPharm news and offers. We don’t sell ' +
+               'your information, and every email has an unsubscribe link.',
+
+  /* ---- The email-updates box. Ticked by default — the client asked for
+     that. The visitor's answer is stored as `email_opt_in` on the row. ----- */
+  optIn: {
+    label:          'Yes, email me SportPharm updates and offers',
+    defaultChecked: true
+  },
 
   /* ---- Optional fields: flip to false to remove them from the form ------ */
   fields: {

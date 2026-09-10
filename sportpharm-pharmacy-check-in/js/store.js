@@ -77,6 +77,7 @@
       full_name:   fields.full_name,
       email:       fields.email,
       phone:       fields.phone || '',
+      email_opt_in: fields.email_opt_in !== false,   // the updates box
       synced:      false             // row exists in the cloud
     };
     var all = rows();
@@ -107,7 +108,7 @@
      role, prize…) is left null, which is exactly what tells the two lists
      apart at a glance. Every row in a batch carries the same keys — PostgREST
      insists on that. */
-  var COLS = ['id', 'raffle', 'created_at', 'device', 'event', 'full_name', 'email', 'phone'];
+  var COLS = ['id', 'raffle', 'created_at', 'device', 'event', 'full_name', 'email', 'phone', 'email_opt_in'];
   function payload(r) {
     var o = {};
     COLS.forEach(function (k) { o[k] = r[k] === undefined ? null : r[k]; });
@@ -184,7 +185,7 @@
     /* checked_in_local is for the human who opens this in Excel; created_at is
        the unambiguous sortable one. Both, because they answer different questions. */
     var cols = ['raffle', 'checked_in_local', 'created_at', 'full_name', 'email', 'phone',
-                'device', 'event', 'synced'];
+                'email_opt_in', 'device', 'event', 'synced'];
     function cell(v) {
       v = (v === null || v === undefined) ? '' : String(v);
       /* Guard against CSV formula injection — a name beginning = + - @ is
@@ -201,10 +202,13 @@
     return '﻿' + lines.join('\r\n');    // BOM so Excel reads UTF-8 names correctly
   }
 
-  /* Unique addresses, oldest first, for the review-request send. */
-  function emails() {
+  /* Unique addresses, oldest first. optInOnly drops anyone who unticked the
+     updates box — a row with no answer recorded (older rows) counts as in. */
+  function emails(opts) {
+    var only = !!(opts && opts.optInOnly);
     var seen = {}, out = [];
     rows().forEach(function (r) {
+      if (only && r.email_opt_in === false) return;
       var k = String(r.email || '').trim().toLowerCase();
       if (!k || seen[k]) return;
       seen[k] = true; out.push(k);

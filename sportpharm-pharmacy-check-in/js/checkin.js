@@ -44,6 +44,8 @@
     $('#excited').textContent = CFG.hero.excited || '';
     $('#consent').textContent = CFG.consentLine || '';
     $('#closing').textContent = CFG.event.closingLine || '';
+    $('#optin-label').textContent = (CFG.optIn && CFG.optIn.label) || 'Email me SportPharm updates';
+    $('#in-optin').checked = !CFG.optIn || CFG.optIn.defaultChecked !== false;
 
     $('#wrap-phone').hidden = !CFG.fields.phone;
 
@@ -104,9 +106,10 @@
 
   function validate() {
     var v = {
-      full_name: $('#in-name').value.trim(),
-      email:     $('#in-email').value.trim(),
-      phone:     CFG.fields.phone ? $('#in-phone').value.trim() : ''
+      full_name:     $('#in-name').value.trim(),
+      email:         $('#in-email').value.trim(),
+      phone:         CFG.fields.phone ? $('#in-phone').value.trim() : '',
+      email_opt_in:  $('#in-optin').checked
     };
     var bad = [];
     if (v.full_name.length < 2)                         { setErr('in-name', 1);  bad.push('in-name'); }  else setErr('in-name', 0);
@@ -131,6 +134,7 @@
     clearTimeout(doneCountdown);
     $('#checkin-form').reset();
     FIELDS.forEach(function (id) { setErr(id, 0); });
+    $('#in-optin').checked = !CFG.optIn || CFG.optIn.defaultChecked !== false;
     $('#btn-submit').disabled = false;
     $('#btn-submit').querySelector('span').textContent = 'Check in';
     show('screen-form');
@@ -213,13 +217,15 @@
       var d = new Date(r.created_at);
       var t = d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' ' +
               d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      var optin = r.email_opt_in === false ? '—' : '✓';
       return '<tr><td class="mono">' + esc(r.raffle) + '</td><td>' + esc(r.full_name) +
-             '</td><td>' + esc(r.email) + '</td><td>' + esc(r.phone || '—') + '</td><td>' + t +
+             '</td><td>' + esc(r.email) + '</td><td>' + esc(r.phone || '—') + '</td><td>' + optin +
+             '</td><td>' + t +
              '</td><td>' + (r.synced ? '<span class="pill pill-ok">✓</span>'
                                      : '<span class="pill pill-wait">…</span>') + '</td></tr>';
     }).join('');
     list.innerHTML = '<table><thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Mobile</th>' +
-                     '<th>When</th><th>Sync</th></tr></thead><tbody>' + body + '</tbody></table>';
+                     '<th>Updates</th><th>When</th><th>Sync</th></tr></thead><tbody>' + body + '</tbody></table>';
   }
 
   function download(name, text, mime) {
@@ -292,12 +298,13 @@
                Store.csv(), 'text/csv;charset=utf-8');
     });
 
-    /* The whole point of the form is the follow-up email, so make the list of
-       addresses one tap away. Clipboard needs a secure context and a user
-       gesture — both true here — but fall back to a text file if it refuses. */
+    /* Only the addresses that left the updates box ticked — this list is for
+       marketing sends. The one-off review request is separate and automatic.
+       Clipboard needs a secure context and a user gesture — both true here —
+       but fall back to a text file if it refuses. */
     $('#btn-copy-emails').addEventListener('click', function () {
-      var list = Store.emails();
-      if (!list.length) { toast('No emails yet.'); return; }
+      var list = Store.emails({ optInOnly: true });
+      if (!list.length) { toast('No opted-in emails yet.'); return; }
       var text = list.join('\n');
       var fallback = function () {
         download('sportpharm-pharmacy-emails-' + stamp() + '.txt', text, 'text/plain;charset=utf-8');
@@ -305,7 +312,7 @@
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
-          toast('Copied ' + list.length + ' email' + (list.length === 1 ? '' : 's') + '.');
+          toast('Copied ' + list.length + ' opted-in email' + (list.length === 1 ? '' : 's') + '.');
         }).catch(fallback);
       } else fallback();
     });

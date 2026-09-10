@@ -212,6 +212,28 @@ body::after {
   width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2.1;
   stroke-linecap: round; stroke-linejoin: round; flex: 0 0 21px;
 }
+/* The email-updates box: a white tile with a red tick, so it reads as part
+   of the white field stack rather than a browser checkbox floating on navy. */
+.optin {
+  position: relative; display: flex; align-items: flex-start; gap: 12px;
+  margin: 4px 2px 16px; cursor: pointer;
+  color: #fff; font-size: 14.5px; font-weight: 600; line-height: 1.35;
+}
+.optin input { position: absolute; opacity: 0; width: 0; height: 0; }
+.optin-box {
+  flex: 0 0 26px; width: 26px; height: 26px; border-radius: 7px;
+  background: #fff; display: grid; place-items: center; margin-top: -1px;
+  box-shadow: var(--shadow);
+}
+.optin-box svg {
+  width: 17px; height: 17px; fill: none; stroke: var(--red); stroke-width: 3.2;
+  stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0; transform: scale(.6); transition: opacity .12s, transform .12s;
+}
+.optin input:checked + .optin-box svg { opacity: 1; transform: scale(1); }
+.optin input:focus-visible + .optin-box { outline: 3px solid var(--red-lift); outline-offset: 2px; }
+.optin-text { padding-top: 2px; }
+
 .excited {
   margin-top: 4px; text-align: center; color: #fff;
   font-style: italic; font-weight: 600; font-size: 14.5px;

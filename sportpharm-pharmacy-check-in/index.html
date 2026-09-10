@@ -79,6 +79,17 @@
         </div>
         <p class="err" data-for="in-phone">That doesn’t look like a 10-digit number.</p>
 
+        <!-- Pre-ticked on purpose (the client asked for it). The box is real
+             consent: unticking it is stored on the record, the CSV, and
+             filters "Copy emails". Reset re-ticks it for the next visitor. -->
+        <label class="optin" for="in-optin">
+          <input type="checkbox" id="in-optin" name="off-optin" aria-labelledby="optin-label" checked>
+          <span class="optin-box" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </span>
+          <span class="optin-text" id="optin-label">Yes, email me SportPharm updates and offers</span>
+        </label>
+
         <button type="submit" class="cta" id="btn-submit">
           <span>Check in</span>
           <svg viewBox="0 0 24 24" class="cta-arrow"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
