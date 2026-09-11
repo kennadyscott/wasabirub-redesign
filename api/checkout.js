@@ -46,12 +46,6 @@ const CATALOG = {
     cents: 26995,
     env: "STRIPE_PRICE_TRIFECTA",
   },
-  "team-bundle": {
-    name: "WasabiRub Team Bundle",
-    description: "5 Original + 3 Super Hot (4 oz each)",
-    cents: 24095,
-    env: "STRIPE_PRICE_TEAM",
-  },
 };
 
 const MAX_QTY = 20;

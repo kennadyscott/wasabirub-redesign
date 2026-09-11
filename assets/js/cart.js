@@ -44,12 +44,6 @@
       thumb: "assets/bundle-trifecta-thumb.webp",
       href: "wasabirub-shop.html#bundles",
     },
-    "team-bundle": {
-      name: "WasabiRub Team Bundle",
-      price: 240.95,
-      thumb: "assets/bundle-team-thumb.webp",
-      href: "wasabirub-shop.html#bundles",
-    },
   };
 
   function load() {
