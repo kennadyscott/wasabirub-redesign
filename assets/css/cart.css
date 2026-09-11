@@ -48,7 +48,7 @@ html,body{overflow-x:hidden;max-width:100%}
 button.primary[data-add-to-cart]{flex:1;height:46px;background:var(--red,#d6202a);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:11px;font-weight:900;letter-spacing:.08em;border:0;cursor:pointer;font-family:inherit}
 button.primary[data-add-to-cart]:hover{background:#b71720}
 
-.shop-add{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:8px;background:var(--navy,#161b21);color:#fff;padding:16px 18px;font-size:13px;font-weight:900;letter-spacing:.06em;border:0;border-radius:7px;cursor:pointer;font-family:inherit;text-transform:uppercase}
+.shop-add{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;margin-top:8px;background:var(--navy,#161b21);color:#fff;padding:16px 18px;font-size:13px;font-weight:900;letter-spacing:.06em;border:0;border-radius:7px;cursor:pointer;font-family:inherit;text-transform:uppercase}
 .product-card.green .shop-add{background:#167545}
 .product-card.red .shop-add{background:var(--red,#d6202a)}
 .product-card.blue .shop-add{background:#256179}
