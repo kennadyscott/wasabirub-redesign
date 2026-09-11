@@ -19,6 +19,39 @@ const CATALOG = {
     cents: 3995,
     env: "STRIPE_PRICE_SUPER_COLD",
   },
+
+  /* Bundles & duos. No STRIPE_PRICE_* env set, so each falls back to the
+     inline price below — sellable immediately without a Stripe product. */
+  "fire-ice-duo": {
+    name: "Fire & Ice Duo",
+    description: "WasabiRub Super Hot + Super Cold (4 oz each)",
+    cents: 6499,
+    env: "STRIPE_PRICE_FIRE_ICE",
+  },
+  "og-heat-duo": {
+    name: "OG Heat Duo",
+    description: "WasabiRub Original + Super Hot (4 oz each)",
+    cents: 5999,
+    env: "STRIPE_PRICE_OG_HEAT",
+  },
+  "recovery-duo": {
+    name: "Recovery Duo",
+    description: "WasabiRub Original + Super Cold (4 oz each)",
+    cents: 6499,
+    env: "STRIPE_PRICE_RECOVERY",
+  },
+  "team-trifecta": {
+    name: "Team Trifecta Bundle",
+    description: "3 Original + 3 Super Hot + 3 Super Cold (4 oz each)",
+    cents: 26995,
+    env: "STRIPE_PRICE_TRIFECTA",
+  },
+  "team-bundle": {
+    name: "WasabiRub Team Bundle",
+    description: "5 Original + 3 Super Hot (4 oz each)",
+    cents: 24095,
+    env: "STRIPE_PRICE_TEAM",
+  },
 };
 
 const MAX_QTY = 20;

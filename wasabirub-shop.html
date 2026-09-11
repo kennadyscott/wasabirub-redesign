@@ -464,6 +464,94 @@
       </div>
     </section>
 
+    <section class="bundles shell" id="bundles">
+      <style>
+        .bundles{padding:8px 0 4px}
+        .bundle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin-top:28px}
+        .bundle-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #e6e9ec;border-radius:12px;overflow:hidden}
+        .bundle-save{position:absolute;top:12px;left:12px;z-index:2;background:var(--red);color:#fff;font-size:11px;font-weight:900;letter-spacing:.04em;padding:5px 11px;border-radius:999px}
+        .bundle-image{background:#f4f5f6;aspect-ratio:1/1;display:grid;place-items:center;padding:16px}
+        .bundle-image img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+        .bundle-info{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;flex:1}
+        .bundle-info h3{margin:0;font-size:19px;font-weight:900;letter-spacing:-.01em;color:var(--ink,#18232e)}
+        .bundle-contents{margin:0;font-size:11.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+        .bundle-desc{margin:0 0 8px;font-size:13.5px;line-height:1.5;color:#5a6672}
+        .bundle-price{margin-top:auto;display:flex;align-items:baseline;gap:9px}
+        .bundle-price strong{font-size:23px;font-weight:900;color:var(--ink,#18232e)}
+        .bundle-was{font-size:14px;font-weight:700;color:#9aa4ad;text-decoration:line-through}
+        .bundle-add{margin-top:12px;display:flex;align-items:center;justify-content:space-between;width:100%;background:var(--navy);color:#fff;border:0;cursor:pointer;padding:15px 18px;font-size:12px;font-weight:900;letter-spacing:.06em;border-radius:8px;transition:background .18s}
+        .bundle-add:hover{background:var(--red)}
+      </style>
+      <div class="section-head">
+        <div>
+          <h2>BUNDLES &amp; DUOS.</h2>
+        </div>
+        <p>Pair the sensations &mdash; or stock the whole training room &mdash; and save versus buying each on its own.</p>
+      </div>
+
+      <div class="bundle-grid">
+        <article class="bundle-card">
+          <div class="bundle-save">Save $14.91</div>
+          <div class="bundle-image"><picture><source srcset="assets/bundle-fire-ice.webp" type="image/webp"><img src="assets/bundle-fire-ice.png" alt="Fire &amp; Ice Duo — Super Hot and Super Cold jars" loading="lazy" decoding="async"></picture></div>
+          <div class="bundle-info">
+            <h3>Fire &amp; Ice Duo</h3>
+            <p class="bundle-contents">1 Super Hot &middot; 1 Super Cold</p>
+            <p class="bundle-desc">Extreme heat meets cooling comfort &mdash; the two strongest sensations, together.</p>
+            <div class="bundle-price"><strong>$64.99</strong><span class="bundle-was">$79.90</span></div>
+            <button class="bundle-add" type="button" data-add-to-cart="fire-ice-duo">ADD TO CART <span>&rarr;</span></button>
+          </div>
+        </article>
+
+        <article class="bundle-card">
+          <div class="bundle-save">Save $9.91</div>
+          <div class="bundle-image"><picture><source srcset="assets/bundle-og-heat.webp" type="image/webp"><img src="assets/bundle-og-heat.png" alt="OG Heat Duo — WasabiRub Original and Super Hot jars" loading="lazy" decoding="async"></picture></div>
+          <div class="bundle-info">
+            <h3>OG Heat Duo</h3>
+            <p class="bundle-contents">1 Original &middot; 1 Super Hot</p>
+            <p class="bundle-desc">Double the heat, double the recovery &mdash; balanced relief plus intensified warmth.</p>
+            <div class="bundle-price"><strong>$59.99</strong><span class="bundle-was">$69.90</span></div>
+            <button class="bundle-add" type="button" data-add-to-cart="og-heat-duo">ADD TO CART <span>&rarr;</span></button>
+          </div>
+        </article>
+
+        <article class="bundle-card">
+          <div class="bundle-save">Save $4.91</div>
+          <div class="bundle-image"><picture><source srcset="assets/bundle-recovery.webp" type="image/webp"><img src="assets/bundle-recovery.png" alt="Recovery Duo — WasabiRub Original and Super Cold jars" loading="lazy" decoding="async"></picture></div>
+          <div class="bundle-info">
+            <h3>Recovery Duo</h3>
+            <p class="bundle-contents">1 Original &middot; 1 Super Cold</p>
+            <p class="bundle-desc">Warmth and cooling in one kit &mdash; support for warm-up and recovery alike.</p>
+            <div class="bundle-price"><strong>$64.99</strong><span class="bundle-was">$69.90</span></div>
+            <button class="bundle-add" type="button" data-add-to-cart="recovery-duo">ADD TO CART <span>&rarr;</span></button>
+          </div>
+        </article>
+
+        <article class="bundle-card">
+          <div class="bundle-save">Save $59.60</div>
+          <div class="bundle-image"><picture><source srcset="assets/bundle-trifecta.webp" type="image/webp"><img src="assets/bundle-trifecta.jpg" alt="Team Trifecta Bundle — three of each WasabiRub" loading="lazy" decoding="async"></picture></div>
+          <div class="bundle-info">
+            <h3>Team Trifecta Bundle</h3>
+            <p class="bundle-contents">3 Original &middot; 3 Super Hot &middot; 3 Super Cold</p>
+            <p class="bundle-desc">The full range, times three &mdash; outfit the whole training room.</p>
+            <div class="bundle-price"><strong>$269.95</strong><span class="bundle-was">$329.55</span></div>
+            <button class="bundle-add" type="button" data-add-to-cart="team-trifecta">ADD TO CART <span>&rarr;</span></button>
+          </div>
+        </article>
+
+        <article class="bundle-card">
+          <div class="bundle-save">Save $28.65</div>
+          <div class="bundle-image"><picture><source srcset="assets/bundle-team.webp" type="image/webp"><img src="assets/bundle-team.png" alt="WasabiRub Team Bundle — five Original and three Super Hot" loading="lazy" decoding="async"></picture></div>
+          <div class="bundle-info">
+            <h3>WasabiRub Team Bundle</h3>
+            <p class="bundle-contents">5 Original &middot; 3 Super Hot</p>
+            <p class="bundle-desc">Stock up on the everyday favorite plus intensified heat for the whole squad.</p>
+            <div class="bundle-price"><strong>$240.95</strong><span class="bundle-was">$269.60</span></div>
+            <button class="bundle-add" type="button" data-add-to-cart="team-bundle">ADD TO CART <span>&rarr;</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="compare-section" id="compare">
       <div class="shell">
         <div class="compare-head">

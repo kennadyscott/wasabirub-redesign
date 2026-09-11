@@ -20,6 +20,36 @@
       thumb: "assets/wr-supercold-thumb.png",
       href: "wasabirub-super-cold.html",
     },
+    "fire-ice-duo": {
+      name: "Fire & Ice Duo",
+      price: 64.99,
+      thumb: "assets/bundle-fire-ice-thumb.webp",
+      href: "wasabirub-shop.html#bundles",
+    },
+    "og-heat-duo": {
+      name: "OG Heat Duo",
+      price: 59.99,
+      thumb: "assets/bundle-og-heat-thumb.webp",
+      href: "wasabirub-shop.html#bundles",
+    },
+    "recovery-duo": {
+      name: "Recovery Duo",
+      price: 64.99,
+      thumb: "assets/bundle-recovery-thumb.webp",
+      href: "wasabirub-shop.html#bundles",
+    },
+    "team-trifecta": {
+      name: "Team Trifecta Bundle",
+      price: 269.95,
+      thumb: "assets/bundle-trifecta-thumb.webp",
+      href: "wasabirub-shop.html#bundles",
+    },
+    "team-bundle": {
+      name: "WasabiRub Team Bundle",
+      price: 240.95,
+      thumb: "assets/bundle-team-thumb.webp",
+      href: "wasabirub-shop.html#bundles",
+    },
   };
 
   function load() {
