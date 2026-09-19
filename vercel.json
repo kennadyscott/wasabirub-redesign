@@ -11,12 +11,6 @@
       "permanent": true
     }
   ],
-  "rewrites": [
-    {
-      "source": "/sportpharm",
-      "destination": "/sportpharm.html"
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
