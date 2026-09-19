@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Unsubscribe — SportPharm</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<!-- The confirm step is deliberate. Corporate mail scanners open every link
+     in an email; if the link itself unsubscribed, they would unsubscribe
+     people who never asked. Only the button's POST does it. -->
+<style>
+  :root { --navy:#011430; --red:#D6202A; --ink:#15202B; --soft:#566371; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px;
+         background:#F2F3F5; color:var(--ink); font:16px/1.55 Inter, Helvetica, Arial, sans-serif; }
+  .card { width:100%; max-width:460px; background:#fff; border-radius:14px; overflow:hidden;
+          box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 30px rgba(0,0,0,.08); }
+  .head { background:var(--navy); padding:20px; text-align:center; }
+  .head img { width:150px; height:auto; }
+  .body { padding:28px; }
+  h1 { font-size:22px; margin:0 0 10px; }
+  p { margin:0 0 16px; color:var(--soft); }
+  button { width:100%; border:0; border-radius:10px; padding:14px 18px; background:var(--red);
+           color:#fff; font:700 16px Inter, Helvetica, Arial, sans-serif; cursor:pointer; }
+  button[disabled] { opacity:.6; cursor:default; }
+  .err { color:var(--red); }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="head"><img src="assets/wordmark-white.png" alt="SportPharm"></div>
+  <div class="body" id="box">
+    <h1>Unsubscribe from SportPharm emails?</h1>
+    <p>You won’t get any more emails from us after a pharmacy visit.</p>
+    <button id="go" type="button">Unsubscribe</button>
+  </div>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var e = q.get('e'), s = q.get('s');
+  var box = document.getElementById('box'), btn = document.getElementById('go');
+  function show(title, text, bad) {
+    box.innerHTML = '<h1></h1><p></p>';
+    box.querySelector('h1').textContent = title;
+    var p = box.querySelector('p'); p.textContent = text; if (bad) p.className = 'err';
+  }
+  if (!e || !s) { show('This link is incomplete', 'Please use the unsubscribe link from the bottom of the email, or reply to the email and we’ll take care of it.', true); return; }
+  btn.addEventListener('click', function () {
+    btn.disabled = true; btn.textContent = 'One moment…';
+    fetch('https://aihxmysugxnzxwvowqth.supabase.co/functions/v1/checkin-link?a=u&e=' +
+          encodeURIComponent(e) + '&s=' + encodeURIComponent(s), { method: 'POST' })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.ok; }); })
+      .then(function (ok) {
+        if (ok) show('You’re unsubscribed', 'We won’t email you again. Thanks for letting us know, and we hope to see you at the pharmacy.');
+        else show('That didn’t work', 'This link may be out of date. Reply to any of our emails and we’ll remove you by hand.', true);
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = 'Try again';
+      });
+  });
+})();
+</script>
+</body>
+</html>
