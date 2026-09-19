@@ -369,6 +369,31 @@
       .sr-note p{margin:0;font-size:14.5px;line-height:1.65;color:#5a6672}
       .sr-contact{margin-top:8px;font-size:15.5px;line-height:1.8;color:#3f4852}
       .sr-contact b{color:#15202b}
+      /* Track-your-package callout */
+      .sr-track{display:flex;align-items:flex-start;gap:16px;background:#0f1d33;color:#fff;border-radius:14px;padding:22px 24px;margin:18px 0 6px}
+      .sr-track .sr-track-ic{flex:none;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.1);display:grid;place-items:center}
+      .sr-track .sr-track-ic svg{width:22px;height:22px;stroke:#fff}
+      .sr-track b{display:block;font-size:16px;font-weight:900;margin:0 0 4px}
+      .sr-track p{margin:0;font-size:14px;line-height:1.6;color:#c7ccd0}
+      .sr-track a{color:#fff;font-weight:800;text-decoration:underline}
+      /* Return-request form */
+      .sr-form{background:#fff;border:1px solid #e2e6e4;border-radius:14px;padding:26px 26px 28px;margin:16px 0 8px}
+      .sr-form .sr-field{margin-bottom:14px}
+      .sr-form label{display:block;margin-bottom:6px;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#6b746f}
+      .sr-form input,.sr-form textarea{width:100%;padding:12px 13px;border:1px solid #d5dad7;border-radius:9px;font:inherit;font-size:14.5px;color:#15202b;background:#fff;transition:border-color .15s}
+      .sr-form input:focus,.sr-form textarea:focus{outline:none;border-color:#d6202a}
+      .sr-form textarea{resize:vertical;min-height:84px}
+      .sr-form .sr-check{display:flex;align-items:flex-start;gap:10px;margin:6px 0 18px;padding:14px 15px;background:#fef9f6;border:1px solid #f0e6df;border-radius:10px}
+      .sr-form .sr-check input{width:18px;height:18px;flex:none;margin-top:1px;accent-color:#d6202a}
+      .sr-form .sr-check label{margin:0;font-size:13.5px;font-weight:600;letter-spacing:0;text-transform:none;color:#3f4852;line-height:1.5}
+      .sr-form .sr-submit{cursor:pointer;border:0;border-radius:9px;height:48px;padding:0 26px;background:#d6202a;color:#fff;font-size:12px;font-weight:900;letter-spacing:.08em;display:inline-flex;align-items:center;gap:10px}
+      .sr-form .sr-submit:hover{background:#ac151e}
+      .sr-form .sr-submit:disabled{opacity:.6;cursor:default}
+      .sr-form-success{text-align:center;padding:10px 0}
+      .sr-form-success .check{width:56px;height:56px;margin:0 auto 14px;border-radius:50%;background:#e2eee8;color:#167545;display:flex;align-items:center;justify-content:center}
+      .sr-form-success .check svg{width:28px;height:28px}
+      .sr-form-success h3{margin:0 0 8px}
+      .sr-form-success p{margin:0;font-size:14.5px;color:#5f6a66;line-height:1.6}
     </style>
     <section class="sr-hero">
       <div class="sr-wrap">
@@ -387,15 +412,37 @@
         <p>Once shipped, most orders arrive within 3&ndash;7 business days, depending on your location. Delivery times are estimates and can vary during holidays or peak periods.</p>
         <h3>Where we ship</h3>
         <p>We currently ship within the United States. If you&rsquo;re outside the U.S. and would like to order, <a href="mailto:info@sportpharm.com">get in touch</a> and we&rsquo;ll see what we can do.</p>
-        <h3>Tracking your order</h3>
-        <p>Your shipping confirmation email includes a tracking link. If you haven&rsquo;t received it within a couple of days of ordering, check your spam folder or contact us.</p>
+        <h3>Track your package</h3>
+        <p>As soon as your order ships, we email you a confirmation with a live tracking link &mdash; click it any time to see where your package is.</p>
+        <div class="sr-track">
+          <span class="sr-track-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"></path><path d="M3 7l9 4 9-4M12 11v10"></path></svg></span>
+          <div>
+            <b>Can&rsquo;t find your tracking link?</b>
+            <p>Check the spam or promotions folder for an email from SportPharm first. Still nothing a couple of days after ordering? Email <a href="mailto:info@sportpharm.com?subject=Tracking%20request%20%E2%80%94%20WasabiRub%20order">info@sportpharm.com</a> with your order number and we&rsquo;ll resend it right away.</p>
+          </div>
+        </div>
 
         <h2>Returns &amp; refunds</h2>
         <p>Because WasabiRub products are topical, opened or used items can&rsquo;t be returned or refunded &mdash; it&rsquo;s a safety and hygiene standard we hold to.</p>
         <h3>What&rsquo;s eligible</h3>
         <p>To be eligible for a return, a product must be <b>unused, unopened, and in its original condition</b>, and your request must be made within <b>14 days of delivery</b>.</p>
         <h3>How to start a return</h3>
-        <p>Email us at <a href="mailto:info@sportpharm.com">info@sportpharm.com</a> with your order number and the item(s) you&rsquo;d like to return, and we&rsquo;ll send you return instructions.</p>
+        <p>Request a return below, or email us at <a href="mailto:info@sportpharm.com">info@sportpharm.com</a> with your order number and the item(s) you&rsquo;d like to return. Either way, we&rsquo;ll reply with return instructions.</p>
+        <div class="sr-form" id="returnForm">
+          <form id="returnRequest" novalidate>
+            <div class="sr-field"><label for="rr_order">Order number</label><input id="rr_order" name="order" type="text" placeholder="e.g. WR-10428" required></div>
+            <div class="sr-field"><label for="rr_email">Email on the order</label><input id="rr_email" name="email" type="email" autocomplete="email" required></div>
+            <div class="sr-field"><label for="rr_items">Item(s) you&rsquo;d like to return</label><input id="rr_items" name="items" type="text" placeholder="e.g. WasabiRub Super Hot 4 oz" required></div>
+            <div class="sr-field"><label for="rr_reason">Reason for the return <span style="text-transform:none;font-weight:600;color:#8a938f">(optional)</span></label><textarea id="rr_reason" name="reason"></textarea></div>
+            <div class="sr-check"><input id="rr_confirm" name="confirm" type="checkbox" required><label for="rr_confirm">I confirm the item(s) are <b>unopened, unused, and in their original condition.</b> Opened or used products can&rsquo;t be returned or refunded.</label></div>
+            <button class="sr-submit" type="submit">Request return <span aria-hidden="true">&rarr;</span></button>
+          </form>
+        </div>
+        <div class="sr-form-success" id="returnSuccess" hidden>
+          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+          <h3>Return request sent.</h3>
+          <p id="returnSuccessMsg"></p>
+        </div>
         <h3>Refunds</h3>
         <p>Once we receive your return and confirm it&rsquo;s unused and unopened, we&rsquo;ll issue a refund to your original payment method. Refunds are processed after inspection and typically post within a few business days.</p>
         <h3>Damaged or incorrect orders</h3>
@@ -516,6 +563,39 @@
     })();
   </script>
 
+  <script>
+    /* Return-request form — emails info@sportpharm.com via the same pipeline as Contact. */
+    (function(){
+      var form=document.getElementById("returnRequest");
+      if(!form) return;
+      var wrap=document.getElementById("returnForm");
+      var success=document.getElementById("returnSuccess");
+      form.addEventListener("submit",function(e){
+        e.preventDefault();
+        if(!form.reportValidity()) return;
+        var d=Object.fromEntries(new FormData(form).entries());
+        var order=(d.order||"").trim(), email=(d.email||"").trim(), items=(d.items||"").trim(), reason=(d.reason||"").trim();
+        var btn=form.querySelector('button[type="submit"]');
+        if(btn){btn.disabled=true;btn.dataset.label=btn.innerHTML;btn.innerHTML="Sending&hellip;";}
+        fetch("https://formsubmit.co/ajax/info@sportpharm.com",{
+          method:"POST",
+          headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body:JSON.stringify({
+            order_number:order, email:email, items:items,
+            reason:reason||"(none given)",
+            confirmed_unopened:"Yes — customer confirmed items are unopened, unused, original condition",
+            _subject:"WasabiRub return request — "+order, _template:"table", source:"WasabiRub · Shipping & Returns page"})
+        }).then(function(r){return r.json();}).then(function(){
+          document.getElementById("returnSuccessMsg").textContent="Thanks — we've received your request for order "+order+". We'll review it and email return instructions to "+email+" shortly.";
+          wrap.hidden=true; success.hidden=false; form.reset();
+          success.scrollIntoView({behavior:"smooth",block:"center"});
+        }).catch(function(){
+          document.getElementById("returnSuccessMsg").textContent="We couldn't send that automatically. Please email info@sportpharm.com with your order number and we'll pick it up from there.";
+          wrap.hidden=true; success.hidden=false;
+        }).finally(function(){ if(btn){btn.disabled=false;btn.innerHTML=btn.dataset.label||"Request return";} });
+      });
+    })();
+  </script>
   <script>
     /* Rotating promo bar — swaps every 2s (respects reduced motion) */
     (function(){var items=document.querySelectorAll('.announcement .promo-item');if(items.length<2)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var i=0;setInterval(function(){items[i].classList.remove('is-active');i=(i+1)%items.length;items[i].classList.add('is-active');},2000);})();
