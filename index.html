@@ -1142,6 +1142,56 @@
       })();
     </script>
 
+      <section class="videoband" id="film" aria-labelledby="film-h">
+        <style>
+          .videoband{background:#0f1d33;color:#fff;padding:72px 0}
+          .videoband .shell{width:min(1080px,calc(100% - 40px));margin:auto}
+          .videoband .vb-head{max-width:640px;margin:0 0 30px}
+          .videoband .eyebrow{margin:0 0 14px;color:#ff6a6f;font-size:11px;font-weight:800;letter-spacing:.2em}
+          .videoband .eyebrow:before{content:"";display:inline-block;width:27px;height:3px;margin:0 10px 3px 0;background:var(--red)}
+          .videoband h2{margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:1000;letter-spacing:-.03em;line-height:1}
+          .videoband h2 em{color:var(--red);font-style:normal}
+          .videoband .vb-lead{margin:16px 0 0;max-width:56ch;color:#c7ccd0;font-size:16.5px;line-height:1.6}
+          .vb-player{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 70px -30px rgba(0,0,0,.7)}
+          .vb-player iframe,.vb-player img,.vb-player button{position:absolute;inset:0;width:100%;height:100%;border:0}
+          .vb-player img{object-fit:cover;display:block}
+          .vb-facade{cursor:pointer;padding:0;background:none;display:grid;place-items:center}
+          .vb-facade:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(8,14,24,.15),rgba(8,14,24,.45))}
+          .vb-play{position:relative;z-index:2;width:88px;height:88px;border-radius:50%;background:var(--red);display:grid;place-items:center;transition:transform .18s,background .18s;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+          .vb-facade:hover .vb-play{transform:scale(1.08);background:var(--red-dark)}
+          .vb-play svg{width:34px;height:34px;fill:#fff;margin-left:5px}
+          .vb-facade:focus-visible{outline:3px solid #f5aeb4;outline-offset:3px}
+          @media(max-width:580px){.videoband{padding:56px 0}.vb-play{width:70px;height:70px}.vb-play svg{width:28px;height:28px}}
+        </style>
+        <div class="shell">
+          <div class="vb-head">
+            <p class="eyebrow">Watch the film</p>
+            <h2 id="film-h">BUILT TO <em>REBUILD.</em></h2>
+            <p class="vb-lead">Pro athlete Owen Travis on the work between the work &mdash; and where WasabiRub fits into the grind.</p>
+          </div>
+          <div class="vb-player">
+            <button type="button" class="vb-facade" data-yt="opPHraa743E" aria-label="Play the film: Built to Rebuild with Owen Travis">
+              <img src="https://i.ytimg.com/vi/opPHraa743E/maxresdefault.jpg" alt="Owen Travis for WasabiRub" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/opPHraa743E/hqdefault.jpg'">
+              <span class="vb-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+            </button>
+          </div>
+        </div>
+        <script>
+          (function(){
+            var b=document.querySelector(".vb-facade");if(!b)return;
+            b.addEventListener("click",function(){
+              var id=b.getAttribute("data-yt");
+              var f=document.createElement("iframe");
+              f.setAttribute("allow","accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
+              f.setAttribute("allowfullscreen","");
+              f.setAttribute("title","Built to Rebuild | Owen Travis x WasabiRub");
+              f.src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&rel=0";
+              b.replaceWith(f);
+            });
+          })();
+        </script>
+      </section>
+
       <section class="quality" id="quality">
         <div class="shell quality-grid">
           <div class="quality-logo"><img src="assets/trushield-logo.png" alt="TruShield Certified" decoding="async"></div>
