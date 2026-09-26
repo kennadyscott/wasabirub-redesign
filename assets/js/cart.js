@@ -82,6 +82,10 @@
     cart[id] = Math.min(MAX, (cart[id] || 0) + qty);
     save(cart);
     openDrawer();
+    /* Meta Pixel: the add, valued at what was added. Pixel not loaded = no-op. */
+    if (window.fbq) {
+      try { fbq("track", "AddToCart", { content_ids: [id], content_name: String(CATALOG[id].name).replace(/\u2122/g, ""), content_type: "product", value: Math.round(CATALOG[id].price * qty * 100) / 100, currency: "USD" }); } catch (e) {}
+    }
   }
 
   function setQty(id, qty) {
@@ -253,6 +257,14 @@
   function checkout(btn) {
     var items = payload().items;
     if (!items.length) return;
+    /* Meta Pixel: checkout started, valued at the cart. */
+    if (window.fbq) {
+      try {
+        var cartNow = load(), ids = Object.keys(cartNow), sum = 0, count = 0;
+        ids.forEach(function (k) { if (CATALOG[k]) { sum += CATALOG[k].price * cartNow[k]; count += cartNow[k]; } });
+        fbq("track", "InitiateCheckout", { content_ids: ids, content_type: "product", num_items: count, value: Math.round(sum * 100) / 100, currency: "USD" });
+      } catch (e) {}
+    }
     var err =
       document.getElementById("wr-cart-err") ||
       document.getElementById("wr-cart-page-err");
