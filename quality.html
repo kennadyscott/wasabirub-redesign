@@ -367,8 +367,20 @@
       .q-awards b{display:block;font-size:15.5px;font-weight:900;color:#15202b}
       .q-awards span{display:block;margin-top:4px;font-size:12.5px;color:#66737d}
       .q-awards em{color:#a3161e;font-style:normal;font-weight:800}
-      .q-founder-awards{margin-top:44px;padding-top:38px;border-top:1px solid rgba(255,255,255,.16)}
-      .q-founder-awards .q-awards{margin-top:16px}
+      .q-founder-side{display:flex;flex-direction:column}
+      .q-award-c{margin-top:30px;padding-top:26px;border-top:1px solid rgba(255,255,255,.16)}
+      .q-award-c .q-eyebrow{margin:0 0 12px}
+      .qac-view{position:relative;overflow:hidden;border-radius:12px}
+      .qac-track{display:flex;transition:transform .45s cubic-bezier(.4,.01,.2,1)}
+      .qac-slide{flex:0 0 100%;box-sizing:border-box;background:#fff;border:1px solid #e6e9ec;border-radius:12px;padding:20px 22px}
+      .qac-slide b{display:block;font-size:15.5px;font-weight:900;color:#15202b}
+      .qac-slide .yr{color:#8a938f;font-weight:700;font-style:normal}
+      .qac-slide span{display:block;margin-top:4px;font-size:12.5px;color:#66737d}
+      .qac-slide em{color:#a3161e;font-style:normal;font-weight:800}
+      .qac-dots{display:flex;gap:8px;margin-top:14px}
+      .qac-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:width .2s,background .2s}
+      .qac-dot.is-on{width:22px;border-radius:5px;background:#d6202a}
+      .qac-dot:focus-visible{outline:2px solid #f5aeb4;outline-offset:2px}
       .q-cta{text-align:center}
       .q-cta .q-btn{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:#d6202a;color:#fff;
         font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:13px;padding:16px 30px;border-radius:9px;text-decoration:none}
@@ -458,23 +470,50 @@
             <p class="q-lead">WasabiRub is made by SportPharm and has been trusted by athletes and sports-medicine professionals since 1995, when it was first formulated and compounded by pharmacist Robert Nickell, R.Ph. Robert was the first pharmacist to serve as the official sports pharmacist for the U.S. Olympic Training facilities and the 2004 Athens Games, and was designated to the USA Medical Team.</p>
             <p class="q-lead">He is a past president of the California Pharmacists Association, spent years as lead instructor for pharmaceutical compounding at USC&rsquo;s School of Pharmacy, and helped launch the first Entrepreneur Pharmaceutical Program in the U.S. He has authored numerous articles on pharmacy regulation, science and sports medicine.</p>
           </div>
-          <ul class="q-cred">
-            <li><b>Founded 1995</b>Sports pharmacy, East &amp; West divisions</li>
-            <li><b>Olympic pharmacist</b>First official sports pharmacist, US Olympic Training facilities &amp; Athens 2004</li>
-            <li><b>Licensed &amp; accredited</b>Compounding, repackaging and dispensing under pharmacy standards</li>
-          </ul>
-        </div>
-        <div class="q-founder-awards">
-          <p class="q-eyebrow">Robert&rsquo;s awards &amp; honors</p>
-          <ul class="q-awards">
-            <li><b>Pharmacist of the Year <span style="color:#8a938f;font-weight:700">(2000)</span></b><span><em>California Pharmacists Association</em></span></li>
-            <li><b>Innovative Pharmacist of the Year <span style="color:#8a938f;font-weight:700">(2005)</span></b><span><em>California Pharmacists Association</em></span></li>
-            <li><b>Godfather of Sports Pharmacy <span style="color:#8a938f;font-weight:700">(2024)</span></b><span><em>Sports Pharmacy Network</em></span></li>
-            <li><b>Lifetime Achievement in Sports Pharmacy <span style="color:#8a938f;font-weight:700">(2025)</span></b><span><em>Sports Pharmacy Network</em></span></li>
-          </ul>
+          <div class="q-founder-side">
+            <ul class="q-cred">
+              <li><b>Founded 1995</b>Sports pharmacy, East &amp; West divisions</li>
+              <li><b>Olympic pharmacist</b>First official sports pharmacist, US Olympic Training facilities &amp; Athens 2004</li>
+              <li><b>Licensed &amp; accredited</b>Compounding, repackaging and dispensing under pharmacy standards</li>
+            </ul>
+            <div class="q-award-c">
+              <p class="q-eyebrow">Robert&rsquo;s awards &amp; honors</p>
+              <div class="qac-view">
+                <div class="qac-track">
+                  <article class="qac-slide"><b>Pharmacist of the Year <i class="yr">(2000)</i></b><span><em>California Pharmacists Association</em></span></article>
+                  <article class="qac-slide"><b>Innovative Pharmacist of the Year <i class="yr">(2005)</i></b><span><em>California Pharmacists Association</em></span></article>
+                  <article class="qac-slide"><b>Godfather of Sports Pharmacy <i class="yr">(2024)</i></b><span><em>Sports Pharmacy Network</em></span></article>
+                  <article class="qac-slide"><b>Lifetime Achievement in Sports Pharmacy <i class="yr">(2025)</i></b><span><em>Sports Pharmacy Network</em></span></article>
+                </div>
+              </div>
+              <div class="qac-dots" role="tablist" aria-label="Awards">
+                <button class="qac-dot is-on" type="button" aria-label="Award 1"></button>
+                <button class="qac-dot" type="button" aria-label="Award 2"></button>
+                <button class="qac-dot" type="button" aria-label="Award 3"></button>
+                <button class="qac-dot" type="button" aria-label="Award 4"></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+    <script>
+      (function(){
+        var c=document.querySelector(".q-award-c"); if(!c) return;
+        var track=c.querySelector(".qac-track");
+        var slides=track.children, dots=c.querySelectorAll(".qac-dot");
+        var n=slides.length, i=0, timer=null;
+        var reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function go(k){ i=(k+n)%n; track.style.transform="translateX(-"+(i*100)+"%)";
+          for(var d=0; d<dots.length; d++) dots[d].classList.toggle("is-on", d===i); }
+        function reset(){ if(timer) clearInterval(timer); if(!reduce) timer=setInterval(function(){ go(i+1); }, 3800); }
+        for(var d=0; d<dots.length; d++){ (function(d){ dots[d].addEventListener("click",function(){ go(d); reset(); }); })(d); }
+        var view=c.querySelector(".qac-view");
+        view.addEventListener("mouseenter",function(){ if(timer) clearInterval(timer); });
+        view.addEventListener("mouseleave",reset);
+        go(0); reset();
+      })();
+    </script>
 
     <section class="q-sec cream">
       <div class="q-wrap">
