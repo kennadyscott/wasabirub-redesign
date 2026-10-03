@@ -1,0 +1,163 @@
+/* =============================================================================
+   Community Wellness Event — RSVP page.
+   SportPharm masterbrand: deep navy, brand red, white cards on a light ground.
+   One column everywhere; the only layout change on a phone is that paired
+   fields stack.
+============================================================================= */
+@font-face {
+  font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('../assets/fonts/inter-var.woff2') format('woff2');
+}
+
+:root {
+  --navy:      #011430;
+  --ink:       #12263F;
+  --body:      #38495B;
+  --muted:     #8A97A6;
+  --red:       #E1252B;
+  --red-deep:  #AF1A22;
+  --panel:     #F1F5FA;
+  --line:      #E7ECF2;
+  --ground:    #EEF1F5;
+  --radius:    16px;
+  --shadow:    0 1px 2px rgba(10,30,60,.06), 0 14px 34px rgba(10,30,60,.09);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--ground); color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+
+.banner { background: #fff; }
+.banner img { display: block; width: 100%; max-width: 980px; margin: 0 auto; height: auto; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 18px 60px; }
+
+/* ---------- hero ---------- */
+.hero { padding: 34px 0 10px; }
+.eyebrow {
+  font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--red);
+}
+h1 {
+  margin: 10px 0 0; font-size: clamp(34px, 7vw, 52px); line-height: 1.04;
+  font-weight: 800; letter-spacing: -.015em; color: var(--ink);
+}
+.lede { margin-top: 16px; font-size: clamp(17px, 2.4vw, 19px); color: var(--body); max-width: 36em; }
+
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 14px;
+  overflow: hidden; margin: 26px 0 24px;
+}
+.facts > div { background: #fff; padding: 16px 18px; font-size: 15.5px; line-height: 1.5; color: var(--body); }
+.facts span {
+  display: block; font-size: 11px; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 9px; justify-content: center;
+  background: var(--red); color: #fff; text-decoration: none;
+  font-size: 16.5px; font-weight: 700; padding: 15px 26px; border: 0;
+  border-radius: 11px; cursor: pointer; font-family: inherit;
+  transition: background .15s ease, transform .06s ease;
+}
+.btn:hover { background: var(--red-deep); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+.btn[disabled] { opacity: .65; cursor: default; }
+.btn-ghost { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+.btn-ghost:hover { background: #fff; box-shadow: inset 0 0 0 1.5px var(--muted); }
+.btn-wide { width: 100%; margin-top: 6px; }
+
+/* ---------- what to expect ---------- */
+.expect { margin: 34px 0 10px; }
+h2 { font-size: clamp(22px, 3.4vw, 27px); line-height: 1.2; font-weight: 800; letter-spacing: -.01em; }
+.grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
+.grid li { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.grid b { display: block; font-size: 16px; color: var(--ink); }
+.grid span { display: block; margin-top: 5px; font-size: 14.5px; line-height: 1.5; color: var(--body); }
+.note { margin-top: 16px; color: var(--body); font-size: 15.5px; }
+
+/* ---------- cards with the forms ---------- */
+.card {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 30px 28px; margin-top: 30px; scroll-margin-top: 18px;
+}
+.card-dark { background: var(--navy); color: #fff; }
+.card-dark h2 { color: #fff; }
+.card-dark .sub, .card-dark .fineprint { color: #A9B8CC; }
+.card-dark label { color: #DCE6F2; }
+.card-dark input, .card-dark textarea, .card-dark select { background: #fff; }
+.card-dark .done h3 { color: #fff; }
+.card-dark .done p { color: #A9B8CC; }
+
+.sub { margin-top: 8px; color: var(--body); font-size: 15.5px; }
+
+form { margin-top: 20px; display: flex; flex-direction: column; gap: 14px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .two { grid-template-columns: 1fr; } }
+
+.field label { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.field label em { font-style: normal; font-weight: 500; color: var(--muted); }
+input, textarea, select {
+  width: 100%; font: inherit; font-size: 16px; color: var(--ink);
+  padding: 13px 14px; border: 1.5px solid var(--line); border-radius: 11px; background: #fff;
+}
+textarea { resize: vertical; line-height: 1.5; }
+input:focus, textarea:focus, select:focus { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(1,20,48,.12); }
+.field.is-bad input, .field.is-bad textarea { border-color: var(--red); }
+
+.err { display: none; margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--red); }
+.field.is-bad .err { display: block; }
+.card-dark .err { color: #FF8E92; }
+
+/* the updates checkbox, drawn rather than native so it matches the kiosk */
+.check { display: flex; align-items: flex-start; gap: 11px; cursor: pointer; font-size: 15px; font-weight: 600; }
+.check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.check .box {
+  flex: 0 0 24px; width: 24px; height: 24px; border-radius: 7px; background: #fff;
+  border: 1.5px solid var(--line); display: grid; place-items: center; margin-top: 1px;
+}
+.check .box svg { width: 15px; height: 15px; fill: none; stroke: var(--red); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.check input:checked + .box svg { opacity: 1; }
+.check input:focus-visible + .box { outline: 3px solid var(--navy); outline-offset: 2px; }
+
+.fineprint { font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.formerr {
+  background: #FDECEC; color: #96131A; border-radius: 10px; padding: 11px 13px;
+  font-size: 14px; font-weight: 600;
+}
+
+/* the honeypot: off-screen, never announced, never tabbed to */
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- confirmation ---------- */
+.done { text-align: center; padding: 14px 0 6px; }
+.tick {
+  width: 56px; height: 56px; border-radius: 50%; background: #1B7A45; margin: 0 auto 16px;
+  display: grid; place-items: center; animation: pop .4s cubic-bezier(.2,.9,.3,1.4);
+}
+.tick svg { width: 29px; height: 29px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes pop { from { transform: scale(.4); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+@media (prefers-reduced-motion: reduce) { .tick { animation: none; } }
+.done h3 { font-size: 22px; font-weight: 800; }
+.done p { margin-top: 8px; color: var(--body); }
+.link { color: var(--red); font-weight: 700; text-decoration: none; }
+.link:hover { text-decoration: underline; }
+
+/* ---------- footer ---------- */
+.foot { margin-top: 34px; text-align: center; font-size: 14.5px; color: var(--body); }
+.foot a { color: var(--ink); }
+.foot p + p { margin-top: 4px; }
+.tiny { margin-top: 10px; font-size: 12.5px; color: var(--muted); }

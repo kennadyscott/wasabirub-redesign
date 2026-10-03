@@ -9,6 +9,11 @@
       "source": "/checkin",
       "destination": "/checkin/",
       "permanent": true
+    },
+    {
+      "source": "/rsvp",
+      "destination": "/rsvp/",
+      "permanent": true
     }
   ],
   "headers": [
