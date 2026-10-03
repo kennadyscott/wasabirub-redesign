@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SportPharm//Community Wellness Event//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:wellness-2026-11-07@sportpharm.com
+DTSTAMP:20261003T170000Z
+DTSTART:20261107T150000Z
+DTEND:20261107T180000Z
+SUMMARY:SportPharm Community Wellness Event
+DESCRIPTION:A free community wellness morning at SportPharm: body composition testing with DexaFit\, a chiropractor\, a physical therapist and a sports performance team\, screenings\, samples and wellness smoothies.\n\nDetails: https://wasabirub.com/rsvp/
+LOCATION:SportPharm\, 7061 Cypress Rd #104\, Plantation\, FL 33317
+URL:https://wasabirub.com/rsvp/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:SportPharm Community Wellness Event starts in 2 hours
+END:VALARM
+END:VEVENT
+END:VCALENDAR
