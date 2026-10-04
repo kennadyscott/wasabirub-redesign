@@ -55,7 +55,7 @@ body {
 /* Closed, the invitation is one object centred in the window. Once it opens
    the page goes back to being a normal page that scrolls from the top. */
 body:not(.is-open) { align-content: center; }
-.is-done { align-items: start; padding-top: 28px; }
+.is-done { align-items: start; padding-top: 16px; }
 
 /* ---------- stage ----------
    The card lives inside a wrap that clips it to the envelope's height. The
@@ -102,8 +102,16 @@ body:not(.is-open) { align-content: center; }
 .env-behind { z-index: 1; }
 .env-front  { z-index: 4; }
 .env > * { pointer-events: auto; }
-.is-done .env { opacity: 0; transform: translateY(14px) scale(.985); pointer-events: none; }
-.is-done .scene { margin-bottom: 0; transition: margin-bottom .6s ease; }
+/* The envelope does not leave. The card stands up out of it and the paper
+   stays behind, mouth still visible at the card's feet — which is what makes
+   the finished thing read as an invitation in an envelope rather than a
+   picture of a card. Only the flap and the broken seal go. */
+.is-done .env { pointer-events: none; }
+.is-done .flap, .is-done .seal { opacity: 0; }
+.is-done .scene {
+  margin-bottom: 12px;
+  transition: margin-top .85s cubic-bezier(.2,.8,.25,1), margin-bottom .6s ease;
+}
 
 .env-back {
   position: absolute; inset: 0; z-index: 1;
@@ -248,7 +256,7 @@ body:not(.is-open) { align-content: center; }
    the full width of the window, and you arrive at it by scrolling — which is
    the part of an Evite that makes the card feel like an object. */
 .cue {
-  margin: 30px auto 0; text-align: center; color: #333D2F;
+  margin: 16px auto 0; text-align: center; color: #333D2F;
   font-size: 10.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
   opacity: 0; transition: opacity .6s ease .5s; pointer-events: none;
 }
@@ -258,7 +266,7 @@ body:not(.is-open) { align-content: center; }
 .is-done .cue { opacity: 1; }
 
 .below {
-  position: relative; left: 50%; transform: translateX(-50%) translateY(16px);
+  position: relative; z-index: 6; left: 50%; transform: translateX(-50%) translateY(16px);
   width: 100vw; margin-top: 64px;
   background: #FBF9F5; color: var(--ink);
   opacity: 0; max-height: 0; overflow: hidden;
@@ -446,7 +454,8 @@ body:not(.is-open) { align-content: center; }
 
   var seal = document.getElementById('seal'),
       wrap = document.getElementById('wrap'),
-      card = document.querySelector('.card');
+      card = document.querySelector('.card'),
+      scene = document.getElementById('scene');
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -495,13 +504,38 @@ body:not(.is-open) { align-content: center; }
   function hide()   { var s = lying(); put(cssPx('--env-h', 300) + s.tall / 2 + 26, 90, s.k); }
   /* drawn up out of the pocket, still on its side */
   function risen()  { var s = lying(); put(cssPx('--env-h', 300) * 0.95 - s.tall / 2, 90, s.k); }
-  /* turned upright, and scaled so the whole card is in the window: a card you
-     have to scroll to finish reading is a document. Scaled, never narrowed —
-     narrowing rewraps the type, which only makes it taller again. */
+  /* Standing. The card's feet stay in the envelope's mouth and it grows
+     upward out of it, as large as the window allows — it was sized to the
+     envelope before, which made it look like a stamp on a big screen.
+
+     Scaled, never narrowed: narrowing rewraps the type, which only makes the
+     card taller again, and chasing that converges on a bookmark.
+
+     The room above the envelope comes from the scene's top margin rather than
+     a transform, so the page actually reserves it and the card's head is not
+     cut off by the top of the window. */
   function upright() {
-    var f = Math.min(1, (window.innerHeight - 170) / card.offsetHeight);
-    put(card.offsetHeight * f / 2, 0, f);
-    wrap.style.height = Math.round(card.offsetHeight * f) + 'px';
+    var env = cssPx('--env-h', 300);
+    /* How deep the feet sit. The front of the envelope is a V, highest at
+       its sides, so sinking the card too far puts that diagonal through the
+       date band: at this depth it crosses the blank corners of the address
+       line instead, which is the tuck a real card has. */
+    var mouth = env * 0.76;
+    /* What the card gets is the window less the page's own furniture (the top
+       padding, the gap, the scroll cue) and less the sliver of envelope still
+       showing below its feet. */
+    /* Only the envelope's mouth is charged to the layout: the rest of the
+       paper carries on down behind the cue and under the page below, which
+       is what frees the card to be nearly the height of the window. */
+    var room  = window.innerHeight - 152;
+    var f = Math.min(room / card.offsetHeight,
+                     Math.min(window.innerWidth * 0.90, 880) / card.offsetWidth,
+                     2);
+    f = Math.max(0.45, f);
+    var tall = card.offsetHeight * f;
+    put(mouth - tall / 2, 0, f);
+    wrap.style.height = Math.round(mouth + 26) + 'px';
+    scene.style.marginTop = Math.max(0, Math.round(tall - mouth) + 26) + 'px';
   }
 
   function slide() {
