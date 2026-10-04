@@ -5,11 +5,11 @@
 <title>You're invited — SportPharm Community Wellness Event</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Saturday, November 7, 10 AM to 1 PM. A morning built around how your body actually feels, at SportPharm in Plantation. Free.">
-<meta name="theme-color" content="#0F1D33">
+<meta name="theme-color" content="#87907F">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <meta property="og:title" content="You're invited — SportPharm Community Wellness Event">
 <meta property="og:description" content="Saturday, November 7 · 10 AM – 1 PM · Plantation, FL. Free.">
-<meta property="og:image" content="https://wasabirub.com/rsvp/assets/invite-hero.jpg">
+<meta property="og:image" content="https://wasabirub.com/rsvp/assets/invite-art.jpg">
 <style>
 /* =============================================================================
    The invitation that opens.
@@ -24,6 +24,8 @@
      already open — the animation is the flourish, never the gate.
 ============================================================================= */
 :root {
+  --wall:   #87907F;       /* the plaster the invitation sits on */
+  --wall-d: #6E7869;
   --navy:   #0F1D33;
   --navy-2: #16294a;
   --red:    #D6202A;
@@ -38,10 +40,12 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   min-height: 100svh;
+  /* A plaster wall rather than more navy: the envelope is cream and the seal
+     is red, and both were disappearing into a navy-on-navy page. */
   background:
-    radial-gradient(1200px 680px at 50% -12%, rgba(44,74,120,.55) 0%, transparent 60%),
-    url('assets/paper-navy.jpg') center / 620px repeat,
-    var(--navy);
+    radial-gradient(1100px 760px at 50% 6%, rgba(255,255,255,.16) 0%, transparent 62%),
+    url('assets/paper-sage.jpg') center center / cover no-repeat fixed,
+    var(--wall);
   color: var(--ink);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: grid; place-items: center;
@@ -184,12 +188,12 @@ body:not(.is-open) { align-content: center; }
 }
 .seal-text {
   position: absolute; left: 50%; top: calc(100% + 18px); transform: translateX(-50%);
-  z-index: 7; color: #93A7C0; font-size: 10.5px; font-weight: 700;
+  z-index: 7; color: #3A4438; font-size: 10.5px; font-weight: 700;
   letter-spacing: .22em; text-transform: uppercase; white-space: nowrap;
   transition: opacity .3s;
 }
 .is-open .seal-text { opacity: 0; }
-.seal:focus-visible { outline: 3px solid #fff; outline-offset: 6px; border-radius: 50%; }
+.seal:focus-visible { outline: 3px solid var(--navy); outline-offset: 6px; border-radius: 50%; }
 @keyframes pulse {
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
   50%      { transform: translate(-50%, -50%) scale(1.045); }
@@ -202,7 +206,7 @@ body:not(.is-open) { align-content: center; }
 }
 
 .env-from {
-  text-align: center; color: #7F96B4; font-size: 12px; letter-spacing: .22em;
+  text-align: center; color: #36402F; font-size: 12px; letter-spacing: .22em;
   text-transform: uppercase; margin-bottom: 22px; transition: opacity .4s;
 }
 .is-open .env-from { opacity: 0; }
@@ -242,7 +246,7 @@ body:not(.is-open) { align-content: center; }
    the full width of the window, and you arrive at it by scrolling — which is
    the part of an Evite that makes the card feel like an object. */
 .cue {
-  margin: 30px auto 0; text-align: center; color: #8DA3C0;
+  margin: 30px auto 0; text-align: center; color: #333D2F;
   font-size: 10.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
   opacity: 0; transition: opacity .6s ease .5s; pointer-events: none;
 }
@@ -328,7 +332,7 @@ body:not(.is-open) { align-content: center; }
       <img src="assets/wordmark-white.png" alt="SportPharm">
     </div>
 
-    <img class="hero" src="assets/invite-hero.jpg" alt="" decoding="async">
+    <img class="hero" src="assets/invite-art.jpg" alt="" decoding="async">
 
     <div class="head">
       <p class="eyebrow">You're invited</p>
