@@ -272,7 +272,7 @@ body:not(.is-open) { align-content: center; }
    the full width of the window, and you arrive at it by scrolling — which is
    the part of an Evite that makes the card feel like an object. */
 .cue {
-  margin: 16px auto 0; text-align: center; color: #333D2F;
+  margin: -30px auto 0; text-align: center; color: #333D2F;
   font-size: 10.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
   opacity: 0; transition: opacity .6s ease .5s; pointer-events: none;
 }
@@ -283,7 +283,7 @@ body:not(.is-open) { align-content: center; }
 
 .below {
   position: relative; z-index: 6; left: 50%; transform: translateX(-50%) translateY(16px);
-  width: 100vw; margin-top: 64px;
+  width: 100vw; margin-top: 12px;
   background: #FBF9F5; color: var(--ink);
   opacity: 0; max-height: 0; overflow: hidden;
   transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.25,1);
@@ -535,7 +535,7 @@ body:not(.is-open) { align-content: center; }
     /* Only the envelope's mouth is charged to the layout: the rest of the
        paper carries on down behind the cue and under the page below, which
        is what frees the card to be nearly the height of the window. */
-    var room = window.innerHeight - 152;
+    var room = window.innerHeight - 166;
     var f = Math.min(room / card.offsetHeight,
                      Math.min(window.innerWidth * 0.90, 880) / card.offsetWidth,
                      2);
@@ -585,7 +585,7 @@ body:not(.is-open) { align-content: center; }
        the page is in a background tab, and someone who opens the invitation
        and switches away should not come back to a half-open envelope. */
     setTimeout(slide, 520);          // the card is drawn out, lying down
-    setTimeout(present, 2700);       // holds there a beat, then turns upright
+    setTimeout(present, 2180);       // holds there a beat, then turns upright
   }
 
   window.addEventListener('resize', function () {
