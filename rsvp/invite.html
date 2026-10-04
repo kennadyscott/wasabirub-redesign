@@ -48,76 +48,92 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- stage ---------- */
+/* ---------- stage ----------
+   The card lives inside a wrap that clips it to the envelope's height. The
+   envelope itself is an overlay on top: back, pocket (front), flap, seal. So
+   the card can rise from inside the pocket, and the pocket keeps hiding its
+   lower edge the whole way up — which is what makes it read as coming OUT of
+   the envelope rather than appearing behind it. */
 .stage { width: 100%; max-width: 620px; }
+.scene { position: relative; margin: 4vh auto 0; perspective: 1600px; }
 
-/* ---------- the sealed envelope ---------- */
-.env {
-  position: relative; margin: 6vh auto 0; max-width: 460px;
-  aspect-ratio: 1.55 / 1; perspective: 1400px;
+.wrap {
+  position: relative; z-index: 2; overflow: hidden;
+  height: var(--env-h, 300px);
+  transition: height .95s cubic-bezier(.2,.8,.25,1);
 }
-.env-body {
-  position: absolute; inset: 0; background: var(--navy-2);
-  border: 1px solid #27406b; border-radius: 3px;
+.is-done .wrap { overflow: visible; }
+
+.card {
+  position: relative; background: #fff;
   box-shadow: 0 30px 70px rgba(0,0,0,.45);
-  overflow: hidden;
+  transform: translateY(104%) scale(.94) rotate(-.6deg);
+  transition: transform 1s cubic-bezier(.22,.9,.25,1);
+  transform-origin: 50% 0;
 }
-/* the two folded sides, drawn with gradients rather than images */
-.env-body::before, .env-body::after {
-  content: ''; position: absolute; top: 0; bottom: 0; width: 52%;
-  background: linear-gradient(135deg, #16294A 0%, #132A4C 55%, #0E1F3A 100%);
-}
-.env-body::before { left: 0; clip-path: polygon(0 0, 100% 50%, 0 100%); }
-.env-body::after  { right: 0; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+.is-rising .card { transform: translateY(0) scale(1) rotate(0deg); }
 
-.flap {
-  position: absolute; left: 0; right: 0; top: 0; height: 56%;
-  background: linear-gradient(180deg, #1b3157 0%, #142743 100%);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center; transform: rotateX(0deg);
-  transition: transform .9s cubic-bezier(.3,.9,.3,1);
-  z-index: 4; border-top: 1px solid #27406b;
+/* ---------- the envelope, as an overlay ---------- */
+.env {
+  position: absolute; left: 0; right: 0; top: 0; height: var(--env-h, 300px);
+  z-index: 3; pointer-events: none;
+  transition: opacity .6s ease, transform .6s ease;
 }
-.is-open .flap { transform: rotateX(-178deg); z-index: 0; }
+.env > * { pointer-events: auto; }
+.is-done .env { opacity: 0; transform: translateY(14px) scale(.985); pointer-events: none; }
+
+.env-back {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg, #16294A 0%, #132A4C 55%, #0E1F3A 100%);
+  border: 1px solid #27406b; box-shadow: 0 30px 70px rgba(0,0,0,.45);
+}
+/* the front pocket: the V the card slides out of */
+.pocket {
+  position: absolute; inset: 0; z-index: 4;
+  background: linear-gradient(170deg, #182E51 0%, #11213C 100%);
+  clip-path: polygon(0 18%, 50% 62%, 100% 18%, 100% 100%, 0 100%);
+  border-bottom: 1px solid #27406b;
+  box-shadow: 0 -10px 24px rgba(0,0,0,.28);
+}
+.flap {
+  position: absolute; left: 0; right: 0; top: 0; height: 62%;
+  background: linear-gradient(180deg, #1D355C 0%, #142743 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center; transform: rotateX(0deg); z-index: 6;
+  transition: transform .85s cubic-bezier(.3,.9,.3,1), z-index 0s linear .42s;
+  border-top: 1px solid #27406b; backface-visibility: hidden;
+}
+.is-open .flap { transform: rotateX(-176deg); z-index: 0; }
 
 .seal {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: 92px; height: 92px; border-radius: 50%; border: 0; cursor: pointer;
-  background: radial-gradient(circle at 34% 30%, #ef3a44 0%, var(--red) 45%, var(--red-2) 100%);
+  position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%);
+  width: 86px; height: 86px; border-radius: 50%; border: 0; cursor: pointer; z-index: 7;
+  background: radial-gradient(circle at 34% 30%, #ef3a44 0%, #D6202A 46%, #AF1A22 100%);
   color: #fff; font: 800 11px/1.25 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  letter-spacing: .12em; text-transform: uppercase; z-index: 6;
+  letter-spacing: .12em; text-transform: uppercase; text-align: center;
   box-shadow: 0 10px 26px rgba(0,0,0,.4), inset 0 -3px 10px rgba(0,0,0,.25);
-  display: grid; place-items: center; text-align: center;
-  animation: pulse 2.6s ease-in-out infinite;
+  display: grid; place-items: center; animation: pulse 2.6s ease-in-out infinite;
 }
 .seal:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
-.seal span { display: block; }
 .seal small { display: block; font-size: 9px; opacity: .85; margin-top: 2px; letter-spacing: .14em; }
 @keyframes pulse {
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
   50%      { transform: translate(-50%, -50%) scale(1.045); }
 }
-.is-open .seal { opacity: 0; transform: translate(-50%, -50%) scale(.6); pointer-events: none; transition: opacity .35s, transform .35s; animation: none; }
+/* the seal breaks: a small tilt, then it drops away */
+.is-open .seal {
+  animation: none; opacity: 0; pointer-events: none;
+  transform: translate(-50%, -50%) rotate(-14deg) translateY(26px) scale(.82);
+  transition: opacity .45s ease, transform .55s cubic-bezier(.4,.1,.6,1);
+}
 
 .env-hint {
   text-align: center; color: #8FA2B8; font-size: 13px; letter-spacing: .14em;
-  text-transform: uppercase; margin-top: 18px; transition: opacity .3s;
+  text-transform: uppercase; margin-top: 18px; transition: opacity .4s;
 }
 .is-open .env-hint { opacity: 0; }
 
-/* ---------- the card that rises out ---------- */
-.card {
-  position: relative; z-index: 5; width: 100%; background: #fff;
-  box-shadow: 0 40px 90px rgba(0,0,0,.45);
-  opacity: 0; transform: translateY(40px) scale(.97); pointer-events: none;
-  transition: opacity .6s ease .35s, transform .8s cubic-bezier(.2,.85,.25,1) .35s;
-  margin-top: -14vh;
-}
-.is-open .card { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; margin-top: 26px; }
-
-/* when the envelope has done its job, collapse it out of the flow */
-.is-open .env { height: 0; margin: 0; opacity: 0; transition: opacity .5s, height .6s .2s, margin .6s .2s; overflow: hidden; }
-
+/* ---------- the invitation itself ---------- */
 .masthead { background: var(--navy); padding: 16px 24px; }
 .masthead img { display: block; width: 132px; height: auto; }
 
@@ -126,7 +142,7 @@ body {
 .head { background: var(--navy); color: #fff; padding: 30px 28px 28px; }
 .eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
 .head h1 {
-  margin-top: 14px; font-size: clamp(32px, 7.4vw, 44px); line-height: .98;
+  margin-top: 14px; font-size: clamp(32px, 6.4vw, 44px); line-height: .98;
   font-weight: 800; letter-spacing: -.025em; text-transform: uppercase;
 }
 .head p { margin-top: 18px; font-size: 16.5px; line-height: 1.6; color: #B9C6D6; max-width: 32em; }
@@ -135,14 +151,14 @@ body {
   background: var(--red); color: #fff; padding: 18px 28px;
   display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
 }
-.band b { display: block; font-size: clamp(24px, 5.6vw, 30px); line-height: 1.04; font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; }
+.band b { display: block; font-size: clamp(24px, 5vw, 30px); line-height: 1.04; font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; }
 .band span { display: block; margin-top: 5px; font-size: 15px; font-weight: 600; letter-spacing: .04em; color: #FFD9DB; }
 .band .free { font-size: 10.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #FFD9DB; }
 
 .body { padding: 26px 28px 4px; }
 .label { font-size: 10.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
 .bills { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-top: 14px; }
-@media (max-width: 520px) { .bills { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .bills { grid-template-columns: 1fr; } }
 .bills h3 { font-size: 14px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
 .bills p { margin-top: 6px; font-size: 14.5px; line-height: 1.55; color: var(--body); }
 
@@ -153,7 +169,7 @@ body {
 .cta-note { margin-top: 12px; font-size: 13.5px; color: var(--muted); }
 
 .where { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
-@media (max-width: 520px) { .where { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .where { grid-template-columns: 1fr; } }
 .where strong { display: block; font-size: 15.5px; }
 .where a { color: var(--body); text-decoration: none; }
 .where .cal a { display: block; color: var(--red); font-weight: 700; line-height: 1.7; }
@@ -168,9 +184,10 @@ body {
 
 /* no JavaScript, or motion turned down: the card is simply already open */
 .no-js .env, .no-js .env-hint { display: none; }
-.no-js .card { opacity: 1; transform: none; pointer-events: auto; margin-top: 0; }
+.no-js .wrap { height: auto; overflow: visible; }
+.no-js .card { transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .flap, .card, .seal, .env { transition: none !important; animation: none !important; }
+  .flap, .card, .seal, .env, .wrap { transition: none !important; animation: none !important; }
 }
 </style>
 </head>
@@ -178,17 +195,10 @@ body {
 
 <main class="stage">
 
-  <!-- the envelope -->
-  <div class="env" id="env" aria-hidden="true">
-    <div class="env-body"></div>
-    <div class="flap" id="flap"></div>
-    <button class="seal" id="seal" type="button" aria-label="Open your invitation">
-      <span>Open<small>Tap</small></span>
-    </button>
-  </div>
-  <p class="env-hint" id="hint">An invitation from SportPharm</p>
+  <div class="scene" id="scene">
 
-  <!-- the invitation -->
+    <!-- the card, clipped to the envelope until it rises -->
+    <div class="wrap" id="wrap">
   <article class="card" id="card">
     <div class="masthead">
       <img src="assets/wordmark-white.png" alt="SportPharm">
@@ -254,39 +264,75 @@ body {
       7061 Cypress Rd #104, Plantation, FL 33317
     </div>
   </article>
+    </div><!-- /wrap -->
+
+    <!-- the envelope, over the top of it -->
+    <div class="env" id="env" aria-hidden="true">
+      <div class="env-back"></div>
+      <div class="pocket"></div>
+      <div class="flap"></div>
+      <button class="seal" id="seal" type="button" aria-label="Open your invitation">
+        <span>Open<small>Tap</small></span>
+      </button>
+    </div>
+  </div><!-- /scene -->
+
+  <p class="env-hint" id="hint">An invitation from SportPharm</p>
 </main>
 
 <script>
 (function () {
-  var body = document.body, stage = document.querySelector('.stage');
+  var body = document.body;
   body.classList.remove('no-js');
 
   var seal = document.getElementById('seal'),
       env  = document.getElementById('env'),
-      card = document.getElementById('card'),
+      wrap = document.getElementById('wrap'),
+      card = document.querySelector('.card'),
       hint = document.getElementById('hint');
 
-  /* Someone who asked for less motion should not have to tap anything. */
+  /* The envelope is sized from the viewport, and the wrap is clipped to match,
+     so the card is genuinely hidden inside it before anything moves. */
+  function sizeEnvelope() {
+    if (body.classList.contains('is-done')) return;
+    var w = Math.min(wrap.parentNode.clientWidth, 460);
+    var h = Math.round(w / 1.55);
+    document.documentElement.style.setProperty('--env-h', h + 'px');
+  }
+  sizeEnvelope();
+  window.addEventListener('resize', sizeEnvelope);
+
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function present() {
+    /* Unfold: the wrap grows from envelope height to the card's own height,
+       which is what turns "a card poking out" into the full invitation. */
+    wrap.style.height = card.scrollHeight + 'px';
+    body.classList.add('is-done');
+    setTimeout(function () {
+      wrap.style.height = 'auto';
+      card.setAttribute('tabindex', '-1');
+      card.focus({ preventScroll: true });
+    }, 1000);
+  }
 
   function open() {
     if (body.classList.contains('is-open')) return;
-    body.classList.add('is-open');
-    env.setAttribute('aria-hidden', 'true');
+    body.classList.add('is-open');     // seal breaks, flap falls
     hint.textContent = '';
-    /* Let the flap fall before bringing the card into view. */
-    setTimeout(function () {
-      card.setAttribute('tabindex', '-1');
-      card.focus({ preventScroll: true });
-      card.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
-    }, still ? 0 : 700);
+    setTimeout(function () { body.classList.add('is-rising'); }, 420);  // card climbs out
+    setTimeout(present, 1320);                                          // and unfolds
   }
 
-  if (still) { open(); return; }
+  if (still) {
+    body.classList.add('is-open', 'is-rising');
+    wrap.style.height = 'auto';
+    body.classList.add('is-done');
+    return;
+  }
 
   seal.addEventListener('click', open);
-  /* Arriving straight from the email's "open" button: skip the tap. */
-  if (location.hash === '#open') setTimeout(open, 350);
+  if (location.hash === '#open') setTimeout(open, 400);
 })();
 </script>
 </body>
