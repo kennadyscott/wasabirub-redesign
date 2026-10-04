@@ -59,11 +59,11 @@ body:not(.is-open) { align-content: center; }
    the card can rise from inside the pocket, and the pocket keeps hiding its
    lower edge the whole way up — which is what makes it read as coming OUT of
    the envelope rather than appearing behind it. */
-.stage { width: 100%; max-width: 620px; }
+.stage { width: 100%; max-width: 680px; }
 .scene { width: var(--env-w, 500px); }
 .scene { position: relative; margin: 0 auto 54px; perspective: 1700px; }
-body:not(.is-done) .scene { margin-top: calc(var(--env-h, 300px) * 0.62); }
-.is-done .scene { margin-top: 0; transition: margin-top .6s ease; }
+.scene { transition: transform .7s cubic-bezier(.3,.9,.3,1); }
+.is-open:not(.is-done) .scene { transform: translateY(calc(var(--env-h, 300px) * 0.28)); }
 
 .wrap {
   position: relative; z-index: 3; overflow: hidden;
@@ -150,7 +150,7 @@ body:not(.is-done) .scene { margin-top: calc(var(--env-h, 300px) * 0.62); }
   filter: drop-shadow(0 -8px 16px rgba(15,29,51,.26));
 }
 .flap {
-  position: absolute; left: 0; right: 0; top: 0; height: 56%;
+  position: absolute; left: 0; right: 0; top: 0; height: 52%;
   background:
     linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.18) 55%, rgba(26,38,56,.12) 100%),
     url('assets/paper-card.jpg') center / cover;
@@ -159,7 +159,7 @@ body:not(.is-done) .scene { margin-top: calc(var(--env-h, 300px) * 0.62); }
   transition: transform .9s cubic-bezier(.32,.86,.3,1), z-index 0s linear .45s;
   filter: drop-shadow(0 7px 9px rgba(15,29,51,.28));
 }
-.is-open .flap { transform: rotateX(-176deg); z-index: 0; }
+.is-open .flap { transform: rotateX(-166deg); z-index: 0; }
 
 .seal {
   position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%);
@@ -366,8 +366,11 @@ body:not(.is-done) .scene { margin-top: calc(var(--env-h, 300px) * 0.62); }
        every pass. Height matters too — the flap swings back above the
        envelope, so the window has to fit both. */
     var stage = document.querySelector('.stage');
-    var byWidth = Math.min(stage.clientWidth, 560);
-    var byHeight = (window.innerHeight - 130) / 1.64 * 1.42;   // envelope + the flap's swing
+    var byWidth = Math.min(stage.clientWidth, 680);
+    /* The flap swings its own height above the envelope. The scene drops by
+       0.22 of that height as it opens, so what has to fit above the centred
+       envelope is the rest of the swing, not all of it. */
+    var byHeight = (window.innerHeight - 110) / 1.78 * 1.42;
     var w = Math.max(260, Math.round(Math.min(byWidth, byHeight)));
     document.documentElement.style.setProperty('--env-w', w + 'px');
     document.documentElement.style.setProperty('--env-h', Math.round(w / 1.42) + 'px');
