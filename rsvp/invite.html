@@ -455,7 +455,8 @@ body:not(.is-open) { align-content: center; }
   var seal = document.getElementById('seal'),
       wrap = document.getElementById('wrap'),
       card = document.querySelector('.card'),
-      scene = document.getElementById('scene');
+      scene = document.getElementById('scene'),
+      envs = document.querySelectorAll('.env');
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -515,28 +516,36 @@ body:not(.is-open) { align-content: center; }
      a transform, so the page actually reserves it and the card's head is not
      cut off by the top of the window. */
   function upright() {
-    var env = cssPx('--env-h', 300);
-    /* How deep the feet sit. The front of the envelope is a V, highest at
-       its sides, so sinking the card too far puts that diagonal through the
-       date band: at this depth it crosses the blank corners of the address
-       line instead, which is the tuck a real card has. */
-    var mouth = env * 0.76;
-    /* What the card gets is the window less the page's own furniture (the top
-       padding, the gap, the scroll cue) and less the sliver of envelope still
-       showing below its feet. */
     /* Only the envelope's mouth is charged to the layout: the rest of the
        paper carries on down behind the cue and under the page below, which
        is what frees the card to be nearly the height of the window. */
-    var room  = window.innerHeight - 152;
+    var room = window.innerHeight - 152;
     var f = Math.min(room / card.offsetHeight,
                      Math.min(window.innerWidth * 0.90, 880) / card.offsetWidth,
                      2);
     f = Math.max(0.45, f);
-    var tall = card.offsetHeight * f;
+    var tall = card.offsetHeight * f, wide = card.offsetWidth * f;
+
+    /* The envelope was sized to open in the window; standing behind a card
+       this big it read as a bedsheet. It settles to a little wider than the
+       card it just gave up — the proportion a card and its envelope actually
+       have — shrinking from its top edge so the two stay concentric. */
+    var e = Math.min(1, wide * 1.42 / cssPx('--env-w', 500));
+    for (var i = 0; i < envs.length; i++) {
+      envs[i].style.transformOrigin = '50% 0';
+      envs[i].style.transform = 'scale(' + e.toFixed(4) + ')';
+    }
+
+    /* How deep the feet sit. The front of the envelope is a V, highest at
+       its sides, so sinking the card too far puts that diagonal through the
+       date band: at this depth it crosses the blank corners of the address
+       line instead, which is the tuck a real card has. */
+    var mouth = cssPx('--env-h', 300) * e * 0.76;
     put(mouth - tall / 2, 0, f);
     wrap.style.height = Math.round(mouth + 26) + 'px';
     scene.style.marginTop = Math.max(0, Math.round(tall - mouth) + 26) + 'px';
   }
+
 
   function slide() {
     body.classList.add('is-rising');
