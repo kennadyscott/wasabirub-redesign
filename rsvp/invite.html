@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>You're invited — SportPharm Community Wellness Event</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Saturday, November 7, 10 AM to 1 PM. A morning built around how your body actually feels, at SportPharm in Plantation. Free.">
+<meta name="theme-color" content="#0F1D33">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<meta property="og:title" content="You're invited — SportPharm Community Wellness Event">
+<meta property="og:description" content="Saturday, November 7 · 10 AM – 1 PM · Plantation, FL. Free.">
+<meta property="og:image" content="https://wasabirub.com/rsvp/assets/invite-hero.jpg">
+<style>
+/* =============================================================================
+   The invitation that opens.
+
+   A sealed navy envelope; tapping the seal breaks it, the flap falls back, and
+   the card rises out. Everything after that is the invitation itself.
+
+   Two rules kept throughout:
+   • The card is real HTML, not a picture, so it reads on a phone and to a
+     screen reader, and the RSVP link is a real link.
+   • Anyone who prefers reduced motion, or has JavaScript off, gets the card
+     already open — the animation is the flourish, never the gate.
+============================================================================= */
+:root {
+  --navy:   #0F1D33;
+  --navy-2: #16294a;
+  --red:    #D6202A;
+  --red-2:  #AF1A22;
+  --paper:  #F4F5F6;
+  --ink:    #15202B;
+  --body:   #4A5765;
+  --muted:  #8A97A6;
+  --line:   #DFE3E8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 620px at 50% -10%, #1b3157 0%, transparent 62%),
+    var(--navy);
+  color: var(--ink);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: grid; place-items: center;
+  padding: 26px 16px 60px;
+  overflow-x: hidden;
+}
+
+/* ---------- stage ---------- */
+.stage { width: 100%; max-width: 620px; }
+
+/* ---------- the sealed envelope ---------- */
+.env {
+  position: relative; margin: 6vh auto 0; max-width: 460px;
+  aspect-ratio: 1.55 / 1; perspective: 1400px;
+}
+.env-body {
+  position: absolute; inset: 0; background: var(--navy-2);
+  border: 1px solid #27406b; border-radius: 3px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+/* the two folded sides, drawn with gradients rather than images */
+.env-body::before, .env-body::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 52%;
+  background: linear-gradient(135deg, #16294A 0%, #132A4C 55%, #0E1F3A 100%);
+}
+.env-body::before { left: 0; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.env-body::after  { right: 0; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+
+.flap {
+  position: absolute; left: 0; right: 0; top: 0; height: 56%;
+  background: linear-gradient(180deg, #1b3157 0%, #142743 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center; transform: rotateX(0deg);
+  transition: transform .9s cubic-bezier(.3,.9,.3,1);
+  z-index: 4; border-top: 1px solid #27406b;
+}
+.is-open .flap { transform: rotateX(-178deg); z-index: 0; }
+
+.seal {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 92px; height: 92px; border-radius: 50%; border: 0; cursor: pointer;
+  background: radial-gradient(circle at 34% 30%, #ef3a44 0%, var(--red) 45%, var(--red-2) 100%);
+  color: #fff; font: 800 11px/1.25 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: .12em; text-transform: uppercase; z-index: 6;
+  box-shadow: 0 10px 26px rgba(0,0,0,.4), inset 0 -3px 10px rgba(0,0,0,.25);
+  display: grid; place-items: center; text-align: center;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+.seal:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.seal span { display: block; }
+.seal small { display: block; font-size: 9px; opacity: .85; margin-top: 2px; letter-spacing: .14em; }
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.045); }
+}
+.is-open .seal { opacity: 0; transform: translate(-50%, -50%) scale(.6); pointer-events: none; transition: opacity .35s, transform .35s; animation: none; }
+
+.env-hint {
+  text-align: center; color: #8FA2B8; font-size: 13px; letter-spacing: .14em;
+  text-transform: uppercase; margin-top: 18px; transition: opacity .3s;
+}
+.is-open .env-hint { opacity: 0; }
+
+/* ---------- the card that rises out ---------- */
+.card {
+  position: relative; z-index: 5; width: 100%; background: #fff;
+  box-shadow: 0 40px 90px rgba(0,0,0,.45);
+  opacity: 0; transform: translateY(40px) scale(.97); pointer-events: none;
+  transition: opacity .6s ease .35s, transform .8s cubic-bezier(.2,.85,.25,1) .35s;
+  margin-top: -14vh;
+}
+.is-open .card { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; margin-top: 26px; }
+
+/* when the envelope has done its job, collapse it out of the flow */
+.is-open .env { height: 0; margin: 0; opacity: 0; transition: opacity .5s, height .6s .2s, margin .6s .2s; overflow: hidden; }
+
+.masthead { background: var(--navy); padding: 16px 24px; }
+.masthead img { display: block; width: 132px; height: auto; }
+
+.hero { display: block; width: 100%; height: auto; }
+
+.head { background: var(--navy); color: #fff; padding: 30px 28px 28px; }
+.eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
+.head h1 {
+  margin-top: 14px; font-size: clamp(32px, 7.4vw, 44px); line-height: .98;
+  font-weight: 800; letter-spacing: -.025em; text-transform: uppercase;
+}
+.head p { margin-top: 18px; font-size: 16.5px; line-height: 1.6; color: #B9C6D6; max-width: 32em; }
+
+.band {
+  background: var(--red); color: #fff; padding: 18px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+}
+.band b { display: block; font-size: clamp(24px, 5.6vw, 30px); line-height: 1.04; font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; }
+.band span { display: block; margin-top: 5px; font-size: 15px; font-weight: 600; letter-spacing: .04em; color: #FFD9DB; }
+.band .free { font-size: 10.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #FFD9DB; }
+
+.body { padding: 26px 28px 4px; }
+.label { font-size: 10.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.bills { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-top: 14px; }
+@media (max-width: 520px) { .bills { grid-template-columns: 1fr; } }
+.bills h3 { font-size: 14px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
+.bills p { margin-top: 6px; font-size: 14.5px; line-height: 1.55; color: var(--body); }
+
+.cta { display: inline-block; margin-top: 22px; background: var(--red); color: #fff; text-decoration: none;
+       padding: 16px 38px; font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.cta:hover { background: var(--red-2); }
+.cta:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+.cta-note { margin-top: 12px; font-size: 13.5px; color: var(--muted); }
+
+.where { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+@media (max-width: 520px) { .where { grid-template-columns: 1fr; } }
+.where strong { display: block; font-size: 15.5px; }
+.where a { color: var(--body); text-decoration: none; }
+.where .cal a { display: block; color: var(--red); font-weight: 700; line-height: 1.7; }
+
+.vendor { margin: 22px 0 0; background: var(--paper); padding: 18px 20px; }
+.vendor p { margin-top: 7px; font-size: 15px; line-height: 1.6; color: var(--body); }
+.vendor a { color: var(--red); font-weight: 700; text-decoration: none; }
+
+.foot { background: var(--navy); color: #8FA2B8; padding: 22px 28px; font-size: 12.5px; line-height: 1.7; margin-top: 26px; }
+.foot a { color: #8FA2B8; text-decoration: none; }
+.foot a.first { color: #fff; font-weight: 700; }
+
+/* no JavaScript, or motion turned down: the card is simply already open */
+.no-js .env, .no-js .env-hint { display: none; }
+.no-js .card { opacity: 1; transform: none; pointer-events: auto; margin-top: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .flap, .card, .seal, .env { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body class="no-js">
+
+<main class="stage">
+
+  <!-- the envelope -->
+  <div class="env" id="env" aria-hidden="true">
+    <div class="env-body"></div>
+    <div class="flap" id="flap"></div>
+    <button class="seal" id="seal" type="button" aria-label="Open your invitation">
+      <span>Open<small>Tap</small></span>
+    </button>
+  </div>
+  <p class="env-hint" id="hint">An invitation from SportPharm</p>
+
+  <!-- the invitation -->
+  <article class="card" id="card">
+    <div class="masthead">
+      <img src="assets/wordmark-white.png" alt="SportPharm">
+    </div>
+
+    <img class="hero" src="assets/invite-hero.jpg" alt="" loading="lazy">
+
+    <div class="head">
+      <p class="eyebrow">You're invited</p>
+      <h1>Community<br>Wellness Event</h1>
+      <p>A morning built around how your body actually feels — testing, movement, recovery,
+         and the people who know what to do about it.</p>
+    </div>
+
+    <div class="band">
+      <div>
+        <b>Sat, November 7</b>
+        <span>10:00 AM – 1:00 PM</span>
+      </div>
+      <div class="free">No charge</div>
+    </div>
+
+    <div class="body">
+      <p class="label">On the day</p>
+      <div class="bills">
+        <div><h3>Body composition</h3><p>DexaFit scans — see where you actually stand, not where you guess.</p></div>
+        <div><h3>Movement &amp; recovery</h3><p>A chiropractor, a physical therapist and a sports performance team.</p></div>
+        <div><h3>Screenings &amp; samples</h3><p>Try things, ask the questions you have been putting off.</p></div>
+        <div><h3>Smoothies</h3><p>Cold, fast, and better than they need to be.</p></div>
+      </div>
+
+      <a class="cta" href="/rsvp/#rsvp">RSVP &nbsp;&rarr;</a>
+      <p class="cta-note">Twenty seconds, and it only helps us plan. Bring whoever you train with.</p>
+
+      <div class="where">
+        <div>
+          <p class="label">Where</p>
+          <div style="margin-top:7px;font-size:15.5px;line-height:1.6">
+            <strong>SportPharm</strong>
+            <a href="https://maps.google.com/?q=SportPharm,+7061+Cypress+Rd+%23104,+Plantation,+FL+33317">7061 Cypress Rd #104<br>Plantation, FL 33317</a>
+          </div>
+        </div>
+        <div class="cal">
+          <p class="label">Add to calendar</p>
+          <div style="margin-top:7px;font-size:14.5px">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=SportPharm%20Community%20Wellness%20Event&amp;dates=20261107T150000Z/20261107T180000Z&amp;location=SportPharm%2C%207061%20Cypress%20Rd%20%23104%2C%20Plantation%2C%20FL%2033317">Google</a>
+            <a href="wellness-event.ics">Apple or Outlook</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="vendor">
+        <p class="label">Run a wellness business?</p>
+        <p>We're bringing together local health, wellness and performance people for the morning.
+           No charge to take part. <a href="/rsvp/#vendor">Put your name forward &rarr;</a></p>
+      </div>
+    </div>
+
+    <div class="foot">
+      <a class="first" href="/rsvp/">Event details</a> ·
+      <a href="https://www.sportpharm.com">sportpharm.com</a> ·
+      <a href="tel:+19549995809">(954) 999-5809</a><br>
+      7061 Cypress Rd #104, Plantation, FL 33317
+    </div>
+  </article>
+</main>
+
+<script>
+(function () {
+  var body = document.body, stage = document.querySelector('.stage');
+  body.classList.remove('no-js');
+
+  var seal = document.getElementById('seal'),
+      env  = document.getElementById('env'),
+      card = document.getElementById('card'),
+      hint = document.getElementById('hint');
+
+  /* Someone who asked for less motion should not have to tap anything. */
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function open() {
+    if (body.classList.contains('is-open')) return;
+    body.classList.add('is-open');
+    env.setAttribute('aria-hidden', 'true');
+    hint.textContent = '';
+    /* Let the flap fall before bringing the card into view. */
+    setTimeout(function () {
+      card.setAttribute('tabindex', '-1');
+      card.focus({ preventScroll: true });
+      card.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+    }, still ? 0 : 700);
+  }
+
+  if (still) { open(); return; }
+
+  seal.addEventListener('click', open);
+  /* Arriving straight from the email's "open" button: skip the tap. */
+  if (location.hash === '#open') setTimeout(open, 350);
+})();
+</script>
+</body>
+</html>
