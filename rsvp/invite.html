@@ -88,6 +88,9 @@ body:not(.is-open) { align-content: center; }
   transition: transform 1.05s cubic-bezier(.22,.88,.24,1);
   transform-origin: 50% 50%;
 }
+/* The turn is its own move and wants its own time — slower than the slide
+   that got the card out, so the quarter turn reads as a deliberate gesture. */
+.is-done .card { transition: transform 1.3s cubic-bezier(.3,.82,.26,1); }
 
 /* ---------- the envelope, as an overlay ---------- */
 .env {
@@ -113,6 +116,19 @@ body:not(.is-open) { align-content: center; }
   transition: margin-top .85s cubic-bezier(.2,.8,.25,1), margin-bottom .6s ease;
 }
 
+/* Once the card is standing, the inside of the envelope should not still be
+   on show. Face on, you see the back panel's paper — the liner belongs to the
+   opening, when the flap falls and turns it to you. Leaving it up afterwards
+   left two dark flags at the card's shoulders, which is what made the whole
+   thing read as a shape behind the card rather than an envelope. */
+.env-back::after {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  transition: opacity .7s ease;
+  background:
+    linear-gradient(170deg, rgba(26,38,56,.26) 0%, rgba(26,38,56,.10) 48%, rgba(26,38,56,.20) 100%),
+    url('assets/paper-card.jpg') center / cover;
+}
+.is-done .env-back::after { opacity: 1; }
 .env-back {
   position: absolute; inset: 0; z-index: 1;
   background:
@@ -569,7 +585,7 @@ body:not(.is-open) { align-content: center; }
        the page is in a background tab, and someone who opens the invitation
        and switches away should not come back to a half-open envelope. */
     setTimeout(slide, 520);          // the card is drawn out, lying down
-    setTimeout(present, 1720);       // and turns upright
+    setTimeout(present, 2700);       // holds there a beat, then turns upright
   }
 
   window.addEventListener('resize', function () {
