@@ -56,7 +56,7 @@ body {
    lower edge the whole way up — which is what makes it read as coming OUT of
    the envelope rather than appearing behind it. */
 .stage { width: 100%; max-width: 620px; }
-.scene { position: relative; margin: 4vh auto 0; perspective: 1600px; }
+.scene { position: relative; margin: 2vh auto 56px; perspective: 1600px; }
 
 .wrap {
   position: relative; z-index: 2; overflow: hidden;
@@ -82,34 +82,35 @@ body {
 }
 .env > * { pointer-events: auto; }
 .is-done .env { opacity: 0; transform: translateY(14px) scale(.985); pointer-events: none; }
+.is-done .scene { margin-bottom: 0; transition: margin-bottom .6s ease; }
 
 .env-back {
   position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(165deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 42%, rgba(0,0,0,.26) 100%),
-    url('assets/paper-navy.jpg') center / cover;
-  box-shadow: 0 34px 80px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.07);
+    linear-gradient(165deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 45%, rgba(26,38,56,.14) 100%),
+    url('assets/paper-card.jpg') center / cover;
+  box-shadow: 0 36px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(15,29,51,.10);
 }
 /* the front pocket: the V the card slides out of */
 .pocket::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(185deg, rgba(255,255,255,.55) 0 1.2px, transparent 1.2px);
-  clip-path: polygon(0 18%, 50% 62%, 100% 18%, 100% 19.4%, 50% 63.4%, 0 19.4%);
-  opacity: .5;
+  background: linear-gradient(185deg, rgba(15,29,51,.38) 0 1.4px, transparent 1.4px);
+  clip-path: polygon(0 18%, 50% 62%, 100% 18%, 100% 19.6%, 50% 63.6%, 0 19.6%);
+  opacity: .85;
 }
 .pocket {
   position: absolute; inset: 0; z-index: 4;
   background:
-    linear-gradient(185deg, rgba(255,255,255,.07) 0%, rgba(0,0,0,.20) 34%, rgba(0,0,0,.42) 100%),
-    url('assets/paper-navy.jpg') center / cover;
+    linear-gradient(185deg, rgba(26,38,56,.16) 0%, rgba(26,38,56,.09) 30%, rgba(26,38,56,.02) 100%),
+    url('assets/paper-card.jpg') center / cover;
   clip-path: polygon(0 18%, 50% 62%, 100% 18%, 100% 100%, 0 100%);
-  filter: drop-shadow(0 -8px 18px rgba(0,0,0,.35));
+  filter: drop-shadow(0 -6px 14px rgba(15,29,51,.22));
 }
 .flap {
   position: absolute; left: 0; right: 0; top: 0; height: 62%;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.26) 0%, rgba(255,255,255,.08) 52%, rgba(0,0,0,.10) 100%),
-    url('assets/paper-navy.jpg') center / cover;
+    linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.18) 55%, rgba(26,38,56,.12) 100%),
+    url('assets/paper-card.jpg') center / cover;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center; transform: rotateX(0deg); z-index: 6;
   transition: transform .9s cubic-bezier(.32,.86,.3,1), z-index 0s linear .45s;
@@ -125,8 +126,8 @@ body {
   animation: pulse 2.8s ease-in-out infinite;
 }
 .seal-text {
-  position: absolute; left: 50%; top: calc(56% + 78px); transform: translateX(-50%);
-  z-index: 7; color: #C7D6E8; font-size: 10.5px; font-weight: 700;
+  position: absolute; left: 50%; top: calc(100% + 18px); transform: translateX(-50%);
+  z-index: 7; color: #93A7C0; font-size: 10.5px; font-weight: 700;
   letter-spacing: .22em; text-transform: uppercase; white-space: nowrap;
   transition: opacity .3s;
 }
@@ -143,11 +144,11 @@ body {
   transition: opacity .45s ease, transform .55s cubic-bezier(.4,.1,.6,1);
 }
 
-.env-hint {
-  text-align: center; color: #8FA2B8; font-size: 13px; letter-spacing: .14em;
-  text-transform: uppercase; margin-top: 18px; transition: opacity .4s;
+.env-from {
+  text-align: center; color: #7F96B4; font-size: 12px; letter-spacing: .22em;
+  text-transform: uppercase; margin-bottom: 22px; transition: opacity .4s;
 }
-.is-open .env-hint { opacity: 0; }
+.is-open .env-from { opacity: 0; }
 
 /* ---------- the invitation itself ---------- */
 .masthead { background: var(--navy); padding: 16px 24px; }
@@ -199,7 +200,7 @@ body {
 .foot a.first { color: #fff; font-weight: 700; }
 
 /* no JavaScript, or motion turned down: the card is simply already open */
-.no-js .env, .no-js .env-hint { display: none; }
+.no-js .env, .no-js .env-from { display: none; }
 .no-js .wrap { height: auto; overflow: visible; }
 .no-js .card { transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -210,6 +211,8 @@ body {
 <body class="no-js">
 
 <main class="stage">
+
+  <p class="env-from" id="hint">An invitation from SportPharm</p>
 
   <div class="scene" id="scene">
 
@@ -291,8 +294,6 @@ body {
       <div class="seal-text" id="sealText">Tap the seal</div>
     </div>
   </div><!-- /scene -->
-
-  <p class="env-hint" id="hint">An invitation from SportPharm</p>
 </main>
 
 <script>
