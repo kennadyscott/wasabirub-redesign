@@ -49,13 +49,13 @@ body {
   color: var(--ink);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: grid; place-items: center;
-  padding: 24px 16px;
+  padding: 24px 0;
   overflow-x: hidden;
 }
 /* Closed, the invitation is one object centred in the window. Once it opens
    the page goes back to being a normal page that scrolls from the top. */
 body:not(.is-open) { align-content: center; }
-.is-done { align-items: start; padding-top: 16px; }
+.is-done { align-items: start; padding-top: 10px; }
 
 /* ---------- stage ----------
    The card lives inside a wrap that clips it to the envelope's height. The
@@ -63,7 +63,7 @@ body:not(.is-open) { align-content: center; }
    the card can rise from inside the pocket, and the pocket keeps hiding its
    lower edge the whole way up — which is what makes it read as coming OUT of
    the envelope rather than appearing behind it. */
-.stage { width: 100%; max-width: 920px; }
+.stage { width: 100%; max-width: 920px; padding: 0 16px; }
 .scene { width: var(--env-w, 500px); }
 .scene { position: relative; margin: 0 auto 54px; perspective: 1700px;
   transition: transform .7s cubic-bezier(.3,.9,.3,1); }
@@ -282,14 +282,14 @@ body:not(.is-open) { align-content: center; }
 .is-done .cue { opacity: 1; }
 
 .below {
-  position: relative; z-index: 6; left: 50%; transform: translateX(-50%) translateY(16px);
-  width: 100vw; margin-top: 12px;
+  position: relative; z-index: 6; transform: translateY(16px);
+  width: 100%; margin-top: 12px;
   background: #FBF9F5; color: var(--ink);
   opacity: 0; max-height: 0; overflow: hidden;
   transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.25,1);
 }
 .is-done .below, .no-js .below {
-  opacity: 1; max-height: none; overflow: visible; transform: translateX(-50%) translateY(0);
+  opacity: 1; max-height: none; overflow: visible; transform: translateY(0);
 }
 .below-in { max-width: 1060px; margin: 0 auto; padding: 76px 24px 64px; text-align: center; }
 .below-in h2 {
@@ -494,7 +494,26 @@ body:not(.is-open) { align-content: center; }
     var w = Math.max(260, Math.round(Math.min(byWidth, byHeight)));
     document.documentElement.style.setProperty('--env-w', w + 'px');
     document.documentElement.style.setProperty('--env-h', Math.round(w / 1.42) + 'px');
+    sizeCard(w);
     if (!body.classList.contains('is-rising')) { wrap.style.height = ''; hide(); }
+  }
+
+  /* The card is laid out wider than the envelope it came out of, and is only
+     ever seen scaled, so the width here is a shape rather than a size: the
+     picture's height follows the width but the type's does not, so a wider
+     card is a squarer one, and a squarer card fills more of a window that is
+     always going to run out of height before it runs out of width. It is
+     centred with a margin rather than `auto`, which gives up on a child wider
+     than its parent. */
+  function sizeCard(envW) {
+    var w = Math.min(860, Math.round(envW * 1.3));
+    /* The stylesheet's max-width is the no-JS card's; left in place it capped
+       the width while the centring margin was computed from the width asked
+       for, which quietly pushed the card off-centre. */
+    card.style.maxWidth = 'none';
+    card.style.width = w + 'px';
+    card.style.marginLeft = Math.round((envW - w) / 2) + 'px';
+    card.style.marginRight = '0';
   }
 
   /* ---- where the card is, at each moment ---------------------------------
