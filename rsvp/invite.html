@@ -80,12 +80,14 @@ body:not(.is-open) { align-content: center; }
   position: relative; width: 92%; max-width: 760px; margin: 0 auto;
   background: #fff url('assets/paper-card.jpg') center / 620px repeat;
   box-shadow: 0 30px 70px rgba(0,0,0,.45), 0 2px 0 rgba(0,0,0,.06);
-  /* starts down inside the pocket */
-  transform: translateY(96%) scale(.95) rotate(-.5deg);
-  transition: transform 1.15s cubic-bezier(.22,.88,.24,1);
-  transform-origin: 50% 100%;
+  /* Every state of the card is one inline transform in the same shape —
+     translateY, rotate, scale — set from script. Keeping the three functions
+     in the same order is what lets the browser interpolate the turn rather
+     than fall back to matrix maths and take a strange path through it. */
+  transform: translateY(140%) rotate(90deg) scale(.8);
+  transition: transform 1.05s cubic-bezier(.22,.88,.24,1);
+  transform-origin: 50% 50%;
 }
-.is-rising .card { transform: translateY(0) scale(1) rotate(0deg); }
 
 /* ---------- the envelope, as an overlay ---------- */
 .env {
@@ -443,10 +445,14 @@ body:not(.is-open) { align-content: center; }
   body.classList.remove('no-js');
 
   var seal = document.getElementById('seal'),
-      env  = document.getElementById('env'),
       wrap = document.getElementById('wrap'),
-      card = document.querySelector('.card'),
-      hint = document.getElementById('hint');
+      card = document.querySelector('.card');
+
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function cssPx(name, fallback) {
+    return parseInt(getComputedStyle(document.documentElement).getPropertyValue(name), 10) || fallback;
+  }
 
   /* The envelope is sized from the viewport, and the wrap is clipped to match,
      so the card is genuinely hidden inside it before anything moves. */
@@ -458,80 +464,91 @@ body:not(.is-open) { align-content: center; }
        envelope, so the window has to fit both. */
     var stage = document.querySelector('.stage');
     var byWidth = Math.min(stage.clientWidth, 900);
-    /* The flap swings its own height above the envelope. The scene drops by
-       0.22 of that height as it opens, so what has to fit above the centred
-       envelope is the rest of the swing, not all of it. */
     var byHeight = (window.innerHeight - 80) / 1.48 * 1.42;
     var w = Math.max(260, Math.round(Math.min(byWidth, byHeight)));
     document.documentElement.style.setProperty('--env-w', w + 'px');
     document.documentElement.style.setProperty('--env-h', Math.round(w / 1.42) + 'px');
-    if (!body.classList.contains('is-rising')) wrap.style.height = '';
+    if (!body.classList.contains('is-rising')) { wrap.style.height = ''; hide(); }
   }
-  sizeEnvelope();
-  window.addEventListener('resize', sizeEnvelope);
 
-  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---- where the card is, at each moment ---------------------------------
+     A card goes into an envelope on its side and comes out of one the same
+     way, so it does that here: it rises lying on its long edge, and only
+     turns upright once it is clear of the paper.
+
+     Every position is the same three transforms in the same order — move,
+     turn, scale. Keeping the shape identical is what lets the browser
+     interpolate the quarter turn properly instead of falling back to matrix
+     maths and taking a strange path through it. */
+  function lying() {
+    /* Small enough to have gone in: its long edge sits inside the envelope's
+       width, its short edge inside the envelope's height. */
+    var k = Math.min(cssPx('--env-w', 500) * 0.94 / card.offsetHeight,
+                     cssPx('--env-h', 300) * 0.88 / card.offsetWidth);
+    return { k: k, tall: card.offsetWidth * k };
+  }
+  function put(centreY, deg, k) {
+    card.style.transform = 'translateY(' + Math.round(centreY - card.offsetHeight / 2) + 'px)'
+                         + ' rotate(' + deg + 'deg) scale(' + k.toFixed(4) + ')';
+  }
+  /* down in the pocket, out of sight below the envelope's mouth */
+  function hide()   { var s = lying(); put(cssPx('--env-h', 300) + s.tall / 2 + 26, 90, s.k); }
+  /* drawn up out of the pocket, still on its side */
+  function risen()  { var s = lying(); put(cssPx('--env-h', 300) * 0.95 - s.tall / 2, 90, s.k); }
+  /* turned upright, and scaled so the whole card is in the window: a card you
+     have to scroll to finish reading is a document. Scaled, never narrowed —
+     narrowing rewraps the type, which only makes it taller again. */
+  function upright() {
+    var f = Math.min(1, (window.innerHeight - 170) / card.offsetHeight);
+    put(card.offsetHeight * f / 2, 0, f);
+    wrap.style.height = Math.round(card.offsetHeight * f) + 'px';
+  }
 
   function slide() {
-    /* The card climbs out: the frame grows past the envelope so its top edge
-       clears the paper, which is the bit that reads as "sliding out". */
-    var env = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--env-h'), 10) || 300;
-    wrap.style.height = Math.round(env * 1.42) + 'px';
     body.classList.add('is-rising');
+    risen();
   }
 
   function present() {
-    /* The card settles at its own height, the envelope fades out behind it,
-       and the details and RSVP appear below for the scroll.
-
-       Timers, not requestAnimationFrame: a frame callback never fires while
-       the page is in a background tab, and someone who opens the invitation
-       and switches away should not come back to a half-open envelope. */
     body.classList.add('is-done');
-    setTimeout(function () { wrap.style.height = card.scrollHeight + 'px'; }, 16);
+    upright();
+    setTimeout(upright, 1200);   /* again once everything has settled */
     setTimeout(function () {
-      wrap.style.height = 'auto';
-      fitCard();
       card.setAttribute('tabindex', '-1');
       card.focus({ preventScroll: true });
-    }, 1000);
-    setTimeout(fitCard, 1400);   /* again once the picture has painted */
+    }, 950);
   }
-
-  /* Standing open, the card should be seen whole — a card you have to scroll
-     to finish reading is a document. If it is taller than the window, it is
-     narrowed until it fits, because its height follows its width. */
-  function fitCard() {
-    if (!body.classList.contains('is-done')) return;
-    /* Scale the card, never narrow it: narrowing rewraps the type, which makes
-       the card taller again, and chasing that converges on a bookmark. A
-       scaled card keeps its proportions — it is a card held further away. */
-    card.style.transform = '';
-    var avail = window.innerHeight - 170;   /* room for the scroll cue */
-    var h = card.offsetHeight;
-    var k = Math.min(1, avail / h);
-    card.style.transformOrigin = '50% 0';
-    card.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : '';
-    wrap.style.height = Math.round(h * k) + 'px';
-  }
-  window.addEventListener('resize', fitCard);
-  /* The hero decides most of the card's height, so measure again once it is
-     actually there — a fit taken before it loads is a fit of the wrong card. */
-  var hero = document.querySelector('.hero');
-  if (hero && !hero.complete) hero.addEventListener('load', fitCard);
-  window.addEventListener('load', fitCard);
 
   function open() {
     if (body.classList.contains('is-open')) return;
     body.classList.add('is-open');   // seal breaks, flap falls
-    setTimeout(slide, 500);          // card slides out of the pocket
-    setTimeout(present, 1750);       // and unfolds into the page
+    /* Timers, not requestAnimationFrame: a frame callback never fires while
+       the page is in a background tab, and someone who opens the invitation
+       and switches away should not come back to a half-open envelope. */
+    setTimeout(slide, 520);          // the card is drawn out, lying down
+    setTimeout(present, 1720);       // and turns upright
   }
+
+  window.addEventListener('resize', function () {
+    sizeEnvelope();
+    if (body.classList.contains('is-done')) upright();
+    else if (body.classList.contains('is-rising')) risen();
+  });
+  /* The picture decides most of the card's height, so place it again once the
+     picture is actually there — a fit taken before it loads is of the wrong card. */
+  var hero = document.querySelector('.hero');
+  if (hero && !hero.complete) hero.addEventListener('load', function () {
+    if (body.classList.contains('is-done')) upright();
+    else if (!body.classList.contains('is-open')) hide();
+  });
+
+  sizeEnvelope();
+  hide();
 
   if (still) {
     body.classList.add('is-open', 'is-rising', 'is-done');
-    wrap.style.height = 'auto';
-    fitCard();
+    card.style.transition = 'none';
+    upright();
     return;
   }
 
