@@ -101,8 +101,8 @@ body:not(.is-open) { align-content: center; }
 .env-back {
   position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(168deg, rgba(255,255,255,.40) 0%, rgba(255,255,255,0) 48%, rgba(26,38,56,.10) 100%),
-    url('assets/paper-card.jpg') center / cover;
+    linear-gradient(170deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.14) 46%, rgba(0,0,0,.30) 100%),
+    url('assets/liner.jpg') center / 260px repeat;
   box-shadow: 0 40px 80px rgba(0,0,0,.55), 0 4px 10px rgba(0,0,0,.30), inset 0 0 0 1px rgba(15,29,51,.12);
 }
 
@@ -151,13 +151,26 @@ body:not(.is-open) { align-content: center; }
 }
 .flap {
   position: absolute; left: 0; right: 0; top: 0; height: 52%;
+  transform-style: preserve-3d;
+  transform-origin: top center; transform: rotateX(0deg); z-index: 6;
+  transition: transform .9s cubic-bezier(.32,.86,.3,1), z-index 0s linear .45s;
+}
+/* Outside: the same stock as the envelope. Inside: the printed liner, which
+   only comes into view once the flap has fallen past upright. */
+.flap-face, .flap-liner { position: absolute; inset: 0; backface-visibility: hidden; }
+.flap-face  { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.flap-liner { clip-path: polygon(0 100%, 100% 100%, 50% 0); }
+.flap-face {
+  filter: drop-shadow(0 7px 9px rgba(15,29,51,.28));
   background:
     linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.18) 55%, rgba(26,38,56,.12) 100%),
     url('assets/paper-card.jpg') center / cover;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center; transform: rotateX(0deg); z-index: 6;
-  transition: transform .9s cubic-bezier(.32,.86,.3,1), z-index 0s linear .45s;
-  filter: drop-shadow(0 7px 9px rgba(15,29,51,.28));
+}
+.flap-liner {
+  transform: rotateX(180deg);
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.06) 55%, rgba(255,255,255,.06) 100%),
+    url('assets/liner.jpg') center / 260px repeat;
 }
 .is-open .flap { transform: rotateX(-166deg); z-index: 0; }
 
@@ -339,7 +352,10 @@ body:not(.is-open) { align-content: center; }
     <!-- the front: the pocket the card slides out of, and the flap -->
     <div class="env env-front" id="env" aria-hidden="true">
       <div class="pocket"></div>
-      <div class="flap"></div>
+      <div class="flap">
+        <div class="flap-face"></div>
+        <div class="flap-liner"></div>
+      </div>
       <button class="seal" id="seal" type="button" aria-label="Open your invitation"></button>
       <div class="seal-text" id="sealText">Tap the seal</div>
     </div>
