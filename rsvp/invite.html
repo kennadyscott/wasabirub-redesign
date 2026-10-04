@@ -61,8 +61,8 @@ body:not(.is-open) { align-content: center; }
    the envelope rather than appearing behind it. */
 .stage { width: 100%; max-width: 920px; }
 .scene { width: var(--env-w, 500px); }
-.scene { position: relative; margin: 0 auto 54px; perspective: 1700px; }
-.scene { transition: transform .7s cubic-bezier(.3,.9,.3,1); }
+.scene { position: relative; margin: 0 auto 54px; perspective: 1700px;
+  transition: transform .7s cubic-bezier(.3,.9,.3,1); }
 .is-open:not(.is-done) .scene { transform: translateY(calc(var(--env-h, 300px) * 0.28)); }
 
 .wrap {
@@ -229,35 +229,83 @@ body:not(.is-open) { align-content: center; }
 .band span { display: block; margin-top: 5px; font-size: 15px; font-weight: 600; letter-spacing: .04em; color: #FFD9DB; }
 .band .free { font-size: 10.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #FFD9DB; }
 
-.body { padding: 26px 28px 4px; background: rgba(255,255,255,.72); }
+/* The card closes on where and when, and stops. */
+.at {
+  background: rgba(255,255,255,.80); padding: 16px 28px 18px; text-align: center;
+  font-size: 14.5px; line-height: 1.55; color: var(--body); letter-spacing: .01em;
+}
+.at strong { display: block; font-size: 12px; font-weight: 800; letter-spacing: .18em;
+             text-transform: uppercase; color: var(--ink); margin-bottom: 4px; }
+
+/* ---------- the page under the card ----------
+   The card is a card; everything you read rather than look at lives here, at
+   the full width of the window, and you arrive at it by scrolling — which is
+   the part of an Evite that makes the card feel like an object. */
+.cue {
+  margin: 30px auto 0; text-align: center; color: #8DA3C0;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  opacity: 0; transition: opacity .6s ease .5s; pointer-events: none;
+}
+.cue span { display: block; margin-bottom: 8px; }
+.cue svg { animation: nudge 2.4s ease-in-out infinite; }
+@keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+.is-done .cue { opacity: 1; }
+
+.below {
+  position: relative; left: 50%; transform: translateX(-50%) translateY(16px);
+  width: 100vw; margin-top: 64px;
+  background: #FBF9F5; color: var(--ink);
+  opacity: 0; max-height: 0; overflow: hidden;
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.25,1);
+}
+.is-done .below, .no-js .below {
+  opacity: 1; max-height: none; overflow: visible; transform: translateX(-50%) translateY(0);
+}
+.below-in { max-width: 1060px; margin: 0 auto; padding: 76px 24px 64px; text-align: center; }
+.below-in h2 {
+  font-size: clamp(30px, 5vw, 46px); line-height: 1; font-weight: 800;
+  letter-spacing: -.025em; text-transform: uppercase;
+}
+.answers { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.ans {
+  display: inline-block; min-width: 230px; background: var(--red); color: #fff; text-decoration: none;
+  padding: 18px 40px; font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+  transition: background .2s, color .2s;
+}
+.ans:hover { background: var(--red-2); }
+.ans.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(21,32,43,.28); }
+.ans.ghost:hover { background: rgba(21,32,43,.05); }
+.ans:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+.ans-note { margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+.rule { width: 72px; height: 2px; background: var(--red); margin: 48px auto; }
+
 .label { font-size: 10.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-.bills { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-top: 14px; }
+.bills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px 34px; margin-top: 22px; text-align: left; }
+@media (max-width: 900px) { .bills { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .bills { grid-template-columns: 1fr; } }
 .bills h3 { font-size: 14px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
-.bills p { margin-top: 6px; font-size: 14.5px; line-height: 1.55; color: var(--body); }
+.bills p { margin-top: 7px; font-size: 15px; line-height: 1.6; color: var(--body); }
 
-.cta { display: inline-block; margin-top: 22px; background: var(--red); color: #fff; text-decoration: none;
-       padding: 16px 38px; font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.cta:hover { background: var(--red-2); }
-.cta:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
-.cta-note { margin-top: 12px; font-size: 13.5px; color: var(--muted); }
+.where {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; text-align: left;
+  margin-top: 54px; padding-top: 30px; border-top: 1px solid var(--line);
+}
+@media (max-width: 760px) { .where { grid-template-columns: 1fr; } }
+.where strong { display: block; margin-top: 9px; font-size: 16px; }
+.where a, .where span { display: block; font-size: 15.5px; line-height: 1.65; color: var(--body); text-decoration: none; }
+.where .cal a { color: var(--red); font-weight: 700; line-height: 1.8; margin-top: 4px; }
 
-.where { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
-@media (max-width: 560px) { .where { grid-template-columns: 1fr; } }
-.where strong { display: block; font-size: 15.5px; }
-.where a { color: var(--body); text-decoration: none; }
-.where .cal a { display: block; color: var(--red); font-weight: 700; line-height: 1.7; }
-
-.vendor { margin: 22px 0 0; background: rgba(15,29,51,.05); padding: 18px 20px; }
-.vendor p { margin-top: 7px; font-size: 15px; line-height: 1.6; color: var(--body); }
+.vendor { margin-top: 36px; background: rgba(15,29,51,.05); padding: 24px 26px; text-align: left; }
+.vendor p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--body); }
 .vendor a { color: var(--red); font-weight: 700; text-decoration: none; }
 
-.foot { background: var(--navy); color: #8FA2B8; padding: 22px 28px; font-size: 12.5px; line-height: 1.7; margin-top: 26px; }
+.foot { background: var(--navy); color: #8FA2B8; padding: 30px 24px; font-size: 12.5px; line-height: 1.8; text-align: center; }
 .foot a { color: #8FA2B8; text-decoration: none; }
 .foot a.first { color: #fff; font-weight: 700; }
 
 /* no JavaScript, or motion turned down: the card is simply already open */
-.no-js .env, .no-js .env-from { display: none; }
+.no-js .env, .no-js .env-from, .no-js .cue { display: none; }
 .no-js .wrap { height: auto; overflow: visible; }
 .no-js .card { transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -280,7 +328,7 @@ body:not(.is-open) { align-content: center; }
       <img src="assets/wordmark-white.png" alt="SportPharm">
     </div>
 
-    <img class="hero" src="assets/invite-hero.jpg" alt="" loading="lazy">
+    <img class="hero" src="assets/invite-hero.jpg" alt="" decoding="async">
 
     <div class="head">
       <p class="eyebrow">You're invited</p>
@@ -297,48 +345,11 @@ body:not(.is-open) { align-content: center; }
       <div class="free">No charge</div>
     </div>
 
-    <div class="body">
-      <p class="label">On the day</p>
-      <div class="bills">
-        <div><h3>Body composition</h3><p>DexaFit scans — see where you actually stand, not where you guess.</p></div>
-        <div><h3>Movement &amp; recovery</h3><p>A chiropractor, a physical therapist and a sports performance team.</p></div>
-        <div><h3>Screenings &amp; samples</h3><p>Try things, ask the questions you have been putting off.</p></div>
-        <div><h3>Smoothies</h3><p>Cold, fast, and better than they need to be.</p></div>
-      </div>
+    <p class="at">
+      <strong>SportPharm</strong>
+      7061 Cypress Rd #104, Plantation, FL
+    </p>
 
-      <a class="cta" href="/rsvp/#rsvp">RSVP &nbsp;&rarr;</a>
-      <p class="cta-note">Twenty seconds, and it only helps us plan. Bring whoever you train with.</p>
-
-      <div class="where">
-        <div>
-          <p class="label">Where</p>
-          <div style="margin-top:7px;font-size:15.5px;line-height:1.6">
-            <strong>SportPharm</strong>
-            <a href="https://maps.google.com/?q=SportPharm,+7061+Cypress+Rd+%23104,+Plantation,+FL+33317">7061 Cypress Rd #104<br>Plantation, FL 33317</a>
-          </div>
-        </div>
-        <div class="cal">
-          <p class="label">Add to calendar</p>
-          <div style="margin-top:7px;font-size:14.5px">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=SportPharm%20Community%20Wellness%20Event&amp;dates=20261107T150000Z/20261107T180000Z&amp;location=SportPharm%2C%207061%20Cypress%20Rd%20%23104%2C%20Plantation%2C%20FL%2033317">Google</a>
-            <a href="wellness-event.ics">Apple or Outlook</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="vendor">
-        <p class="label">Run a wellness business?</p>
-        <p>We're bringing together local health, wellness and performance people for the morning.
-           No charge to take part. <a href="/rsvp/#vendor">Put your name forward &rarr;</a></p>
-      </div>
-    </div>
-
-    <div class="foot">
-      <a class="first" href="/rsvp/">Event details</a> ·
-      <a href="https://www.sportpharm.com">sportpharm.com</a> ·
-      <a href="tel:+19549995809">(954) 999-5809</a><br>
-      7061 Cypress Rd #104, Plantation, FL 33317
-    </div>
   </article>
     </div><!-- /wrap -->
 
@@ -361,7 +372,66 @@ body:not(.is-open) { align-content: center; }
       <div class="seal-text" id="sealText">Tap the seal</div>
     </div>
   </div><!-- /scene -->
+
+  <div class="cue" id="cue" aria-hidden="true">
+    <span>Details &amp; RSVP</span>
+    <svg viewBox="0 0 24 14" width="22" height="13" fill="none" aria-hidden="true">
+      <path d="M2 2l10 10L22 2" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
 </main>
+
+<section class="below" id="below" aria-label="Event details and RSVP">
+  <div class="below-in">
+    <h2>Join us</h2>
+    <div class="answers">
+      <a class="ans" href="/rsvp/#rsvp">I'll be there</a>
+      <a class="ans ghost" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=SportPharm%20Community%20Wellness%20Event&amp;dates=20261107T150000Z/20261107T180000Z&amp;location=SportPharm%2C%207061%20Cypress%20Rd%20%23104%2C%20Plantation%2C%20FL%2033317">Add to calendar</a>
+    </div>
+    <p class="ans-note">Twenty seconds, and it only helps us plan. Bring whoever you train with.</p>
+
+    <div class="rule"></div>
+
+    <p class="label">On the day</p>
+    <div class="bills">
+      <div><h3>Body composition</h3><p>DexaFit scans — see where you actually stand, not where you guess.</p></div>
+      <div><h3>Movement &amp; recovery</h3><p>A chiropractor, a physical therapist and a sports performance team.</p></div>
+      <div><h3>Screenings &amp; samples</h3><p>Try things, ask the questions you have been putting off.</p></div>
+      <div><h3>Smoothies</h3><p>Cold, fast, and better than they need to be.</p></div>
+    </div>
+
+    <div class="where">
+      <div>
+        <p class="label">Where</p>
+        <strong>SportPharm</strong>
+        <a href="https://maps.google.com/?q=SportPharm,+7061+Cypress+Rd+%23104,+Plantation,+FL+33317">7061 Cypress Rd #104<br>Plantation, FL 33317</a>
+      </div>
+      <div>
+        <p class="label">When</p>
+        <strong>Saturday, November 7</strong>
+        <span>10:00 AM – 1:00 PM &middot; no charge</span>
+      </div>
+      <div class="cal">
+        <p class="label">Add to calendar</p>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=SportPharm%20Community%20Wellness%20Event&amp;dates=20261107T150000Z/20261107T180000Z&amp;location=SportPharm%2C%207061%20Cypress%20Rd%20%23104%2C%20Plantation%2C%20FL%2033317">Google</a>
+        <a href="wellness-event.ics">Apple or Outlook</a>
+      </div>
+    </div>
+
+    <div class="vendor">
+      <p class="label">Run a wellness business?</p>
+      <p>We're bringing together local health, wellness and performance people for the morning.
+         No charge to take part. <a href="/rsvp/#vendor">Put your name forward &rarr;</a></p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <a class="first" href="/rsvp/">Event details</a> ·
+    <a href="https://www.sportpharm.com">sportpharm.com</a> ·
+    <a href="tel:+19549995809">(954) 999-5809</a><br>
+    7061 Cypress Rd #104, Plantation, FL 33317
+  </div>
+</section>
 
 <script>
 (function () {
@@ -407,15 +477,45 @@ body:not(.is-open) { align-content: center; }
   }
 
   function present() {
-    /* Then it unfolds to its own height and the envelope fades out behind. */
-    wrap.style.height = card.scrollHeight + 'px';
+    /* The card settles at its own height, the envelope fades out behind it,
+       and the details and RSVP appear below for the scroll.
+
+       Timers, not requestAnimationFrame: a frame callback never fires while
+       the page is in a background tab, and someone who opens the invitation
+       and switches away should not come back to a half-open envelope. */
     body.classList.add('is-done');
+    setTimeout(function () { wrap.style.height = card.scrollHeight + 'px'; }, 16);
     setTimeout(function () {
       wrap.style.height = 'auto';
+      fitCard();
       card.setAttribute('tabindex', '-1');
       card.focus({ preventScroll: true });
-    }, 1050);
+    }, 1000);
+    setTimeout(fitCard, 1400);   /* again once the picture has painted */
   }
+
+  /* Standing open, the card should be seen whole — a card you have to scroll
+     to finish reading is a document. If it is taller than the window, it is
+     narrowed until it fits, because its height follows its width. */
+  function fitCard() {
+    if (!body.classList.contains('is-done')) return;
+    /* Scale the card, never narrow it: narrowing rewraps the type, which makes
+       the card taller again, and chasing that converges on a bookmark. A
+       scaled card keeps its proportions — it is a card held further away. */
+    card.style.transform = '';
+    var avail = window.innerHeight - 170;   /* room for the scroll cue */
+    var h = card.offsetHeight;
+    var k = Math.min(1, avail / h);
+    card.style.transformOrigin = '50% 0';
+    card.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : '';
+    wrap.style.height = Math.round(h * k) + 'px';
+  }
+  window.addEventListener('resize', fitCard);
+  /* The hero decides most of the card's height, so measure again once it is
+     actually there — a fit taken before it loads is a fit of the wrong card. */
+  var hero = document.querySelector('.hero');
+  if (hero && !hero.complete) hero.addEventListener('load', fitCard);
+  window.addEventListener('load', fitCard);
 
   function open() {
     if (body.classList.contains('is-open')) return;
@@ -427,6 +527,7 @@ body:not(.is-open) { align-content: center; }
   if (still) {
     body.classList.add('is-open', 'is-rising', 'is-done');
     wrap.style.height = 'auto';
+    fitCard();
     return;
   }
 
