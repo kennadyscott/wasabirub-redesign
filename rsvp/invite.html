@@ -60,7 +60,10 @@ body:not(.is-open) { align-content: center; }
    lower edge the whole way up — which is what makes it read as coming OUT of
    the envelope rather than appearing behind it. */
 .stage { width: 100%; max-width: 620px; }
-.scene { position: relative; width: var(--env-w, 460px); margin: 0 auto 54px; perspective: 1700px; }
+.scene { width: var(--env-w, 500px); }
+.scene { position: relative; margin: 0 auto 54px; perspective: 1700px; }
+body:not(.is-done) .scene { margin-top: calc(var(--env-h, 300px) * 0.62); }
+.is-done .scene { margin-top: 0; transition: margin-top .6s ease; }
 
 .wrap {
   position: relative; z-index: 3; overflow: hidden;
@@ -160,7 +163,7 @@ body:not(.is-open) { align-content: center; }
 
 .seal {
   position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%);
-  width: 112px; height: 112px; border: 0; padding: 0; cursor: pointer; z-index: 7;
+  width: 21%; aspect-ratio: 1; height: auto; border: 0; padding: 0; cursor: pointer; z-index: 7;
   background: url('assets/seal.png') center / contain no-repeat; background-color: transparent;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
   animation: pulse 2.8s ease-in-out infinite;
@@ -358,15 +361,16 @@ body:not(.is-open) { align-content: center; }
      so the card is genuinely hidden inside it before anything moves. */
   function sizeEnvelope() {
     if (body.classList.contains('is-done')) return;
-    /* Width is the obvious constraint; height is the one that bites. The flap
-       swings back above the envelope, so the window has to fit the envelope
-       AND that overhang, or the open flap is cut off at the top. */
-    var byWidth = Math.min(wrap.parentNode.clientWidth, 520);
-    var room = window.innerHeight - 190;          // captions, padding, breathing space
-    var byHeight = Math.max(200, room / 1.62) * 1.42;
-    var w = Math.round(Math.min(byWidth, byHeight));
-    document.documentElement.style.setProperty('--env-h', Math.round(w / 1.42) + 'px');
+    /* Measure the STAGE, never the scene: the scene's width is what this
+       function sets, and reading it back shrank the envelope a little more on
+       every pass. Height matters too — the flap swings back above the
+       envelope, so the window has to fit both. */
+    var stage = document.querySelector('.stage');
+    var byWidth = Math.min(stage.clientWidth, 560);
+    var byHeight = (window.innerHeight - 130) / 1.64 * 1.42;   // envelope + the flap's swing
+    var w = Math.max(260, Math.round(Math.min(byWidth, byHeight)));
     document.documentElement.style.setProperty('--env-w', w + 'px');
+    document.documentElement.style.setProperty('--env-h', Math.round(w / 1.42) + 'px');
     if (!body.classList.contains('is-rising')) wrap.style.height = '';
   }
   sizeEnvelope();
