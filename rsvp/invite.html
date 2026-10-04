@@ -60,10 +60,10 @@ body:not(.is-open) { align-content: center; }
    lower edge the whole way up — which is what makes it read as coming OUT of
    the envelope rather than appearing behind it. */
 .stage { width: 100%; max-width: 620px; }
-.scene { position: relative; margin: 0 auto 54px; perspective: 1700px; }
+.scene { position: relative; width: var(--env-w, 460px); margin: 0 auto 54px; perspective: 1700px; }
 
 .wrap {
-  position: relative; z-index: 2; overflow: hidden;
+  position: relative; z-index: 3; overflow: hidden;
   height: var(--env-h, 300px);
   transition: height .95s cubic-bezier(.2,.8,.25,1);
 }
@@ -72,18 +72,25 @@ body:not(.is-open) { align-content: center; }
 .card {
   position: relative; background: #fff url('assets/paper-card.jpg') center / 620px repeat;
   box-shadow: 0 30px 70px rgba(0,0,0,.45), 0 2px 0 rgba(0,0,0,.06);
-  transform: translateY(104%) scale(.94) rotate(-.6deg);
-  transition: transform 1s cubic-bezier(.22,.9,.25,1);
-  transform-origin: 50% 0;
+  /* starts down inside the pocket */
+  transform: translateY(96%) scale(.95) rotate(-.5deg);
+  transition: transform 1.15s cubic-bezier(.22,.88,.24,1);
+  transform-origin: 50% 100%;
 }
 .is-rising .card { transform: translateY(0) scale(1) rotate(0deg); }
 
 /* ---------- the envelope, as an overlay ---------- */
 .env {
   position: absolute; left: 0; right: 0; top: 0; height: var(--env-h, 300px);
-  z-index: 3; pointer-events: none;
+  pointer-events: none;
   transition: opacity .6s ease, transform .6s ease;
 }
+/* The back of the envelope sits BEHIND the card and the front sits in front
+   of it. Without the split the whole envelope painted over the card and the
+   slide-out was invisible — the card only ever appeared once the envelope
+   had faded. */
+.env-behind { z-index: 1; }
+.env-front  { z-index: 4; }
 .env > * { pointer-events: auto; }
 .is-done .env { opacity: 0; transform: translateY(14px) scale(.985); pointer-events: none; }
 .is-done .scene { margin-bottom: 0; transition: margin-bottom .6s ease; }
@@ -318,12 +325,16 @@ body:not(.is-open) { align-content: center; }
   </article>
     </div><!-- /wrap -->
 
-    <!-- the envelope, over the top of it -->
-    <div class="env" id="env" aria-hidden="true">
+    <!-- the back of the envelope: behind the card -->
+    <div class="env env-behind" id="envBack" aria-hidden="true">
       <div class="env-back"></div>
       <div class="panel"></div>
       <div class="panel-b"></div>
       <div class="seams"></div>
+    </div>
+
+    <!-- the front: the pocket the card slides out of, and the flap -->
+    <div class="env env-front" id="env" aria-hidden="true">
       <div class="pocket"></div>
       <div class="flap"></div>
       <button class="seal" id="seal" type="button" aria-label="Open your invitation"></button>
@@ -347,39 +358,51 @@ body:not(.is-open) { align-content: center; }
      so the card is genuinely hidden inside it before anything moves. */
   function sizeEnvelope() {
     if (body.classList.contains('is-done')) return;
-    var w = Math.min(wrap.parentNode.clientWidth, 520);
-    var h = Math.round(w / 1.42);
-    document.documentElement.style.setProperty('--env-h', h + 'px');
+    /* Width is the obvious constraint; height is the one that bites. The flap
+       swings back above the envelope, so the window has to fit the envelope
+       AND that overhang, or the open flap is cut off at the top. */
+    var byWidth = Math.min(wrap.parentNode.clientWidth, 520);
+    var room = window.innerHeight - 190;          // captions, padding, breathing space
+    var byHeight = Math.max(200, room / 1.62) * 1.42;
+    var w = Math.round(Math.min(byWidth, byHeight));
+    document.documentElement.style.setProperty('--env-h', Math.round(w / 1.42) + 'px');
+    document.documentElement.style.setProperty('--env-w', w + 'px');
+    if (!body.classList.contains('is-rising')) wrap.style.height = '';
   }
   sizeEnvelope();
   window.addEventListener('resize', sizeEnvelope);
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  function slide() {
+    /* The card climbs out: the frame grows past the envelope so its top edge
+       clears the paper, which is the bit that reads as "sliding out". */
+    var env = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--env-h'), 10) || 300;
+    wrap.style.height = Math.round(env * 1.42) + 'px';
+    body.classList.add('is-rising');
+  }
+
   function present() {
-    /* Unfold: the wrap grows from envelope height to the card's own height,
-       which is what turns "a card poking out" into the full invitation. */
+    /* Then it unfolds to its own height and the envelope fades out behind. */
     wrap.style.height = card.scrollHeight + 'px';
     body.classList.add('is-done');
     setTimeout(function () {
       wrap.style.height = 'auto';
       card.setAttribute('tabindex', '-1');
       card.focus({ preventScroll: true });
-    }, 1000);
+    }, 1050);
   }
 
   function open() {
     if (body.classList.contains('is-open')) return;
-    body.classList.add('is-open');     // seal breaks, flap falls
-    hint.textContent = '';
-    setTimeout(function () { body.classList.add('is-rising'); }, 420);  // card climbs out
-    setTimeout(present, 1320);                                          // and unfolds
+    body.classList.add('is-open');   // seal breaks, flap falls
+    setTimeout(slide, 500);          // card slides out of the pocket
+    setTimeout(present, 1750);       // and unfolds into the page
   }
 
   if (still) {
-    body.classList.add('is-open', 'is-rising');
+    body.classList.add('is-open', 'is-rising', 'is-done');
     wrap.style.height = 'auto';
-    body.classList.add('is-done');
     return;
   }
 
