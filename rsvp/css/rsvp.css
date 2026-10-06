@@ -35,15 +35,20 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   /* the same wall the envelope stands against */
-  /* the same wall the envelope stands against. `fixed` is deliberately not
-     used: iOS Safari sizes a fixed background to the whole document rather
-     than the window, so on a page this long the texture comes out enormous
-     and the scroll judders. */
-  background:
-    radial-gradient(1100px 760px at 50% 0%, rgba(255,255,255,.16) 0%, transparent 62%),
-    url('../assets/paper-sage.jpg') center top / cover no-repeat,
-    var(--wall);
-  background-attachment: scroll, scroll, scroll;
+  /* The wall is drawn, not photographed. A 1200px JPEG stretched with
+     `cover` across a page this size turned its plaster grain into blotches
+     and its compression into mush — the larger the window, the worse. This
+     is a flat sage, three very soft pools of light for unevenness, and a
+     tiling noise for tooth: no file, no scaling, sharp at any width, and
+     nothing for iOS to mis-size. */
+  background-color: var(--wall);
+  background-image:
+    radial-gradient(1200px 820px at 50% -12%, rgba(255,255,255,.17), rgba(255,255,255,0) 62%),
+    radial-gradient(900px 760px at 10% 26%, rgba(255,255,255,.07), rgba(255,255,255,0) 60%),
+    radial-gradient(1000px 900px at 92% 72%, rgba(22,32,20,.09), rgba(0,0,0,0) 62%),
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url%28%23n%29' opacity='.18'/></svg>");
+  background-size: auto, auto, auto, 220px 220px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   color: var(--ink);
   font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased;
