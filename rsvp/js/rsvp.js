@@ -98,6 +98,30 @@
     ],
   });
 
+  /* A hash on first load is a promise: /rsvp/#vendor should open on the vendor
+     form, and that link is the one handed to vendors. Chrome starts that jump
+     while the page is still settling and abandons it when the layout moves
+     underneath, leaving the visitor at the top of a long page — so it is made
+     again once everything has landed, and only if they have not scrolled off
+     by themselves in the meantime. */
+  (function () {
+    if (!location.hash) return;
+    var root = document.documentElement;
+    var go = function () {
+      if (window.scrollY > 40) return;
+      var el = document.getElementById(location.hash.slice(1));
+      if (!el) return;
+      /* The page asks for smooth scrolling, and a smooth scroll of this
+         length is exactly what the browser abandons when the layout settles
+         under it. This one jumps. */
+      var was = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      el.scrollIntoView({ block: 'start' });
+      root.style.scrollBehavior = was;
+    };
+    window.addEventListener('load', function () { go(); setTimeout(go, 150); });
+  })();
+
   wire({
     kind: 'vendor',
     form: '#form-vendor', button: '#v-submit', error: '#v-error',
