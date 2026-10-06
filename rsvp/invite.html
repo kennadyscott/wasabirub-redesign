@@ -34,11 +34,14 @@
   --navy-2: #16294a;
   --red:    #D6202A;
   --red-2:  #AF1A22;
-  --paper:  #F4F5F6;
-  --ink:    #15202B;
-  --body:   #4A5765;
-  --muted:  #8A97A6;
-  --line:   #DFE3E8;
+  --bone:      #EAE0D0;   /* the ground of the print the card carries */
+  --bone-lift: #F4EDE1;
+  --sand:      #D4C6B1;
+  --paper:  #EAE0D0;
+  --ink:    #1C2230;
+  --body:   #4E4A42;
+  --muted:  #6B6052;
+  --line:   #DCCFB8;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -92,7 +95,9 @@ body:not(.is-open) { align-content: center; }
 
 .card {
   position: relative; width: 92%; max-width: 760px; margin: 0 auto;
-  background: #fff url('assets/paper-card.jpg') center / 620px repeat;
+  background-color: var(--bone);
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url%28%23g%29' opacity='.09'/></svg>");
+  background-size: 180px 180px;
   box-shadow: 0 30px 70px rgba(0,0,0,.45), 0 2px 0 rgba(0,0,0,.06);
   /* Every state of the card is one inline transform in the same shape —
      translateY, rotate, scale — set from script. Keeping the three functions
@@ -263,7 +268,7 @@ body:not(.is-open) { align-content: center; }
   margin-top: 14px; font-size: clamp(32px, 6.4vw, 44px); line-height: .98;
   font-weight: 800; letter-spacing: -.025em; text-transform: uppercase;
 }
-.head p { margin-top: 18px; font-size: 16.5px; line-height: 1.6; color: #B9C6D6; max-width: 32em; }
+.head p { margin-top: 18px; font-size: 16.5px; line-height: 1.6; color: #C3BBA9; max-width: 32em; }
 
 .band {
   background: var(--red); color: #fff; padding: 18px 28px;
@@ -275,7 +280,7 @@ body:not(.is-open) { align-content: center; }
 
 /* The card closes on where and when, and stops. */
 .at {
-  background: rgba(255,255,255,.80); padding: 16px 28px 18px; text-align: center;
+  background: var(--bone-lift); padding: 16px 28px 18px; text-align: center;
   font-size: 14.5px; line-height: 1.55; color: var(--body); letter-spacing: .01em;
 }
 .at strong { display: block; font-size: 12px; font-weight: 800; letter-spacing: .18em;
@@ -298,7 +303,7 @@ body:not(.is-open) { align-content: center; }
 .below {
   position: relative; z-index: 6; transform: translateY(16px);
   width: 100%; margin-top: 12px;
-  background: #FBF9F5; color: var(--ink);
+  background: var(--bone); color: var(--ink);
   opacity: 0; max-height: 0; overflow: hidden;
   transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.25,1);
 }
@@ -317,8 +322,8 @@ body:not(.is-open) { align-content: center; }
   transition: background .2s, color .2s;
 }
 .ans:hover { background: var(--red-2); }
-.ans.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(21,32,43,.28); }
-.ans.ghost:hover { background: rgba(21,32,43,.05); }
+.ans.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(28,34,48,.30); }
+.ans.ghost:hover { background: rgba(28,34,48,.05); }
 .ans:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
 .ans-note { margin-top: 16px; font-size: 14px; color: var(--muted); }
 
@@ -340,12 +345,12 @@ body:not(.is-open) { align-content: center; }
 .where a, .where span { display: block; font-size: 15.5px; line-height: 1.65; color: var(--body); text-decoration: none; }
 .where .cal a { color: var(--red); font-weight: 700; line-height: 1.8; margin-top: 4px; }
 
-.vendor { margin-top: 36px; background: rgba(15,29,51,.05); padding: 24px 26px; text-align: left; }
+.vendor { margin-top: 36px; background: rgba(28,34,48,.05); padding: 24px 26px; text-align: left; }
 .vendor p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--body); }
 .vendor a { color: var(--red); font-weight: 700; text-decoration: none; }
 
-.foot { background: var(--navy); color: #8FA2B8; padding: 30px 24px; font-size: 12.5px; line-height: 1.8; text-align: center; }
-.foot a { color: #8FA2B8; text-decoration: none; }
+.foot { background: var(--navy); color: #9A9281; padding: 30px 24px; font-size: 12.5px; line-height: 1.8; text-align: center; }
+.foot a { color: #9A9281; text-decoration: none; }
 .foot a.first { color: #fff; font-weight: 700; }
 
 /* no JavaScript, or motion turned down: the card is simply already open */

@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "events.sportpharm.com"
+        }
+      ],
+      "destination": "/rsvp/",
+      "permanent": false
+    },
+    {
       "source": "/sportpharm-pharmacy-check-in",
       "destination": "/sportpharm-pharmacy-check-in/",
       "permanent": true
