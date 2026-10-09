@@ -155,6 +155,21 @@
     return n;
   }
 
+  /* Shipping: $7.99 flat, free on orders over $75 -- but never on bundles. */
+  var BUNDLE_IDS = { "fire-ice-duo": 1, "og-heat-duo": 1, "recovery-duo": 1, "team-trifecta": 1 };
+  var FREE_SHIP_OVER = 75;
+
+  function hasBundle(cart) {
+    return Object.keys(cart).some(function (id) { return cart[id] > 0 && BUNDLE_IDS[id]; });
+  }
+
+  function shipNote(cart) {
+    if (hasBundle(cart)) return "$7.99 flat-rate shipping, added at checkout.";
+    var sub = subtotal(cart);
+    if (sub > FREE_SHIP_OVER) return "Free shipping unlocked — your order is over $75.";
+    return "$7.99 shipping — you’re " + money(FREE_SHIP_OVER - sub) + " from free shipping.";
+  }
+
   function ensureUi() {
     if (!document.querySelector(".wr-cart-btn")) {
       var host = document.querySelector(".nav-right") || document.querySelector("header.nav");
@@ -204,7 +219,7 @@
           '<div class="wr-drawer-sub"><span>Subtotal</span><span>' +
           money(subtotal(cart)) +
           "</span></div>" +
-          '<p class="wr-drawer-note">$7.99 flat-rate shipping, added at checkout. Taxes calculated if applicable.</p>' +
+          '<p class="wr-drawer-note">' + shipNote(load()) + ' Taxes calculated if applicable.</p>' +
           '<button class="wr-drawer-checkout" type="button" data-cart-checkout>Checkout</button>' +
           '<a class="wr-drawer-shop" href="wasabirub-shop.html">Continue shopping</a>';
       } else {
@@ -221,7 +236,7 @@
           '<div class="wr-drawer-sub"><span>Subtotal</span><span>' +
           money(subtotal(cart)) +
           "</span></div>" +
-          '<p class="wr-drawer-note">$7.99 flat-rate shipping, added at checkout.</p>' +
+          '<p class="wr-drawer-note">' + shipNote(load()) + '</p>' +
           '<button class="wr-drawer-checkout" type="button" data-cart-checkout>Checkout</button></div>'
         : '<div class="cart-page-empty">Your cart is empty. <a href="wasabirub-shop.html">Shop WasabiRub</a></div>';
     }

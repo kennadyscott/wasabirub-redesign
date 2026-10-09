@@ -48,6 +48,10 @@ const CATALOG = {
   },
 };
 
+/* Bundle/duo SKUs never qualify for the over-$75 free-shipping threshold. */
+const BUNDLE_IDS = new Set(["fire-ice-duo", "og-heat-duo", "recovery-duo", "team-trifecta"]);
+const FREE_SHIP_OVER_CENTS = 7500; // orders over $75 (non-bundle) ship free
+
 const MAX_QTY = 20;
 
 function siteOrigin(req) {
@@ -125,6 +129,17 @@ module.exports = async function handler(req, res) {
     }
   }
 
+  /* Shipping: $7.99 flat, free only when the order is over $75 AND has no
+     bundle. Computed here because Stripe fixes shipping at session creation. */
+  let subtotalCents = 0, hasBundle = false;
+  for (const id of Object.keys(merged)) {
+    subtotalCents += CATALOG[id].cents * merged[id];
+    if (BUNDLE_IDS.has(id)) hasBundle = true;
+  }
+  const freeShipping = !hasBundle && subtotalCents > FREE_SHIP_OVER_CENTS;
+  const shipAmount = freeShipping ? 0 : 799;
+  const shipLabel = freeShipping ? "Free shipping" : "Standard shipping";
+
   const line_items = Object.keys(merged).map(function (id) {
     const product = CATALOG[id];
     const priceId = process.env[product.env];
@@ -166,9 +181,9 @@ module.exports = async function handler(req, res) {
       shipping_options: [
         {
           shipping_rate_data: {
-            display_name: "Standard shipping",
+            display_name: shipLabel,
             type: "fixed_amount",
-            fixed_amount: { amount: 799, currency: "usd" },
+            fixed_amount: { amount: shipAmount, currency: "usd" },
           },
         },
       ],
