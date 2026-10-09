@@ -178,6 +178,11 @@ module.exports = async function handler(req, res) {
         metadata: { source: "wasabirub.com", order_number: orderNo },
       },
       shipping_address_collection: { allowed_countries: ["US"] },
+      custom_text: {
+        shipping_address: {
+          message: "Free shipping over $75 is for individual items only. Bundle and duo orders ship at the flat $7.99 rate.",
+        },
+      },
       shipping_options: [
         {
           shipping_rate_data: {
