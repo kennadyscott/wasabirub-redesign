@@ -166,9 +166,9 @@ module.exports = async function handler(req, res) {
       shipping_options: [
         {
           shipping_rate_data: {
-            display_name: "Free shipping",
+            display_name: "Standard shipping",
             type: "fixed_amount",
-            fixed_amount: { amount: 0, currency: "usd" },
+            fixed_amount: { amount: 799, currency: "usd" },
           },
         },
       ],

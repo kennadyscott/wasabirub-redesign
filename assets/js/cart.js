@@ -204,7 +204,7 @@
           '<div class="wr-drawer-sub"><span>Subtotal</span><span>' +
           money(subtotal(cart)) +
           "</span></div>" +
-          '<p class="wr-drawer-note">Free shipping in the US. Taxes calculated at checkout if applicable.</p>' +
+          '<p class="wr-drawer-note">$7.99 flat-rate shipping, added at checkout. Taxes calculated if applicable.</p>' +
           '<button class="wr-drawer-checkout" type="button" data-cart-checkout>Checkout</button>' +
           '<a class="wr-drawer-shop" href="wasabirub-shop.html">Continue shopping</a>';
       } else {
@@ -221,7 +221,7 @@
           '<div class="wr-drawer-sub"><span>Subtotal</span><span>' +
           money(subtotal(cart)) +
           "</span></div>" +
-          '<p class="wr-drawer-note">Free shipping in the US.</p>' +
+          '<p class="wr-drawer-note">$7.99 flat-rate shipping, added at checkout.</p>' +
           '<button class="wr-drawer-checkout" type="button" data-cart-checkout>Checkout</button></div>'
         : '<div class="cart-page-empty">Your cart is empty. <a href="wasabirub-shop.html">Shop WasabiRub</a></div>';
     }

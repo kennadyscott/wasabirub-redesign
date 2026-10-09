@@ -14,6 +14,7 @@ const path = require("path");
 const SITE = "https://wasabirub.com";
 const BRAND = "WasabiRub";
 const CATEGORY = "Health & Beauty > Health Care"; // Google product taxonomy
+const SHIPPING = "US:::7.99 USD"; // flat-rate shipping (country:region:service:price)
 
 const PRODUCTS = [
   {
@@ -47,7 +48,7 @@ const PRODUCTS = [
     id: "fire-ice-duo",
     title: "Fire & Ice Duo — WasabiRub Super Hot + Super Cold (4 oz each)",
     description:
-      "The Fire & Ice Duo pairs WasabiRub Super Hot and Super Cold (4 oz each) — warming relief for tight muscles and cooling relief for fresh aches, in one bundle. Ships free.",
+      "The Fire & Ice Duo pairs WasabiRub Super Hot and Super Cold (4 oz each) — warming relief for tight muscles and cooling relief for fresh aches, in one bundle.",
     price: 64.99,
     link: "wasabirub-shop.html#bundles",
     image: "assets/bundle-fire-ice.png",
@@ -56,7 +57,7 @@ const PRODUCTS = [
     id: "og-heat-duo",
     title: "OG Heat Duo — WasabiRub Original + Super Hot (4 oz each)",
     description:
-      "The OG Heat Duo pairs WasabiRub Original and Super Hot (4 oz each) — everyday balanced relief plus extra warming intensity. Ships free.",
+      "The OG Heat Duo pairs WasabiRub Original and Super Hot (4 oz each) — everyday balanced relief plus extra warming intensity.",
     price: 59.99,
     link: "wasabirub-shop.html#bundles",
     image: "assets/bundle-og-heat.png",
@@ -65,7 +66,7 @@ const PRODUCTS = [
     id: "recovery-duo",
     title: "Recovery Duo — WasabiRub Original + Super Cold (4 oz each)",
     description:
-      "The Recovery Duo pairs WasabiRub Original and Super Cold (4 oz each) — balanced everyday relief plus pure cooling for post-activity recovery. Ships free.",
+      "The Recovery Duo pairs WasabiRub Original and Super Cold (4 oz each) — balanced everyday relief plus pure cooling for post-activity recovery.",
     price: 64.99,
     link: "wasabirub-shop.html#bundles",
     image: "assets/bundle-recovery.png",
@@ -74,7 +75,7 @@ const PRODUCTS = [
     id: "team-trifecta",
     title: "Team Trifecta Bundle — 3 Original + 3 Super Hot + 3 Super Cold",
     description:
-      "The Team Trifecta Bundle stocks the training room with three each of WasabiRub Original, Super Hot, and Super Cold (4 oz each, nine jars total). Ships free.",
+      "The Team Trifecta Bundle stocks the training room with three each of WasabiRub Original, Super Hot, and Super Cold (4 oz each, nine jars total).",
     price: 269.95,
     link: "wasabirub-shop.html#bundles",
     image: "assets/bundle-trifecta.png",
@@ -95,6 +96,7 @@ const COLUMNS = [
   "google_product_category",
   "quantity_to_sell_on_facebook",
   "mpn",
+  "shipping",
 ];
 
 function csvCell(value) {
@@ -118,6 +120,7 @@ function row(p) {
     google_product_category: CATEGORY,
     quantity_to_sell_on_facebook: 100,
     mpn: p.id,
+    shipping: SHIPPING,
   };
   return COLUMNS.map((c) => csvCell(cells[c])).join(",");
 }
