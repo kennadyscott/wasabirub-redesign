@@ -485,7 +485,7 @@
             <h1>Super Hot&trade;</h1>
             <p class="product-tagline">Triple-Action <span class="pr">Pain Relief</span>.</p>
             <p class="product-desc">The original triple-action formula with double the capsaicin — cooling menthol, extra warming heat, and methyl salicylate for fast, targeted relief of everyday muscle and joint pain.</p>
-            <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rlabel">5.0 customer rating</span></div>
+            <div class="rating-row" data-review-summary hidden></div>
             <div class="active-row">
               <div><b>Menthol 10%</b><small>Cooling</small></div>
               <div><b>Capsaicin .075%</b><small>Warming</small></div>
@@ -645,6 +645,14 @@
       </section>
 
       <p class="from-pharm shell">Keep reading: <a href="article-anti-inflammatory-compounds.html">A more targeted approach to anti-inflammatory care</a> · <a href="quality.html">Quality &amp; TruShield testing</a> · <a href="articles.html">All articles</a></p>
+      <section class="reviews-sec shell" id="product-reviews" data-reviews data-sku="SUPERHOT" aria-labelledby="rv-h">
+        <div class="reviews-in">
+          <h2 id="rv-h">Reviews</h2>
+          <p class="rv-sub">Real reviews from WasabiRub customers. Every review is published after a quick check.</p>
+          <div class="reviews-mount"></div>
+        </div>
+      </section>
+
     <footer>
     <div class="shell footer-top">
       <div class="footer-brand">
@@ -828,8 +836,8 @@
     })();
   </script>
   <script src="assets/track.js"></script>
-<link rel="stylesheet" href="assets/css/cart.css">
-<script src="assets/js/cart.js" defer></script>
+<link rel="stylesheet" href="assets/css/cart.css"><link rel="stylesheet" href="assets/css/reviews.css">
+<script src="assets/js/cart.js" defer></script><script src="assets/js/reviews.js" defer></script>
 <link rel="stylesheet" href="assets/css/popup.css">
 <script src="assets/js/popup.js" defer></script>
 </body>
