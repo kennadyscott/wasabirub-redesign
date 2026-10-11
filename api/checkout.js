@@ -165,7 +165,7 @@ module.exports = async function handler(req, res) {
   const stripe = new Stripe(secret);
 
   try {
-    const session = await stripe.checkout.sessions.create({
+    const params = {
       mode: "payment",
       allow_promotion_codes: true,
       line_items: line_items,
@@ -222,7 +222,22 @@ module.exports = async function handler(req, res) {
          the customer is not emailed twice. */
       expires_at: Math.floor(Date.now() / 1000) + 2 * 60 * 60,
       after_expiration: { recovery: { enabled: true, allow_promotion_codes: true } },
-    });
+    };
+
+    /* Promotional consent, so an abandoned cart keeps the shopper's email for
+       HQ's reminders (Stripe returns it on expiry only for shoppers who opted
+       in). Stripe refuses this until the Checkout terms are accepted at
+       dashboard.stripe.com/settings/checkout -- and once took checkout down
+       for ~7 minutes (11 Oct 2026). So it is tried first and dropped on any
+       consent error: a checkout without consent beats no checkout. */
+    let session;
+    try {
+      session = await stripe.checkout.sessions.create({ ...params, consent_collection: { promotions: "auto" } });
+    } catch (err) {
+      if (!/consent_collection/i.test(String(err && err.message))) throw err;
+      console.warn("checkout: promotional consent unavailable, continuing without it -", err.message);
+      session = await stripe.checkout.sessions.create(params);
+    }
     res.status(200).json({ url: session.url });
   } catch (err) {
     console.error(err);
