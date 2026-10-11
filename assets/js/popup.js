@@ -8,6 +8,67 @@
 
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function remember(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  /* Footer signup (11 Oct 2026): the popup shows once, so anyone who closes it
+     needs somewhere else to sign up. Same offer, same /api/subscribe, added to
+     the top of every footer on pages that load this file. Signing up here also
+     stops the popup from ever appearing. */
+  function footerSignup() {
+    var footer = document.querySelector("footer");
+    if (!footer || footer.querySelector(".wrf-signup")) return;
+    var box = document.createElement("div");
+    box.className = "shell wrf-signup";
+    box.innerHTML =
+      '<div class="wrf-copy">' +
+        '<p class="wrf-eyebrow">Join the list</p>' +
+        '<h2>Get <em>10% off</em> your first order</h2>' +
+        '<p>Plus first word on new drops and recovery tips from our sports pharmacists.</p>' +
+      '</div>' +
+      '<form class="wrf-form" novalidate>' +
+        '<div class="wrf-row">' +
+          '<input type="email" name="email" autocomplete="email" placeholder="you@email.com" aria-label="Email address" required>' +
+          '<button class="wrp-btn" type="submit">Sign up</button>' +
+        '</div>' +
+        '<p class="wrf-err" role="alert"></p>' +
+        '<p class="wrf-fine">By signing up you agree to get marketing emails from WasabiRub. Unsubscribe anytime. <a href="privacy-policy.html">Privacy Policy</a></p>' +
+      '</form>' +
+      '<div class="wrf-done" hidden>' +
+        '<p>You&rsquo;re in! Your code for 10% off your first order:</p>' +
+        '<div class="wrf-code"><b>' + CODE + '</b><button class="wrp-copy" type="button">Copy</button></div>' +
+      '</div>';
+    footer.insertBefore(box, footer.firstChild);
+
+    var form = box.querySelector(".wrf-form");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var input = form.querySelector("input[type=email]");
+      var btn = form.querySelector("button[type=submit]");
+      var err = form.querySelector(".wrf-err");
+      var email = (input.value || "").trim();
+      err.textContent = "";
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please enter a valid email."; input.focus(); return; }
+      btn.disabled = true; var label = btn.textContent; btn.textContent = "Signing up…";
+      fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, source: "footer", page: location.pathname })
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (!res.ok) { err.textContent = (res.d && res.d.error) || "Could not sign you up. Try again."; btn.disabled = false; btn.textContent = label; return; }
+          remember("subscribed");
+          form.hidden = true;
+          box.querySelector(".wrf-done").hidden = false;
+        })
+        .catch(function () { err.textContent = "Could not sign you up. Try again."; btn.disabled = false; btn.textContent = label; });
+    });
+    var copy = box.querySelector(".wrp-copy");
+    copy.addEventListener("click", function () {
+      try { navigator.clipboard.writeText(CODE); copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy"; }, 1500); } catch (e) {}
+    });
+  }
+  if (document.readyState !== "loading") footerSignup();
+  else document.addEventListener("DOMContentLoaded", footerSignup);
+
   if (!force && stored()) return;
 
   var scrim, card, shown = false, timer;
