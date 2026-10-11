@@ -222,12 +222,6 @@ module.exports = async function handler(req, res) {
          the customer is not emailed twice. */
       expires_at: Math.floor(Date.now() / 1000) + 2 * 60 * 60,
       after_expiration: { recovery: { enabled: true, allow_promotion_codes: true } },
-      /* Without this, Stripe keeps no email on an expired session, so HQ has no
-         one to send the reminders to (found 11 Oct 2026: 10 WasabiRub carts
-         abandoned in 30 days, not one with an email). Stripe asks for
-         promotional consent where the shopper's location requires it, and
-         returns the email on expiry only for shoppers who opted in. */
-      consent_collection: { promotions: "auto" },
     });
     res.status(200).json({ url: session.url });
   } catch (err) {
