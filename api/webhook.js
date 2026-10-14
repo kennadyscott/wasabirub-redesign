@@ -215,22 +215,33 @@ ${v.shipAddr}
 Questions? Just reply to this email.
 
 — WasabiRub, by SportPharm
+Pain relief that keeps you moving.
 For external use only. Use only as directed.
 `;
+  /* The 2027 brand look (13 Oct 2026). Kept in step with HQ's
+     lib/order-emails.ts wasabiFrame + buildConfirmationEmail, which renders
+     this same email in HQ's Email Workflows preview. Photos live in
+     /assets/email/ and are AI-made for mood: never present them as customers. */
+  const G = "#04342a", LIME = "#dafc92", OFF = "#f6f7f1", SOFT = "#4b5a55", ART = "https://wasabirub.com/assets/email";
   const html =
-`<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#18232e;line-height:1.6;max-width:520px">
-  <div style="background:#0f1d33;color:#fff;padding:22px 24px;border-radius:12px 12px 0 0">
-    <p style="margin:0 0 4px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ff6a6f">Order confirmed</p>
-    <h2 style="margin:0;font-size:24px;font-weight:900;letter-spacing:-.02em">Thanks for your order, ${esc(firstName)}!</h2>
-  </div>
-  <div style="border:1px solid #e6e9ec;border-top:0;border-radius:0 0 12px 12px;padding:22px 24px">
-    <p style="margin:0 0 16px;color:#4b5560">We&rsquo;re preparing your order now &mdash; we&rsquo;ll email you tracking as soon as it ships.</p>
-    <p style="margin:0 0 12px;font-size:13px;font-weight:bold;letter-spacing:.06em;color:#0f1d33">Order ${esc(v.orderNo)}</p>
+`<div style="display:none;max-height:0;overflow:hidden;opacity:0">We're preparing your order now. Tracking comes as soon as it ships.</div>
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#18232e;line-height:1.6;max-width:540px;background:#fcfcfc;border:1px solid #e3e6dc;border-radius:14px;overflow:hidden">
+  <div style="background:${G};padding:14px 22px"><a href="https://wasabirub.com" style="font-family:'Arial Black',Arial,sans-serif;font-style:italic;font-weight:900;font-size:21px;letter-spacing:-.03em;color:${LIME};text-decoration:none">wasabirub</a></div>
+  <img src="${ART}/hero-confirmed.jpg" width="540" alt="You're in. Game on." style="display:block;width:100%;max-width:540px;height:auto;border:0">
+  <div style="padding:24px 24px 6px">
+    <h2 style="margin:0 0 8px;font-size:24px;font-weight:900;letter-spacing:-.02em;line-height:1.2;color:${G}">Thanks for your order, ${esc(firstName)}!</h2>
+    <p style="margin:0 0 16px;color:${SOFT}">We&rsquo;re packing it up now &mdash; tracking lands in your inbox the minute it ships.</p>
+    <p style="margin:0 0 12px;font-size:13px;font-weight:bold;letter-spacing:.06em;color:${G}">Order ${esc(v.orderNo)}</p>
     <table style="border-collapse:collapse;width:100%;margin:0 0 6px">${v.itemRows}${v.summaryHtml}</table>
     <p style="margin:20px 0 4px"><b>Shipping to</b></p>
-    <p style="margin:0 0 18px;white-space:pre-line;color:#4b5560">${esc(v.shipName)}\n${esc(v.shipAddr)}</p>
-    <p style="margin:0 0 4px;color:#4b5560">Questions? Just reply to this email and our team will help.</p>
-    <p style="margin:14px 0 0;color:#8a938f;font-size:12px;border-top:1px solid #e6e9ec;padding-top:12px">WasabiRub, by SportPharm &middot; For external use only. Use only as directed.</p>
+    <p style="margin:0 0 18px;white-space:pre-line;color:${SOFT}">${esc(v.shipName)}\n${esc(v.shipAddr)}</p>
+  </div>
+  <div style="padding:6px 20px 0"><img src="${ART}/strip-every-body.jpg" width="500" alt="Made for every body that moves." style="display:block;width:100%;height:auto;border:0;border-radius:8px"></div>
+  <p style="margin:0;padding:18px 24px 4px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:${G}">Pharmacist formulated &nbsp;&middot;&nbsp; TruShield certified &nbsp;&middot;&nbsp; Life gets spicy</p>
+  <p style="margin:0;padding:4px 24px 18px;text-align:center;color:${SOFT};font-size:13px">Questions? Just reply &mdash; a real person on our team will answer.</p>
+  <div style="background:${G};padding:18px 24px;color:#c9d6cf;font-size:12px">
+    <p style="margin:0 0 4px;color:${LIME};font-weight:900;font-size:15px">Pain relief that keeps you moving.</p>
+    <p style="margin:0">WasabiRub, by SportPharm &middot; For external use only. Use only as directed. &middot; <a href="https://wasabirub.com" style="color:#c9d6cf">wasabirub.com</a></p>
   </div>
 </div>`;
   await resendSend({ from, to: [v.cust.email], reply_to: replyTo, subject: `Your WasabiRub order is confirmed — ${v.orderNo}`, text, html });
