@@ -291,7 +291,8 @@
     fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: items }),
+      /* The email from the 10% signup, if this visitor signed up (popup.js). */
+      body: JSON.stringify({ items: items, email: (function () { try { return localStorage.getItem("wr_email") || ""; } catch (e) { return ""; } })() }),
     })
       .then(function (res) {
         return res.json().then(function (data) {

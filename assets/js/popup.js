@@ -8,6 +8,10 @@
 
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function remember(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  /* The signed-up email, kept on this device so checkout can hand it to Stripe
+     (cart.js): it is then filled in for them, and if they leave, HQ may send
+     the abandoned-cart reminders -- they agreed to marketing emails here. */
+  function keepEmail(e) { try { localStorage.setItem("wr_email", String(e).trim().toLowerCase()); } catch (x) {} }
 
   /* Footer signup (11 Oct 2026): the popup shows once, so anyone who closes it
      needs somewhere else to sign up. Same offer, same /api/subscribe, added to
@@ -55,7 +59,7 @@
       }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (res) {
           if (!res.ok) { err.textContent = (res.d && res.d.error) || "Could not sign you up. Try again."; btn.disabled = false; btn.textContent = label; return; }
-          remember("subscribed");
+          remember("subscribed"); keepEmail(email);
           form.hidden = true;
           box.querySelector(".wrf-done").hidden = false;
         })
@@ -146,7 +150,7 @@
     }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (res) {
         if (!res.ok) { err.textContent = (res.d && res.d.error) || "Could not sign you up. Try again."; btn.disabled = false; btn.textContent = label; return; }
-        remember("subscribed");
+        remember("subscribed"); keepEmail(email);
         scrim.querySelector(".wrp-offer").hidden = true;
         scrim.querySelector(".wrp-done").hidden = false;
       })

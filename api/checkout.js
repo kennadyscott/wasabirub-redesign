@@ -230,13 +230,36 @@ module.exports = async function handler(req, res) {
        dashboard.stripe.com/settings/checkout -- and once took checkout down
        for ~7 minutes (11 Oct 2026). So it is tried first and dropped on any
        consent error: a checkout without consent beats no checkout. */
+    /* A shopper who signed up for 10% off (popup or footer, which says they
+       agree to marketing emails) brings that email: Stripe fills it in, and the
+       session is marked opted in so HQ may send abandoned-cart reminders even
+       without Stripe's own checkbox (14 Oct 2026). */
+    const signedUp = String(body.email || "").trim().toLowerCase();
+    if (signedUp.length <= 254 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signedUp)) {
+      params.customer_email = signedUp;
+      params.metadata.marketing_opt_in = "signup";
+    }
+
+    const create = async (p) => {
+      try {
+        return await stripe.checkout.sessions.create({ ...p, consent_collection: { promotions: "auto" } });
+      } catch (err) {
+        if (!/consent_collection/i.test(String(err && err.message))) throw err;
+        console.warn("checkout: promotional consent unavailable, continuing without it -", err.message);
+        return await stripe.checkout.sessions.create(p);
+      }
+    };
     let session;
     try {
-      session = await stripe.checkout.sessions.create({ ...params, consent_collection: { promotions: "auto" } });
+      session = await create(params);
     } catch (err) {
-      if (!/consent_collection/i.test(String(err && err.message))) throw err;
-      console.warn("checkout: promotional consent unavailable, continuing without it -", err.message);
-      session = await stripe.checkout.sessions.create(params);
+      /* The prefilled email is a convenience: if Stripe objects to it, check
+         out without it rather than not at all. */
+      if (!params.customer_email) throw err;
+      console.warn("checkout: prefilled email refused, continuing without it -", err && err.message);
+      delete params.customer_email;
+      delete params.metadata.marketing_opt_in;
+      session = await create(params);
     }
     res.status(200).json({ url: session.url });
   } catch (err) {
