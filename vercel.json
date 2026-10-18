@@ -25,6 +25,11 @@
       "source": "/rsvp",
       "destination": "/rsvp/",
       "permanent": true
+    },
+    {
+      "source": "/wellness-event",
+      "destination": "/wellness-event/",
+      "permanent": true
     }
   ],
   "headers": [
