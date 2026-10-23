@@ -104,6 +104,8 @@ module.exports = async function handler(req, res) {
   }
 
   const body = parseBody(req);
+  /* A/B test: which site variant this order came from (stamped on the order so HQ can attribute it). */
+  const abVariant = body.ab_variant === "b_2027" ? "b_2027" : "a_control";
   const rawItems = Array.isArray(body.items) ? body.items : [];
   if (!rawItems.length) {
     res.status(400).json({ error: "Your cart is empty." });
@@ -172,10 +174,10 @@ module.exports = async function handler(req, res) {
       success_url: origin + "/order-confirmation.html?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: origin + "/cart.html",
       client_reference_id: "wasabirub",
-      metadata: { source: "wasabirub.com", order_number: orderNo },
+      metadata: { source: "wasabirub.com", order_number: orderNo, ab_variant: abVariant },
       payment_intent_data: {
         description: `WasabiRub order ${orderNo}`,
-        metadata: { source: "wasabirub.com", order_number: orderNo },
+        metadata: { source: "wasabirub.com", order_number: orderNo, ab_variant: abVariant },
       },
       shipping_address_collection: { allowed_countries: ["US"] },
       custom_text: {

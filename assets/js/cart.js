@@ -306,7 +306,7 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       /* The email from the 10% signup, if this visitor signed up (popup.js). */
-      body: JSON.stringify({ items: items, email: (function () { try { return localStorage.getItem("wr_email") || ""; } catch (e) { return ""; } })() }),
+      body: JSON.stringify({ items: items, email: (function () { try { return localStorage.getItem("wr_email") || ""; } catch (e) { return ""; } })(), ab_variant: (function () { try { var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1]; return m === "b" ? "b_2027" : "a_control"; } catch (e) { return "a_control"; } })() }),
     })
       .then(function (res) {
         return res.json().then(function (data) {
