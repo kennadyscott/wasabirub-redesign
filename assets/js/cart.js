@@ -9,6 +9,15 @@
       try { (window.dataLayer = window.dataLayer || []).push({ event: "ab_variant", ab_variant: v }); } catch (e) {}
     }
     tag(); setTimeout(tag, 1500);
+    /* Count one exposure per session per variant so HQ can show conversion rate. */
+    try {
+      if (m && !sessionStorage.getItem("wr_ab_beacon")) {
+        sessionStorage.setItem("wr_ab_beacon", "1");
+        var url = "https://hq.sportpharm.com/api/ab", payload = JSON.stringify({ variant: v });
+        if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([payload], { type: "text/plain" }));
+        else fetch(url, { method: "POST", body: payload, keepalive: true, mode: "no-cors" });
+      }
+    } catch (e) {}
   } catch (e) {}
 })();
 
