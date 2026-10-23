@@ -1,3 +1,17 @@
+/* A/B test: report this session's variant to GA4 (reads the wr_ab cookie the
+   Edge middleware sets). Harmless no-op when the test isn't running / no gtag. */
+(function () {
+  try {
+    var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1];
+    var v = m === "b" ? "b_2027" : "a_control";
+    function tag() {
+      try { if (window.gtag) { window.gtag("set", "user_properties", { ab_variant: v }); window.gtag("event", "ab_variant", { ab_variant: v }); } } catch (e) {}
+      try { (window.dataLayer = window.dataLayer || []).push({ event: "ab_variant", ab_variant: v }); } catch (e) {}
+    }
+    tag(); setTimeout(tag, 1500);
+  } catch (e) {}
+})();
+
 (function () {
   var KEY = "wr_cart";
   var MAX = 20;
