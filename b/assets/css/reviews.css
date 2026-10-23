@@ -1,0 +1,69 @@
+/* Product reviews widget (wasabirub.com) — reads from HQ /api/reviews.
+   Matches the product-page tokens: --red, --navy, --ink, --line, --muted. */
+.reviews-sec{padding:64px 0}
+.reviews-sec .reviews-in{width:min(820px,calc(100% - 40px));margin:0 auto}
+.reviews-sec h2{margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-weight:1000;letter-spacing:-.03em;font-size:clamp(30px,3.4vw,42px);color:var(--ink,#171b20)}
+.rv-sub{margin:0 0 26px;color:var(--muted,#686d72);font-size:15px}
+.rv-stars-static{color:var(--red,#d6202a);letter-spacing:2px}
+
+/* Summary bar */
+.rv-summary{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 0 22px;border-top:1px solid var(--line,#e1e3e5);border-bottom:1px solid var(--line,#e1e3e5);margin-bottom:26px}
+.rv-summary .rv-avg{font-size:40px;font-weight:1000;letter-spacing:-.03em;line-height:1;color:var(--ink,#171b20)}
+.rv-summary .rv-of{color:var(--muted,#686d72);font-size:14px}
+.rv-summary .rv-count{color:var(--muted,#686d72);font-size:13px;font-weight:700}
+.rv-bars{flex:1;min-width:220px;display:flex;flex-direction:column;gap:4px}
+.rv-bar{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--muted,#686d72)}
+.rv-bar .rv-bar-k{width:34px;white-space:nowrap}
+.rv-bar .rv-bar-track{flex:1;height:7px;border-radius:4px;background:#ecedf0;overflow:hidden}
+.rv-bar .rv-bar-fill{height:100%;background:var(--red,#d6202a);border-radius:4px}
+.rv-bar .rv-bar-n{width:22px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* Write-a-review form */
+.rv-form{background:#fff;border:1px solid var(--line,#e1e3e5);border-radius:14px;padding:24px 24px 26px;margin:0 0 30px}
+.rv-form-h{margin:0 0 4px;font-size:18px;font-weight:900;color:var(--ink,#171b20)}
+.rv-form-sub{margin:0 0 16px;font-size:14px;line-height:1.5;color:#5a6672}
+.rv-field{margin-bottom:14px}
+.rv-field label{display:block;margin-bottom:6px;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:#6b746f}
+.rv-field input,.rv-field textarea{width:100%;padding:12px 13px;border:1px solid #d5dad7;border-radius:9px;font:inherit;font-size:14.5px;color:var(--ink,#171b20);background:#fff;transition:border-color .15s}
+.rv-field input:focus,.rv-field textarea:focus{outline:none;border-color:var(--red,#d6202a)}
+.rv-field textarea{resize:vertical;min-height:96px}
+.rv-pick{display:flex;gap:4px;margin-bottom:4px}
+.rv-pick button{appearance:none;border:0;background:none;padding:2px;cursor:pointer;font-size:30px;line-height:1;color:#d7dbde;transition:color .12s}
+.rv-pick button.on{color:var(--red,#d6202a)}
+.rv-pick button:focus-visible{outline:2px solid #f5aeb4;outline-offset:2px;border-radius:4px}
+.rv-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.rv-submit{cursor:pointer;border:0;border-radius:9px;height:48px;padding:0 26px;background:var(--red,#d6202a);color:#fff;font-size:12px;font-weight:900;letter-spacing:.07em;display:inline-flex;align-items:center;gap:10px}
+.rv-submit:hover{background:var(--red-dark,#ac151e)}
+.rv-submit:disabled{opacity:.6;cursor:default}
+.rv-err{margin:10px 0 0;color:var(--red-dark,#ac151e);font-size:13.5px;font-weight:700}
+.rv-err[hidden]{display:none}
+.rv-ok{text-align:center;padding:12px 0}
+.rv-ok .rv-ok-ic{width:56px;height:56px;margin:0 auto 14px;border-radius:50%;background:#e2eee8;color:var(--green,#167545);display:flex;align-items:center;justify-content:center}
+.rv-ok .rv-ok-ic svg{width:28px;height:28px}
+.rv-ok h3{margin:0 0 8px}
+.rv-ok p{margin:0;color:#5f6a66;font-size:14.5px;line-height:1.6}
+
+/* List */
+.rv-list{display:flex;flex-direction:column;gap:20px}
+.rv-item{border-bottom:1px solid var(--line,#e1e3e5);padding-bottom:20px}
+.rv-item:last-child{border-bottom:0}
+.rv-head{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.rv-head .stars,.rv-head .rv-stars{color:var(--red,#d6202a);letter-spacing:2px;font-size:15px}
+.rv-verified{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--green,#167545);background:#e2eee8;border-radius:999px;padding:4px 9px}
+.rv-title{margin:0 0 5px;font-size:15.5px;font-weight:900;color:var(--ink,#171b20)}
+.rv-body{margin:0 0 8px;font-size:14.5px;line-height:1.6;color:#3f4852;white-space:pre-line}
+.rv-meta{margin:0;font-size:12px;color:var(--muted,#686d72);font-weight:700}
+.rv-reply{margin:12px 0 0 0;padding:12px 15px;background:#f5f6f7;border-left:3px solid var(--navy,#161b21);border-radius:8px}
+.rv-reply b{display:block;font-size:12px;font-weight:900;color:var(--navy,#161b21);margin-bottom:3px}
+.rv-reply p{margin:0;font-size:13.5px;line-height:1.55;color:#3f4852;white-space:pre-line}
+.rv-reply small{display:block;margin-top:4px;font-size:11px;color:var(--muted,#686d72)}
+.rv-empty{color:var(--muted,#686d72);font-size:14.5px;margin:0}
+.rv-more{display:block;margin:24px auto 0;cursor:pointer;border:1px solid var(--line,#e1e3e5);background:#fff;border-radius:999px;padding:12px 26px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--ink,#171b20)}
+.rv-more:hover{border-color:var(--navy,#161b21)}
+.rv-more[hidden]{display:none}
+
+/* Homepage: read-only grid of recent reviews across products */
+.rv-home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.rv-home-grid .rv-item{border:1px solid var(--line,#e1e3e5);border-radius:12px;padding:20px 22px;background:#fff}
+.rv-prod{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:900;letter-spacing:.04em;color:var(--red,#d6202a)}
+.rv-prod:hover{text-decoration:underline}
