@@ -222,6 +222,45 @@ For external use only. Use only as directed.
      lib/order-emails.ts wasabiFrame + buildConfirmationEmail, which renders
      this same email in HQ's Email Workflows preview. Photos live in
      /assets/email/ and are AI-made for mood: never present them as customers. */
+  /* A/B split (25 Oct 2026): the email wears the look of the site variant they
+     checked out on -- A the current site, B the 2027 store (session metadata
+     ab_variant, stamped by api/checkout.js). Kept in step with HQ's
+     lib/wasabi-brand.ts, which renders both in HQ's Email Workflows preview. */
+  const variant = session.metadata && session.metadata.ab_variant === "b_2027" ? "b_2027" : "a_control";
+  const subject = `Your WasabiRub order is confirmed — ${v.orderNo}`;
+  if (variant === "a_control") {
+    const A = "https://wasabirub.com/assets", INK = "#15202b", MUTE = "#4b5560";
+    const htmlA =
+`<div style="display:none;max-height:0;overflow:hidden;opacity:0">We're preparing your order now. Tracking comes as soon as it ships.</div>
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:${INK};line-height:1.6;max-width:540px;background:#ffffff;border:1px solid #e6e9ec;border-radius:12px;overflow:hidden">
+  <div style="background:#0f1d33;padding:7px 18px;text-align:center;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ffffff">Buy direct from the pharmacists who made it</div>
+  <table role="presentation" style="width:100%;border-collapse:collapse;border-bottom:1px solid #e6e9ec"><tr>
+    <td style="padding:14px 22px"><a href="https://wasabirub.com" style="text-decoration:none;color:${INK}"><span style="font-size:21px;font-weight:900;letter-spacing:-.02em;color:${INK}">WasabiRub</span></a><br>
+      <span style="font-size:8px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${MUTE};vertical-align:middle">Powered by</span>
+      <img src="${A}/sp-wordmark-nav.png" width="78" height="12" alt="SportPharm" style="display:inline-block;vertical-align:middle;border:0;width:78px;height:12px"></td>
+  </tr></table>
+  <img src="${A}/ea-wasabirub.jpg" width="540" alt="A jar of WasabiRub by a gym bag" style="display:block;width:100%;max-width:540px;height:auto;border:0">
+  <div style="padding:24px 24px 6px">
+    <p style="margin:0 0 4px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d6202a">Order confirmed</p>
+    <h2 style="margin:0 0 10px;font-size:25px;font-weight:900;letter-spacing:-.02em;line-height:1.15;color:${INK}">Thanks for your order, ${esc(firstName)}!</h2>
+    <p style="margin:0 0 16px;color:${MUTE}">We&rsquo;re preparing your order now &mdash; we&rsquo;ll email you tracking as soon as it ships.</p>
+    <p style="margin:0 0 12px;font-size:13px;font-weight:bold;letter-spacing:.06em;color:${INK}">Order ${esc(v.orderNo)}</p>
+    <table style="border-collapse:collapse;width:100%;margin:0 0 6px">${v.itemRows}${v.summaryHtml}</table>
+    <p style="margin:20px 0 4px"><b>Shipping to</b></p>
+    <p style="margin:0 0 18px;white-space:pre-line;color:${MUTE}">${esc(v.shipName)}\n${esc(v.shipAddr)}</p>
+  </div>
+  <p style="margin:0;padding:14px 24px 4px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0f1d33">Pharmacist formulated &nbsp;&middot;&nbsp; TruShield certified &nbsp;&middot;&nbsp; Free shipping over $75</p>
+  <p style="margin:0;padding:4px 24px 18px;text-align:center;color:${MUTE};font-size:13px">Questions? Just reply &mdash; our team will answer.</p>
+  <div style="background:#07100d;padding:18px 24px;color:#aab7b1;font-size:12px;line-height:1.55">
+    <p style="margin:0 0 6px;color:#ffffff;font-weight:900;font-size:11px;letter-spacing:.12em;text-transform:uppercase">Formulated by sports pharmacists. Trusted by athletes.</p>
+    <p style="margin:0">WasabiRub, powered by SportPharm &middot; For external use only. Use only as directed. &middot; <a href="https://wasabirub.com" style="color:inherit">wasabirub.com</a></p>
+  </div>
+</div>`;
+    const textA = text.replace("Pain relief that keeps you moving.", "Feel it work.").replace("— WasabiRub, by SportPharm", "— WasabiRub, powered by SportPharm");
+    await resendSend({ from, to: [v.cust.email], reply_to: replyTo, subject, text: textA, html: htmlA });
+    return;
+  }
+
   const G = "#04342a", LIME = "#dafc92", OFF = "#f6f7f1", SOFT = "#4b5a55", ART = "https://wasabirub.com/assets/email";
   const html =
 `<div style="display:none;max-height:0;overflow:hidden;opacity:0">We're preparing your order now. Tracking comes as soon as it ships.</div>
@@ -244,7 +283,7 @@ For external use only. Use only as directed.
     <p style="margin:0">WasabiRub, by SportPharm &middot; For external use only. Use only as directed. &middot; <a href="https://wasabirub.com" style="color:#c9d6cf">wasabirub.com</a></p>
   </div>
 </div>`;
-  await resendSend({ from, to: [v.cust.email], reply_to: replyTo, subject: `Your WasabiRub order is confirmed — ${v.orderNo}`, text, html });
+  await resendSend({ from, to: [v.cust.email], reply_to: replyTo, subject, text, html });
 }
 
 /* Branded cart-abandonment email -> the customer, when a session expires unpaid */

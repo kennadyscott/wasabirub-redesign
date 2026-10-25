@@ -25,6 +25,29 @@ async function resolveAudienceId(key) {
   return _cachedAudienceId;
 }
 
+/* Which A/B variant this visitor is on (the sticky wr_ab cookie the middleware
+   sets: "a" current site, "b" 2027 store). */
+function abVariant(req) {
+  const m = String(req.headers.cookie || "").match(/(?:^|;\s*)wr_ab=(a|b)/);
+  return m && m[1] === "b" ? "b_2027" : "a_control";
+}
+
+/* Tell HQ which variant (and form, and page) the signup came from, so the
+   Welcome emails wear that site's look. Best-effort and quick: a slow or
+   failed report never fails the signup. */
+async function reportToHQ(email, req, body) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), 1500);
+  try {
+    await fetch((process.env.HQ_URL || "https://hq.sportpharm.com") + "/api/email/signup", {
+      method: "POST", headers: { "Content-Type": "application/json" }, signal: ctl.signal,
+      body: JSON.stringify({ email: email, ab_variant: abVariant(req), source: String(body.source || ""), page: String(body.page || "") }),
+    });
+  } catch (e) {
+    console.warn("subscribe: HQ report skipped -", e.message);
+  } finally { clearTimeout(t); }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") { res.status(204).end(); return; }
   if (req.method !== "POST") { res.status(405).json({ error: "Method not allowed" }); return; }
@@ -54,6 +77,7 @@ module.exports = async function handler(req, res) {
       const detail = await r.text().catch(() => "");
       /* An already-subscribed email is a success from the visitor's side. */
       if (r.status === 409 || /already|exists/i.test(detail)) {
+        await reportToHQ(email, req, body);
         res.status(200).json({ ok: true, already: true });
         return;
       }
@@ -61,6 +85,7 @@ module.exports = async function handler(req, res) {
       res.status(502).json({ error: "Could not sign you up. Please try again." });
       return;
     }
+    await reportToHQ(email, req, body);
     res.status(200).json({ ok: true });
   } catch (err) {
     console.error("subscribe:", err.message);
