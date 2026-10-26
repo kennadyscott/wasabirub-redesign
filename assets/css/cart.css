@@ -72,3 +72,11 @@ button.primary[data-add-to-cart]:hover{background:#b71720}
 .confirm-page .confirm-cta{display:inline-flex;margin-top:28px;background:var(--red,#d6202a);color:#fff;padding:15px 22px;font-size:12px;font-weight:900;letter-spacing:.08em;border-radius:8px;text-transform:uppercase}
 .confirm-mark{width:64px;height:64px;margin:0 auto 22px;border-radius:50%;background:#e2eee8;color:#1f7a4d;display:grid;place-items:center}
 .confirm-mark svg{width:30px;height:30px}
+/* Email before Stripe (26 Oct 2026): sits above the Checkout button in the drawer and on the cart page */
+.wr-co-email{margin:0 0 12px}
+.wr-co-label{display:block;margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4b5560}
+.wr-co-input{width:100%;box-sizing:border-box;height:44px;padding:0 12px;border:1px solid #cdd3d8;border-radius:8px;font:inherit;font-size:15px;color:#18232e;background:#fff}
+.wr-co-input:focus{outline:none;border-color:var(--red,#d6202a);box-shadow:0 0 0 3px rgba(214,32,42,.12)}
+.wr-co-optin{display:flex;gap:8px;align-items:flex-start;margin:8px 0 0;font-size:12px;line-height:1.4;color:#5a6672;cursor:pointer}
+.wr-co-optin input{margin:2px 0 0;flex:0 0 auto;accent-color:var(--red,#d6202a)}
+.cart-page .wr-co-email{max-width:360px}

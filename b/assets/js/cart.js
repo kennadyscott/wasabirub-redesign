@@ -223,6 +223,38 @@
     }
   }
 
+  /* Email before Stripe (26 Oct 2026). Every shopper who left a checkout so far
+     did it on Stripe's page before typing an email, so no reminder could ever
+     reach them. Asking here first means a shopper who leaves Stripe's page can
+     still get the cart reminders -- only if the box stays ticked -- and Stripe
+     opens with the email already filled in. Prefilled from the 10% signup or
+     the last checkout on this browser. */
+  function savedEmail() {
+    try { return localStorage.getItem("wr_co_email") || localStorage.getItem("wr_email") || ""; } catch (e) { return ""; }
+  }
+  function optedOut() {
+    try { return localStorage.getItem("wr_co_optout") === "1"; } catch (e) { return false; }
+  }
+  /* The cart redraws on every quantity change; keep what was typed and ticked. */
+  document.addEventListener("input", function (e) {
+    if (e.target && e.target.matches && e.target.matches("[data-co-email]")) {
+      try { localStorage.setItem("wr_co_email", String(e.target.value || "").trim().toLowerCase()); } catch (x) {}
+    }
+  });
+  document.addEventListener("change", function (e) {
+    if (e.target && e.target.matches && e.target.matches("[data-co-optin]")) {
+      try { localStorage.setItem("wr_co_optout", e.target.checked ? "0" : "1"); } catch (x) {}
+    }
+  });
+  function emailHtml(where) {
+    var v = savedEmail().replace(/"/g, "&quot;").replace(/</g, "&lt;");
+    return '<div class="wr-co-email">' +
+      '<label class="wr-co-label" for="wr-co-email-' + where + '">Email for your order</label>' +
+      '<input class="wr-co-input" id="wr-co-email-' + where + '" type="email" autocomplete="email" inputmode="email" placeholder="you@email.com" value="' + v + '" data-co-email>' +
+      '<label class="wr-co-optin"><input type="checkbox"' + (optedOut() ? "" : " checked") + ' data-co-optin> Email me about my order and occasional offers. Unsubscribe anytime.</label>' +
+      "</div>";
+  }
+
   function render() {
     ensureUi();
     var cart = load();
@@ -243,6 +275,7 @@
           money(subtotal(cart)) +
           "</span></div>" +
           '<p class="wr-drawer-note">' + shipNote(load()) + ' Taxes calculated if applicable.</p>' +
+          emailHtml("drawer") +
           '<button class="wr-drawer-checkout" type="button" data-cart-checkout>Checkout</button>' +
           '<a class="wr-drawer-shop" href="wasabirub-shop.html">Continue shopping</a>';
       } else {
@@ -260,6 +293,7 @@
           money(subtotal(cart)) +
           "</span></div>" +
           '<p class="wr-drawer-note">' + shipNote(load()) + '</p>' +
+          emailHtml("page") +
           '<button class="wr-drawer-checkout" type="button" data-cart-checkout>Checkout</button></div>'
         : '<div class="cart-page-empty">Your cart is empty. <a href="wasabirub-shop.html">Shop WasabiRub</a></div>';
     }
@@ -310,12 +344,25 @@
       err.hidden = true;
       err.textContent = "";
     }
+    /* The email field and box beside the button that was clicked. */
+    var box = btn && btn.parentElement ? btn.parentElement.querySelector(".wr-co-email") : null;
+    var input = box && box.querySelector("[data-co-email]");
+    var optin = box && box.querySelector("[data-co-optin]");
+    var email = input ? String(input.value || "").trim().toLowerCase() : "";
+    if (input && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      if (err) { err.hidden = false; err.textContent = "Enter your email to continue to checkout."; }
+      input.focus();
+      return;
+    }
+    try { if (email) localStorage.setItem("wr_co_email", email); } catch (e) {}
+    var signedUp = (function () { try { return !!email && localStorage.getItem("wr_email") === email; } catch (e) { return false; } })();
     if (btn) btn.disabled = true;
     fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      /* The email from the 10% signup, if this visitor signed up (popup.js). */
-      body: JSON.stringify({ items: items, email: (function () { try { return localStorage.getItem("wr_email") || ""; } catch (e) { return ""; } })(), ab_variant: (function () { try { var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1]; return m === "b" ? "b_2027" : "a_control"; } catch (e) { return "a_control"; } })() }),
+      /* The email from the field above (prefilled from the 10% signup); opted in
+         if the box stayed ticked, or if this is the email they signed up with. */
+      body: JSON.stringify({ items: items, email: email, marketing_opt_in: optin && optin.checked ? "cart" : "", signed_up: signedUp, ab_variant: (function () { try { var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1]; return m === "b" ? "b_2027" : "a_control"; } catch (e) { return "a_control"; } })() }),
     })
       .then(function (res) {
         return res.json().then(function (data) {

@@ -236,10 +236,23 @@ module.exports = async function handler(req, res) {
        agree to marketing emails) brings that email: Stripe fills it in, and the
        session is marked opted in so HQ may send abandoned-cart reminders even
        without Stripe's own checkbox (14 Oct 2026). */
-    const signedUp = String(body.email || "").trim().toLowerCase();
-    if (signedUp.length <= 254 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signedUp)) {
-      params.customer_email = signedUp;
-      params.metadata.marketing_opt_in = "signup";
+    /* 26 Oct 2026: the cart now asks for the email before Stripe, with a ticked
+       box ("Email me about my order and occasional offers"). The email
+       prefills Stripe; the session is marked opted in when the box stayed
+       ticked ("cart", or "signup" when it's the email they signed up with),
+       so HQ may send cart reminders to a shopper who leaves Stripe's page
+       before typing anything. Unticked = no reminders. */
+    const email = String(body.email || "").trim().toLowerCase();
+    if (email.length <= 254 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      params.customer_email = email;
+      /* A cached older cart.js sends only the signup email, as before: still "signup". */
+      const oldClient = body.marketing_opt_in === undefined && body.signed_up === undefined;
+      /* Unticking the box wins, even for someone on the signup list. */
+      const optIn = body.marketing_opt_in === "cart" ? (body.signed_up === true ? "signup" : "cart") : oldClient ? "signup" : "";
+      /* An unticked box is recorded as "declined", so HQ honors it even if
+         Stripe's own pre-ticked box is left on. */
+      params.metadata.marketing_opt_in = optIn || (oldClient ? "" : "declined");
+      if (!params.metadata.marketing_opt_in) delete params.metadata.marketing_opt_in;
     }
 
     const create = async (p) => {
