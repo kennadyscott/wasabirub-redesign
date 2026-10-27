@@ -23,9 +23,15 @@ export default function middleware(request) {
 
   // Sticky 50/50 assignment via the wr_ab cookie.
   const cookie = request.headers.get('cookie') || '';
-  let variant = (cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1];
-  const fresh = !variant;
-  if (fresh) variant = Math.random() < 0.5 ? 'b' : 'a';
+  const had = (cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1];
+  let variant = had;
+  // Links in SportPharm HQ's emails carry ?ab=a|b, the site that person saw,
+  // so a click from another device or an in-app browser lands on the same
+  // site instead of a fresh coin flip. It wins over the cookie and resets it.
+  const pinned = url.searchParams.get('ab');
+  if (pinned === 'a' || pinned === 'b') variant = pinned;
+  if (!variant) variant = Math.random() < 0.5 ? 'b' : 'a';
+  const fresh = variant !== had;
 
   let res;
   if (variant === 'b') {
