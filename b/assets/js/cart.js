@@ -1,5 +1,7 @@
-/* A/B test: report this session's variant to GA4 (reads the wr_ab cookie the
-   Edge middleware sets). Harmless no-op when the test isn't running / no gtag. */
+/* A/B test + first-party analytics beacon. Reads the wr_ab cookie the Edge
+   middleware sets, reports the variant to GA4, and — once the test is running —
+   sends HQ a per-session signal: the traffic source at landing and the engaged
+   time on site. No PII, fire-and-forget, never blocks the cart. */
 (function () {
   try {
     var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1];
@@ -9,15 +11,64 @@
       try { (window.dataLayer = window.dataLayer || []).push({ event: "ab_variant", ab_variant: v }); } catch (e) {}
     }
     tag(); setTimeout(tag, 1500);
-    /* Count one exposure per session per variant so HQ can show conversion rate. */
+
+    if (!m) return; /* no split cookie → bot / not in the test → nothing to report */
+
+    var HQ = "https://hq.sportpharm.com/api/ab";
+    function send(obj) {
+      try {
+        var payload = JSON.stringify(obj);
+        if (navigator.sendBeacon) navigator.sendBeacon(HQ, new Blob([payload], { type: "text/plain" }));
+        else fetch(HQ, { method: "POST", body: payload, keepalive: true, mode: "no-cors" });
+      } catch (e) {}
+    }
+
+    /* Where this visit came from — decided once, at the session's landing page,
+       so internal clicks don't later look like same-site referrals. Buckets:
+       facebook (Meta ads/social), search, direct, referral. */
+    var src = "";
+    try { src = sessionStorage.getItem("wr_src") || ""; } catch (e) {}
+    if (!src) {
+      src = (function () {
+        try {
+          var qs = new URLSearchParams(location.search);
+          var utm = (qs.get("utm_source") || "").toLowerCase();
+          var ref = "";
+          try { ref = document.referrer ? new URL(document.referrer).hostname.toLowerCase().replace(/^www\./, "") : ""; } catch (e) {}
+          if (qs.has("fbclid") || /facebook|fb|instagram|^ig$|meta/.test(utm) || /facebook|instagram|fb\.com|\.facebook/.test(ref)) return "facebook";
+          if (qs.has("gclid") || /google|bing|yahoo|duckduckgo/.test(utm) || /google|bing|yahoo|duckduckgo|ecosia/.test(ref)) return "search";
+          if (!ref || ref === location.hostname.toLowerCase().replace(/^www\./, "")) return "direct";
+          return "referral";
+        } catch (e) { return "direct"; }
+      })();
+      try { sessionStorage.setItem("wr_src", src); } catch (e) {}
+    }
+
+    /* One exposure per session: counts the visit and records its source. */
     try {
-      if (m && !sessionStorage.getItem("wr_ab_beacon")) {
+      if (!sessionStorage.getItem("wr_ab_beacon")) {
         sessionStorage.setItem("wr_ab_beacon", "1");
-        var url = "https://hq.sportpharm.com/api/ab", payload = JSON.stringify({ variant: v });
-        if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([payload], { type: "text/plain" }));
-        else fetch(url, { method: "POST", body: payload, keepalive: true, mode: "no-cors" });
+        send({ variant: v, source: src, new_session: true });
       }
     } catch (e) {}
+
+    /* Engaged time: accumulate while the tab is visible, report each slice when
+       it goes to the background or unloads. HQ sums the slices per source, so
+       average time per session = total engaged ÷ sessions. */
+    var engStart = Date.now();
+    function flush(force) {
+      try {
+        var ms = Date.now() - engStart; engStart = Date.now();
+        if (ms < 0) ms = 0;
+        if (ms > 1800000) ms = 1800000;            /* a backgrounded tab shouldn't bank hours */
+        if (ms < 250 && !force) return;
+        send({ variant: v, source: src, engaged_ms: ms });
+      } catch (e) {}
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") flush(false); else engStart = Date.now();
+    });
+    window.addEventListener("pagehide", function () { flush(true); });
   } catch (e) {}
 })();
 
@@ -362,7 +413,7 @@
       headers: { "Content-Type": "application/json" },
       /* The email from the field above (prefilled from the 10% signup); opted in
          if the box stayed ticked, or if this is the email they signed up with. */
-      body: JSON.stringify({ items: items, email: email, marketing_opt_in: optin && optin.checked ? "cart" : "", signed_up: signedUp, ab_variant: (function () { try { var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1]; return m === "b" ? "b_2027" : "a_control"; } catch (e) { return "a_control"; } })() }),
+      body: JSON.stringify({ items: items, email: email, marketing_opt_in: optin && optin.checked ? "cart" : "", signed_up: signedUp, ab_variant: (function () { try { var m = (document.cookie.match(/(?:^|;\s*)wr_ab=(a|b)/) || [])[1]; return m === "b" ? "b_2027" : "a_control"; } catch (e) { return "a_control"; } })(), web_source: (function () { try { return sessionStorage.getItem("wr_src") || ""; } catch (e) { return ""; } })() }),
     })
       .then(function (res) {
         return res.json().then(function (data) {

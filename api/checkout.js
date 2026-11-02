@@ -106,6 +106,10 @@ module.exports = async function handler(req, res) {
   const body = parseBody(req);
   /* A/B test: which site variant this order came from (stamped on the order so HQ can attribute it). */
   const abVariant = body.ab_variant === "b_2027" ? "b_2027" : "a_control";
+  /* Traffic source at the session's landing (facebook / search / direct / referral),
+     carried from the beacon so HQ can show conversion by source. Only known buckets. */
+  const WEB_SOURCES = { facebook: 1, search: 1, direct: 1, referral: 1 };
+  const webSource = WEB_SOURCES[body.web_source] ? body.web_source : "";
   const rawItems = Array.isArray(body.items) ? body.items : [];
   if (!rawItems.length) {
     res.status(400).json({ error: "Your cart is empty." });
@@ -174,10 +178,10 @@ module.exports = async function handler(req, res) {
       success_url: origin + "/order-confirmation.html?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: origin + "/cart.html",
       client_reference_id: "wasabirub",
-      metadata: { source: "wasabirub.com", order_number: orderNo, ab_variant: abVariant },
+      metadata: { source: "wasabirub.com", order_number: orderNo, ab_variant: abVariant, web_source: webSource },
       payment_intent_data: {
         description: `WasabiRub order ${orderNo}`,
-        metadata: { source: "wasabirub.com", order_number: orderNo, ab_variant: abVariant },
+        metadata: { source: "wasabirub.com", order_number: orderNo, ab_variant: abVariant, web_source: webSource },
       },
       shipping_address_collection: { allowed_countries: ["US"] },
       custom_text: {
