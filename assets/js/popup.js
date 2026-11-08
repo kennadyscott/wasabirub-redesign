@@ -3,7 +3,15 @@
 (function () {
   var KEY = "wr_popup_v1";
   var CODE = "RELIEF10";
-  var DELAY = 6000; // ms before it appears on a first visit
+  var DELAY = 12000; // ms before it appears on a first visit (or 40% down the page, whichever is first)
+  var SCROLL = 0.4;
+  var AGAIN_DAYS = 14; // closed without signing up: one more showing after this
+  var LOADED = Date.now();
+  /* Bot guard (8 Nov 2026): every signup sends how long the page has been open
+     and a hidden field people never see; /api/subscribe quietly drops one that
+     is too fast, has no timer, or filled the trap. */
+  function guard(extra) { var o = extra || {}; o.t = Date.now() - LOADED; return o; }
+  var TRAP = '<input type="text" name="company_site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">';
   var force = /[?&]popup\b/.test(location.search);
 
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
@@ -29,7 +37,7 @@
         '<p>Plus first word on new drops and recovery tips from our sports pharmacists.</p>' +
       '</div>' +
       '<form class="wrf-form" novalidate>' +
-        '<div class="wrf-row">' +
+        '<div class="wrf-row">' + TRAP +
           '<input type="email" name="email" autocomplete="email" placeholder="you@email.com" aria-label="Email address" required>' +
           '<button class="wrp-btn" type="submit">Sign up</button>' +
         '</div>' +
@@ -55,7 +63,7 @@
       fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, source: "footer", page: location.pathname })
+        body: JSON.stringify(guard({ email: email, source: "footer", page: location.pathname, company_site: (form.querySelector("[name=company_site]") || {}).value || "" }))
       }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (res) {
           if (!res.ok) { err.textContent = (res.d && res.d.error) || "Could not sign you up. Try again."; btn.disabled = false; btn.textContent = label; return; }
@@ -73,7 +81,11 @@
   if (document.readyState !== "loading") footerSignup();
   else document.addEventListener("DOMContentLoaded", footerSignup);
 
+  /* Shown once; closed without signing up, it may show once more after AGAIN_DAYS (8 Nov 2026). */
+  (function () { var s = stored(); if (s && s.indexOf("dismissed:") === 0 && Date.now() - Number(s.slice(10)) > AGAIN_DAYS * 864e5) { try { localStorage.removeItem(KEY); localStorage.setItem(KEY + "_again", "1"); } catch (e) {} } })();
   if (!force && stored()) return;
+  /* Not on the cart or checkout pages: they're busy buying. */
+  if (!force && /cart|checkout|success|thank/i.test(location.pathname)) return;
 
   var scrim, card, shown = false, timer;
 
@@ -90,7 +102,7 @@
         '<div class="wrp-body">' +
           '<div class="wrp-offer">' +
             '<p class="wrp-sub">Drop your email and we&rsquo;ll set you up with your code &mdash; plus first word on new drops.</p>' +
-            '<form class="wrp-form" novalidate>' +
+            '<form class="wrp-form" novalidate>' + TRAP +
               '<input type="email" name="email" autocomplete="email" placeholder="you@email.com" aria-label="Email address" required>' +
               '<button class="wrp-btn" type="submit">Get my 10% off</button>' +
               '<p class="wrp-err" role="alert"></p>' +
@@ -130,7 +142,8 @@
 
   function close(reason) {
     if (scrim) scrim.classList.remove("wrp-open");
-    remember(reason || "closed");
+    var again = false; try { again = localStorage.getItem(KEY + "_again") === "1"; } catch (e) {}
+    remember(reason === "dismissed" && !again ? "dismissed:" + Date.now() : (reason || "closed"));
   }
 
   function submit(e) {
@@ -146,7 +159,7 @@
     fetch("/api/subscribe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email, source: "popup" })
+      body: JSON.stringify(guard({ email: email, source: "popup", page: location.pathname, company_site: (form.querySelector("[name=company_site]") || {}).value || "" }))
     }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (res) {
         if (!res.ok) { err.textContent = (res.d && res.d.error) || "Could not sign you up. Try again."; btn.disabled = false; btn.textContent = label; return; }
@@ -159,6 +172,10 @@
 
   function arm() {
     timer = setTimeout(open, DELAY);
+    window.addEventListener("scroll", function onScroll() {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      if (h > 0 && scrollY / h >= SCROLL) { window.removeEventListener("scroll", onScroll); clearTimeout(timer); open(); }
+    }, { passive: true });
     // exit-intent (desktop): mouse leaves toward the top
     document.addEventListener("mouseout", function onOut(e) {
       if (!e.relatedTarget && e.clientY <= 0) { document.removeEventListener("mouseout", onOut); open(); }

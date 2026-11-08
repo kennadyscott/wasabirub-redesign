@@ -61,6 +61,16 @@ module.exports = async function handler(req, res) {
 
   const body = parseBody(req);
   const email = String(body.email || "").trim().toLowerCase();
+  /* Bot guard (8 Nov 2026): the site's forms send how long the page was open
+     (t, ms) and a hidden field people never fill (company_site). No timer,
+     under 3 seconds, or a filled trap: answered as a success and dropped, so a
+     bot learns nothing. */
+  const t = Number(body.t);
+  if (String(body.company_site || "").trim() || !Number.isFinite(t) || t < 3000) {
+    console.warn("subscribe: dropped as a likely bot", JSON.stringify({ t: Number.isFinite(t) ? t : null, trap: Boolean(String(body.company_site || "").trim()), source: String(body.source || "") }));
+    res.status(200).json({ ok: true });
+    return;
+  }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     res.status(400).json({ error: "Please enter a valid email." });
     return;
