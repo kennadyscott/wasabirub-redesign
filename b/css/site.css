@@ -63,7 +63,7 @@ nav.bar{position:sticky;top:0;z-index:100;background:rgba(4,52,42,.86);backdrop-
 /* HERO (home) */
 .hero{position:relative;padding:72px 0 64px}
 .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
-.hero h1{font-family:var(--display);font-size:clamp(46px,7.4vw,104px);font-weight:500;letter-spacing:-.035em;line-height:.94}
+.hero h1{font-family:var(--display);font-size:clamp(46px,7.4vw,104px);font-weight:500;letter-spacing:-.012em;line-height:.94}
 .hero h1 em{font-style:italic;color:var(--lime)}
 .hero-sub{margin:26px 0 0;max-width:42ch;font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#cfe3d6}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 26px}
